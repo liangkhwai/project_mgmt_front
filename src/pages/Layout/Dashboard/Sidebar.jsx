@@ -1,0 +1,136 @@
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import logo from "../../../assets/logo.png";
+const Sidebar = ({ isOpen, openHandler }) => {
+  return (
+    <>
+      <aside
+        className={`${
+          isOpen ? "w-72" : "w-0"
+        } h-screen bg-white transition-all duration-300  hover:overflow-y-scroll overflow-y-hidden  scrollbar-track-transparent scrollbar-thin scrollbar-thumb-purple-600`}
+      >
+        <img src={logo} alt="eiei" />
+        <div className="flex flex-col ">
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+        </div>
+      </aside>
+    </>
+  );
+};
+
+export default Sidebar;
