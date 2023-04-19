@@ -14,12 +14,16 @@ const LayoutDashboard = () => {
     <div className="flex">
       {/* Sidebar */}
       <div>
-        <Sidebar isOpen={open} openHandler={openHandler}/>
+        <Sidebar isOpen={open} openHandler={openHandler} />
       </div>
       {/* Body */}
-      <div className="flex flex-col w-full border border-red-600">
-        <Header openHandler={openHandler} />
-        <Outlet />
+      <div className="flex flex-col w-full border ">
+        <div>
+          <Header openHandler={openHandler} />
+        </div>
+        <div>
+          <Outlet />
+        </div>
       </div>
     </div>
   );
