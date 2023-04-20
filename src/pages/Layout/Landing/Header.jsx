@@ -1,7 +1,11 @@
 import React from "react";
 import logo from "../../../assets/logo.png";
-import {Link} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
 const Header = () => {
+
+
+
+
   return (
     <div>
       <div className="w-full bg-blue-800 h-11"></div>

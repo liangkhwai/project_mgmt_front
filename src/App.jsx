@@ -8,11 +8,10 @@ import { checkAuth } from "./auth/auth";
 
 const router = createBrowserRouter([
   {
-    path: "/",
     element: <Landing />,
     children: [
       {
-        path: "/home",
+        path: "/",
         element: <Home />,
       },
       {
@@ -22,12 +21,11 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard",
     element: <LayoutManageContent />,
-    loader:checkAuth,
+    loader: checkAuth,
     children: [
       {
-        path: "index",
+        path: "/dashboard",
         element: <Dashboard />,
         loader: checkAuth,
       },
