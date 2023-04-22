@@ -4,7 +4,9 @@ import Login from "./pages/Landing/Login";
 import Landing from "./pages/Layout/Landing/LayoutPublicContent";
 import LayoutManageContent from "./pages/Layout/Dashboard/LayoutDashboard";
 import Dashboard from "./pages/Dashboard/Dashboard";
-import { checkAuth } from "./auth/auth";
+import { useContext } from "react";
+import { checkAuth } from "./loader/auth";
+
 
 const router = createBrowserRouter([
   {

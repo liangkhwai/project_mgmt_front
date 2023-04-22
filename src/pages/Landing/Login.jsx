@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@material-tailwind/react";
 import { AiOutlineUser, AiTwotoneLock } from "react-icons/ai/index";
+import AuthContext from "../../context/auth";
 const Login = () => {
+  const ctx = useContext(AuthContext);
   const navigate = useNavigate();
   const [userPwd, setUserpwd] = useState({
     uuid: "",
@@ -18,18 +20,6 @@ const Login = () => {
     }));
   };
 
-  const checkToken = async () => {
-    const response = await fetch("http://localhost:8080/auth/check", {
-      method: "get",
-
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-    });
-
-    const data = await response.json();
-    console.log(data);
-  };
-
   const handleSubmit = async () => {
     const response = await fetch("http://localhost:8080/auth/login", {
       method: "post",
@@ -42,8 +32,11 @@ const Login = () => {
     });
     const data = await response.json();
     if (data.status === 200) {
+      ctx.loginHandler();
+      ctx.usernameHandler(data.userName);
       navigate("/dashboard");
     }
+
     console.log(data);
   };
 
@@ -78,7 +71,7 @@ const Login = () => {
               <div className="mb-1"></div>
               <div className="relative">
                 <input
-                  type="text"
+                  type="password"
                   name="pwd"
                   className="input pl-10 pr-4 w-full rounded border-gray-400"
                   placeholder="รหัสผ่าน"
