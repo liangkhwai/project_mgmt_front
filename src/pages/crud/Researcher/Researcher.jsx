@@ -1,8 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import ResearcherList from "./components/ResearcherList";
+import EditRshRow from "./components/EditRshRow";
 const Researcher = () => {
   const loaderData = useLoaderData();
+  const [rshList, setRshList] = useState(loaderData);
+  const [editFormData, setEditFormData] = useState({
+    student_id: "",
+    firstname: "",
+    lastname: "",
+    email: "",
+    tel: "",
+    grade: "",
+  });
+  const [editRshId, setEditRshId] = useState(null);
+  console.log(rshList);
+  const setEditRshIdHandler = (id, rsh) => {
+    console.log(id);
+    console.log(rsh);
+    setEditRshId(id);
+
+    const editValues = {
+      student_id: rsh.student_id,
+      firstname: rsh.firstname,
+      lastname: rsh.lastname,
+      email: rsh.email,
+      tel: rsh.tel,
+      grade: rsh.grade,
+    };
+    setEditFormData(editValues);
+  };
+  const cancelEditFormHandler = () => {
+    setEditRshId(null);
+  };
+  const editFormHandler = (e) => {
+    const name = e.target.name;
+    const val = e.target.value;
+    console.log(val);
+    setEditFormData((prev) => ({ ...prev, [name]: val }));
+  };
+
+  const editFormSubmitHandler = () => {
+    console.log(editFormData);
+    const editData = {
+      student_id: editFormData.student_id,
+      firstname: editFormData.firstname,
+      lastname: editFormData.lastname,
+      email: editFormData.email,
+      tel: editFormData.tel,
+      grade: editFormData.grade,
+    };
+    console.log(editData);
+    const rshTemp = [...rshList];
+
+    const index = rshTemp.findIndex((rsh) => rsh.id === editRshId);
+    rshTemp[index] = editData;
+    setRshList(rshTemp);
+    setEditRshId(null);
+  };
 
   return (
     <div className="mx-10">
@@ -10,13 +65,12 @@ const Researcher = () => {
 
       <div className="bg-white rounded-md ">
         <div className="pt-10 mx-10">
-          <table className="table w-full border">
+          <table className="table table-responsive w-full border">
             <thead>
               <tr>
                 <th>รหัสนักศึกษา</th>
                 <th>ชื่อ</th>
                 <th>นามสกุล</th>
-                {/* <th>เบอร์โทร</th> */}
                 <th>อีเมลล์</th>
                 <th>เบอร์โทร</th>
                 <th>เกรดเฉลี่ย</th>
@@ -25,7 +79,23 @@ const Researcher = () => {
               </tr>
             </thead>
             <tbody>
-              <ResearcherList list={loaderData} />
+              {rshList.map((rsh) => (
+                <>
+                  {editRshId === rsh.id ? (
+                    <EditRshRow
+                      rsh={editFormData}
+                      editFormHandler={editFormHandler}
+                      cancelEditFormHandler={cancelEditFormHandler}
+                      editFormSubmitHandler={editFormSubmitHandler}
+                    />
+                  ) : (
+                    <ResearcherList
+                      rsh={rsh}
+                      setEditRshIdHandler={setEditRshIdHandler}
+                    />
+                  )}
+                </>
+              ))}
             </tbody>
           </table>
         </div>
