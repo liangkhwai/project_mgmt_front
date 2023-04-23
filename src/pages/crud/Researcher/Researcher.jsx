@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import ResearcherList from "./components/ResearcherList";
 import EditRshRow from "./components/EditRshRow";
+import { nanoid } from "nanoid";
 const Researcher = () => {
+  console.log(nanoid(10));
   const loaderData = useLoaderData();
   const [rshList, setRshList] = useState(loaderData);
   const [editFormData, setEditFormData] = useState({
@@ -43,6 +45,7 @@ const Researcher = () => {
   const editFormSubmitHandler = () => {
     console.log(editFormData);
     const editData = {
+      id: editRshId,
       student_id: editFormData.student_id,
       firstname: editFormData.firstname,
       lastname: editFormData.lastname,
@@ -51,12 +54,25 @@ const Researcher = () => {
       grade: editFormData.grade,
     };
     console.log(editData);
-    const rshTemp = [...rshList];
 
-    const index = rshTemp.findIndex((rsh) => rsh.id === editRshId);
-    rshTemp[index] = editData;
-    setRshList(rshTemp);
-    setEditRshId(null);
+    const response = fetch("http://localhost:8080/researcher/update", {
+      method: "put",
+      body: JSON.stringify(editData),
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    })
+      .then((response) => {
+        return response.status;
+      })
+      .then((status) => {
+        console.log(status);
+        const rshTemp = [...rshList];
+
+        const index = rshTemp.findIndex((rsh) => rsh.id === editRshId);
+        rshTemp[index] = editData;
+        setRshList(rshTemp);
+        setEditRshId(null);
+      });
   };
 
   return (
@@ -79,8 +95,8 @@ const Researcher = () => {
               </tr>
             </thead>
             <tbody>
-              {rshList.map((rsh) => (
-                <>
+              {rshList.map((rsh, idx) => (
+                <Fragment key={idx}>
                   {editRshId === rsh.id ? (
                     <EditRshRow
                       rsh={editFormData}
@@ -94,7 +110,7 @@ const Researcher = () => {
                       setEditRshIdHandler={setEditRshIdHandler}
                     />
                   )}
-                </>
+                </Fragment>
               ))}
             </tbody>
           </table>

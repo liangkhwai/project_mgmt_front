@@ -3,12 +3,8 @@ import React from "react";
 const ResearcherList = ({ rsh, setEditRshIdHandler }) => {
   console.log(rsh);
 
-
-
-
   return (
     <tr className="text-center">
-       
       <td>{rsh.student_id}</td>
       <td>{rsh.firstname}</td>
       <td>{rsh.lastname}</td>
@@ -18,7 +14,7 @@ const ResearcherList = ({ rsh, setEditRshIdHandler }) => {
       <td>
         <button
           className="px-3 py-2 rounded bg-yellow-400 text-black"
-          onClick={()=>setEditRshIdHandler(rsh.id,rsh)}
+          onClick={() => setEditRshIdHandler(rsh.id, rsh)}
         >
           แก้ไข
         </button>

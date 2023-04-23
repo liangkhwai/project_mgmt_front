@@ -33,10 +33,10 @@ const router = createBrowserRouter([
         loader: checkAuth,
       },
       {
-        path:'/dashboard/researcher',
-        element:<ResearcherList/>,
-        loader:getList
-      }
+        path: "/dashboard/researcher",
+        element: <ResearcherList />,
+        loader: getList,
+      },
     ],
   },
 ]);

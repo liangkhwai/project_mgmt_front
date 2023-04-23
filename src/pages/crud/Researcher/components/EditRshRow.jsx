@@ -10,6 +10,7 @@ const EditRshRow = ({
     <tr className="text-center">
       <td>
         <input
+          className="w-full"
           type="text"
           name="student_id"
           id=""
@@ -19,6 +20,7 @@ const EditRshRow = ({
       </td>
       <td>
         <input
+          className="w-full"
           type="text"
           name="firstname"
           id=""
@@ -28,6 +30,7 @@ const EditRshRow = ({
       </td>
       <td>
         <input
+          className="w-full"
           type="text"
           name="lastname"
           id=""
@@ -37,6 +40,7 @@ const EditRshRow = ({
       </td>
       <td>
         <input
+          className="w-full"
           type="text"
           name="email"
           id=""
@@ -46,6 +50,7 @@ const EditRshRow = ({
       </td>
       <td>
         <input
+          className="w-full"
           type="text"
           name="tel"
           id=""
@@ -55,6 +60,7 @@ const EditRshRow = ({
       </td>
       <td>
         <input
+          className="w-full"
           type="text"
           name="grade"
           id=""
