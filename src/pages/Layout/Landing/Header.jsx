@@ -4,11 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { checkAuth, logout } from "../../../loader/auth";
 import AuthContext from "../../../context/auth";
 const Header = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const ctx = useContext(AuthContext);
   const logoutHandler = () => {
     ctx.logoutHandler().then(() => navigate("/"));
   };
+
   return (
     <div>
       <div className="w-full bg-blue-800 h-11 flex justify-end ">

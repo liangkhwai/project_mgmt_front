@@ -21,7 +21,7 @@ const LayoutDashboard = () => {
         <div>
           <Header openHandler={openHandler} />
         </div>
-        <div>
+        <div className="bg-blue-gray-50">
           <Outlet />
         </div>
       </div>

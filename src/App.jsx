@@ -6,7 +6,8 @@ import LayoutManageContent from "./pages/Layout/Dashboard/LayoutDashboard";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import { useContext } from "react";
 import { checkAuth } from "./loader/auth";
-
+import ResearcherList from "./pages/crud/Researcher/Researcher";
+import { getList } from "./loader/researcher";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,11 @@ const router = createBrowserRouter([
         element: <Dashboard />,
         loader: checkAuth,
       },
+      {
+        path:'/dashboard/researcher',
+        element:<ResearcherList/>,
+        loader:getList
+      }
     ],
   },
 ]);
