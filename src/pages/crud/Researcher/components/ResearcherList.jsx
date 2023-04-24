@@ -1,6 +1,6 @@
 import React from "react";
 
-const ResearcherList = ({ rsh, setEditRshIdHandler }) => {
+const ResearcherList = ({ rsh, setEditRshIdHandler, deleteHandler }) => {
   console.log(rsh);
 
   return (
@@ -20,7 +20,12 @@ const ResearcherList = ({ rsh, setEditRshIdHandler }) => {
         </button>
       </td>
       <td>
-        <button className="px-3 py-2 rounded bg-red-500 text-black">ลบ</button>
+        <button
+          className="px-3 py-2 rounded bg-red-500 text-black"
+          onClick={() => deleteHandler(rsh.id)}
+        >
+          ลบ
+        </button>
       </td>
     </tr>
   );

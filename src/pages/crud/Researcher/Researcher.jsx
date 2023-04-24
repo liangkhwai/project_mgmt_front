@@ -9,6 +9,7 @@ const Researcher = () => {
   const loaderData = useLoaderData();
   const [isInsert, setIsInsert] = useState(false);
   const [rshList, setRshList] = useState(loaderData);
+  console.log(rshList);
   const [editFormData, setEditFormData] = useState({
     student_id: "",
     firstname: "",
@@ -58,8 +59,9 @@ const Researcher = () => {
     console.log(val);
     setEditFormData((prev) => ({ ...prev, [name]: val }));
   };
-  const insertFormSubmitHandler = () => {
+  const insertFormSubmitHandler = async () => {
     const insertData = {
+      id: nanoid(),
       student_id: insertFormData.student_id,
       firstname: insertFormData.firstname,
       lastname: insertFormData.lastname,
@@ -68,21 +70,23 @@ const Researcher = () => {
       grade: insertFormData.grade,
     };
 
-    const response = fetch("http://localhost:8080/researcher/insert", {
+    const response = await fetch("http://localhost:8080/researcher/insert", {
       method: "post",
       body: JSON.stringify(insertData),
       headers: { "Content-Type": "application/json" },
       credentials: "include",
     })
       .then((response) => {
-        return response.status;
+        const data = response.json()
+        return data
       })
-      .then((status) => {
+      .then((data) => {
+        insertData.id = data.id
         setRshList((prev) => [...prev, insertData]);
         setIsInsert(false);
       });
   };
-  const editFormSubmitHandler = () => {
+  const editFormSubmitHandler = async () => {
     console.log(editFormData);
     const editData = {
       id: editRshId,
@@ -95,7 +99,7 @@ const Researcher = () => {
     };
     console.log(editData);
 
-    const response = fetch("http://localhost:8080/researcher/update", {
+    const response = await fetch("http://localhost:8080/researcher/update", {
       method: "put",
       body: JSON.stringify(editData),
       headers: { "Content-Type": "application/json" },
@@ -119,6 +123,25 @@ const Researcher = () => {
   };
   const cancelInsertHadnler = () => {
     setIsInsert(false);
+  };
+
+  const deleteHandler = async (id) => {
+    console.log(id);
+    const rshTemp = [...rshList];
+
+    const dataTemp = rshTemp.filter((i) => i.id !== id);
+    console.log(dataTemp);
+    console.log(rshList);
+    setRshList(dataTemp);
+    const response = await fetch("http://localhost:8080/researcher/delete", {
+      method: "post",
+      body: JSON.stringify({ id: id }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      credentials: "include",
+    });
   };
 
   return (
@@ -154,6 +177,7 @@ const Researcher = () => {
                     <ResearcherList
                       rsh={rsh}
                       setEditRshIdHandler={setEditRshIdHandler}
+                      deleteHandler={deleteHandler}
                     />
                   )}
                 </Fragment>
