@@ -20,7 +20,7 @@ const Header = ({ openHandler }) => {
       </div>
       <div className="flex items-center gap-4">
         <div>NotificationsMenu</div>
-        <div className="">{localStorage.getItem('username')}</div>
+        <div className="">{ctx.getUsername()}</div>
         <button
           className="mr-5 bg-gray-300 p-2 rounded-xl "
           onClick={logoutHandler}

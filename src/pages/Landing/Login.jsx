@@ -33,6 +33,7 @@ const Login = () => {
     const data = await response.json();
     if (data.status === 200) {
       ctx.loginHandler();
+      console.log(data.userName)
       ctx.usernameHandler(data.userName);
       navigate("/dashboard");
     }

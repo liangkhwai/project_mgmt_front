@@ -1,20 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { redirect } from "react-router-dom";
-import { checkAuth } from "../loader/auth";
+import { checkAuthTF } from "../loader/auth";
 const AuthContext = React.createContext({});
 
 export const AuthContextProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState();
-
-  useEffect(() => {
-    const isLogged = localStorage.getItem("username");
-    if (isLogged) {
-      setIsLoggedIn(true);
+  const checkLogged = async () => {
+    const res = await checkAuthTF();
+    console.log(res);
+    if (res === true) {
+      console.log("yes it is");
+      const isLogged = localStorage.getItem("username");
+      if (isLogged) {
+        setIsLoggedIn(true);
+      }
+    } else {
+      console.log("No token for route");
+      setIsLoggedIn(false);
+      localStorage.removeItem("username");
     }
+  };
+  useEffect(() => {
+    checkLogged();
   }, []);
 
+  const getUsername = () => {
+    return localStorage.getItem("username");
+  };
+
   const usernameHandler = (name) => {
+    setUsername(name);
     localStorage.setItem("username", name);
   };
 
@@ -55,6 +71,7 @@ export const AuthContextProvider = (props) => {
         logoutHandler: logoutHandler,
         username: username,
         usernameHandler: usernameHandler,
+        getUsername,
       }}
     >
       {props.children}

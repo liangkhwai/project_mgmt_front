@@ -3,9 +3,11 @@ import { useLoaderData } from "react-router-dom";
 import ResearcherList from "./components/ResearcherList";
 import EditRshRow from "./components/EditRshRow";
 import { nanoid } from "nanoid";
+import InsertResearcherRow from "./components/InsertResearcherRow";
 const Researcher = () => {
   console.log(nanoid(10));
   const loaderData = useLoaderData();
+  const [isInsert, setIsInsert] = useState(false);
   const [rshList, setRshList] = useState(loaderData);
   const [editFormData, setEditFormData] = useState({
     student_id: "",
@@ -15,6 +17,15 @@ const Researcher = () => {
     tel: "",
     grade: "",
   });
+  const [insertFormData, setInsertFormData] = useState({
+    student_id: "",
+    firstname: "",
+    lastname: "",
+    email: "",
+    tel: "",
+    grade: "",
+  });
+
   const [editRshId, setEditRshId] = useState(null);
   console.log(rshList);
   const setEditRshIdHandler = (id, rsh) => {
@@ -35,13 +46,42 @@ const Researcher = () => {
   const cancelEditFormHandler = () => {
     setEditRshId(null);
   };
+  const insertFormHandler = (e) => {
+    const name = e.target.name;
+    const val = e.target.value;
+    console.log(val);
+    setInsertFormData((prev) => ({ ...prev, [name]: val }));
+  };
   const editFormHandler = (e) => {
     const name = e.target.name;
     const val = e.target.value;
     console.log(val);
     setEditFormData((prev) => ({ ...prev, [name]: val }));
   };
+  const insertFormSubmitHandler = () => {
+    const insertData = {
+      student_id: insertFormData.student_id,
+      firstname: insertFormData.firstname,
+      lastname: insertFormData.lastname,
+      email: insertFormData.email,
+      tel: insertFormData.tel,
+      grade: insertFormData.grade,
+    };
 
+    const response = fetch("http://localhost:8080/researcher/insert", {
+      method: "post",
+      body: JSON.stringify(insertData),
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    })
+      .then((response) => {
+        return response.status;
+      })
+      .then((status) => {
+        setRshList((prev) => [...prev, insertData]);
+        setIsInsert(false);
+      });
+  };
   const editFormSubmitHandler = () => {
     console.log(editFormData);
     const editData = {
@@ -73,6 +113,12 @@ const Researcher = () => {
         setRshList(rshTemp);
         setEditRshId(null);
       });
+  };
+  const isInsertHandler = () => {
+    setIsInsert(!isInsert);
+  };
+  const cancelInsertHadnler = () => {
+    setIsInsert(false);
   };
 
   return (
@@ -112,8 +158,26 @@ const Researcher = () => {
                   )}
                 </Fragment>
               ))}
+              {isInsert ? (
+                <InsertResearcherRow
+                  cancelInsertHadnler={cancelInsertHadnler}
+                  insertFormHandler={insertFormHandler}
+                  insertFormSubmitHandler={insertFormSubmitHandler}
+                />
+              ) : null}
             </tbody>
           </table>
+          <div className="flex justify-end">
+            <button className="px-3 py-2 rounded bg-green-500 text-black">
+              เพิ่มนักวิจัย (CSV)
+            </button>
+            <button
+              className="px-3 py-2 rounded bg-green-500 text-black"
+              onClick={() => isInsertHandler()}
+            >
+              เพิ่มนักวิจัย (ปกติ)
+            </button>
+          </div>
         </div>
       </div>
     </div>

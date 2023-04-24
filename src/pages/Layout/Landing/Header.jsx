@@ -23,9 +23,13 @@ const Header = () => {
                 <button>Dashboard</button>
               </div>
             </Link>
-            <Link to="/login" className="flex items-center px-3 text-white ">
+            <Link
+              to="/login"
+              className="flex items-center px-3 text-white "
+              onClick={logoutHandler}
+            >
               <div className="">
-                <button onClick={logoutHandler}>ออกจากระบบ</button>
+                <button>ออกจากระบบ</button>
               </div>
             </Link>
           </>
