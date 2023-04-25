@@ -69,7 +69,7 @@ const Researcher = () => {
       tel: insertFormData.tel,
       grade: insertFormData.grade,
     };
-
+    console.log('data before insert  = ', insertData)
     const response = await fetch("http://localhost:8080/researcher/insert", {
       method: "post",
       body: JSON.stringify(insertData),
@@ -77,13 +77,21 @@ const Researcher = () => {
       credentials: "include",
     })
       .then((response) => {
-        const data = response.json()
-        return data
+        if (response.status !== 201) {
+          throw new Error("User already exits");
+        } else {
+          const data = response.json();
+          return data;
+        }
       })
       .then((data) => {
-        insertData.id = data.id
+        insertData.id = data.id;
+        console.log("data = " + data);
         setRshList((prev) => [...prev, insertData]);
         setIsInsert(false);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
   const editFormSubmitHandler = async () => {

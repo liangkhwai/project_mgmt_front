@@ -1,7 +1,7 @@
 import React from "react";
 
 const ResearcherList = ({ rsh, setEditRshIdHandler, deleteHandler }) => {
-  console.log(rsh);
+  console.log(rsh.id);
 
   return (
     <tr className="text-center">

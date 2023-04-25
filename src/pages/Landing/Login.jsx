@@ -24,7 +24,7 @@ const Login = () => {
     const response = await fetch("http://localhost:8080/auth/login", {
       method: "post",
       body: JSON.stringify({
-        email: userPwd.uuid,
+        id: userPwd.uuid,
         password: userPwd.pwd,
       }),
       credentials: "include",
@@ -33,7 +33,7 @@ const Login = () => {
     const data = await response.json();
     if (data.status === 200) {
       ctx.loginHandler();
-      console.log(data.userName)
+      console.log(data.userName);
       ctx.usernameHandler(data.userName);
       navigate("/dashboard");
     }
