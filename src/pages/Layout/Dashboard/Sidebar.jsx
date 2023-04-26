@@ -6,11 +6,15 @@ import "simplebar-react/dist/simplebar.min.css";
 const Sidebar = ({ isOpen, openHandler }) => {
   const maxHeight = window.innerHeight;
   return (
-    <div className="">
+    <div
+      className={`${
+        isOpen ? "w-72 " : "w-0"
+      } h-screen bg-white transition-all duration-300 `}
+    >
       <aside
         className={`${
-          isOpen ? "w-72" : "w-0"
-        } h-screen bg-white transition-all duration-300`}
+          isOpen ? "w-72 fixed" : "w-0"
+        } h-screen bg-white transition-all duration-300 `}
       >
         <SimpleBar style={{ maxHeight: maxHeight }}>
           <div data-simplebar className="">

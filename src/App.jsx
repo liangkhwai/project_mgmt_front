@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { checkAuth } from "./loader/auth";
 import ResearcherList from "./pages/crud/Researcher/Researcher";
 import { getList } from "./loader/researcher";
-
+import React from "react";
 const router = createBrowserRouter([
   {
     element: <Landing />,
