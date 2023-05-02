@@ -16,6 +16,7 @@ const Thesis = () => {
         </div>
       </div>
     </div>
+    
   );
 };
 
