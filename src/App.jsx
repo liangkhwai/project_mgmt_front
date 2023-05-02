@@ -10,6 +10,7 @@ import { checkAuth } from "./loader/auth";
 import ResearcherList from "./pages/crud/Researcher/Researcher";
 import { getList } from "./loader/researcher";
 import React from "react";
+import Thesis from "./pages/Landing/Thesis";
 const router = createBrowserRouter([
   {
     element: <Landing />,
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+      },
+      {
+        path: "/thesis",
+        element: <Thesis />,
       }
     ],
   },

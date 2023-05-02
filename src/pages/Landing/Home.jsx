@@ -10,7 +10,8 @@ const Home = () => {
         alt="dsadsa"
         style={{ width: "100%", height: "auto" }}
       />
-      <div className=" w-full h-screen bg-blue-50 ">
+      
+      <div className=" w-full h-56 bg-blue-50 ">
         <div className="text-xs ml-40 mt-10 ">ข้อมูล............</div>
         <div className="text-2xl font-medium ml-40 ">สถิติเจ้าของผลงาน</div>
 
