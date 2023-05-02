@@ -11,6 +11,7 @@ import ResearcherList from "./pages/crud/Researcher/Researcher";
 import { getList } from "./loader/researcher";
 import React from "react";
 import Thesis from "./pages/Landing/Thesis";
+import Faq from "./pages/Landing/Faq";
 const router = createBrowserRouter([
   {
     element: <Landing />,
@@ -30,7 +31,11 @@ const router = createBrowserRouter([
       {
         path: "/thesis",
         element: <Thesis />,
-      }
+      },
+      {
+        path: "/faq",
+        element: <Faq />,
+      },
     ],
   },
   {
