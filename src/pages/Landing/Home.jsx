@@ -9,21 +9,21 @@ import { Carousel } from "react-responsive-carousel";
 const Home = () => {
   return (
     <div className=" bg-blue-50">
-      <div>
+      <div className="">
         <Carousel
           autoPlay={true}
           showThumbs={false}
           showStatus={false}
-          interval={1000}
+          interval={4000}
           transitionTime={600}
           infiniteLoop={true}
           showArrows={false}
-          dynamicHeight ={true}
+          dynamicHeight={true}
           stopOnHover={true}
           
         >
           <div className="">
-            <div className="relative">
+            <div className="relative ">
               <img
                 className="h-full"
                 src={univer1}
@@ -38,8 +38,8 @@ const Home = () => {
               Digital Business Technology
             </div>
           </div>
-          <div  className="">
-            <div className="relative">
+          <div className="">
+            <div className="relative ">
               <img
                 className="h-full"
                 src={univer0}
