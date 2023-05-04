@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import SimpleBar from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
-const Sidebar = ({ isOpen, openHandler }) => {
+const Sidebar = ({ isOpen }) => {
   const maxHeight = window.innerHeight;
   return (
     <div

@@ -7,6 +7,8 @@ import InsertResearcherRow from "./components/InsertResearcherRow";
 import FileDetail from "./components/FileDetail";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import HeaderResearcher from "./components/HeaderResearcher";
+import TableResearcher from "./components/TableResearcher";
 const Researcher = () => {
   const loaderData = useLoaderData();
   const [isInsert, setIsInsert] = useState(false);
@@ -136,22 +138,30 @@ const Researcher = () => {
   };
 
   const deleteHandler = async (id) => {
-    console.log(id);
     const rshTemp = [...rshList];
-
     const dataTemp = rshTemp.filter((i) => i.id !== id);
     console.log(dataTemp);
-    console.log(rshList);
-    setRshList(dataTemp);
     const response = await fetch("http://localhost:8080/researcher/delete", {
       method: "post",
       body: JSON.stringify({ id: id }),
       headers: {
         "Content-Type": "application/json",
       },
-
       credentials: "include",
-    });
+    })
+      .then((data) => {
+        const res = data.json();
+        return res;
+      })
+      .then((res) => {
+        const rshTemp = [...rshList];
+        const dataTemp = rshTemp.filter((i) => i.id !== id);
+        console.log(dataTemp);
+        setRshList(dataTemp);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const [file, setFile] = useState(null);
@@ -205,7 +215,8 @@ const Researcher = () => {
         fileRef.current.value = null;
 
         setModalOpen(false);
-        console.log(data);
+        setRshList((prev) => [...prev, ...data.data]);
+        console.table(data.data);
       });
   };
 
@@ -216,24 +227,50 @@ const Researcher = () => {
     setFile(null);
     setModalOpen(false);
   };
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
+  // const style = {
+  //   position: "absolute",
+  //   top: "50%",
+  //   left: "50%",
+  //   transform: "translate(-50%, -50%)",
+  //   width: 400,
+  //   bgcolor: "background.paper",
+  //   border: "2px solid #000",
+  //   boxShadow: 24,
+  //   p: 4,
+  // };
 
   return (
     <div className="mx-10">
       <h1 className="text-3xl my-10">ผู้วิจัย</h1>
 
+      <HeaderResearcher />
+
+      <div className="pb-20"></div>
+
       <div className="bg-white rounded-md ">
-        <div className="pt-10 mx-10">
+        <TableResearcher
+          rshList={rshList}
+          editRshId={editRshId}
+          editFormData={editFormData}
+          editFormHandler={editFormHandler}
+          cancelEditFormHandler={cancelEditFormHandler}
+          editFormSubmitHandler={editFormSubmitHandler}
+          setEditRshIdHandler={setEditRshIdHandler}
+          deleteHandler={deleteHandler}
+          isInsert={isInsert}
+          cancelInsertHadnler={cancelInsertHadnler}
+          insertFormHandler={insertFormHandler}
+          insertFormSubmitHandler={insertFormSubmitHandler}
+          fileRef={fileRef}
+          fileChangeHandler={fileChangeHandler}
+          modalOpen={modalOpen}
+          closeModalHandler={closeModalHandler}
+          file={file}
+          fileSubmitHandler={fileSubmitHandler}
+          fileInputHandler={fileInputHandler}
+          isInsertHandler={isInsertHandler}
+        />
+        {/* <div className="pt-10 mx-10">
           <table className="table table-responsive w-full border">
             <thead>
               <tr>
@@ -275,14 +312,12 @@ const Researcher = () => {
               ) : null}
             </tbody>
           </table>
-          {/* <form encType="multipart/form-data"> */}
           <input
             type="file"
             ref={fileRef}
             onChangeCapture={(e) => fileChangeHandler(e)}
             className="hidden"
           />
-          {/* </form> */}
           <Modal open={modalOpen} onClose={closeModalHandler}>
             <Box sx={style}>
               <FileDetail
@@ -306,31 +341,10 @@ const Researcher = () => {
               เพิ่มนักวิจัย (ปกติ)
             </button>
           </div>
-          {/* <form
-            method="post"
-            encType="multipart/form-data"
-            onSubmit={testSubmitFile}
-          >
-            <input type="file" name="" id="" onChange={testFileHandler} />
-            <button type="submit">Submit It</button>
-          </form> */}
-        </div>
+        </div> */}
       </div>
     </div>
   );
 };
 
 export default Researcher;
-// export async function getList() {
-//   const response = await fetch("http://localhost:8080/researcher/list", {
-//     method: "get",
-//   });
-
-//   const data = await response.json();
-//   console.log(data);
-
-//   if (response.status === 200) {
-//     return data;
-//   }
-//   return { message: "error" };
-// }
