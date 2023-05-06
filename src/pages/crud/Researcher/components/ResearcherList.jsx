@@ -1,4 +1,5 @@
 import React from "react";
+import UpdateButton, { DeleteButton } from "../../../../UI/button";
 
 const ResearcherList = ({ rsh, setEditRshIdHandler, deleteHandler }) => {
   console.log(rsh.id);
@@ -12,20 +13,24 @@ const ResearcherList = ({ rsh, setEditRshIdHandler, deleteHandler }) => {
       <td>{rsh.tel}</td>
       <td>{rsh.grade}</td>
       <td>
-        <button
+        <UpdateButton onClick={() => setEditRshIdHandler(rsh.id, rsh)}>
+          แก้ไข
+        </UpdateButton>
+        {/* <button
           className="px-3 py-2 rounded bg-yellow-400 text-black"
           onClick={() => setEditRshIdHandler(rsh.id, rsh)}
         >
           แก้ไข
-        </button>
+        </button> */}
       </td>
       <td>
-        <button
+        <DeleteButton onClick={() => deleteHandler(rsh.id)}>ลบ</DeleteButton>
+        {/* <button
           className="px-3 py-2 rounded bg-red-500 text-black"
           onClick={() => deleteHandler(rsh.id)}
         >
           ลบ
-        </button>
+        </button> */}
       </td>
     </tr>
   );

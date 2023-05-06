@@ -4,7 +4,6 @@ import { AiOutlineCaretUp, AiOutlineCaretDown } from "react-icons/ai";
 
 const Thesis = () => {
   const [isOpen, setIsOpen] = useState(false);
-  
 
   return (
     <div className="w-full h-screen border bg-blue-50 ">

@@ -12,7 +12,7 @@ import TableResearcher from "./components/TableResearcher";
 const Researcher = () => {
   const loaderData = useLoaderData();
   const [isInsert, setIsInsert] = useState(false);
-  const [rshList, setRshList] = useState(loaderData);
+  const [rshList, setRshList] = useState(loaderData.dataResearcherList);
   console.log(rshList);
   const [editFormData, setEditFormData] = useState({
     student_id: "",
@@ -227,121 +227,99 @@ const Researcher = () => {
     setFile(null);
     setModalOpen(false);
   };
-  // const style = {
-  //   position: "absolute",
-  //   top: "50%",
-  //   left: "50%",
-  //   transform: "translate(-50%, -50%)",
-  //   width: 400,
-  //   bgcolor: "background.paper",
-  //   border: "2px solid #000",
-  //   boxShadow: 24,
-  //   p: 4,
-  // };
+
+  const [menu, setMenu] = useState("filter");
+  const HeaderMenuChangeHandler = () => {
+    menu === "filter" ? setMenu("addcategories") : setMenu("filter");
+    console.log(menu);
+  };
+
+  const [roomData, setRoomData] = useState(loaderData.dataRoomList);
+  const [categories, setCategories] = useState(roomData);
+  const [typeFilter, setTypeFilter] = useState("all");
+
+  const filterTypeRoom = (filterVal) => {
+    // const room = [...roomData];
+    // const filteredRoom = room.filter((room) => room.type === filterVal);
+
+    setTypeFilter(filterVal)
+
+    console.log(filterVal);
+    const type = filterVal;
+    const categorie = [...roomData];
+    const filteredRoom = categorie.filter(
+      (categorie) => categorie.type === type
+    );
+
+    setCategories(
+      type === "all" ? loaderData.dataRoomList : filteredRoom
+    );
+    const researcherList = [...loaderData.dataResearcherList]
+    const filteredRshList = researcherList.filter((rsh)=> rsh.categorie_room.type === filterVal)
+    console.log("filted "+filteredRshList)
+    setRshList(filterVal === "all" ? loaderData.dataResearcherList : filteredRshList)
+
+  };
+
+  const filterRoomList = (room) => {
+    console.log(room);
+
+    const researcherList = [...loaderData.dataResearcherList];
+    console.log(researcherList[0]);
+
+    const filteredRshList = researcherList.filter(
+      (researcherList) => researcherList.categorieRoomId === Number(room)
+    );
+
+    const filteredAllList = researcherList.filter(
+      (rsh)=> rsh.categorie_room.type === typeFilter
+    )
+
+    console.log(filteredRshList);
+    setRshList(
+      room === "all" ? typeFilter === "all" ? researcherList : filteredAllList : filteredRshList
+    );
+  };
 
   return (
     <div className="mx-10">
       <h1 className="text-3xl my-10">ผู้วิจัย</h1>
 
-      <HeaderResearcher />
+      <HeaderResearcher
+        setMenu={HeaderMenuChangeHandler}
+        menu={menu}
+        roomData={categories}
+        filterTypeHandler={filterTypeRoom}
+        filterRoom={filterRoomList}
+      />
 
       <div className="pb-20"></div>
 
       <div className="bg-white rounded-md ">
-        <TableResearcher
-          rshList={rshList}
-          editRshId={editRshId}
-          editFormData={editFormData}
-          editFormHandler={editFormHandler}
-          cancelEditFormHandler={cancelEditFormHandler}
-          editFormSubmitHandler={editFormSubmitHandler}
-          setEditRshIdHandler={setEditRshIdHandler}
-          deleteHandler={deleteHandler}
-          isInsert={isInsert}
-          cancelInsertHadnler={cancelInsertHadnler}
-          insertFormHandler={insertFormHandler}
-          insertFormSubmitHandler={insertFormSubmitHandler}
-          fileRef={fileRef}
-          fileChangeHandler={fileChangeHandler}
-          modalOpen={modalOpen}
-          closeModalHandler={closeModalHandler}
-          file={file}
-          fileSubmitHandler={fileSubmitHandler}
-          fileInputHandler={fileInputHandler}
-          isInsertHandler={isInsertHandler}
-        />
-        {/* <div className="pt-10 mx-10">
-          <table className="table table-responsive w-full border">
-            <thead>
-              <tr>
-                <th>รหัสนักศึกษา</th>
-                <th>ชื่อ</th>
-                <th>นามสกุล</th>
-                <th>อีเมลล์</th>
-                <th>เบอร์โทร</th>
-                <th>เกรดเฉลี่ย</th>
-                <th>แก้ไข</th>
-                <th>ลบ</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rshList.map((rsh, idx) => (
-                <Fragment key={idx}>
-                  {editRshId === rsh.id ? (
-                    <EditRshRow
-                      rsh={editFormData}
-                      editFormHandler={editFormHandler}
-                      cancelEditFormHandler={cancelEditFormHandler}
-                      editFormSubmitHandler={editFormSubmitHandler}
-                    />
-                  ) : (
-                    <ResearcherList
-                      rsh={rsh}
-                      setEditRshIdHandler={setEditRshIdHandler}
-                      deleteHandler={deleteHandler}
-                    />
-                  )}
-                </Fragment>
-              ))}
-              {isInsert ? (
-                <InsertResearcherRow
-                  cancelInsertHadnler={cancelInsertHadnler}
-                  insertFormHandler={insertFormHandler}
-                  insertFormSubmitHandler={insertFormSubmitHandler}
-                />
-              ) : null}
-            </tbody>
-          </table>
-          <input
-            type="file"
-            ref={fileRef}
-            onChangeCapture={(e) => fileChangeHandler(e)}
-            className="hidden"
+        {menu === "filter" && (
+          <TableResearcher
+            rshList={rshList}
+            editRshId={editRshId}
+            editFormData={editFormData}
+            editFormHandler={editFormHandler}
+            cancelEditFormHandler={cancelEditFormHandler}
+            editFormSubmitHandler={editFormSubmitHandler}
+            setEditRshIdHandler={setEditRshIdHandler}
+            deleteHandler={deleteHandler}
+            isInsert={isInsert}
+            cancelInsertHadnler={cancelInsertHadnler}
+            insertFormHandler={insertFormHandler}
+            insertFormSubmitHandler={insertFormSubmitHandler}
+            fileRef={fileRef}
+            fileChangeHandler={fileChangeHandler}
+            modalOpen={modalOpen}
+            closeModalHandler={closeModalHandler}
+            file={file}
+            fileSubmitHandler={fileSubmitHandler}
+            fileInputHandler={fileInputHandler}
+            isInsertHandler={isInsertHandler}
           />
-          <Modal open={modalOpen} onClose={closeModalHandler}>
-            <Box sx={style}>
-              <FileDetail
-                file={file}
-                onClose={closeModalHandler}
-                submit={fileSubmitHandler}
-              />
-            </Box>
-          </Modal>
-          <div className="flex justify-end">
-            <button
-              className="px-3 py-2 rounded bg-green-500 text-black"
-              onClick={() => fileInputHandler()}
-            >
-              เพิ่มนักวิจัย (CSV)
-            </button>
-            <button
-              className="px-3 py-2 rounded bg-green-500 text-black"
-              onClick={() => isInsertHandler()}
-            >
-              เพิ่มนักวิจัย (ปกติ)
-            </button>
-          </div>
-        </div> */}
+        )}
       </div>
     </div>
   );

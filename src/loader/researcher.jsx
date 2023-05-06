@@ -1,13 +1,20 @@
 export async function getList() {
-  const response = await fetch("http://localhost:8080/researcher/list", {
+  const researcherList = await fetch("http://localhost:8080/researcher/list", {
     method: "get",
   });
 
-  const data = await response.json();
-  console.log(data);
+  const dataResearcherList = await researcherList.json();
+  console.log(dataResearcherList);
 
-  if (response.status === 200) {
-    return data;
+  const roomList = await fetch('http://localhost:8080/categories/list',{
+    method:'get'
+  })
+
+  const dataRoomList = await roomList.json()
+
+
+  if (researcherList.status === 200 && roomList.status === 200) {
+    return {dataResearcherList,dataRoomList}
   }
-  return {message:'error'}
+  return { message: "error" };
 }

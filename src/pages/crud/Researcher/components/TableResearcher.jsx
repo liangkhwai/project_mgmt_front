@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import EditRshRow from "./EditRshRow";
 import ResearcherList from "./ResearcherList";
 import InsertResearcherRow from "./InsertResearcherRow";
-import { Modal,Box } from "@mui/material";
+import { Modal, Box } from "@mui/material";
 import FileDetail from "./FileDetail";
 const TableResearcher = ({
   rshList,
