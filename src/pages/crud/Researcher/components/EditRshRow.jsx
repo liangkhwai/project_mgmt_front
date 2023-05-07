@@ -5,7 +5,10 @@ const EditRshRow = ({
   editFormHandler,
   cancelEditFormHandler,
   editFormSubmitHandler,
+  editSelectedRoom,
+  roomData,
 }) => {
+  console.log("edit = ",rsh)
   return (
     <tr className="text-center">
       <td>
@@ -37,6 +40,15 @@ const EditRshRow = ({
           value={rsh.lastname}
           onChange={(e) => editFormHandler(e)}
         />
+      </td>
+      <td>
+        <select name="" id="" onChange={(e) => editSelectedRoom(e)} value={rsh.categorieRoomId}>
+          {roomData.map((data, idx) => (
+            <option key={idx} value={data.id}>
+              {`${data.room} (${data.year.substring(2)})`}
+            </option>
+          ))}
+        </select>
       </td>
       <td>
         <input

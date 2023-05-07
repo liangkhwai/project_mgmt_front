@@ -7,7 +7,8 @@ const ResearcherList = ({ rsh, setEditRshIdHandler, deleteHandler }) => {
   return (
     <tr className="text-center">
       <td>{rsh.student_id}</td>
-      <td>{`${rsh.firstname} ${rsh.lastname}`}</td>
+      <td>{rsh.firstname}</td>
+      <td>{rsh.lastname}</td>
       <td>{rsh.categorie_room.room}</td>
       <td>{rsh.email}</td>
       <td>{rsh.tel}</td>

@@ -9,7 +9,7 @@ const CategorieSelected = ({ roomSelected, roomData, selectorHandler }) => {
         <select value={roomSelected} onChange={(e) => selectorHandler(e)}>
           {roomData.map((item, idx) => (
             <option key={item.id} value={item.id}>
-              {item.room}{" "}
+               {`${item.room} (${item.year.substring(2)})`}
             </option>
           ))}
         </select>

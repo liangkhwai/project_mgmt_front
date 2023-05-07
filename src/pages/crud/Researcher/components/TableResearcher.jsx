@@ -27,7 +27,8 @@ const TableResearcher = ({
   isInsertHandler,
   roomSelected,
   roomData,
-  selectorHandler
+  selectorHandler,
+  editSelectedRoom
 }) => {
   const style = {
     position: "absolute",
@@ -47,7 +48,8 @@ const TableResearcher = ({
         <thead>
           <tr>
             <th>รหัสนักศึกษา</th>
-            <th>ชื่อ-นามสกุล</th>
+            <th>ชื่อ</th>
+            <th>นามสกุล</th>
             <th>ห้อง</th>
             <th>อีเมลล์</th>
             <th>เบอร์โทร</th>
@@ -65,6 +67,8 @@ const TableResearcher = ({
                   editFormHandler={editFormHandler}
                   cancelEditFormHandler={cancelEditFormHandler}
                   editFormSubmitHandler={editFormSubmitHandler}
+                  editSelectedRoom={editSelectedRoom}
+                  roomData={roomData}
                 />
               ) : (
                 <ResearcherList

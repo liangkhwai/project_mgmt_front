@@ -16,15 +16,22 @@ const Researcher = () => {
     loaderData.dataResearcherList
   );
   const [rshList, setRshList] = useState(loadedResearcher);
-  console.log(rshList);
   const [editFormData, setEditFormData] = useState({
     student_id: "",
     firstname: "",
+    categorieRoomId: 0,
     lastname: "",
     email: "",
     tel: "",
     grade: "",
   });
+
+  const editSelectedRoom = (e) => {
+    const val = e.target.value;
+
+    setEditFormData((prev) => ({ ...prev, categorieRoomId: val }));
+  };
+
   const [insertFormData, setInsertFormData] = useState({
     student_id: "",
     firstname: "",
@@ -34,8 +41,7 @@ const Researcher = () => {
     grade: "",
   });
 
-  const filterRoomRef = useRef()
-
+  const filterRoomRef = useRef();
 
   const [editRshId, setEditRshId] = useState(null);
   console.log(rshList);
@@ -48,6 +54,7 @@ const Researcher = () => {
       student_id: rsh.student_id,
       firstname: rsh.firstname,
       lastname: rsh.lastname,
+      categorieRoomId: rsh.categorieRoomId,
       email: rsh.email,
       tel: rsh.tel,
       grade: rsh.grade,
@@ -111,6 +118,7 @@ const Researcher = () => {
       student_id: editFormData.student_id,
       firstname: editFormData.firstname,
       lastname: editFormData.lastname,
+      categorieRoomId: editFormData.categorieRoomId,
       email: editFormData.email,
       tel: editFormData.tel,
       grade: editFormData.grade,
@@ -124,17 +132,23 @@ const Researcher = () => {
       credentials: "include",
     })
       .then((response) => {
-        return response.status;
+        return response.json()
       })
-      .then((status) => {
-        console.log(status);
+      .then((data) => {
+        console.log(data);
         const rshTemp = [...rshList];
-
+        const loadedResearcherTmp = [...loadedResearcher]
         const index = rshTemp.findIndex((rsh) => rsh.id === editRshId);
-        rshTemp[index] = editData;
+        rshTemp[index] = data;
+        loadedResearcherTmp[index] = data
+        console.log(index)
+        console.log(rshTemp);
+        console.log(loadedResearcherTmp)
         setRshList(rshTemp);
+        setLoadedResearcher(loadedResearcherTmp)
         setEditRshId(null);
-      });
+      })
+      .catch((err) => console.log(err));
   };
   const isInsertHandler = () => {
     setIsInsert(!isInsert);
@@ -271,7 +285,7 @@ const Researcher = () => {
     setRshList(
       filterVal === "all" ? loaderData.dataResearcherList : filteredRshList
     );
-    filterRoomRef.current.value = "all"
+    filterRoomRef.current.value = "all";
   };
 
   const filterRoomList = (room) => {
@@ -348,6 +362,7 @@ const Researcher = () => {
             roomSelected={roomSelector}
             roomData={roomData}
             selectorHandler={selectorChangeHandler}
+            editSelectedRoom={editSelectedRoom}
           />
         )}
       </div>

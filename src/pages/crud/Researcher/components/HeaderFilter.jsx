@@ -37,7 +37,7 @@ const HeaderFilter = ({
 
               {dataRoomList.map((data, idx) => (
                 <option key={idx} value={data.id}>
-                  {data.room}
+                  {`${data.room}(${data.year.substring(2)})`}
                 </option>
               ))}
             </select>
