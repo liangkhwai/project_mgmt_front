@@ -3,7 +3,7 @@ import HeaderButton from "./HeaderButton";
 import HeaderFilter from "./HeaderFilter";
 import TableCategorieResearcher from "./TableCategorieResearcher";
 
-const HeaderResearcher = ({ setMenu, menu, roomData,filterTypeHandler,filterRoom }) => {
+const HeaderResearcher = ({ setMenu, menu, roomData,filterTypeHandler,filterRoom,filterRoomRef }) => {
  
 
 
@@ -20,6 +20,7 @@ const HeaderResearcher = ({ setMenu, menu, roomData,filterTypeHandler,filterRoom
           dataRoomList={roomData}
           filteredHandler={filterTypeHandler}
           filterRoom={filterRoom}
+          filterRoomRef={filterRoomRef}
         />
       ) : (
         <TableCategorieResearcher dataRoomList={roomData} />

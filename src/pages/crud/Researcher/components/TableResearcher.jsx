@@ -25,6 +25,9 @@ const TableResearcher = ({
   fileSubmitHandler,
   fileInputHandler,
   isInsertHandler,
+  roomSelected,
+  roomData,
+  selectorHandler
 }) => {
   const style = {
     position: "absolute",
@@ -44,8 +47,8 @@ const TableResearcher = ({
         <thead>
           <tr>
             <th>รหัสนักศึกษา</th>
-            <th>ชื่อ</th>
-            <th>นามสกุล</th>
+            <th>ชื่อ-นามสกุล</th>
+            <th>ห้อง</th>
             <th>อีเมลล์</th>
             <th>เบอร์โทร</th>
             <th>เกรดเฉลี่ย</th>
@@ -93,6 +96,9 @@ const TableResearcher = ({
             file={file}
             onClose={closeModalHandler}
             submit={fileSubmitHandler}
+            roomSelected={roomSelected}
+            roomData={roomData}
+            selectorHandler={selectorHandler}
           />
         </Box>
       </Modal>

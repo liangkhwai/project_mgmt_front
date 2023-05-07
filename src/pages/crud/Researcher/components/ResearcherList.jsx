@@ -2,13 +2,13 @@ import React from "react";
 import UpdateButton, { DeleteButton } from "../../../../UI/button";
 
 const ResearcherList = ({ rsh, setEditRshIdHandler, deleteHandler }) => {
-  console.log(rsh.id);
+  console.log(rsh);
 
   return (
     <tr className="text-center">
       <td>{rsh.student_id}</td>
-      <td>{rsh.firstname}</td>
-      <td>{rsh.lastname}</td>
+      <td>{`${rsh.firstname} ${rsh.lastname}`}</td>
+      <td>{rsh.categorie_room.room}</td>
       <td>{rsh.email}</td>
       <td>{rsh.tel}</td>
       <td>{rsh.grade}</td>

@@ -12,7 +12,10 @@ import TableResearcher from "./components/TableResearcher";
 const Researcher = () => {
   const loaderData = useLoaderData();
   const [isInsert, setIsInsert] = useState(false);
-  const [rshList, setRshList] = useState(loaderData.dataResearcherList);
+  const [loadedResearcher, setLoadedResearcher] = useState(
+    loaderData.dataResearcherList
+  );
+  const [rshList, setRshList] = useState(loadedResearcher);
   console.log(rshList);
   const [editFormData, setEditFormData] = useState({
     student_id: "",
@@ -30,6 +33,9 @@ const Researcher = () => {
     tel: "",
     grade: "",
   });
+
+  const filterRoomRef = useRef()
+
 
   const [editRshId, setEditRshId] = useState(null);
   console.log(rshList);
@@ -192,13 +198,15 @@ const Researcher = () => {
     e.preventDefault();
     const formData = new FormData();
     console.log(file);
-    await formData.append("file", file);
+    formData.append("file", file);
+    formData.append("selector", roomSelector);
     console.log(Object.fromEntries(formData));
     const response = await fetch(
       "http://localhost:8080/researcher/insertXlsx",
       {
         method: "post",
         body: formData,
+        // { formData: formData, roomSelector: roomSelector },
         headers: {
           // "Content-Type":
           //   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -212,11 +220,13 @@ const Researcher = () => {
         return data;
       })
       .then((data) => {
+        console.log(data);
         fileRef.current.value = null;
 
         setModalOpen(false);
         setRshList((prev) => [...prev, ...data.data]);
-        console.table(data.data);
+        setLoadedResearcher((prev) => [...prev, ...data.data]);
+        // console.table(data.data);
       });
   };
 
@@ -237,12 +247,14 @@ const Researcher = () => {
   const [roomData, setRoomData] = useState(loaderData.dataRoomList);
   const [categories, setCategories] = useState(roomData);
   const [typeFilter, setTypeFilter] = useState("all");
+  const [roomSelector, setRoomSelector] = useState(1);
 
   const filterTypeRoom = (filterVal) => {
     // const room = [...roomData];
     // const filteredRoom = room.filter((room) => room.type === filterVal);
 
-    setTypeFilter(filterVal)
+    const researcherList = [...loadedResearcher];
+    setTypeFilter(filterVal);
 
     console.log(filterVal);
     const type = filterVal;
@@ -251,34 +263,48 @@ const Researcher = () => {
       (categorie) => categorie.type === type
     );
 
-    setCategories(
-      type === "all" ? loaderData.dataRoomList : filteredRoom
+    setCategories(type === "all" ? loaderData.dataRoomList : filteredRoom);
+    const filteredRshList = researcherList.filter(
+      (rsh) => rsh.categorie_room.type === filterVal
     );
-    const researcherList = [...loaderData.dataResearcherList]
-    const filteredRshList = researcherList.filter((rsh)=> rsh.categorie_room.type === filterVal)
-    console.log("filted "+filteredRshList)
-    setRshList(filterVal === "all" ? loaderData.dataResearcherList : filteredRshList)
-
+    console.log("filted " + filteredRshList);
+    setRshList(
+      filterVal === "all" ? loaderData.dataResearcherList : filteredRshList
+    );
+    filterRoomRef.current.value = "all"
   };
 
   const filterRoomList = (room) => {
     console.log(room);
 
-    const researcherList = [...loaderData.dataResearcherList];
-    console.log(researcherList[0]);
+    const researcherList = [...loadedResearcher];
+    console.log(researcherList);
 
     const filteredRshList = researcherList.filter(
       (researcherList) => researcherList.categorieRoomId === Number(room)
     );
 
     const filteredAllList = researcherList.filter(
-      (rsh)=> rsh.categorie_room.type === typeFilter
-    )
+      (rsh) => rsh.categorie_room.type === typeFilter
+    );
 
     console.log(filteredRshList);
     setRshList(
-      room === "all" ? typeFilter === "all" ? researcherList : filteredAllList : filteredRshList
+      room === "all"
+        ? typeFilter === "all"
+          ? researcherList
+          : filteredAllList
+        : filteredRshList
     );
+    setRoomSelector(room);
+  };
+
+  const selectorChangeHandler = (e) => {
+    let selected = e.target.value;
+    if (selected === null || selected === "") {
+      selected = 1;
+    }
+    setRoomSelector(selected);
   };
 
   return (
@@ -291,6 +317,7 @@ const Researcher = () => {
         roomData={categories}
         filterTypeHandler={filterTypeRoom}
         filterRoom={filterRoomList}
+        filterRoomRef={filterRoomRef}
       />
 
       <div className="pb-20"></div>
@@ -318,6 +345,9 @@ const Researcher = () => {
             fileSubmitHandler={fileSubmitHandler}
             fileInputHandler={fileInputHandler}
             isInsertHandler={isInsertHandler}
+            roomSelected={roomSelector}
+            roomData={roomData}
+            selectorHandler={selectorChangeHandler}
           />
         )}
       </div>

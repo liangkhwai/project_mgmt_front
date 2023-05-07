@@ -1,6 +1,11 @@
 import React from "react";
 
-const HeaderFilter = ({ dataRoomList, filteredHandler, filterRoom }) => {
+const HeaderFilter = ({
+  dataRoomList,
+  filteredHandler,
+  filterRoom,
+  filterRoomRef,
+}) => {
   return (
     <div className="w-full bg-gray-50 border  shadow-lg rounded-b-2xl rounded-tr-2xl ">
       <div className="m-5">
@@ -22,6 +27,7 @@ const HeaderFilter = ({ dataRoomList, filteredHandler, filterRoom }) => {
           <div className="flex justify-center gap-6 w-full text-center py-4 border border-gray-300 rounded-b-md">
             <div>กลุ่มนักศึกษา :</div>
             <select
+              ref={filterRoomRef}
               className="rounded w-40 text-center"
               onChange={(e) => filterRoom(e.target.value)}
             >

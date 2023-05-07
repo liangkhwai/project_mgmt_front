@@ -1,6 +1,14 @@
 import React from "react";
 import xlsxIcon from "../../../../assets/xlsx_icon.svg";
-const FileDetail = ({ file, onClose, submit }) => {
+import CategorieSelected from "./CategorieSelected";
+const FileDetail = ({
+  file,
+  onClose,
+  submit,
+  roomSelected,
+  roomData,
+  selectorHandler,
+}) => {
   console.log(file);
   return (
     <div>
@@ -8,6 +16,13 @@ const FileDetail = ({ file, onClose, submit }) => {
         <img src={xlsxIcon} alt="" />
       </div>
       <div className="my-5 text-center">{file ? file.name : null}</div>
+      <div className="my-5">
+        <CategorieSelected
+          roomSelected={roomSelected}
+          roomData={roomData}
+          selectorHandler={selectorHandler}
+        />
+      </div>
 
       <div className="flex justify-end gap-1">
         <button
