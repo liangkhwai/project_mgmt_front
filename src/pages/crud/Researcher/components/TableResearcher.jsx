@@ -28,7 +28,9 @@ const TableResearcher = ({
   roomSelected,
   roomData,
   selectorHandler,
-  editSelectedRoom
+  editSelectedRoom,
+  insertSelectedRoom,
+  insertSelectorRoom
 }) => {
   const style = {
     position: "absolute",
@@ -84,6 +86,10 @@ const TableResearcher = ({
               cancelInsertHadnler={cancelInsertHadnler}
               insertFormHandler={insertFormHandler}
               insertFormSubmitHandler={insertFormSubmitHandler}
+              insertSelectedRoom={insertSelectedRoom}
+              roomData={roomData}
+              roomSelected={roomSelected}
+              insertSelectorRoom={insertSelectorRoom}
             />
           ) : null}
         </tbody>

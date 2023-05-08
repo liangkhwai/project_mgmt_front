@@ -1,6 +1,14 @@
 import React from "react";
 
-const InsertResearcherRow = ({ cancelInsertHadnler, insertFormHandler,insertFormSubmitHandler }) => {
+const InsertResearcherRow = ({
+  cancelInsertHadnler,
+  insertFormHandler,
+  insertFormSubmitHandler,
+  insertSelectedRoom,
+  roomData,
+  roomSelected,
+  insertSelectorRoom,
+}) => {
   return (
     <tr>
       <td>
@@ -34,6 +42,20 @@ const InsertResearcherRow = ({ cancelInsertHadnler, insertFormHandler,insertForm
         />
       </td>
       <td>
+        <select
+          name=""
+          id=""
+          onChange={(e) => insertSelectedRoom(e)}
+          value={insertSelectorRoom}
+        >
+          {roomData.map((data, idx) => (
+            <option key={idx} value={data.id}>
+              {`${data.room} (${data.year.substring(2)})`}
+            </option>
+          ))}
+        </select>
+      </td>
+      <td>
         <input
           className="w-full"
           type="text"
@@ -64,7 +86,7 @@ const InsertResearcherRow = ({ cancelInsertHadnler, insertFormHandler,insertForm
         />
       </td>
       <td>
-        <button onClick={()=>insertFormSubmitHandler()}>เพิ่ม</button>
+        <button onClick={() => insertFormSubmitHandler()}>เพิ่ม</button>
       </td>
       <td>
         <button onClick={() => cancelInsertHadnler()}>ยกเลิก</button>

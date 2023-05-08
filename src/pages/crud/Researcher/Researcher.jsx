@@ -29,13 +29,21 @@ const Researcher = () => {
   const editSelectedRoom = (e) => {
     const val = e.target.value;
 
-    setEditFormData((prev) => ({ ...prev, categorieRoomId: val }));
+    setEditFormData((prev) => ({ ...prev, categorieRoomId: Number(val) }));
+  };
+
+  const [insertSelectorRoom, setInsertSelectorRoom] = useState();
+  const insertSelectedRoom = (e) => {
+    const val = e.target.value;
+    setInsertSelectorRoom(val);
+    setInsertFormData((prev) => ({ ...prev, categorieRoomId: val }));
   };
 
   const [insertFormData, setInsertFormData] = useState({
     student_id: "",
     firstname: "",
     lastname: "",
+    categorieRoomId: 0,
     email: "",
     tel: "",
     grade: "",
@@ -82,6 +90,7 @@ const Researcher = () => {
       student_id: insertFormData.student_id,
       firstname: insertFormData.firstname,
       lastname: insertFormData.lastname,
+      categorieRoomId: insertFormData.categorieRoomId,
       email: insertFormData.email,
       tel: insertFormData.tel,
       grade: insertFormData.grade,
@@ -102,9 +111,10 @@ const Researcher = () => {
         }
       })
       .then((data) => {
-        insertData.id = data.id;
+        // insertData.id = data.id;
         console.log("data = " + data);
-        setRshList((prev) => [...prev, insertData]);
+        setRshList((prev) => [...prev, data]);
+        setLoadedResearcher((prev) => [...prev, data]);
         setIsInsert(false);
       })
       .catch((err) => {
@@ -132,20 +142,49 @@ const Researcher = () => {
       credentials: "include",
     })
       .then((response) => {
-        return response.json()
+        return response.json();
       })
       .then((data) => {
         console.log(data);
         const rshTemp = [...rshList];
-        const loadedResearcherTmp = [...loadedResearcher]
+        const loadedResearcherTmp = [...loadedResearcher];
+        console.log(editRshId)
         const index = rshTemp.findIndex((rsh) => rsh.id === editRshId);
+
+        // console.table(
+        //   rshTemp[index].categorieRoomId,
+        //   editFormData.categorieRoomId
+        // );
+
+        // if (
+        //   rshTemp[index].categorieRoomId ===
+        //   Number(editFormData.categorieRoomId)
+        // ) {
+        //   rshTemp[index] = data;
+        //   loadedResearcherTmp[index] = data;
+        //   setRshList(rshTemp);
+          // setLoadedResearcher(loadedResearcherTmp);
+
+        //   console.log(true);
+        // } else {
+        //   console.log(false);
+        //   const editRoomChangeFilter = rshTemp.filter(
+        //     (item, idx) => item.id !== editRshId
+        //   );
+        //   setRshList(editRoomChangeFilter)
+        //   setLoadedResearcher(editRoomChangeFilter);
+
+        // }
         rshTemp[index] = data;
-        loadedResearcherTmp[index] = data
-        console.log(index)
-        console.log(rshTemp);
-        console.log(loadedResearcherTmp)
+        loadedResearcherTmp[index] = data;
+        // console.log(index);
+        // console.log(rshTemp);
+        // console.log(loadedResearcherTmp);
+        console.log(rshTemp[index])
+        console.log(loadedResearcherTmp[index])
         setRshList(rshTemp);
-        setLoadedResearcher(loadedResearcherTmp)
+        setLoadedResearcher(loadedResearcherTmp);
+
         setEditRshId(null);
       })
       .catch((err) => console.log(err));
@@ -268,6 +307,7 @@ const Researcher = () => {
     // const filteredRoom = room.filter((room) => room.type === filterVal);
 
     const researcherList = [...loadedResearcher];
+    console.log(researcherList)
     setTypeFilter(filterVal);
 
     console.log(filterVal);
@@ -283,7 +323,7 @@ const Researcher = () => {
     );
     console.log("filted " + filteredRshList);
     setRshList(
-      filterVal === "all" ? loaderData.dataResearcherList : filteredRshList
+      filterVal === "all" ? researcherList : filteredRshList
     );
     filterRoomRef.current.value = "all";
   };
@@ -363,6 +403,8 @@ const Researcher = () => {
             roomData={roomData}
             selectorHandler={selectorChangeHandler}
             editSelectedRoom={editSelectedRoom}
+            insertSelectedRoom={insertSelectedRoom}
+            insertSelectorRoom={insertSelectorRoom}
           />
         )}
       </div>
