@@ -15,6 +15,8 @@ const Researcher = () => {
   const [loadedResearcher, setLoadedResearcher] = useState(
     loaderData.dataResearcherList
   );
+  const [roomData, setRoomData] = useState(loaderData.dataRoomList);
+
   const [rshList, setRshList] = useState(loadedResearcher);
   const [editFormData, setEditFormData] = useState({
     student_id: "",
@@ -33,6 +35,8 @@ const Researcher = () => {
   };
 
   const [insertSelectorRoom, setInsertSelectorRoom] = useState();
+  const [insertMenuRoom, setInsertMenuRoom] = useState(roomData);
+
   const insertSelectedRoom = (e) => {
     const val = e.target.value;
     setInsertSelectorRoom(val);
@@ -309,7 +313,6 @@ const Researcher = () => {
     console.log(menu);
   };
 
-  const [roomData, setRoomData] = useState(loaderData.dataRoomList);
   const [categories, setCategories] = useState(roomData);
   const [typeFilter, setTypeFilter] = useState("all");
   const [roomSelector, setRoomSelector] = useState(1);
@@ -336,31 +339,63 @@ const Researcher = () => {
     console.log("filted " + filteredRshList);
     setRshList(filterVal === "all" ? researcherList : filteredRshList);
     filterRoomRef.current.value = "all";
+
+    setInsertMenuRoom(type === "all" ? loaderData.dataRoomList : filteredRoom);
   };
 
   const filterRoomList = (room) => {
     console.log(room);
+    const parseRoom = parseInt(room)
 
     const researcherList = [...loadedResearcher];
-    console.log(researcherList);
-    console.log(rshList);
+    const roomDataTmp = [...roomData];
+    // console.log(roomDataTmp);
+    // console.log(typeFilter);
+    // console.log(researcherList);
+    // console.log(rshList);
 
-    const filteredRshList = researcherList.filter(
+    const filteredRoomScope = researcherList.filter(
       (researcherList) => researcherList.categorieRoomId === Number(room)
     );
 
-    const filteredAllList = researcherList.filter(
+    const filteredAllListTypeScope = researcherList.filter(
       (rsh) => rsh.categorie_room.type === typeFilter
     );
 
-    console.log(filteredRshList);
+    // const insertFilteredRoom= roomData.filter((room,idx) =>  )
+
+    const insertFilteredRoomType = roomDataTmp.filter(
+      (room, idx) => room.type === typeFilter
+    );
+    console.log(roomDataTmp);
+    const insertFilteredRoomScope = roomDataTmp.filter(
+      (room, idx) => Number(room.id) === parseRoom
+    );
+
+    console.log(typeof parseRoom)
+    roomDataTmp.map((room,idx) => console.log(typeof room.id))
+
+    // console.log(filteredRoomScope);
+    console.log(insertFilteredRoomType);
+    console.log(insertFilteredRoomScope);
     setRshList(
       room === "all"
         ? typeFilter === "all"
           ? researcherList
-          : filteredAllList
-        : filteredRshList
+          : filteredAllListTypeScope
+        : filteredRoomScope
     );
+
+    // ยังไม่เสร็จ
+
+    setInsertMenuRoom(
+      room === "all"
+        ? typeFilter === "all"
+          ? roomDataTmp
+          : insertFilteredRoomType
+        : insertFilteredRoomScope
+    );
+
     setRoomSelector(room);
   };
 
@@ -416,6 +451,7 @@ const Researcher = () => {
             editSelectedRoom={editSelectedRoom}
             insertSelectedRoom={insertSelectedRoom}
             insertSelectorRoom={insertSelectorRoom}
+            insertMenuRoom={insertMenuRoom}
           />
         )}
       </div>

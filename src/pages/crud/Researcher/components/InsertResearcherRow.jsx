@@ -8,6 +8,7 @@ const InsertResearcherRow = ({
   roomData,
   roomSelected,
   insertSelectorRoom,
+  insertMenuRoom
 }) => {
   return (
     <tr>
@@ -48,7 +49,7 @@ const InsertResearcherRow = ({
           onChange={(e) => insertSelectedRoom(e)}
           value={insertSelectorRoom}
         >
-          {roomData.map((data, idx) => (
+          {insertMenuRoom.map((data, idx) => (
             <option key={idx} value={data.id}>
               {`${data.room} (${data.year.substring(2)})`}
             </option>
