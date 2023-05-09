@@ -8,7 +8,7 @@ const Dashboard = () => {
 export default Dashboard;
 
 export function checkAuth() {
-  console.log("start check");
+  // console.log("start check");
   const response = fetch("http://localhost:8080/auth/check", {
     method: "get",
   });

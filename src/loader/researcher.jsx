@@ -4,7 +4,7 @@ export async function getList() {
   });
 
   const dataResearcherList = await researcherList.json();
-  console.log(dataResearcherList);
+  // console.log(dataResearcherList);
 
   const roomList = await fetch('http://localhost:8080/categories/list',{
     method:'get'

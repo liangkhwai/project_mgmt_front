@@ -8,15 +8,15 @@ export const AuthContextProvider = (props) => {
   const [username, setUsername] = useState();
   const checkLogged = async () => {
     const res = await checkAuthTF();
-    console.log(res);
+    // console.log(res);
     if (res === true) {
-      console.log("yes it is");
+      // console.log("yes it is");
       const isLogged = localStorage.getItem("username");
       if (isLogged) {
         setIsLoggedIn(true);
       }
     } else {
-      console.log("No token for route");
+      // console.log("No token for route");
       setIsLoggedIn(false);
       localStorage.removeItem("username");
     }
@@ -55,7 +55,7 @@ export const AuthContextProvider = (props) => {
     });
     if (response.status === 200) {
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       localStorage.clear();
       setIsLoggedIn(false);
       return true;

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment,useState } from "react";
 import EditRshRow from "./EditRshRow";
 import ResearcherList from "./ResearcherList";
 import InsertResearcherRow from "./InsertResearcherRow";
@@ -43,6 +43,8 @@ const TableResearcher = ({
     boxShadow: 24,
     p: 4,
   };
+
+   
 
   return (
     <div className="pt-10 mx-10">

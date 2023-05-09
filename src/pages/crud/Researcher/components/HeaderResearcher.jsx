@@ -3,15 +3,14 @@ import HeaderButton from "./HeaderButton";
 import HeaderFilter from "./HeaderFilter";
 import TableCategorieResearcher from "./TableCategorieResearcher";
 
-const HeaderResearcher = ({ setMenu, menu, roomData,filterTypeHandler,filterRoom,filterRoomRef }) => {
- 
-
-
-  const test = "BIS3N1"
-  const result = test.substring(0,-3)
-  console.log(result)
-
-
+const HeaderResearcher = ({
+  setMenu,
+  menu,
+  roomData,
+  filterTypeHandler,
+  filterRoom,
+  filterRoomRef,
+}) => {
   return (
     <div className="">
       <HeaderButton setMenu={setMenu} menu={menu} />

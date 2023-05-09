@@ -19,7 +19,7 @@ const Researcher = () => {
   const [editFormData, setEditFormData] = useState({
     student_id: "",
     firstname: "",
-    categorieRoomId: 0,
+    categorieRoomId: 1,
     lastname: "",
     email: "",
     tel: "",
@@ -43,7 +43,7 @@ const Researcher = () => {
     student_id: "",
     firstname: "",
     lastname: "",
-    categorieRoomId: 0,
+    categorieRoomId: 1,
     email: "",
     tel: "",
     grade: "",
@@ -52,7 +52,7 @@ const Researcher = () => {
   const filterRoomRef = useRef();
 
   const [editRshId, setEditRshId] = useState(null);
-  console.log(rshList);
+  // console.log(rshList);
   const setEditRshIdHandler = (id, rsh) => {
     console.log(id);
     console.log(rsh);
@@ -133,7 +133,7 @@ const Researcher = () => {
       tel: editFormData.tel,
       grade: editFormData.grade,
     };
-    console.log(editData);
+    // console.log(editData);
 
     const response = await fetch("http://localhost:8080/researcher/update", {
       method: "put",
@@ -145,11 +145,20 @@ const Researcher = () => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
-        const rshTemp = [...rshList];
-        const loadedResearcherTmp = [...loadedResearcher];
-        console.log(editRshId)
+        // console.log(data);
+        console.log("it's now ");
+        console.log(rshList);
+        console.log(loadedResearcher);
+        const rshTemp = rshList;
+        const loadedResearcherTmpp = loadedResearcher;
+        console.log("clone now");
+        console.log(rshTemp);
+        // console.log(loadedResearcherTmpp);
+        // console.log(editRshId);
         const index = rshTemp.findIndex((rsh) => rsh.id === editRshId);
+        const indexLoaded = loadedResearcherTmpp.findIndex(
+          (rsh) => rsh.id === editRshId
+        );
 
         // console.table(
         //   rshTemp[index].categorieRoomId,
@@ -163,7 +172,7 @@ const Researcher = () => {
         //   rshTemp[index] = data;
         //   loadedResearcherTmp[index] = data;
         //   setRshList(rshTemp);
-          // setLoadedResearcher(loadedResearcherTmp);
+        // setLoadedResearcher(loadedResearcherTmp);
 
         //   console.log(true);
         // } else {
@@ -176,14 +185,16 @@ const Researcher = () => {
 
         // }
         rshTemp[index] = data;
-        loadedResearcherTmp[index] = data;
+        // console.log(loadedResearcherTmpp);
+
+        loadedResearcherTmpp[indexLoaded] = data;
+        // console.log(loadedResearcherTmpp);
         // console.log(index);
         // console.log(rshTemp);
-        // console.log(loadedResearcherTmp);
-        console.log(rshTemp[index])
-        console.log(loadedResearcherTmp[index])
+        console.log(rshTemp[index]);
+        // console.log(loadedResearcherTmpp[index]);
         setRshList(rshTemp);
-        setLoadedResearcher(loadedResearcherTmp);
+        setLoadedResearcher(loadedResearcherTmpp);
 
         setEditRshId(null);
       })
@@ -214,8 +225,11 @@ const Researcher = () => {
       })
       .then((res) => {
         const rshTemp = [...rshList];
+        const loadedTemp = [...loadedResearcher];
         const dataTemp = rshTemp.filter((i) => i.id !== id);
+        const loadedDataTemp = loadedTemp.filter((i) => i.id !== id);
         console.log(dataTemp);
+        setLoadedResearcher(loadedDataTemp);
         setRshList(dataTemp);
       })
       .catch((err) => {
@@ -225,9 +239,7 @@ const Researcher = () => {
 
   const [file, setFile] = useState(null);
   const fileRef = React.useRef();
-  useEffect(() => {
-    console.log(fileRef.current.value);
-  }, [fileRef]);
+
   const fileInputHandler = () => {
     fileRef.current.click();
   };
@@ -307,7 +319,7 @@ const Researcher = () => {
     // const filteredRoom = room.filter((room) => room.type === filterVal);
 
     const researcherList = [...loadedResearcher];
-    console.log(researcherList)
+    console.log(researcherList);
     setTypeFilter(filterVal);
 
     console.log(filterVal);
@@ -322,9 +334,7 @@ const Researcher = () => {
       (rsh) => rsh.categorie_room.type === filterVal
     );
     console.log("filted " + filteredRshList);
-    setRshList(
-      filterVal === "all" ? researcherList : filteredRshList
-    );
+    setRshList(filterVal === "all" ? researcherList : filteredRshList);
     filterRoomRef.current.value = "all";
   };
 
@@ -333,6 +343,7 @@ const Researcher = () => {
 
     const researcherList = [...loadedResearcher];
     console.log(researcherList);
+    console.log(rshList);
 
     const filteredRshList = researcherList.filter(
       (researcherList) => researcherList.categorieRoomId === Number(room)

@@ -2,7 +2,7 @@ import React from "react";
 import UpdateButton, { DeleteButton } from "../../../../UI/button";
 
 const ResearcherList = ({ rsh, setEditRshIdHandler, deleteHandler }) => {
-  console.log(rsh);
+  // console.log(rsh);
 
   return (
     <tr className="text-center">
