@@ -121,6 +121,67 @@ const Thesis = () => {
             </button>
           </div>
         </div>
+
+        <div className="">
+          <div className="text-4xl my-3 text-blue-800 font-normal">
+            รายการปริญญานิพนธ์
+          </div>
+          <div className="w-96 mb-7">
+            {/* 👇️ basic horizontal line */}
+            <hr />
+
+            {/* 👇️ horizontal line with text */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <div
+                style={{ flex: 1, height: "2.5px", backgroundColor: "#1976D2" }}
+              />
+            </div>
+          </div>
+          <div className="text-sm font-semibold text-blue-800 flex  text-start mb-2">
+            <div className="w-52 ml-10 flex-grow">ชื่อเรื่อง</div>
+            <div className="w-52">ปีการศึกษา</div>
+            <div className="mr-10 ">ดาวน์โหลด</div>
+          </div>
+          <div className="h-32 flex flex-col justify-center rounded-2xl bg-white border mb-10 shadow-md ">
+            <div className="text-start text-xs ml-10 ">
+              <div className="text-xs font-semibold text-blue-800 flex  text-start  justify-center">
+                <div className="flex-grow">
+                  ระบบจัดการข้อมูลโครงงานทางเทคโนโลธุรกิจดิจิทัล กรณีศึกษา
+                  คณะบริหารธุรกิจและสารสนเทศ สาขาเทคโนโลยีธุรกิจดิจิทัล{" "}
+                </div>
+                <div className="w-52 text-lg ">2566</div>
+                <div className="mr-10 ">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-8 h-8 mr-5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div>
+                โดย ชนกนันท์ หิรัญนุเคราะห์, หทัยชนก ศิริกุล และ ศุภวัฒน์
+                ฝัดวิเศษ
+              </div>
+              <div>อาจารย์ที่ปรึกษา : อาจารย์ศราวุธ ซื่อวุฒิกุล</div>
+            </div>
+          </div>
+        </div>
+        
       </div>
     </div>
   );
