@@ -15,9 +15,9 @@ const Researcher = () => {
   const [loadedResearcher, setLoadedResearcher] = useState(
     loaderData.dataResearcherList
   );
+  const [rshList, setRshList] = useState(loadedResearcher);
   const [roomData, setRoomData] = useState(loaderData.dataRoomList);
 
-  const [rshList, setRshList] = useState(loadedResearcher);
   const [editFormData, setEditFormData] = useState({
     student_id: "",
     firstname: "",
@@ -308,9 +308,10 @@ const Researcher = () => {
   };
 
   const [menu, setMenu] = useState("filter");
-  const HeaderMenuChangeHandler = () => {
-    menu === "filter" ? setMenu("addcategories") : setMenu("filter");
-    console.log(menu);
+  const HeaderMenuChangeHandler = (val) => {
+    val === "filter" ? setMenu("filter") : setMenu("addcategories");
+    // val === "addcategories" && setRshList(loadedResearcher)
+    // console.log(menu);
   };
 
   const [categories, setCategories] = useState(roomData);
@@ -412,12 +413,18 @@ const Researcher = () => {
       <h1 className="text-3xl my-10">ผู้วิจัย</h1>
 
       <HeaderResearcher
+      rshList={rshList}
+      setRshList={setRshList}
         setMenu={HeaderMenuChangeHandler}
         menu={menu}
         roomData={categories}
+        defaultRoomData= {roomData}
+        setRoomData={setRoomData}
         filterTypeHandler={filterTypeRoom}
         filterRoom={filterRoomList}
         filterRoomRef={filterRoomRef}
+        loadedResearcher={loadedResearcher}
+        setLoadedResearcher={setLoadedResearcher}
       />
 
       <div className="pb-20"></div>
@@ -425,7 +432,9 @@ const Researcher = () => {
       <div className="bg-white rounded-md ">
         {menu === "filter" && (
           <TableResearcher
+          loadedResearcher={loadedResearcher}
             rshList={rshList}
+            setRshList={setRshList}
             editRshId={editRshId}
             editFormData={editFormData}
             editFormHandler={editFormHandler}

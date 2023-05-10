@@ -1,8 +1,8 @@
 import React from "react";
 
 const HeaderButton = ({ setMenu, menu }) => {
-  const clickHandler = () => {
-    setMenu();
+  const clickHandler = (val) => {
+    setMenu(val);
   };
 
   let bg1 = "";
@@ -19,13 +19,13 @@ const HeaderButton = ({ setMenu, menu }) => {
     <div className="flex ">
       <button
         className={` px-10 py-2  rounded-t-md ${bg1}`}
-        onClick={() => clickHandler()}
+        onClick={() => clickHandler("filter")}
       >
         เรียกดูข้อมูล
       </button>
       <button
         className={`px-10 py-2   rounded-t-md ${bg2}`}
-        onClick={() => clickHandler()}
+        onClick={() => clickHandler("addcategories")}
       >
         เพื่อหมวดหมู่นักศึกษา
       </button>

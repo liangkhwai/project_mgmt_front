@@ -1,11 +1,11 @@
 export default function UpdateButton(props) {
-  const handleClick = () => {
+  const handleClick = (e) => {
     props.onClick();
   };
   return (
     <button
       className="bg-yellow-300 px-3 py-1 rounded-xl"
-      onClick={handleClick}
+      onClick={(e)=>handleClick(e)}
     >
       {props.children}
     </button>

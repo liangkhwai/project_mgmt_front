@@ -7,9 +7,15 @@ const HeaderResearcher = ({
   setMenu,
   menu,
   roomData,
+  setRoomData,
   filterTypeHandler,
   filterRoom,
   filterRoomRef,
+  setRshList,
+  rshList,
+  loadedResearcher,
+  defaultRoomData,
+  setLoadedResearcher,
 }) => {
   return (
     <div className="">
@@ -22,7 +28,14 @@ const HeaderResearcher = ({
           filterRoomRef={filterRoomRef}
         />
       ) : (
-        <TableCategorieResearcher dataRoomList={roomData} />
+        <TableCategorieResearcher
+          dataRoomList={defaultRoomData}
+          setRoomData={setRoomData}
+          setRshList={setRshList}
+          rshList={rshList}
+          loadedResearcher={loadedResearcher}
+          setLoadedResearcher={setLoadedResearcher}
+        />
       )}
     </div>
   );
