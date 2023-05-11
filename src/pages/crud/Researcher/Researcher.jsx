@@ -333,7 +333,9 @@ const Researcher = () => {
       (categorie) => categorie.type === type
     );
 
-    setCategories(type === "all" ? loaderData.dataRoomList : filteredRoom);
+    // setCategories(type === "all" ? loaderData.dataRoomList : filteredRoom);
+    setCategories(type === "all" ? categorie : filteredRoom);
+
     const filteredRshList = researcherList.filter(
       (rsh) => rsh.categorie_room.type === filterVal
     );
@@ -341,7 +343,8 @@ const Researcher = () => {
     setRshList(filterVal === "all" ? researcherList : filteredRshList);
     filterRoomRef.current.value = "all";
 
-    setInsertMenuRoom(type === "all" ? loaderData.dataRoomList : filteredRoom);
+    // setInsertMenuRoom(type === "all" ? loaderData.dataRoomList : filteredRoom);
+    setInsertMenuRoom(type === "all" ? categorie : filteredRoom);
   };
 
   const filterRoomList = (room) => {

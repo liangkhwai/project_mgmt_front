@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import UpdateButton, { DeleteButton } from "../../../../UI/button";
-const TableCategorieRow = ({ data, getRoomId }) => {
+const TableCategorieRow = ({ data, getRoomId,deleteFormDataHandler }) => {
   
   return (
     <>
@@ -13,7 +13,7 @@ const TableCategorieRow = ({ data, getRoomId }) => {
           <UpdateButton onClick={()=>getRoomId(data)}>แก้ไข</UpdateButton>
         </td>
         <td>
-          <DeleteButton>ลบ</DeleteButton>
+          <DeleteButton onClick={()=>deleteFormDataHandler(data.id)}>ลบ</DeleteButton>
           {/* <button className="bg-red-400 rounded-sm px-5 py-1">ลบ</button> */}
         </td>
       </tr>

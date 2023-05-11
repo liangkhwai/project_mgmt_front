@@ -178,6 +178,39 @@ const TableCategorieResearcher = ({
       .catch((err) => console.log(err));
   };
 
+  const deleteFormDataHandler = async (id) => {
+    console.log(id);
+
+    const response = await fetch("http://localhost:8080/categories/delete", {
+      method: "post",
+      body: JSON.stringify({ id: id }),
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+
+        setRoomList(prev=>{
+          return prev.filter((room) => room.id !== id)
+        })
+        setCategories(prev=>{
+          return prev.filter((room) => room.id !== id)
+        })
+        setRoomData(prev=>{
+          return prev.filter((room) => room.id !== id)
+        })
+
+
+
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="bg-white rounded-2xl shadow-lg py-5 px-5 rounded-tl-none">
       <table className="table w-full border">
@@ -205,6 +238,7 @@ const TableCategorieResearcher = ({
                   key={idx}
                   data={data}
                   getRoomId={getRoomId}
+                  deleteFormDataHandler={deleteFormDataHandler}
                 />
               )}
             </Fragment>
