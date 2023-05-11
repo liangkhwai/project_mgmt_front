@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import TableCategorieRow from "./TableCategorieRow";
 import { AddButton } from "../../../../UI/button";
 import EditCategorieRoom from "./EditCategorieRoom";
+import InsertCategorieRow from "./InsertCategorieRow";
 
 const TableCategorieResearcher = ({
   dataRoomList,
@@ -10,6 +11,7 @@ const TableCategorieResearcher = ({
   rshList,
   loadedResearcher,
   setLoadedResearcher,
+  setCategories,
 }) => {
   useEffect(() => {
     setRshList(loadedResearcher);
@@ -25,6 +27,54 @@ const TableCategorieResearcher = ({
     type: "",
     year: "",
   });
+
+  const [isInsert, setIsInsert] = useState(false);
+
+  const [insertFormData, setInsertFormData] = useState({
+    room: "",
+    type: "N",
+    year: "",
+  });
+
+  const isInsertButtonHandler = () => {
+    setIsInsert(!isInsert);
+  };
+
+  const insertFormDataHandler = (e) => {
+    const name = e.target.name;
+    const val = e.target.value;
+    console.log(name, val);
+    setInsertFormData((prev) => ({ ...prev, [name]: val }));
+  };
+
+  const insertFormDataSubmitHandler = async () => {
+    const insertData = {
+      room: insertFormData.room,
+      type: insertFormData.type,
+      year: insertFormData.year,
+    };
+
+    const response = await fetch("http://localhost:8080/categories/insert", {
+      method: "post",
+      body: JSON.stringify(insertData),
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+
+        const roomListTmp = roomList;
+
+        setRoomList((prev) => [...prev, data]);
+        setRoomData((prev) => [...prev, data]);
+        setCategories((prev) => [...prev, data]);
+        setIsInsert(false);
+      })
+      .catch((err) => console.log(err));
+  };
 
   const getRoomId = (data) => {
     console.log(data.id);
@@ -159,11 +209,17 @@ const TableCategorieResearcher = ({
               )}
             </Fragment>
           ))}
-          {/* <TableCategorieRow /> */}
+          {isInsert && (
+            <InsertCategorieRow
+              isInsertButtonHandler={isInsertButtonHandler}
+              insertFormDataHandler={insertFormDataHandler}
+              insertFormDataSubmitHandler={insertFormDataSubmitHandler}
+            />
+          )}
         </tbody>
       </table>
       <div className="flex justify-end">
-        <AddButton>เพิ่มหมวดหมู่</AddButton>
+        <AddButton onClick={isInsertButtonHandler}>เพิ่มหมวดหมู่</AddButton>
       </div>
     </div>
   );

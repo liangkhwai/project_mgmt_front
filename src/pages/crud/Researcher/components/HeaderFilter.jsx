@@ -5,6 +5,7 @@ const HeaderFilter = ({
   filteredHandler,
   filterRoom,
   filterRoomRef,
+  
 }) => {
   return (
     <div className="w-full bg-gray-50 border  shadow-lg rounded-b-2xl rounded-tr-2xl ">

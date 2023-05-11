@@ -6,8 +6,9 @@ import TableCategorieResearcher from "./TableCategorieResearcher";
 const HeaderResearcher = ({
   setMenu,
   menu,
-  roomData,
+  categories,
   setRoomData,
+  setCategories,
   filterTypeHandler,
   filterRoom,
   filterRoomRef,
@@ -22,13 +23,15 @@ const HeaderResearcher = ({
       <HeaderButton setMenu={setMenu} menu={menu} />
       {menu === "filter" ? (
         <HeaderFilter
-          dataRoomList={roomData}
+        setCategories={setCategories}
+          dataRoomList={categories}
           filteredHandler={filterTypeHandler}
           filterRoom={filterRoom}
           filterRoomRef={filterRoomRef}
         />
       ) : (
         <TableCategorieResearcher
+        setCategories={setCategories}
           dataRoomList={defaultRoomData}
           setRoomData={setRoomData}
           setRshList={setRshList}

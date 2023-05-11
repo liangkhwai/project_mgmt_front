@@ -346,7 +346,7 @@ const Researcher = () => {
 
   const filterRoomList = (room) => {
     console.log(room);
-    const parseRoom = parseInt(room)
+    const parseRoom = parseInt(room);
 
     const researcherList = [...loadedResearcher];
     const roomDataTmp = [...roomData];
@@ -373,8 +373,8 @@ const Researcher = () => {
       (room, idx) => Number(room.id) === parseRoom
     );
 
-    console.log(typeof parseRoom)
-    roomDataTmp.map((room,idx) => console.log(typeof room.id))
+    console.log(typeof parseRoom);
+    roomDataTmp.map((room, idx) => console.log(typeof room.id));
 
     // console.log(filteredRoomScope);
     console.log(insertFilteredRoomType);
@@ -413,12 +413,13 @@ const Researcher = () => {
       <h1 className="text-3xl my-10">ผู้วิจัย</h1>
 
       <HeaderResearcher
-      rshList={rshList}
-      setRshList={setRshList}
+        rshList={rshList}
+        setRshList={setRshList}
         setMenu={HeaderMenuChangeHandler}
         menu={menu}
-        roomData={categories}
-        defaultRoomData= {roomData}
+        categories={categories}
+        setCategories={setCategories}
+        defaultRoomData={roomData}
         setRoomData={setRoomData}
         filterTypeHandler={filterTypeRoom}
         filterRoom={filterRoomList}
@@ -432,7 +433,7 @@ const Researcher = () => {
       <div className="bg-white rounded-md ">
         {menu === "filter" && (
           <TableResearcher
-          loadedResearcher={loadedResearcher}
+            loadedResearcher={loadedResearcher}
             rshList={rshList}
             setRshList={setRshList}
             editRshId={editRshId}
