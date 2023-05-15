@@ -1,4 +1,4 @@
-import React, { Fragment,useEffect,useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import EditRshRow from "./EditRshRow";
 import ResearcherList from "./ResearcherList";
 import InsertResearcherRow from "./InsertResearcherRow";
@@ -33,7 +33,7 @@ const TableResearcher = ({
   insertSelectorRoom,
   insertMenuRoom,
   setRshList,
-  loadedResearcher
+  loadedResearcher,
 }) => {
   const style = {
     position: "absolute",
@@ -47,10 +47,9 @@ const TableResearcher = ({
     p: 4,
   };
 
-  useEffect(()=>{
-    setRshList(loadedResearcher)
-  },[])
-   
+  useEffect(() => {
+    setRshList(loadedResearcher);
+  }, []);
 
   return (
     <div className="pt-10 mx-10">

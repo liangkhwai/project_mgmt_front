@@ -5,7 +5,7 @@ const EditCategorieRoom = ({
   data,
   cancelEditForm,
   editFormDataChangeHandler,
-  editFormSubmitHandler
+  editFormSubmitHandler,
 }) => {
   return (
     <>
