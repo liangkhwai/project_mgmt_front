@@ -68,14 +68,25 @@ const TeacherTable = ({ data, setData }) => {
     setEditTchId(null);
   };
 
-  const deleteFormDataHandler = (id) => {
-    const dataTeacherTmp = [...data];
+  const deleteFormDataHandler = async (id) => {
+    const response = await fetch("http://localhost:8080/teachers/delete", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id }),
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        const dataTeacherTmp = [...data];
 
-    const filterDataNotInclude = dataTeacherTmp.filter(
-      (item) => item.id !== id
-    );
-    console.log(filterDataNotInclude);
-    setData(filterDataNotInclude);
+        const filterDataNotInclude = dataTeacherTmp.filter(
+          (item) => item.id !== id
+        );
+        console.log(filterDataNotInclude);
+        setData(filterDataNotInclude);
+      });
   };
 
   return (
