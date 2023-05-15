@@ -55,17 +55,35 @@ const TeacherTable = ({ data, setData }) => {
       });
   };
 
-  const editFormDataSubmitHandler = () => {
-    console.log(data);
-    const dataTeacherTmp = [...data];
+  const editFormDataSubmitHandler = async () => {
+    const editForm = {
+      id: editTchId,
+      prefix: editFormData.prefix,
+      firstname: editFormData.firstname,
+      lastname: editFormData.lastname,
+      email: editFormData.email,
+      tel: editFormData.tel,
+      line_id: editFormData.line_id,
+    };
 
-    const findIndexData = dataTeacherTmp.findIndex(
-      (item) => item.id === editTchId
-    );
-    dataTeacherTmp[findIndexData] = editFormData;
+    const response = await fetch("http://localhost:8080/teachers/update", {
+      method: "put",
+      body: JSON.stringify(editForm),
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        const dataTeacherTmp = [...data];
 
-    setData(dataTeacherTmp);
-    setEditTchId(null);
+        const findIndexData = dataTeacherTmp.findIndex(
+          (item) => item.id === editTchId
+        );
+        dataTeacherTmp[findIndexData] = result;
+
+        setData(dataTeacherTmp);
+        setEditTchId(null);
+      });
   };
 
   const deleteFormDataHandler = async (id) => {
