@@ -30,10 +30,29 @@ const TeacherTable = ({ data, setData }) => {
     setIsInsert(!isInsert);
   };
 
-  const insertFormDataSubmitHandler = () => {
+  const insertFormDataSubmitHandler = async () => {
     console.log(insertFormData);
-    setData((prev) => [...prev, insertFormData]);
-    setIsInsert(false);
+
+    const insertForm = {
+      prefix: insertFormData.prefix,
+      firstname: insertFormData.firstname,
+      lastname: insertFormData.lastname,
+      email: insertFormData.email,
+      tel: insertFormData.tel,
+      line_id: insertFormData.line_id,
+    };
+
+    const response = await fetch("http://localhost:8080/teachers/insert", {
+      method: "post",
+      body: JSON.stringify(insertForm),
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setData((prev) => [...prev, data]);
+        setIsInsert(false);
+      });
   };
 
   const editFormDataSubmitHandler = () => {
