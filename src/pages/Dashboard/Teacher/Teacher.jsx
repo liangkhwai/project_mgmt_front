@@ -16,7 +16,7 @@ const Teacher = () => {
     fetchTeacherlist();
   }, []);
 
-  console.log(teacherLists);
+//   console.log(teacherLists);
   return (
     <div className="mx-10">
       <h1 className="text-3xl my-10">อาจารย์</h1>

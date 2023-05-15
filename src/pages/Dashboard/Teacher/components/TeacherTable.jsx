@@ -1,6 +1,8 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import TeacherRow from "./TeacherRow";
 import EditTeacherRow from "./EditTeacherRow";
+import InsertTeacherButton from "./InsertTeacherButton";
+import InsertTeacherRow from "./InsertTeacherRow";
 
 const TeacherTable = ({ data, setData }) => {
   const [editTchId, setEditTchId] = useState(null);
@@ -12,9 +14,27 @@ const TeacherTable = ({ data, setData }) => {
     email: "",
     line_id: "",
   });
-  
 
+  const [insertFormData, setInsertFormData] = useState({
+    prefix: "",
+    firstname: "",
+    lastname: "",
+    tel: "",
+    email: "",
+    line_id: "",
+  });
 
+  const [isInsert, setIsInsert] = useState(false);
+
+  const cancelInsertRow = () => {
+    setIsInsert(!isInsert);
+  };
+
+  const insertFormDataSubmitHandler = () => {
+    console.log(insertFormData);
+    setData((prev) => [...prev, insertFormData]);
+    setIsInsert(false);
+  };
 
   const editFormDataSubmitHandler = () => {
     console.log(data);
@@ -76,8 +96,18 @@ const TeacherTable = ({ data, setData }) => {
               </Fragment>
             );
           })}
+          {isInsert && (
+            <InsertTeacherRow
+              setInsertFormData={setInsertFormData}
+              cancelInsertRow={cancelInsertRow}
+              insertFormDataSubmitHandler={insertFormDataSubmitHandler}
+            />
+          )}
         </tbody>
       </table>
+      <div className="text-end">
+        <InsertTeacherButton setIsInsert={cancelInsertRow} />
+      </div>
     </div>
   );
 };
