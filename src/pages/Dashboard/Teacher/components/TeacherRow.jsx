@@ -1,7 +1,12 @@
 import React from "react";
 import UpdateButton, { DeleteButton } from "../../../../UI/button";
 
-const TeacherRow = ({ data, setEditId, setEditFormData }) => {
+const TeacherRow = ({
+  data,
+  setEditId,
+  setEditFormData,
+  deleteFormDataHandler,
+}) => {
   const editTchIdHandler = (id, data) => {
     console.log(id);
     setEditId(id);
@@ -22,7 +27,7 @@ const TeacherRow = ({ data, setEditId, setEditFormData }) => {
         </UpdateButton>
       </td>
       <td>
-        <DeleteButton>ลบ</DeleteButton>
+        <DeleteButton onClick={()=>deleteFormDataHandler(data.id)}>ลบ</DeleteButton>
       </td>
     </tr>
   );

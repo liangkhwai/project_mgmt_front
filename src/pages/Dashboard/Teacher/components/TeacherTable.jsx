@@ -12,6 +12,9 @@ const TeacherTable = ({ data, setData }) => {
     email: "",
     line_id: "",
   });
+  
+
+
 
   const editFormDataSubmitHandler = () => {
     console.log(data);
@@ -24,6 +27,16 @@ const TeacherTable = ({ data, setData }) => {
 
     setData(dataTeacherTmp);
     setEditTchId(null);
+  };
+
+  const deleteFormDataHandler = (id) => {
+    const dataTeacherTmp = [...data];
+
+    const filterDataNotInclude = dataTeacherTmp.filter(
+      (item) => item.id !== id
+    );
+    console.log(filterDataNotInclude);
+    setData(filterDataNotInclude);
   };
 
   return (
@@ -57,6 +70,7 @@ const TeacherTable = ({ data, setData }) => {
                     data={data}
                     setEditId={setEditTchId}
                     setEditFormData={setEditFormData}
+                    deleteFormDataHandler={deleteFormDataHandler}
                   />
                 )}
               </Fragment>
