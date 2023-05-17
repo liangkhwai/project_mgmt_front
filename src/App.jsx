@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Landing/Home";
 import Contact from "./pages/Landing/Contact";
-import Login from "./pages/Landing/Login";
+import Login from "./pages/Landing/Login/Login";
 import Landing from "./pages/Layout/Landing/LayoutPublicContent";
 import LayoutManageContent from "./pages/Layout/Dashboard/LayoutDashboard";
 import Dashboard from "./pages/Dashboardd/Dashboard";
