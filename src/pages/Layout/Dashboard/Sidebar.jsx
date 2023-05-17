@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import SimpleBar from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
+import AuthContext from "../../../context/auth";
 const Sidebar = ({ isOpen }) => {
+  const ctx = useContext(AuthContext);
   const maxHeight = window.innerHeight;
   return (
     <div
@@ -36,20 +38,24 @@ const Sidebar = ({ isOpen }) => {
                   </div>
                 </Link>
               </li>
-              <li className="">
-                <Link to="/dashboard/researcher" className="">
-                  <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
-                    รายชื่อผู้วิจัย
-                  </div>
-                </Link>
-              </li>
-              <li className="">
-                <Link to="/dashboard/teacher" className="">
-                  <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
-                    รายชื่ออาจารย์
-                  </div>
-                </Link>
-              </li>
+              {ctx.isTeacher && (
+                <>
+                  <li className="">
+                    <Link to="/dashboard/researcher" className="">
+                      <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
+                        รายชื่อผู้วิจัย
+                      </div>
+                    </Link>
+                  </li>
+                  <li className="">
+                    <Link to="/dashboard/teacher" className="">
+                      <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
+                        รายชื่ออาจารย์
+                      </div>
+                    </Link>
+                  </li>
+                </>
+              )}
               <li className="">
                 <Link to="/dashboard/index" className="">
                   <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">

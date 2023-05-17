@@ -28,12 +28,13 @@ const FormTeacherLogin = () => {
       headers: {
         "Content-Type": "application/json",
       },
-        credentials: "include",
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
+        console.log(data);
         if (data.status === 200) {
+          ctx.setIsTeacherLoginHandler();
           ctx.loginHandler();
           console.log(data.userName);
           ctx.usernameHandler(data.userName);

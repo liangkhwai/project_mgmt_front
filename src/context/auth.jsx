@@ -6,6 +6,12 @@ const AuthContext = React.createContext({});
 export const AuthContextProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState();
+  const [isTeacher, setIsTeacher] = useState(false);
+
+  const setIsTeacherLoginHandler = () => {
+    setIsTeacher(true);
+  };
+
   const checkLogged = async () => {
     const res = await checkAuthTF();
     // console.log(res);
@@ -58,6 +64,7 @@ export const AuthContextProvider = (props) => {
       // console.log(data);
       localStorage.clear();
       setIsLoggedIn(false);
+      setIsTeacher(false)
       return true;
     }
     return false;
@@ -72,6 +79,8 @@ export const AuthContextProvider = (props) => {
         username: username,
         usernameHandler: usernameHandler,
         getUsername,
+        setIsTeacherLoginHandler: setIsTeacherLoginHandler,
+        isTeacher: isTeacher,
       }}
     >
       {props.children}
