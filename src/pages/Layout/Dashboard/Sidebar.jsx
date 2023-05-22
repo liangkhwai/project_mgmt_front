@@ -4,6 +4,8 @@ import logo from "../../../assets/logo.png";
 import SimpleBar from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
 import AuthContext from "../../../context/auth";
+import SidebarTeacher from "./components/SidebarTeacher";
+import SidebarResearcher from "./components/SidebarResearcher";
 const Sidebar = ({ isOpen }) => {
   const ctx = useContext(AuthContext);
   const maxHeight = window.innerHeight;
@@ -31,59 +33,14 @@ const Sidebar = ({ isOpen }) => {
               </Link>
             )}
             <ul>
-              <li className="">
+              {/* <li className="">
                 <Link to="/dashboard" className="">
                   <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
                     Dashboard
                   </div>
                 </Link>
-              </li>
-              {ctx.isTeacher && (
-                <>
-                  <li className="">
-                    <Link to="/dashboard/researcher" className="">
-                      <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
-                        รายชื่อผู้วิจัย
-                      </div>
-                    </Link>
-                  </li>
-                  <li className="">
-                    <Link to="/dashboard/teacher" className="">
-                      <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
-                        รายชื่ออาจารย์
-                      </div>
-                    </Link>
-                  </li>
-                </>
-              )}
-              <li className="">
-                <Link to="/dashboard/index" className="">
-                  <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
-                    Dashboard
-                  </div>
-                </Link>
-              </li>
-              <li className="">
-                <Link to="/dashboard/index" className="">
-                  <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
-                    Dashboard
-                  </div>
-                </Link>
-              </li>
-              <li className="">
-                <Link to="/dashboard/index" className="">
-                  <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
-                    Dashboard
-                  </div>
-                </Link>
-              </li>
-              <li className="">
-                <Link to="/dashboard/index" className="">
-                  <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
-                    Dashboard
-                  </div>
-                </Link>
-              </li>
+              </li> */}
+              {ctx.isTeacher ? <SidebarTeacher /> : <SidebarResearcher />}
             </ul>
             {/* <div>d</div>
             <div>d</div>

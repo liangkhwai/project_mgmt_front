@@ -13,6 +13,8 @@ import React from "react";
 import Thesis from "./pages/Landing/Thesis";
 import Faq from "./pages/Landing/Faq";
 import Teacher from "./pages/Dashboard/Teacher/Teacher";
+import Group from "./pages/Dashboard/Group/Group";
+import CreateGroup from "./pages/Dashboard/Group/create_group/CreateGroup";
 const router = createBrowserRouter([
   {
     element: <Landing />,
@@ -55,7 +57,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/teacher",
-        element: <Teacher/>,
+        element: <Teacher />,
+      },
+      {
+        path: "/dashboard/group/create",
+        element: <CreateGroup />,
         // loader: getList,
       },
     ],
