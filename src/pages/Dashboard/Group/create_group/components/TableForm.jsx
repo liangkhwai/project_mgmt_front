@@ -13,8 +13,8 @@ const TableForm = () => {
     console.log(inputRow);
     setInputRow((prev) => {
       console.log(prev);
-      const arr = [...prev]
-      arr.pop()
+      const arr = [...prev];
+      arr.pop();
       console.log(arr);
 
       return arr;
