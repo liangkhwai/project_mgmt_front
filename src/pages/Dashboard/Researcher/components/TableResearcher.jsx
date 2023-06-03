@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import EditRshRow from "./EditRshRow";
 import ResearcherList from "./ResearcherList";
 import InsertResearcherRow from "./InsertResearcherRow";
-import { Modal, Box } from "@mui/material";
+// import { Modal, Box } from "@mui/material";
 import FileDetail from "./FileDetail";
 const TableResearcher = ({
   rshList,
@@ -108,7 +108,7 @@ const TableResearcher = ({
         onChangeCapture={(e) => fileChangeHandler(e)}
         className="hidden"
       />
-      <Modal open={modalOpen} onClose={closeModalHandler}>
+      {/* <Modal open={modalOpen} onClose={closeModalHandler}>
         <Box sx={style}>
           <FileDetail
             file={file}
@@ -119,7 +119,7 @@ const TableResearcher = ({
             selectorHandler={selectorHandler}
           />
         </Box>
-      </Modal>
+      </Modal> */}
       <div className="flex justify-end">
         <button
           className="px-3 py-2 rounded bg-green-500 text-black"

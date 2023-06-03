@@ -5,8 +5,8 @@ import EditRshRow from "./components/EditRshRow";
 import { nanoid } from "nanoid";
 import InsertResearcherRow from "./components/InsertResearcherRow";
 import FileDetail from "./components/FileDetail";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
+// import Modal from "@mui/material/Modal";
+// import Box from "@mui/material/Box";
 import HeaderResearcher from "./components/HeaderResearcher";
 import TableResearcher from "./components/TableResearcher";
 const Researcher = () => {
