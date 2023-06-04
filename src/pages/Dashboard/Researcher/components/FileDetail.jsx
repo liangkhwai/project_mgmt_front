@@ -11,9 +11,11 @@ const FileDetail = ({
 }) => {
   console.log(file);
   return (
-    <div>
-      <div>
-        <img src={xlsxIcon} alt="" />
+    <div className="">
+      <div className="flex justify-center">
+        <div>
+          <img src={xlsxIcon} alt="" width="250px" className="" />
+        </div>
       </div>
       <div className="my-5 text-center">{file ? file.name : null}</div>
       <div className="my-5">

@@ -4,6 +4,7 @@ import ResearcherList from "./ResearcherList";
 import InsertResearcherRow from "./InsertResearcherRow";
 // import { Modal, Box } from "@mui/material";
 import FileDetail from "./FileDetail";
+import ReactModal from "react-modal";
 const TableResearcher = ({
   rshList,
   editRshId,
@@ -35,21 +36,23 @@ const TableResearcher = ({
   setRshList,
   loadedResearcher,
 }) => {
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
-
   useEffect(() => {
     setRshList(loadedResearcher);
   }, []);
+
+  const customStyles = {
+
+    content: {
+      width:"30%",
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+    },
+  };
+  ReactModal.setAppElement("#root");
 
   return (
     <div className="pt-10 mx-10">
@@ -120,6 +123,21 @@ const TableResearcher = ({
           />
         </Box>
       </Modal> */}
+      <ReactModal
+        isOpen={modalOpen}
+        onRequestClose={closeModalHandler}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <FileDetail
+          file={file}
+          onClose={closeModalHandler}
+          submit={fileSubmitHandler}
+          roomSelected={roomSelected}
+          roomData={roomData}
+          selectorHandler={selectorHandler}
+        />
+      </ReactModal>
       <div className="flex justify-end">
         <button
           className="px-3 py-2 rounded bg-green-500 text-black"
