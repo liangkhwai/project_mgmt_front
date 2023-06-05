@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { AddButton } from "../../../../../UI/button";
+import { useCombobox } from "downshift";
+import ComboBox from "./ComboBoxSearcherRsh";
 // import { Autocomplete, TextField } from "@mui/material";
 // import { makeStyles } from "@mui/styles";
 
-const InputForm = ({ setRshList }) => {
-  const [loadedResearcherList, setLoadedResearcherList] = useState([]);
-
-  useEffect(() => {
-    async function fetchRshList() {
-      const res = await fetch("http://localhost:8080/researcher/list", {
-        method: "get",
-        credentials: "include",
-      });
-      const data = await res.json();
-      // console.log(typeof data);
-      setLoadedResearcherList(data);
-    }
-    fetchRshList();
-  }, []);
+const InputForm = ({ setRshList, loadedResearcherList }) => {
+  // const [loadedResearcherList, setLoadedResearcherList] = useState([]);
+  // const [items, setItems] = useState(loadedResearcherList);
+  // const [selectedItem, setSelectedItem] = useState(null);
+  // useEffect(() => {
+  //   async function fetchRshList() {
+  //     const res = await fetch("http://localhost:8080/researcher/list", {
+  //       method: "get",
+  //       credentials: "include",
+  //     });
+  //     const data = await res.json();
+  //     // console.log(typeof data);
+  //     setLoadedResearcherList(data);
+  //   }
+  //   fetchRshList();
+  // }, []);
 
   const [inputValue, setInputValue] = useState({
     student_id: "",
@@ -40,20 +43,6 @@ const InputForm = ({ setRshList }) => {
 
   console.log(loadedResearcherList);
 
-  const rshTemp = loadedResearcherList;
-  const optionsResearcherId = rshTemp.map((item) => item.student_id);
-
-  // const useStyles = makeStyles((theme) => ({
-  //   inputRoot: {
-  //     "& .MuiInputBase-input": {
-  //       "&:focus": {
-  //         boxShadow: "none",
-  //       },
-  //     },
-  //   },
-  // }));
-  // const classes = useStyles();
-
   return (
     <div>
       <div>เพิ่มผู้วิจัยในกลุ่ม</div>
@@ -61,6 +50,8 @@ const InputForm = ({ setRshList }) => {
         <tbody>
           <tr>
             <td>
+              {loadedResearcherList && <ComboBox loadedResearcherList={loadedResearcherList} />}
+              
               {/* <Autocomplete
                 disablePortal
                 classes={{ inputRoot: classes.inputRoot }}

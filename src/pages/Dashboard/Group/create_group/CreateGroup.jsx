@@ -7,6 +7,8 @@ import InputForm from "./components/InputForm.jsx";
 import { AddButton } from "../../../../UI/button.jsx";
 
 const CreateGroup = () => {
+  const [loadedResearcherList, setLoadedResearcherList] = useState([]);
+
   const [rshList, setRshList] = useState([
     {
       student_id: "1",
@@ -17,9 +19,19 @@ const CreateGroup = () => {
       grade: "6",
     },
   ]);
+  useEffect(() => {
+    async function fetchRshList() {
+      const res = await fetch("http://localhost:8080/researcher/list", {
+        method: "get",
+        credentials: "include",
+      });
+      const data = await res.json();
+      // console.log(typeof data);
+      setLoadedResearcherList(data);
+    }
+    fetchRshList();
+  }, []);
 
-
- 
   return (
     <div className="mx-10">
       <Title>สร้างกลุ่มโปรเจค</Title>
@@ -31,9 +43,7 @@ const CreateGroup = () => {
         </div>
         <TableList rshList={rshList} setRshList={setRshList} />
         <div className="pb-10"></div>
-        {rshList.length < 3 && (
-          <InputForm setRshList={setRshList} />
-        )}
+        {rshList.length < 3 && <InputForm setRshList={setRshList} loadedResearcherList={loadedResearcherList} />}
         <div className="text-end pt-5">
           <AddButton> สร้างกลุ่ม และ เชิญผู้วิจัย</AddButton>
         </div>
