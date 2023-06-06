@@ -1,12 +1,14 @@
 import { useCombobox } from "downshift";
-import React, { useState } from "react";
-const ComboBox = ({ loadedResearcherList }) => {
+import React, { useEffect, useState } from "react";
+const ComboBox = ({ loadedResearcherList, selectedItem, setSelectedItem }) => {
   const [items, setItems] = useState(loadedResearcherList);
   const rshTemp = loadedResearcherList;
   console.log(rshTemp);
   console.log(items);
   console.log(loadedResearcherList.length);
-  const [selectedItem, setSelectedItem] = useState(null);
+  // useEffect(() => {
+  //   console.log(selectedItem);
+  // }, [selectedItem]);
   function getBooksFilter(inputValue) {
     const lowerCasedInputValue = inputValue.toLowerCase();
 
@@ -43,13 +45,13 @@ const ComboBox = ({ loadedResearcherList }) => {
   return (
     <div>
       <div className="w-72 flex flex-col gap-1">
-        <label className="w-fit" {...getLabelProps()}>
+        {/* <label className="w-fit" {...getLabelProps()}>
           เลือกนักศึกษา
-        </label>
+        </label> */}
         <div className="flex shadow-sm bg-white gap-0.5">
           <input
             {...getInputProps({})}
-            placeholder="Best book ever"
+            placeholder="รหัสนักศึกษา"
             className="w-full p-1.5"
             onClick={() => setItems(loadedResearcherList)}
           />
@@ -70,7 +72,7 @@ const ComboBox = ({ loadedResearcherList }) => {
         {...getMenuProps()}
       >
         {isOpen &&
-          items.map((item, index) => (
+          items.sort((a, b) => a.id - b.id).map((item, index) => (
             <li
               className={`${highlightedIndex === index && "bg-blue-300"} ${
                 selectedItem === item && "font-bold"
@@ -85,11 +87,6 @@ const ComboBox = ({ loadedResearcherList }) => {
             </li>
           ))}
       </ul>
-      <p className="font-semibold">
-        {selectedItem
-          ? `You have selected ${selectedItem.student_id} by ${selectedItem.firstname}.`
-          : "Select a book!"}
-      </p>
     </div>
   );
 };

@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AddButton } from "../../../../../UI/button";
 import { useCombobox } from "downshift";
 import ComboBox from "./ComboBoxSearcherRsh";
 // import { Autocomplete, TextField } from "@mui/material";
 // import { makeStyles } from "@mui/styles";
 
-const InputForm = ({ setRshList, loadedResearcherList }) => {
+const InputForm = ({
+  setRshList,
+  loadedResearcherList,
+  setLoadedResearcherList,
+}) => {
+  const [selectedItem, setSelectedItem] = useState(null);
+
   // const [loadedResearcherList, setLoadedResearcherList] = useState([]);
   // const [items, setItems] = useState(loadedResearcherList);
   // const [selectedItem, setSelectedItem] = useState(null);
@@ -36,9 +42,20 @@ const InputForm = ({ setRshList, loadedResearcherList }) => {
     setInputValue((prev) => ({ ...prev, [name]: value }));
   };
 
+  const inputRef = useRef([]);
+
   const inputFormSubmitHandler = () => {
     console.log(inputValue);
-    setRshList((prev) => [...prev, { ...inputValue }]);
+    setRshList((prev) => [...prev, { ...selectedItem }]);
+    setLoadedResearcherList((prev) =>
+      prev.filter((item) => item.id !== selectedItem.id)
+    );
+    setSelectedItem(null);
+    // inputRef.current.value = "";
+    console.log(inputRef.current);
+    const allInput = document.querySelectorAll("input.input.w-full");
+    console.log(allInput);
+    console.log(allInput.forEach((item) => (item.value = "")));
   };
 
   console.log(loadedResearcherList);
@@ -50,97 +67,76 @@ const InputForm = ({ setRshList, loadedResearcherList }) => {
         <tbody>
           <tr>
             <td>
-              {loadedResearcherList && <ComboBox loadedResearcherList={loadedResearcherList} />}
-              
-              {/* <Autocomplete
-                disablePortal
-                classes={{ inputRoot: classes.inputRoot }}
-                id="combo-box-demo"
-                // sx={{ width: 300 }}
-                sx={{ width: "150px" }}
-                options={optionsResearcherId}
-                renderInput={(rsh) => (
-                  <TextField {...rsh} label="รหัสนักศึกษา" />
-                )}
-              /> */}
-              {/* <input
-                type="text"
-                className="input w-full"
-                name="student_id"
-                id=""
-                placeholder="รหัสนักศึกษา"
-                onChange={(e) => inputFormChangeHandler(e)}
-              /> */}
+              {loadedResearcherList && (
+                <ComboBox
+                  loadedResearcherList={loadedResearcherList}
+                  setSelectedItem={setSelectedItem}
+                  selectedItem={selectedItem}
+                />
+              )}
             </td>
             <td>
-              {/* <TextField disabled label="ชื่อ" />
-              <TextField
-                label="ชื่อ"
-                className="focus:border-white focus:ring-0 "
-                autoFocus={false}
-              />
-              <TextField
-                label="ชื่อ"
-                className="focus:border-white focus:ring-0 "
-                autoFocus={false}
-              />
-              <TextField
-                label="ชื่อ"
-                className="focus:border-white focus:ring-0 "
-                autoFocus={false}
-              /> */}
-
               <input
+                ref={inputRef}
                 type="text"
                 className="input w-full"
                 name="firstname"
                 id=""
                 placeholder="ชื่อ"
-                // disabled
+                disabled
+                value={selectedItem?.firstname}
                 onChange={(e) => inputFormChangeHandler(e)}
               />
             </td>
             <td>
               <input
+                ref={inputRef}
                 type="text"
                 className="input w-full "
                 name="lastname"
                 id=""
                 placeholder="นามสกุล"
-                // disabled
+                disabled
+                value={selectedItem?.lastname}
                 onChange={(e) => inputFormChangeHandler(e)}
               />
             </td>
             <td>
               <input
+                ref={inputRef}
                 type="text"
                 className="input w-full"
                 name="tel"
                 id=""
                 placeholder="เบอร์โทร"
                 disabled
+                value={selectedItem?.tel}
                 onChange={(e) => inputFormChangeHandler(e)}
               />
             </td>
             <td>
               <input
+                ref={inputRef}
                 type="text"
                 className="input w-full"
                 name="email"
                 id=""
                 placeholder="E-mail"
                 disabled
+                value={selectedItem?.email}
                 onChange={(e) => inputFormChangeHandler(e)}
               />
             </td>
             <td>
               <input
+                ref={inputRef}
                 type="text"
                 className="input w-full"
                 name="grade"
                 id=""
                 placeholder="เกรดเฉลี่ยเทอมล่าสุด"
                 disabled
+                value={selectedItem?.grade}
                 onChange={(e) => inputFormChangeHandler(e)}
               />
             </td>

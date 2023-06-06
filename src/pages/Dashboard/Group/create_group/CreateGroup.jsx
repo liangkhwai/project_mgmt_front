@@ -41,9 +41,15 @@ const CreateGroup = () => {
         <div className="my-1">
           รายละเอียดผู้วิจัย <span className="text-red-600">*</span>
         </div>
-        <TableList rshList={rshList} setRshList={setRshList} />
+        <TableList rshList={rshList} setRshList={setRshList} setLoadedResearcherList={setLoadedResearcherList} />
         <div className="pb-10"></div>
-        {rshList.length < 3 && <InputForm setRshList={setRshList} loadedResearcherList={loadedResearcherList} />}
+        {rshList.length < 3 && (
+          <InputForm
+            setRshList={setRshList}
+            setLoadedResearcherList={setLoadedResearcherList}
+            loadedResearcherList={loadedResearcherList}
+          />
+        )}
         <div className="text-end pt-5">
           <AddButton> สร้างกลุ่ม และ เชิญผู้วิจัย</AddButton>
         </div>
