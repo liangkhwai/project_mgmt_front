@@ -72,20 +72,22 @@ const ComboBox = ({ loadedResearcherList, selectedItem, setSelectedItem }) => {
         {...getMenuProps()}
       >
         {isOpen &&
-          items.sort((a, b) => a.id - b.id).map((item, index) => (
-            <li
-              className={`${highlightedIndex === index && "bg-blue-300"} ${
-                selectedItem === item && "font-bold"
-              } py-2 px-3 shadow-sm flex flex-col`}
-              key={`${item.value}${index}`}
-              {...getItemProps({ item, index })}
-            >
-              <span>{item.student_id}</span>
-              <span className="text-sm text-gray-700">
-                {item.firstname} {item.lastname}
-              </span>
-            </li>
-          ))}
+          items
+            .sort((a, b) => a.id - b.id)
+            .map((item, index) => (
+              <li
+                className={`${highlightedIndex === index && "bg-blue-300"} ${
+                  selectedItem === item && "font-bold"
+                } py-2 px-3 shadow-sm flex flex-col`}
+                key={`${item.value}${index}`}
+                {...getItemProps({ item, index })}
+              >
+                <span>{item.student_id}</span>
+                <span className="text-sm text-gray-700">
+                  {item.firstname} {item.lastname}
+                </span>
+              </li>
+            ))}
       </ul>
     </div>
   );
