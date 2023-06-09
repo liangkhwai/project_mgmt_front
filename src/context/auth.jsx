@@ -4,7 +4,6 @@ import { checkAuthTF } from "../loader/auth";
 const AuthContext = React.createContext({});
 
 export const AuthContextProvider = (props) => {
-  const [userData, setUserData] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState();
   const [isTeacher, setIsTeacher] = useState(false);
@@ -25,11 +24,8 @@ export const AuthContextProvider = (props) => {
       if (res.userRole === "teacher") {
         setIsTeacher(true);
       }
-      console.log("userData : ", res.userData);
-      setUserData(res.userData);
     } else {
       // console.log("No token for route");
-      setUserData(null);
       setIsLoggedIn(false);
       localStorage.removeItem("username");
     }
@@ -68,11 +64,9 @@ export const AuthContextProvider = (props) => {
     });
     if (response.status === 200) {
       const data = await response.json();
-      // console.log(data);
       localStorage.clear();
       setIsLoggedIn(false);
       setIsTeacher(false);
-      // setUserData(null);
       return true;
     }
     return false;
@@ -89,8 +83,6 @@ export const AuthContextProvider = (props) => {
         getUsername,
         setIsTeacherLoginHandler: setIsTeacherLoginHandler,
         isTeacher: isTeacher,
-        // setUserData: setUserData,
-        userData: userData,
       }}
     >
       {props.children}

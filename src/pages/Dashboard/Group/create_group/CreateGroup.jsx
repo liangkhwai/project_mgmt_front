@@ -8,20 +8,20 @@ import { AddButton } from "../../../../UI/button.jsx";
 import AuthContext from "../../../../context/auth.jsx";
 
 const CreateGroup = () => {
-  const ctx = useContext(AuthContext);
   const [loadedResearcherList, setLoadedResearcherList] = useState([]);
-  const [defaultData, setDefaultData] = useState(ctx.userData);
-  const userData = ctx.userData;
-  console.log(userData);
-  console.log(defaultData);
-  const [rshList, setRshList] = useState([
-    {
-      ...userData,
-    },
-    {
-      student_id: "123",
-    },
-  ]);
+
+  const [rshList, setRshList] = useState([]);
+  useEffect(() => {
+    async function getDefaultMember() {
+      const res = await fetch("http://localhost:8080/researcher/getOne", {
+        method: "get",
+        credentials: "include",
+      });
+      const data = await res.json();
+      setRshList((prev) => [{ ...prev, ...data.userData }]);
+    }
+    getDefaultMember();
+  }, []);
 
   useEffect(() => {
     async function fetchRshList() {
@@ -30,8 +30,7 @@ const CreateGroup = () => {
         credentials: "include",
       });
       const data = await res.json();
-      // console.log(typeof data);
-      // setRshList((prev) => [{ ...prev, ...ctx.userData }]);
+
       setLoadedResearcherList(data);
     }
     fetchRshList();
