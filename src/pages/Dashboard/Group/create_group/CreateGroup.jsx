@@ -1,15 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Title from "../../../../UI/Title.jsx";
 import Body from "../../../../UI/Body.jsx";
 import TableForm from "./components/TableForm.jsx";
 import TableList from "./components/TableList.jsx";
 import InputForm from "./components/InputForm.jsx";
 import { AddButton } from "../../../../UI/button.jsx";
+import AuthContext from "../../../../context/auth.jsx";
 
 const CreateGroup = () => {
+  const ctx = useContext(AuthContext);
   const [loadedResearcherList, setLoadedResearcherList] = useState([]);
+  const [defaultData, setDefaultData] = useState(ctx.userData);
+  const userData = ctx.userData;
+  console.log(userData);
+  console.log(defaultData);
+  const [rshList, setRshList] = useState([
+    {
+      ...userData,
+    },
+    {
+      student_id: "123",
+    },
+  ]);
 
-  const [rshList, setRshList] = useState([]);
   useEffect(() => {
     async function fetchRshList() {
       const res = await fetch("http://localhost:8080/researcher/list", {
@@ -18,6 +31,7 @@ const CreateGroup = () => {
       });
       const data = await res.json();
       // console.log(typeof data);
+      // setRshList((prev) => [{ ...prev, ...ctx.userData }]);
       setLoadedResearcherList(data);
     }
     fetchRshList();
@@ -31,7 +45,7 @@ const CreateGroup = () => {
       body: JSON.stringify({ group_list: rshList }),
       headers: { "Content-Type": "application/json" },
       credentials: "include",
-    }).then(async(res) => {
+    }).then(async (res) => {
       const data = await res.json();
       console.log(data);
     });

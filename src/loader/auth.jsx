@@ -8,7 +8,7 @@ export async function checkAuth() {
   });
 
   const data = await response.json();
-  // console.log(data);
+  console.log(data);
 
   if (data.isAuth === false || response.status !== 200) {
     return redirect("/login");
@@ -27,8 +27,9 @@ export async function checkAuthTF() {
   // console.log(data);
 
   if (data.isAuth === false || response.status !== 200) {
-    return false
+    return false;
   } else {
-    return true;
+    console.log(data);
+    return { isAuth: true, userData: data.userData, userRole: data.userRole };
   }
 }

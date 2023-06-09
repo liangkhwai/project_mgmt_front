@@ -4,6 +4,7 @@ import { checkAuthTF } from "../loader/auth";
 const AuthContext = React.createContext({});
 
 export const AuthContextProvider = (props) => {
+  const [userData, setUserData] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState();
   const [isTeacher, setIsTeacher] = useState(false);
@@ -14,15 +15,21 @@ export const AuthContextProvider = (props) => {
 
   const checkLogged = async () => {
     const res = await checkAuthTF();
-    // console.log(res);
-    if (res === true) {
+    console.log(res);
+    if (res.isAuth === true) {
       // console.log("yes it is");
       const isLogged = localStorage.getItem("username");
       if (isLogged) {
         setIsLoggedIn(true);
       }
+      if (res.userRole === "teacher") {
+        setIsTeacher(true);
+      }
+      console.log("userData : ", res.userData);
+      setUserData(res.userData);
     } else {
       // console.log("No token for route");
+      setUserData(null);
       setIsLoggedIn(false);
       localStorage.removeItem("username");
     }
@@ -64,7 +71,8 @@ export const AuthContextProvider = (props) => {
       // console.log(data);
       localStorage.clear();
       setIsLoggedIn(false);
-      setIsTeacher(false)
+      setIsTeacher(false);
+      // setUserData(null);
       return true;
     }
     return false;
@@ -81,6 +89,8 @@ export const AuthContextProvider = (props) => {
         getUsername,
         setIsTeacherLoginHandler: setIsTeacherLoginHandler,
         isTeacher: isTeacher,
+        // setUserData: setUserData,
+        userData: userData,
       }}
     >
       {props.children}
