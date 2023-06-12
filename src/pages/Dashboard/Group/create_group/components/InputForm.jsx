@@ -110,7 +110,7 @@ const InputForm = ({
                 id=""
                 placeholder="เบอร์โทร"
                 disabled
-                value={selectedItem?.tel}
+                value={selectedItem?.tel === null ? "" : selectedItem?.tel}
                 onChange={(e) => inputFormChangeHandler(e)}
               />
             </td>
@@ -123,7 +123,7 @@ const InputForm = ({
                 id=""
                 placeholder="E-mail"
                 disabled
-                value={selectedItem?.email}
+                value={selectedItem?.email === null ? "" : selectedItem?.email}
                 onChange={(e) => inputFormChangeHandler(e)}
               />
             </td>
@@ -136,7 +136,7 @@ const InputForm = ({
                 id=""
                 placeholder="เกรดเฉลี่ยเทอมล่าสุด"
                 disabled
-                value={selectedItem?.grade}
+                value={selectedItem?.grade === null ? "" : selectedItem?.grade}
                 onChange={(e) => inputFormChangeHandler(e)}
               />
             </td>

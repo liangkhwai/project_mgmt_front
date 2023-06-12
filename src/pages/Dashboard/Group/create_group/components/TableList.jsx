@@ -5,7 +5,9 @@ const TableList = ({ rshList, setRshList, setLoadedResearcherList }) => {
   console.log(rshList);
 
   const deleteRshHandler = (deleteRsh) => {
-    setRshList(rshList.filter((rsh) => rsh.student_id !== deleteRsh.student_id));
+    setRshList(
+      rshList.filter((rsh) => rsh.student_id !== deleteRsh.student_id)
+    );
     setLoadedResearcherList((prev) => [...prev, { ...deleteRsh }]);
   };
 
@@ -32,10 +34,12 @@ const TableList = ({ rshList, setRshList, setLoadedResearcherList }) => {
               <td className="">{rsh.tel}</td>
               <td className="">{rsh.email}</td>
               <td className="">{rsh.grade}</td>
-              <td className=" text-center">
-                <DeleteButton onClick={() => deleteRshHandler(rsh)}>
-                  ลบ
-                </DeleteButton>
+              <td className="text-center">
+                {idx !== 0 && (
+                  <DeleteButton onClick={() => deleteRshHandler(rsh)}>
+                    ลบ
+                  </DeleteButton>
+                )}
               </td>
             </tr>
           ))}

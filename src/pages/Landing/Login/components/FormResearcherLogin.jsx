@@ -12,7 +12,7 @@ const FormResearcherLogin = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
+    // console.log(name, value);
     setUserpwd((prev) => ({
       ...prev,
       [name]: value,

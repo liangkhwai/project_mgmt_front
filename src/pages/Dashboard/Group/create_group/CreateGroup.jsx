@@ -12,18 +12,6 @@ const CreateGroup = () => {
 
   const [rshList, setRshList] = useState([]);
   useEffect(() => {
-    async function getDefaultMember() {
-      const res = await fetch("http://localhost:8080/researcher/getOne", {
-        method: "get",
-        credentials: "include",
-      });
-      const data = await res.json();
-      setRshList((prev) => [{ ...prev, ...data.userData }]);
-    }
-    getDefaultMember();
-  }, []);
-
-  useEffect(() => {
     async function fetchRshList() {
       const res = await fetch("http://localhost:8080/researcher/list", {
         method: "get",
@@ -34,6 +22,21 @@ const CreateGroup = () => {
       setLoadedResearcherList(data);
     }
     fetchRshList();
+  }, []);
+  useEffect(() => {
+    async function getDefaultMember() {
+      const res = await fetch("http://localhost:8080/researcher/getOne", {
+        method: "get",
+        credentials: "include",
+      });
+      const data = await res.json();
+      console.log(data.userData.groupId);
+      setRshList((prev) => [{ ...prev, ...data.userData }]);
+      setLoadedResearcherList((prev) =>
+        prev.filter((item, idx) => item.id !== data.userData.id)
+      );
+    }
+    getDefaultMember();
   }, []);
 
   const createGroupSubmitHandler = async () => {

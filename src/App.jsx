@@ -60,6 +60,10 @@ const router = createBrowserRouter([
         element: <Teacher />,
       },
       {
+        path: "/dashboard/group",
+        element: <Group />,
+      },
+      {
         path: "/dashboard/group/create",
         element: <CreateGroup />,
         // loader: getList,
