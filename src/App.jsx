@@ -15,6 +15,7 @@ import Faq from "./pages/Landing/Faq";
 import Teacher from "./pages/Dashboard/Teacher/Teacher";
 import Group from "./pages/Dashboard/Group/Group";
 import CreateGroup from "./pages/Dashboard/Group/create_group/CreateGroup";
+import { QueryClient, QueryClientProvider } from "react-query";
 const router = createBrowserRouter([
   {
     element: <Landing />,
@@ -72,8 +73,14 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />;
+    </QueryClientProvider>
+  );
 }
 
 export default App;
