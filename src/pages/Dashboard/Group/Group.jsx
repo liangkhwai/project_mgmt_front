@@ -32,7 +32,6 @@ const Group = () => {
       return data;
     }
   );
-  // console.log(data, status);
   useEffect(() => {
     if (data) {
       console.log(data);
@@ -47,7 +46,7 @@ const Group = () => {
     <div className="mx-10">
       <Title>กลุ่มโปรเจค</Title>
       <Body>
-        {userData?.groupId === undefined || null ? (
+        {userData?.groupId === null ? (
           <Link to="/dashboard/group/create">
             <div className="border-black border-2 rounded-md py-20 text-center hover:bg-gray-100">
               +<br />

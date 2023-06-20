@@ -3,7 +3,6 @@ import GroupList from "./GroupList";
 
 const GroupBox = ({ userGroup }) => {
   const [groupList, setGroupList] = useState([]);
-
   useEffect(() => {
     async function getGroupList() {
       const res = await fetch("http://localhost:8080/researcher/getGroupList", {
@@ -14,9 +13,9 @@ const GroupBox = ({ userGroup }) => {
       console.log(data);
       setGroupList(data.groupList);
     }
-
     getGroupList();
   }, []);
+  
   return (
     <Fragment>
       <GroupList groupList={groupList} />

@@ -65,7 +65,7 @@ const InputForm = ({
       <div>เพิ่มผู้วิจัยในกลุ่ม</div>
       <table>
         <tbody>
-          <tr>
+          <tr className="">
             <td>
               {loadedResearcherList && (
                 <ComboBox
