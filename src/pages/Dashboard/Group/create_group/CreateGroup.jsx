@@ -19,7 +19,9 @@ const CreateGroup = () => {
       });
       const data = await res.json();
 
-      setLoadedResearcherList(data.filter((item,idx)=> item.groupId === null));
+      setLoadedResearcherList(
+        data.filter((item, idx) => item.groupId === null)
+      );
     }
     fetchRshList();
   }, []);

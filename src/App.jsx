@@ -16,6 +16,7 @@ import Teacher from "./pages/Dashboard/Teacher/Teacher";
 import Group from "./pages/Dashboard/Group/Group";
 import CreateGroup from "./pages/Dashboard/Group/create_group/CreateGroup";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { checkHasGroup } from "./loader/group";
 const router = createBrowserRouter([
   {
     element: <Landing />,
@@ -67,7 +68,7 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/group/create",
         element: <CreateGroup />,
-        // loader: getList,
+        loader: checkHasGroup,
       },
     ],
   },
