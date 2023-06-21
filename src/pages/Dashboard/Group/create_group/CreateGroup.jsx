@@ -19,7 +19,7 @@ const CreateGroup = () => {
       });
       const data = await res.json();
 
-      setLoadedResearcherList(data);
+      setLoadedResearcherList(data.filter((item,idx)=> item.groupId === null));
     }
     fetchRshList();
   }, []);
@@ -30,10 +30,11 @@ const CreateGroup = () => {
         credentials: "include",
       });
       const data = await res.json();
-      console.log(data.userData.groupId);
-      setRshList((prev) => [{ ...prev, ...data.userData }]);
+      console.log(data);
+      console.log(data.groupId);
+      setRshList((prev) => [{ ...prev, ...data }]);
       setLoadedResearcherList((prev) =>
-        prev.filter((item, idx) => item.id !== data.userData.id)
+        prev.filter((item, idx) => item.id !== data.id)
       );
     }
     getDefaultMember();

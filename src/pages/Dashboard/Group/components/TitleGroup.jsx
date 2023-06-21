@@ -49,7 +49,7 @@ const TitleGroup = () => {
   return (
     <Fragment>
       <div className="flex items-center mb-3">
-        <div className="w-40 text-center ">ชื่อหัวข้อ</div>
+        <div className="w-20">ชื่อหัวข้อ</div>
         {isInsert ? (
           <Fragment>
             <div className="w-full mr-3">
