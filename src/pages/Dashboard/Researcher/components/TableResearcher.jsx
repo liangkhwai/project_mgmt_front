@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import EditRshRow from "./EditRshRow";
 import ResearcherList from "./ResearcherList";
 import InsertResearcherRow from "./InsertResearcherRow";
-// import { Modal, Box } from "@mui/material";
+import ReactPaginate from "react-paginate";
 import FileDetail from "./FileDetail";
 import ReactModal from "react-modal";
 const TableResearcher = ({
@@ -40,10 +40,25 @@ const TableResearcher = ({
     setRshList(loadedResearcher);
   }, []);
 
-  const customStyles = {
+  // start Paginate
 
+  const ItemPerPage = 20;
+  const [itemOffset, setItemOffSet] = useState(0);
+  const endOffSet = itemOffset + ItemPerPage;
+  const currentItems = rshList.slice(itemOffset, endOffSet);
+  const pageCount = Math.ceil(rshList.length / ItemPerPage);
+
+  const handlePageClick = (event) => {
+    const newOffSet = (event.selected * ItemPerPage) % rshList.length;
+
+    setItemOffSet(newOffSet);
+  };
+
+  // end Paginate
+
+  const customStyles = {
     content: {
-      width:"30%",
+      width: "30%",
       top: "50%",
       left: "50%",
       right: "auto",
@@ -71,7 +86,7 @@ const TableResearcher = ({
           </tr>
         </thead>
         <tbody>
-          {rshList.map((rsh, idx) => (
+          {currentItems.map((rsh, idx) => (
             <Fragment key={idx}>
               {editRshId === rsh.id ? (
                 <EditRshRow
@@ -151,6 +166,17 @@ const TableResearcher = ({
         >
           เพิ่มนักวิจัย (ปกติ)
         </button>
+      </div>
+      <div className="">
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="next >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel="< previous"
+          renderOnZeroPageCount={null}
+        />
       </div>
     </div>
   );
