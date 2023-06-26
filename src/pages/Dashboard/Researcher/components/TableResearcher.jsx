@@ -42,7 +42,7 @@ const TableResearcher = ({
 
   // start Paginate
 
-  const ItemPerPage = 20;
+  const ItemPerPage = 10;
   const [itemOffset, setItemOffSet] = useState(0);
   const endOffSet = itemOffset + ItemPerPage;
   const currentItems = rshList.slice(itemOffset, endOffSet);
@@ -172,10 +172,22 @@ const TableResearcher = ({
           breakLabel="..."
           nextLabel="next >"
           onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
+          pageRangeDisplayed={3}
+          marginPagesDisplayed={2}
           pageCount={pageCount}
           previousLabel="< previous"
           renderOnZeroPageCount={null}
+          containerClassName="flex justify-center mt-4"
+          // pageClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
+          pageLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
+          activeClassName="font-medium text-blue-700  px-0"
+          activeLinkClassName="bg-blue-100"
+          breakLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
+          // activeLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
+          previousLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
+          // previousClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
+          nextLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
+          // nextClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
         />
       </div>
     </div>
