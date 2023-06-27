@@ -35,6 +35,8 @@ const TableResearcher = ({
   insertMenuRoom,
   setRshList,
   loadedResearcher,
+  itemOffset,
+  setItemOffSet
 }) => {
   useEffect(() => {
     setRshList(loadedResearcher);
@@ -43,14 +45,18 @@ const TableResearcher = ({
   // start Paginate
 
   const ItemPerPage = 10;
-  const [itemOffset, setItemOffSet] = useState(0);
+  // const [itemOffset, setItemOffSet] = useState(0);
   const endOffSet = itemOffset + ItemPerPage;
   const currentItems = rshList.slice(itemOffset, endOffSet);
   const pageCount = Math.ceil(rshList.length / ItemPerPage);
 
   const handlePageClick = (event) => {
-    const newOffSet = (event.selected * ItemPerPage) % rshList.length;
-
+    // const newOffSet = (event.selected * ItemPerPage) % rshList.length;
+    const newOffSet = event.selected
+    // console.log(event.selected);
+    // console.log(ItemPerPage);
+    // console.log(rshList.length);
+    // console.log(newOffSet);
     setItemOffSet(newOffSet);
   };
 
@@ -169,6 +175,8 @@ const TableResearcher = ({
       </div>
       <div className="">
         <ReactPaginate
+          forcePage={itemOffset}
+          
           breakLabel="..."
           nextLabel="next >"
           onPageChange={handlePageClick}

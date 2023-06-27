@@ -345,6 +345,7 @@ const Researcher = () => {
 
     // setInsertMenuRoom(type === "all" ? loaderData.dataRoomList : filteredRoom);
     setInsertMenuRoom(type === "all" ? categorie : filteredRoom);
+    setItemOffSet(0)
   };
 
   const filterRoomList = (room) => {
@@ -401,6 +402,7 @@ const Researcher = () => {
     );
 
     setRoomSelector(room);
+    setItemOffSet(0)
   };
 
   const selectorChangeHandler = (e) => {
@@ -410,6 +412,9 @@ const Researcher = () => {
     }
     setRoomSelector(selected);
   };
+
+  // itemOffset Paginate in TableResearcher
+  const [itemOffset, setItemOffSet] = useState(0);
 
   return (
     <div className="mx-10">
@@ -436,6 +441,8 @@ const Researcher = () => {
       <div className="bg-white rounded-md ">
         {menu === "filter" && (
           <TableResearcher
+            itemOffset={itemOffset}
+            setItemOffSet = {setItemOffSet}
             loadedResearcher={loadedResearcher}
             rshList={rshList}
             setRshList={setRshList}

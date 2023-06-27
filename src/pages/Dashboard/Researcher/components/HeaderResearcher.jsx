@@ -17,6 +17,7 @@ const HeaderResearcher = ({
   loadedResearcher,
   defaultRoomData,
   setLoadedResearcher,
+
 }) => {
   return (
     <div className="">
@@ -28,6 +29,7 @@ const HeaderResearcher = ({
           filteredHandler={filterTypeHandler}
           filterRoom={filterRoom}
           filterRoomRef={filterRoomRef}
+         
         />
       ) : (
         <TableCategorieResearcher
