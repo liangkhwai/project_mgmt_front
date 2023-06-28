@@ -17,6 +17,7 @@ import Group from "./pages/Dashboard/Researcher/Group/Group";
 import CreateGroup from "./pages/Dashboard/Researcher/Group/create_group/CreateGroup";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { checkHasGroup } from "./loader/group";
+import GroupList from "./pages/Dashboard/Teacher/Group/GroupList/GroupList";
 const router = createBrowserRouter([
   {
     element: <Landing />,
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
         element: <CreateGroup />,
         loader: checkHasGroup,
       },
+      {
+        path:"/dashboard/grouplist",
+        element: <GroupList/>
+      }
     ],
   },
 ]);
