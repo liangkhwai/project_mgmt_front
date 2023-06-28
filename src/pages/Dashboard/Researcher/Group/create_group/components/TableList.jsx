@@ -1,5 +1,5 @@
 import React from "react";
-import { DeleteButton } from "../../../../../UI/button";
+import { DeleteButton } from "../../../../../../UI/button";
 
 const TableList = ({ rshList, setRshList, setLoadedResearcherList }) => {
   console.log(rshList);

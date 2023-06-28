@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Title from "../../../UI/Title";
-import Body from "../../../UI/Body";
+import Title from "../../../../UI/Title";
+import Body from "../../../../UI/Body";
 import GroupBox from "./components/GroupBox";
 import { useQuery } from "react-query";
 

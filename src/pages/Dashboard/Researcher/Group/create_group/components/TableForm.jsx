@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AddButton, DeleteButton } from "../../../../../UI/button";
+import { AddButton, DeleteButton } from "../../../../../../UI/button";
 import TableInsertRow from "./TableInsertRow";
 
 const TableForm = () => {
