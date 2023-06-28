@@ -36,7 +36,9 @@ const TableResearcher = ({
   setRshList,
   loadedResearcher,
   itemOffset,
-  setItemOffSet
+  setItemOffSet,
+  nowPage,
+  setNowPage,
 }) => {
   useEffect(() => {
     setRshList(loadedResearcher);
@@ -46,18 +48,21 @@ const TableResearcher = ({
 
   const ItemPerPage = 10;
   // const [itemOffset, setItemOffSet] = useState(0);
+  const startIndex = nowPage * ItemPerPage;
+  const endIndex = startIndex + ItemPerPage;
   const endOffSet = itemOffset + ItemPerPage;
   const currentItems = rshList.slice(itemOffset, endOffSet);
   const pageCount = Math.ceil(rshList.length / ItemPerPage);
 
   const handlePageClick = (event) => {
-    // const newOffSet = (event.selected * ItemPerPage) % rshList.length;
-    const newOffSet = event.selected
+    const newOffSet = (event.selected * ItemPerPage) % rshList.length;
+    // const newOffSet = event.selected;
     // console.log(event.selected);
-    // console.log(ItemPerPage);
-    // console.log(rshList.length);
-    // console.log(newOffSet);
+    // // console.log(ItemPerPage);
+    // // console.log(rshList.length);
+    // // console.log(newOffSet);
     setItemOffSet(newOffSet);
+    setNowPage(event.selected);
   };
 
   // end Paginate
@@ -174,9 +179,12 @@ const TableResearcher = ({
         </button>
       </div>
       <div className="">
+        <div>{`Showing ${startIndex + 1} - ${Math.min(
+          endIndex,
+          rshList.length
+        )} of ${rshList.length} results`}</div>
         <ReactPaginate
-          forcePage={itemOffset}
-          
+          forcePage={nowPage}
           breakLabel="..."
           nextLabel="next >"
           onPageChange={handlePageClick}
@@ -188,8 +196,8 @@ const TableResearcher = ({
           containerClassName="flex justify-center mt-4"
           // pageClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
           pageLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
-          activeClassName="font-medium text-blue-700  px-0"
-          activeLinkClassName="bg-blue-100"
+          activeClassName="font-medium text-blue-700"
+          activeLinkClassName="!bg-blue-100"
           breakLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
           // activeLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
           previousLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
