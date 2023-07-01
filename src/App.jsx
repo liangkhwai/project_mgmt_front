@@ -18,6 +18,7 @@ import CreateGroup from "./pages/Dashboard/Researcher/Group/create_group/CreateG
 import { QueryClient, QueryClientProvider } from "react-query";
 import { checkHasGroup } from "./loader/group";
 import GroupList from "./pages/Dashboard/Teacher/Group/GroupList/GroupList";
+import RandomGroup from "./pages/Dashboard/Teacher/Group/RandomGroup/RandomGroup";
 const router = createBrowserRouter([
   {
     element: <Landing />,
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
       {
         path:"/dashboard/grouplist",
         element: <GroupList/>
+      },
+      {
+        path:"/dashboard/random",
+        element: <RandomGroup/>
       }
     ],
   },
