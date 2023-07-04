@@ -34,6 +34,7 @@ const FormResearcherLogin = () => {
       ctx.loginHandler();
       console.log(data.userName);
       ctx.usernameHandler(data.userName);
+      ctx.setRole(data.role)
       navigate("/dashboard");
     }
     console.log(data);

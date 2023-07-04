@@ -6,6 +6,7 @@ import "simplebar-react/dist/simplebar.min.css";
 import AuthContext from "../../../context/auth";
 import SidebarTeacher from "./components/SidebarTeacher";
 import SidebarResearcher from "./components/SidebarResearcher";
+import SidebarAdmin from "./components/SidebarAdmin";
 const Sidebar = ({ isOpen }) => {
   const ctx = useContext(AuthContext);
   const maxHeight = window.innerHeight;
@@ -40,7 +41,13 @@ const Sidebar = ({ isOpen }) => {
                   </div>
                 </Link>
               </li> */}
-              {ctx.isTeacher ? <SidebarTeacher /> : <SidebarResearcher />}
+              {ctx.role === "researcher" ? (
+                <SidebarResearcher />
+              ) : ctx.role === "teacher" ? (
+                <SidebarTeacher />
+              ) : (
+                <SidebarAdmin />
+              )}
             </ul>
             {/* <div>d</div>
             <div>d</div>

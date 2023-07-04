@@ -30,11 +30,11 @@ const FormTeacherLogin = () => {
       },
       credentials: "include",
     })
-      .then((res) => res.json())
+      .then((res) => res.json())  
       .then((data) => {
         console.log(data);
         if (data.status === 200) {
-          ctx.setIsTeacherLoginHandler();
+          ctx.setRole(data.role);
           ctx.loginHandler();
           console.log(data.userName);
           ctx.usernameHandler(data.userName);

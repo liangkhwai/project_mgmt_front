@@ -6,11 +6,11 @@ const AuthContext = React.createContext({});
 export const AuthContextProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState();
-  const [isTeacher, setIsTeacher] = useState(false);
+  const [role, setRole] = useState(null);
 
-  const setIsTeacherLoginHandler = () => {
-    setIsTeacher(true);
-  };
+  // const setIsTeacherLoginHandler = () => {
+  //   setIsTeacher(true);
+  // };
 
   const checkLogged = async () => {
     const res = await checkAuthTF();
@@ -22,7 +22,7 @@ export const AuthContextProvider = (props) => {
         setIsLoggedIn(true);
       }
       if (res.userRole === "teacher") {
-        setIsTeacher(true);
+        setRole("teacher");
       }
     } else {
       // console.log("No token for route");
@@ -66,7 +66,7 @@ export const AuthContextProvider = (props) => {
       const data = await response.json();
       localStorage.clear();
       setIsLoggedIn(false);
-      setIsTeacher(false);
+      setRole(null);
       return true;
     }
     return false;
@@ -81,8 +81,8 @@ export const AuthContextProvider = (props) => {
         username: username,
         usernameHandler: usernameHandler,
         getUsername,
-        setIsTeacherLoginHandler: setIsTeacherLoginHandler,
-        isTeacher: isTeacher,
+        setRole: setRole,
+        role: role,
       }}
     >
       {props.children}
