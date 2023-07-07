@@ -24,6 +24,8 @@ export const AuthContextProvider = (props) => {
       if (res.userRole === "teacher") {
         setRole("teacher");
       }
+      // console.log(res.userData);
+      // localStorage.setItem("id", res.userData.id);
     } else {
       // console.log("No token for route");
       setIsLoggedIn(false);
@@ -43,7 +45,8 @@ export const AuthContextProvider = (props) => {
     localStorage.setItem("username", name);
   };
 
-  const loginHandler = () => {
+  const loginHandler = (id) => {
+    localStorage.setItem("id", id);
     setIsLoggedIn(true);
   };
 

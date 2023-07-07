@@ -31,10 +31,11 @@ const FormResearcherLogin = () => {
     });
     const data = await response.json();
     if (data.status === 200) {
-      ctx.loginHandler();
+      console.log(data);
+      ctx.loginHandler(data.userId);
       console.log(data.userName);
       ctx.usernameHandler(data.userName);
-      ctx.setRole(data.role)
+      ctx.setRole(data.role);
       navigate("/dashboard");
     }
     console.log(data);

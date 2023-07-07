@@ -35,7 +35,7 @@ const FormTeacherLogin = () => {
         console.log(data);
         if (data.status === 200) {
           ctx.setRole(data.role);
-          ctx.loginHandler();
+          ctx.loginHandler(data.userId);
           console.log(data.userName);
           ctx.usernameHandler(data.userName);
           navigate("/dashboard");
