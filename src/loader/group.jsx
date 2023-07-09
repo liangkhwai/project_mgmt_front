@@ -14,3 +14,17 @@ export async function checkHasGroup() {
     return true;
   }
 }
+
+
+export async function getGroupDetail(grpId){
+  const response = await fetch("http://localhost:8080/group/getOneGroup", {
+      method: "post",
+      body: JSON.stringify({ grpId: parseInt(grpId) }),
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+    });
+
+  const data = await response.json();
+
+  return data
+}

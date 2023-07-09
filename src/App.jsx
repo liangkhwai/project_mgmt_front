@@ -16,9 +16,10 @@ import Teacher from "./pages/Dashboard/Teacher/Teacher";
 import Group from "./pages/Dashboard/Researcher/Group/Group";
 import CreateGroup from "./pages/Dashboard/Researcher/Group/create_group/CreateGroup";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { checkHasGroup } from "./loader/group";
+import { checkHasGroup,getGroupDetail } from "./loader/group";
 import GroupList from "./pages/Dashboard/Teacher/Group/GroupList/GroupList";
 import RandomGroup from "./pages/Dashboard/Teacher/Group/RandomGroup/RandomGroup";
+import GroupDetail from "./pages/Dashboard/Teacher/Group/GroupList/components/GroupDetail";
 const router = createBrowserRouter([
   {
     element: <Landing />,
@@ -79,6 +80,14 @@ const router = createBrowserRouter([
       {
         path:"/dashboard/random",
         element: <RandomGroup/>
+      },
+      {
+        path:"/dashboard/group/:grpId",
+        element: <GroupDetail/>,
+        loader:({ params}) =>{
+          return getGroupDetail(params.grpId)
+        }
+
       }
     ],
   },

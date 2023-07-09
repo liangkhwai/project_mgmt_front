@@ -1,12 +1,13 @@
 import React, { Fragment, useEffect, useState, useContext } from "react";
 import ProgressBar from "../../../../../../UI/ProgressBar";
-import AuthContext from "../../../../../../context/auth"
+import AuthContext from "../../../../../../context/auth";
 import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 const GroupListBox = () => {
   const [group, setGroup] = useState([]);
-  const ctx = useContext(AuthContext)
-
+  const ctx = useContext(AuthContext);
+  const navigate = useNavigate();
   const { isLoading, isError, data, error } = useQuery(
     "getAllGroup",
     async () => {
@@ -25,6 +26,11 @@ const GroupListBox = () => {
       setGroup(data);
     }
   }, [data]);
+
+  if (isLoading) return "...Loading group";
+  const clickDetailHandler = (id) => {
+    navigate(`/dashboard/group/${id}`);
+  };
 
   return (
     <div>
@@ -47,20 +53,23 @@ const GroupListBox = () => {
                   <ProgressBar percent={Math.floor(Math.random() * 100)} />
                 </td>
                 <td>{null}</td>
-                {
-                  ctx.role === "admin" && (
-                    <Fragment>
-                      <td>
-                        <button className="px-2 py-1 bg-green-200 rounded">รายละเอียด</button>
-                      </td>
-                      <td>
-                      <button className="px-2 py-1 bg-red-200 rounded">ลบ</button>
-
-                      </td>
-
-                    </Fragment>
-                  )
-                }
+                {ctx.role === "admin" && (
+                  <Fragment>
+                    <td>
+                      <button
+                        onClick={() => clickDetailHandler(item.id)}
+                        className="px-2 py-1 bg-green-200 rounded"
+                      >
+                        รายละเอียด
+                      </button>
+                    </td>
+                    <td>
+                      <button className="px-2 py-1 bg-red-200 rounded">
+                        ลบ
+                      </button>
+                    </td>
+                  </Fragment>
+                )}
               </tr>
             );
           })}

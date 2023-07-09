@@ -23,6 +23,12 @@ export const AuthContextProvider = (props) => {
       }
       if (res.userRole === "teacher") {
         setRole("teacher");
+      }else if (res.userRole === "admin"){
+        setRole("admin")
+      }else if(res.userRole === "researcher"){
+        setRole("researcher")
+      }else{
+        setRole(null)
       }
       // console.log(res.userData);
       // localStorage.setItem("id", res.userData.id);
