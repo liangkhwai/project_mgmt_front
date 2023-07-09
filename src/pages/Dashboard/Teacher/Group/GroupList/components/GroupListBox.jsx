@@ -44,10 +44,11 @@ const GroupListBox = () => {
           </tr>
         </thead>
         <tbody>
+          
           {group.map((item, idx) => {
             return (
-              <tr className="hover:bg-gray-300" key={item.id}>
-                <td>{item.title ? item.title : "ไม่มีชื่อหัวข้อ"}</td>
+              <tr className="hover:bg-gray-300 " key={item.id}>
+                <td className="">{item.title ? item.title : "ไม่มีชื่อหัวข้อ"}</td>
                 <td>{item.status}</td>
                 <td className="">
                   <ProgressBar percent={Math.floor(Math.random() * 100)} />
