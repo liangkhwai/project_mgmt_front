@@ -8,7 +8,7 @@ import Dashboard from "./pages/Dashboardd/Dashboard";
 import { useContext } from "react";
 import { checkAuth } from "./loader/auth";
 import ResearcherList from "./pages/Dashboard/Researcher/Researcher";
-import { getList } from "./loader/researcher";
+import { getList,getSelfInfo } from "./loader/researcher";
 import React from "react";
 import Thesis from "./pages/Landing/Thesis";
 import Faq from "./pages/Landing/Faq";
@@ -67,6 +67,7 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/group",
         element: <Group />,
+        loader:getSelfInfo
       },
       {
         path: "/dashboard/group/create",

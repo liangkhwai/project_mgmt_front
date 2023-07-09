@@ -6,7 +6,7 @@ import GroupMemberList from "./GroupMemberList";
 const GroupDetail = () => {
   const getGroupDetail = useLoaderData();
   const [grpDetail, setGrpDetail] = useState(getGroupDetail);
-  const [grpMember, setGrpMember] = useState([]);
+  
   let { grpId } = useParams();
 
   
@@ -16,7 +16,6 @@ const GroupDetail = () => {
   
         <GroupMemberList
           grpDetail={grpDetail}
-          grpMember={grpMember}
           grpId={grpId}
         />
     </div>

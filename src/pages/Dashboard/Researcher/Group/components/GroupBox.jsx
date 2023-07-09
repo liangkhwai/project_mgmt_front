@@ -1,7 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
 import GroupList from "./GroupList";
+import { useNavigate } from "react-router-dom";
 
 const GroupBox = ({ userGroup }) => {
+  const navigate = useNavigate()
   const [groupList, setGroupList] = useState([]);
   useEffect(() => {
     let userId = localStorage.getItem("id")
@@ -13,6 +15,8 @@ const GroupBox = ({ userGroup }) => {
         headers:{"Content-Type":"application/json"}
       });
       const data = await res.json();
+      if(res.status === 401) return navigate("/dashboard")
+      console.log(data);
       setGroupList(data.groupList);
     }
     getGroupList();
