@@ -4,40 +4,38 @@ import Body from "../../../../../../UI/Body";
 import { useMutation, useQuery } from "react-query";
 
 const GroupMemberList = ({ grpId, grpDetail }) => {
-    console.log(grpId);
+  console.log(grpId);
   const [groupDetail, setGroupDetail] = useState(grpDetail);
   const [groupMember, setGroupMember] = useState([]);
 
   const mutation = useMutation({
     mutationFn: async (userId) => {
-      return await fetch("http://localhost:8080/group/removeFromGroup", {
-        method: "patch",
-        body: JSON.stringify({ userId:userId }),
-        credentials: "include",
-        headers: { "Content-Type": "application/json" }
-      });
+      const response = await fetch(
+        "http://localhost:8080/group/removeFromGroup",
+        {
+          method: "put",
+          body: JSON.stringify({ userId: userId }),
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      return response.json();
     },
     onSuccess: (data) => {
-        console.log(data);
-      setGroupMember(
-        groupMember.filter((item) => item.id !== data.id)
-      );
+      console.log(data);
+      setGroupMember(groupMember.filter((item) => item.id !== data.id));
     },
   });
 
-
-
   const GroupMember = useQuery("getGroupMember", async () => {
     // let userId = localStorage.getItem("id");
-    const response = await fetch(
-      "http://localhost:8080/group/getGroupMember",
-      {
-        method: "post",
-        body: JSON.stringify({ grpId:parseInt(grpId) }),
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    const response = await fetch("http://localhost:8080/group/getGroupMember", {
+      method: "post",
+      body: JSON.stringify({ grpId: parseInt(grpId) }),
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+    });
 
     const data = await response.json();
     return data;
@@ -45,7 +43,7 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
 
   useEffect(() => {
     if (GroupMember.data) {
-        console.log(GroupMember.data);
+      console.log(GroupMember.data);
       setGroupMember(GroupMember.data);
     }
     console.log(GroupMember.data);
@@ -53,14 +51,12 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
 
   if (GroupMember.isLoading) return "...Loading member";
 
-
-
   const deleteFromGroupHandler = (rshId) => {
     mutation.mutate(rshId);
     console.log(rshId);
   };
 
-console.log(groupMember)
+  console.log(groupMember);
   return (
     <div className="mx-10">
       <Title>{groupDetail && groupDetail.title}</Title>
