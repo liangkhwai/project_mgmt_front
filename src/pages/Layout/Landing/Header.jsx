@@ -56,7 +56,7 @@ const Header = () => {
               </li>
               <li>
                 <Link
-                  to="#"
+                  to="/Thesis"
                   className="hover:text-blue-600 duration-300 transition-colors"
                 >
                   <div>สืบค้น</div>
@@ -64,7 +64,7 @@ const Header = () => {
               </li>
               <li>
                 <Link
-                  to="#"
+                  to="/Morefaq"
                   className="hover:text-blue-600 duration-300 transition-colors"
                 >
                   <div>คำถามที่พบบ่อย</div>
@@ -72,7 +72,7 @@ const Header = () => {
               </li>
               <li>
                 <Link
-                  to="#"
+                  to="/Contact"
                   className="hover:text-blue-600 duration-300 transition-colors"
                 >
                   <div>ติดต่อเรา</div>
