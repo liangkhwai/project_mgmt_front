@@ -1,7 +1,8 @@
 import React from "react";
 import univer1 from "../../assets/univer1.png";
-import univer0 from "../../assets/univer0.png";
-import univer4 from "../../assets/univer4.png";
+import univer5 from "../../assets/univer5.png";
+import univer7 from "../../assets/univer7.png";
+import univer6 from "../../assets/univer6.png";
 import { Link } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
@@ -26,7 +27,7 @@ const Home = () => {
             <div className="relative ">
               <img
                 className="h-full"
-                src={univer1}
+                src={univer6}
                 alt="dsadsa"
                 style={{ width: "100%", height: "auto" }}
               />
@@ -42,7 +43,23 @@ const Home = () => {
             <div className="relative ">
               <img
                 className="h-full"
-                src={univer0}
+                src={univer7}
+                alt="dsadsa"
+                style={{ width: "100%", height: "auto" }}
+              />
+            </div>
+            <div className="absolute bottom-0 right-0 text-5xl mb-20 mr-8 text-white  uppercase font-normal">
+              rmuti kkc
+            </div>
+            <div className="absolute bottom-0 right-0 text-5xl mb-9 mr-8 text-white font-normal ">
+              Digital Business Technology
+            </div>
+          </div>
+          <div className="">
+            <div className="relative ">
+              <img
+                className="h-full"
+                src={univer5}
                 alt="dsadsa"
                 style={{ width: "100%", height: "auto" }}
               />
