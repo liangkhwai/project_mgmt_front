@@ -74,7 +74,9 @@ const Home = () => {
       </div>
 
       <div className=" w-full h-56 bg-blue-50 ">
-        <div className="text-xs ml-40 mt-10 ">ข้อมูล............</div>
+        <div className="flex flex-row text-xs ml-40 mt-10 divide-y-2 divide-blue-300 font-normal ">ข้อมูล
+        {/* <div className="text-blue-900 ml-2"> ―――― </div> */}
+        </div>
         <div className="text-2xl font-medium ml-40 ">สถิติเจ้าของผลงาน</div>
 
         <div className=" text-center  w-auto flex mt-10">

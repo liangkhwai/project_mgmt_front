@@ -12,6 +12,7 @@ import { getList,getSelfInfo } from "./loader/researcher";
 import React from "react";
 import Thesis from "./pages/Landing/Thesis";
 import Faq from "./pages/Landing/Faq";
+import Morefaq from "./pages/Landing/Morefaq";
 import Teacher from "./pages/Dashboard/Teacher/Teacher";
 import Group from "./pages/Dashboard/Researcher/Group/Group";
 import CreateGroup from "./pages/Dashboard/Researcher/Group/create_group/CreateGroup";
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/faq",
         element: <Faq />,
+      },
+      {
+        path: "/Morefaq",
+        element: <Morefaq />,
       },
     ],
   },
