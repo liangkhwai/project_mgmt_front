@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useContext } from "react";
 import Title from "../../../../../../UI/Title";
 import Body from "../../../../../../UI/Body";
 import { useMutation, useQuery } from "react-query";
@@ -6,14 +6,16 @@ import TitleGroup from "../../../../Researcher/Group/components/TitleGroup";
 import EditGroupTitle from "./EditGroupTitle";
 import ComboBox from "../../../../Researcher/Group/create_group/components/ComboBoxSearcherRsh";
 import { useRef } from "react";
+import AuthContext from "../../../../../../context/auth";
 
 const GroupMemberList = ({ grpId, grpDetail }) => {
   console.log(grpId);
+  const ctx = useContext(AuthContext);
   const [groupDetail, setGroupDetail] = useState(grpDetail);
   const [groupMember, setGroupMember] = useState([]);
   const [loadedResearcherList, setLoadedResearcherList] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
-//   const inputRef = useRef();
+  const buttonRef = useRef();
   const mutation = useMutation({
     mutationFn: async (userId) => {
       const response = await fetch(
@@ -36,12 +38,15 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
 
   const addMember = useMutation({
     mutationFn: async (userId) => {
-      const response = await fetch("http://localhost:8080/group/addGroupMember", {
-        method: "put",
-        body: JSON.stringify({ userId: userId, grpId: parseInt(grpId) }),
-        credentials: "include",
-        headers:{"Content-Type":"application/json"}
-      });
+      const response = await fetch(
+        "http://localhost:8080/group/addGroupMember",
+        {
+          method: "put",
+          body: JSON.stringify({ userId: userId, grpId: parseInt(grpId) }),
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
       return await response.json();
     },
     onSuccess: () => {
@@ -92,6 +97,12 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
     }
   }, [GroupMember.data, researcherList.data]);
 
+  useEffect(() => {
+    if (selectedItem) {
+      buttonRef.current.disabled = false;
+    }
+  }, [selectedItem]);
+
   if (GroupMember.isLoading) return "...Loading member";
   if (researcherList.isLoading) return "...Loading member";
 
@@ -101,16 +112,21 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
   };
 
   const addResearcherToGroup = () => {
-    addMember.mutate(selectedItem.id)
-
+    addMember.mutate(selectedItem.id);
   };
   return (
     <div className="mx-10">
       {/* <Title>{groupDetail && groupDetail.title}</Title> */}
 
-      <Title>
-        <EditGroupTitle title={groupDetail.title} />
-      </Title>
+      {ctx.role === "admin" ? (
+        <Title>
+          <EditGroupTitle title={groupDetail.title} />
+        </Title>
+      ) : (
+        <Title>
+          <span>{groupDetail ? groupDetail.title : ""}</span>
+        </Title>
+      )}
 
       <Body>
         <div className="text-center font-bold">สมาชิก</div>
@@ -130,9 +146,11 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
               <td className="border p-4 border-gray-400 font-bold bg-blue-gray-400 text-gray-300">
                 ห้อง
               </td>
-              <td className="border p-4 border-gray-400 font-bold bg-blue-gray-400 text-gray-300">
-                ลบ
-              </td>
+              {ctx.role === "admin" && (
+                <td className="border p-4 border-gray-400 font-bold bg-blue-gray-400 text-gray-300">
+                  ลบ
+                </td>
+              )}
             </tr>
           </thead>
 
@@ -153,60 +171,68 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
                     <td className="border p-4 border-gray-400 bg-blue-gray-600 text-gray-300">
                       {item.categorie_room.room}
                     </td>
-                    <td className="border p-4 border-gray-400 text-center bg-blue-gray-600 text-gray-300">
-                      <button
-                        className="px-4 py-1 bg-red-200 hover:bg-red-400"
-                        onClick={() => deleteFromGroupHandler(item.id)}
-                      >
-                        ลบ
-                      </button>
-                    </td>
+                    {ctx.role === "admin" && (
+                      <td className="border p-4 border-gray-400 text-center bg-blue-gray-600 text-gray-300">
+                        <button
+                          className="px-4 py-1 bg-red-200 hover:bg-red-400"
+                          onClick={() => deleteFromGroupHandler(item.id)}
+                        >
+                          ลบ
+                        </button>
+                      </td>
+                    )}
                   </tr>
                 </Fragment>
               );
             })}
           </tbody>
         </table>
-        <div className="flex">
-          <ComboBox
-            loadedResearcherList={loadedResearcherList}
-            selectedItem={selectedItem}
-            setSelectedItem={setSelectedItem}
-          />
+        {ctx.role === "admin" && (
+          <Fragment>
+            <div className="flex">
+              <ComboBox
+                loadedResearcherList={loadedResearcherList}
+                selectedItem={selectedItem}
+                setSelectedItem={setSelectedItem}
+              />
 
-          <input
-            className="input"
-            type="text"
-            name=""
-            id=""
-            disabled
-            value={selectedItem ? selectedItem.firstname : ""}
-          />
-          <input
-            className="input"
-            type="text"
-            name=""
-            id=""
-            disabled
-            value={selectedItem ? selectedItem.lastname : ""}
-          />
-          <input
-            className="input"
-            type="text"
-            name=""
-            id=""
-            disabled
-            value={selectedItem ? selectedItem.categorie_room.room : ""}
-          />
-        </div>
-        <div className="text-end mt-6">
-          <button
-            className="px-4 py-1 bg-green-600 rounded-md hover:bg-green-400"
-            onClick={() => addResearcherToGroup()}
-          >
-            เพิ่มนักวิจัย
-          </button>
-        </div>
+              <input
+                className="input"
+                type="text"
+                name=""
+                id=""
+                disabled
+                value={selectedItem ? selectedItem.firstname : ""}
+              />
+              <input
+                className="input"
+                type="text"
+                name=""
+                id=""
+                disabled
+                value={selectedItem ? selectedItem.lastname : ""}
+              />
+              <input
+                className="input"
+                type="text"
+                name=""
+                id=""
+                disabled
+                value={selectedItem ? selectedItem.categorie_room.room : ""}
+              />
+            </div>
+            <div className="text-end mt-6">
+              <button
+                className="px-4 py-1 bg-green-600 rounded-md hover:bg-green-400 disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={() => addResearcherToGroup()}
+                ref={buttonRef}
+                disabled
+              >
+                เพิ่มนักวิจัย
+              </button>
+            </div>
+          </Fragment>
+        )}
       </Body>
     </div>
   );

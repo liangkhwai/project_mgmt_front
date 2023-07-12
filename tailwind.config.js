@@ -7,5 +7,11 @@ module.exports = withMT({
      
     },
   },
+  variants: {
+    extend: {
+      opacity: ['disabled'],
+      cursor: ['disabled'],
+    },
+  },
   plugins: [require("tailwind-scrollbar")({ nocompatible: true })],
 });

@@ -1,13 +1,37 @@
 import React, { Fragment, useEffect, useState, useContext } from "react";
 import ProgressBar from "../../../../../../UI/ProgressBar";
 import AuthContext from "../../../../../../context/auth";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 
 const GroupListBox = () => {
   const [group, setGroup] = useState([]);
   const ctx = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const deleteGroup = useMutation({
+    mutationFn: async (grpId) => {
+      const response = await fetch("http://localhost:8080/group/removeGroup", {
+        method: "post",
+        body: JSON.stringify({ grpId: parseInt(grpId) }),
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+      });
+      if (response.status === 500) {
+        throw new Error(
+          "Failed to delete the group. It is referenced by other records."
+        );
+      }
+      return await response.json();
+    },
+    onSuccess: (data) => {
+      setGroup(group.filter((item) => item.id !== parseInt(data)));
+    },
+    onError: (data) => {
+      alert(data);
+    },
+  });
+
   const { isLoading, isError, data, error } = useQuery(
     "getAllGroup",
     async () => {
@@ -32,6 +56,9 @@ const GroupListBox = () => {
     navigate(`/dashboard/group/${id}`);
   };
 
+  const deleteGroupHandler = (grpId) => {
+    deleteGroup.mutate(grpId);
+  };
   return (
     <div>
       <table className="table w-full">
@@ -44,17 +71,18 @@ const GroupListBox = () => {
           </tr>
         </thead>
         <tbody>
-          
           {group.map((item, idx) => {
             return (
               <tr className="hover:bg-gray-300 " key={item.id}>
-                <td className="">{item.title ? item.title : "ไม่มีชื่อหัวข้อ"}</td>
+                <td className="">
+                  {item.title ? item.title : "ไม่มีชื่อหัวข้อ"}
+                </td>
                 <td>{item.status}</td>
                 <td className="">
                   <ProgressBar percent={Math.floor(Math.random() * 100)} />
                 </td>
                 <td>{null}</td>
-                {ctx.role === "admin" && (
+                {ctx.role === "admin" ? (
                   <Fragment>
                     <td>
                       <button
@@ -65,11 +93,23 @@ const GroupListBox = () => {
                       </button>
                     </td>
                     <td>
-                      <button className="px-2 py-1 bg-red-200 rounded">
+                      <button
+                        className="px-2 py-1 bg-red-200 rounded"
+                        onClick={() => deleteGroupHandler(item.id)}
+                      >
                         ลบ
                       </button>
                     </td>
                   </Fragment>
+                ) : (
+                  <td>
+                    <button
+                      onClick={() => clickDetailHandler(item.id)}
+                      className="px-2 py-1 bg-green-200 rounded"
+                    >
+                      รายละเอียด
+                    </button>
+                  </td>
                 )}
               </tr>
             );
