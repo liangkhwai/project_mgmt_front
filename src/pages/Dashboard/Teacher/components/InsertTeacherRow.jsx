@@ -77,11 +77,11 @@ const InsertTeacherRow = ({ setInsertFormData, cancelInsertRow,insertFormDataSub
           onChange={(e) => insertFormDataChangeHandler(e)}
         />
       </td>
-      <td>
+      <td className="border-2">
         {" "}
         <AddButton onClick={()=>insertFormDataSubmitHandler()}>เพิ่ม</AddButton>
       </td>
-      <td>
+      <td className="border-2">
         {" "}
         <CancelButton onClick={() => cancelInsertRow()}>ยกเลิก</CancelButton>
       </td>

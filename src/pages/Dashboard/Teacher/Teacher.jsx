@@ -22,7 +22,7 @@ const Teacher = () => {
   return (
     <div className="mx-10">
       {/* <h1 className="text-3xl my-10">อาจารย์</h1> */}
-      <Title>อาจารย์</Title>
+      <Title>รายชื่ออาจารย์</Title>
 
       <Body>
         <TeacherTable data={teacherLists} setData={setTeacherLists} />

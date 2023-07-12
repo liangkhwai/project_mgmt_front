@@ -94,7 +94,7 @@ const Thesis = () => {
                       clipRule="evenodd"
                     />
                   </svg>
-                  ค้นหา
+                  ค้นหา  
                 </div>
               </div>
             </button>

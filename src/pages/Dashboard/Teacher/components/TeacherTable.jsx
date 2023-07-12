@@ -108,18 +108,18 @@ const TeacherTable = ({ data, setData }) => {
   };
 
   return (
-    <div className="pt-10 mx-10">
+    <div className="pt-5 mx-5">
       <table className="table w-full table-responsive border text-center">
         <thead>
-          <tr>
-            <td>Prefix</td>
-            <td>ชื่อ</td>
-            <td>นามสกุล</td>
-            <td>อีเมลล์</td>
-            <td>เบอร์โทร</td>
-            <td>Line Id</td>
-            <td>แก้ไข</td>
-            <td>ลบ</td>
+          <tr className="">
+            <td className="border-2 py-1 ">คำนำหน้า</td>
+            <td className="border-2 py-1 "> ชื่อ</td>
+            <td className="border-2 py-1 ">นามสกุล</td>
+            <td className="border-2 py-1 ">Email</td>
+            <td className="border-2 py-1 ">เบอร์โทร</td>
+            <td className="border-2 py-1 ">Line Id</td>
+            <td className="border-2 py-1 ">แก้ไข</td>
+            <td className="border-2 py-1 ">ลบ</td>
           </tr>
         </thead>
         <tbody>

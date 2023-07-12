@@ -14,20 +14,22 @@ const TeacherRow = ({
   };
 
   return (
-    <tr>
-      <td>{data.prefix}</td>
-      <td>{data.firstname}</td>
-      <td>{data.lastname}</td>
-      <td>{data.email}</td>
-      <td>{data.tel}</td>
-      <td>{data.line_id}</td>
-      <td>
+    <tr className="">
+      <td className="border-2 py-1 ">{data.prefix}</td>
+      <td className="border-2 py-1  ">{data.firstname}</td>
+      <td className="border-2 py-1 ">{data.lastname}</td>
+      <td className="border-2 py-1 ">{data.email}</td>
+      <td className="border-2 py-1 ">{data.tel}</td>
+      <td className="border-2 py-1 ">{data.line_id}</td>
+      <td className="border-2 py-1">
         <UpdateButton onClick={() => editTchIdHandler(data.id, data)}>
           แก้ไข
         </UpdateButton>
       </td>
-      <td>
-        <DeleteButton onClick={()=>deleteFormDataHandler(data.id)}>ลบ</DeleteButton>
+      <td className="border-2  py-1 ">
+        <DeleteButton onClick={() => deleteFormDataHandler(data.id)}>
+          ลบ
+        </DeleteButton>
       </td>
     </tr>
   );

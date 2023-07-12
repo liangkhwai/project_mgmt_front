@@ -12,8 +12,8 @@ const EditTeacherRow = ({ dataEdit, cancelEdit, setEditFormData,editFormDataSubm
   };
 
   return (
-    <tr className="text-center">
-      <td>
+    <tr className="text-center ">
+      <td >
         <input
           type="text"
           name="prefix"
@@ -73,10 +73,10 @@ const EditTeacherRow = ({ dataEdit, cancelEdit, setEditFormData,editFormDataSubm
           onChange={(e) => editFormDataChangeHandler(e)}
         />
       </td>
-      <td>
+      <td className="border-2 px-5 py-1">
         <SaveButton onClick={()=>editFormDataSubmitHandler()}>บันทึก</SaveButton>
       </td>
-      <td>
+      <td className="border-2 px-5 py-1">
         <CancelButton onClick={() => cancelEditIdHandler()}>
           ยกเลิก
         </CancelButton>
