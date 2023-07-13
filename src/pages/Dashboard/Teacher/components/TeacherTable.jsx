@@ -112,14 +112,14 @@ const TeacherTable = ({ data, setData }) => {
       <table className="table w-full table-responsive border text-center">
         <thead>
           <tr className="">
-            <td className="border-2 py-1 ">คำนำหน้า</td>
-            <td className="border-2 py-1 "> ชื่อ</td>
-            <td className="border-2 py-1 ">นามสกุล</td>
-            <td className="border-2 py-1 ">Email</td>
-            <td className="border-2 py-1 ">เบอร์โทร</td>
-            <td className="border-2 py-1 ">Line Id</td>
-            <td className="border-2 py-1 ">แก้ไข</td>
-            <td className="border-2 py-1 ">ลบ</td>
+            <td className="border-2 py-1  font-semibold ">คำนำหน้า</td>
+            <td className="border-2 py-1  font-semibold "> ชื่อ</td>
+            <td className="border-2 py-1  font-semibold ">นามสกุล</td>
+            <td className="border-2 py-1  font-semibold ">Email</td>
+            <td className="border-2 py-1  font-semibold ">เบอร์โทร</td>
+            <td className="border-2 py-1  font-semibold ">Line Id</td>
+            <td className="border-2 py-1  font-semibold ">แก้ไข</td>
+            <td className="border-2 py-1  font-semibold ">ลบ</td>
           </tr>
         </thead>
         <tbody>

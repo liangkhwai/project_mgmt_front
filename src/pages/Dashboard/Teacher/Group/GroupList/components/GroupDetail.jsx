@@ -12,7 +12,7 @@ const GroupDetail = () => {
   
 
   return (
-    <div>
+    <div >
   
         <GroupMemberList
           grpDetail={grpDetail}

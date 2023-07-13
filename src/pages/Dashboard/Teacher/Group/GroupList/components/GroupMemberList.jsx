@@ -129,25 +129,25 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
       )}
 
       <Body>
-        <div className="text-center font-bold">สมาชิก</div>
+        <div className="text-center font-bold text-lg ">รายชื่อสมาชิก</div>
         <br />
         <table className="table table-auto w-full border-collapse border-gray-400">
           <thead>
             <tr className="w-full ">
-              <td className="border p-4 border-gray-400 font-bold bg-blue-gray-400 text-gray-300">
+              <td className=" py-2 text-start border-2 border-gray-300 font-semibold text-black">
                 ชื่อ
               </td>
-              <td className="border p-4 border-gray-400 font-bold bg-blue-gray-400 text-gray-300">
+              <td className=" py-2 text-start border-2 border-gray-300 font-semibold  text-black">
                 นามสกุล
               </td>
-              <td className="border p-4 border-gray-400 font-bold bg-blue-gray-400 text-gray-300">
+              <td className=" py-2 text-start border-2 border-gray-300 font-semibold  text-black">
                 เลขนักศึกษา
               </td>
-              <td className="border p-4 border-gray-400 font-bold bg-blue-gray-400 text-gray-300">
+              <td className=" py-2 text-start border-2 border-gray-300 font-semibold  text-black">
                 ห้อง
               </td>
               {ctx.role === "admin" && (
-                <td className="border p-4 border-gray-400 font-bold bg-blue-gray-400 text-gray-300">
+                <td className=" py-2 text-center border-2 border-gray-300 font-semibold  text-black">
                   ลบ
                 </td>
               )}
@@ -159,22 +159,22 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
               return (
                 <Fragment key={item.student_id}>
                   <tr>
-                    <td className="border p-4 border-gray-400 bg-blue-gray-600 text-gray-300">
+                    <td className="border-2 py-2 border-gray-300  text-gray-800">
                       {item.firstname}
                     </td>
-                    <td className="border p-4 border-gray-400 bg-blue-gray-600 text-gray-300">
+                    <td className="border-2 py-2 border-gray-300  text-gray-800">
                       {item.lastname}
                     </td>
-                    <td className="border p-4 border-gray-400 bg-blue-gray-600 text-gray-300">
+                    <td className="border-2 py-2 border-gray-300  text-gray-800">
                       {item.student_id}
                     </td>
-                    <td className="border p-4 border-gray-400 bg-blue-gray-600 text-gray-300">
+                    <td className="border-2 py-2 border-gray-300  text-gray-800">
                       {item.categorie_room.room}
                     </td>
                     {ctx.role === "admin" && (
-                      <td className="border p-4 border-gray-400 text-center bg-blue-gray-600 text-gray-300">
+                      <td className="border-2 py-2 border-gray-300 text-center  text-white">
                         <button
-                          className="px-4 py-1 bg-red-200 hover:bg-red-400"
+                          className="px-5 py-1  bg-red-600 hover:bg-red-500 rounded-lg shadow-lg"
                           onClick={() => deleteFromGroupHandler(item.id)}
                         >
                           ลบ
@@ -223,7 +223,7 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
             </div>
             <div className="text-end mt-6">
               <button
-                className="px-4 py-1 bg-green-600 rounded-md hover:bg-green-400 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-1 bg-green-600 rounded-md text-white hover:bg-green-500  shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={() => addResearcherToGroup()}
                 ref={buttonRef}
                 disabled

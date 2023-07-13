@@ -49,17 +49,17 @@ const EditGroupTitle = (props) => {
             onChange={(e) => inputChangeHandler(e.target.value)}
           />
           <button
-            className="py-1 px-4"
+            className="py-1 px-4 text-sm  text-black bg-white  rounded-full shadow-md hover:bg-light-blue-50"
             onClick={() => clickSubmitFormHandler()}
           >
             ยืนยัน
           </button>
         </div>
       ) : (
-        <div className=" ">
+        <div className="">
           {title}{" "}
           <button
-            className="py-1 px-4 bg-green-500 rounded-full"
+            className="py-1 px-4  text-sm  text-black bg-white  rounded-full shadow-md hover:bg-light-blue-50 "
             onClick={() => setIsEditing(!isEditing)}
           >
             แก้ไข

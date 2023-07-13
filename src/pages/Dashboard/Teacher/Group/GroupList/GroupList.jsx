@@ -6,17 +6,18 @@ const GroupList = () => {
   return (
     <div className="mx-10">
       <Title>กลุ่มนักศึกษา</Title>
-      {/* <Body> */}
+      <Body>
 
   
-        <input type="text" placeholder="Search group name" />       {/* make it component instead  */}
+        <input className="focus:bg-blue-50 border-gray-400 " type="text" placeholder="Search group name ✨" />       {/* make it component instead  */}
 
 
         <GroupListBox/>
+        
 
 
 
-      {/* </Body> */}
+      </Body>
     </div>
   );
 };
