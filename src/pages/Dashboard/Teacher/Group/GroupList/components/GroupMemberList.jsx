@@ -16,6 +16,7 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
   const [loadedResearcherList, setLoadedResearcherList] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const buttonRef = useRef();
+  const [isDisable, setIsDisable] = useState(true);
   const mutation = useMutation({
     mutationFn: async (userId) => {
       const response = await fetch(
@@ -47,6 +48,7 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
           headers: { "Content-Type": "application/json" },
         }
       );
+      console.log(await response);
       return await response.json();
     },
     onSuccess: () => {
@@ -98,8 +100,10 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
   }, [GroupMember.data, researcherList.data]);
 
   useEffect(() => {
+    console.log("button render");
     if (selectedItem) {
-      buttonRef.current.disabled = false;
+      // buttonRef.current.disabled = false;
+      setIsDisable(false);
     }
   }, [selectedItem]);
 
@@ -226,7 +230,7 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
                 className="px-4 py-1 bg-green-600 rounded-md text-white hover:bg-green-500  shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={() => addResearcherToGroup()}
                 ref={buttonRef}
-                disabled
+                disabled={isDisable}
               >
                 เพิ่มนักวิจัย
               </button>

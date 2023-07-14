@@ -35,6 +35,10 @@ const FormRandom = () => {
   const changeLimitHandler = (e) => {
     const { name, value } = e.target;
     console.log(name, value);
+
+    
+
+
   };
 
   return (

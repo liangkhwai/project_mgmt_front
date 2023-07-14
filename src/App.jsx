@@ -93,7 +93,6 @@ const router = createBrowserRouter([
         loader:({ params}) =>{
           return getGroupDetail(params.grpId)
         }
-
       }
     ],
   },
