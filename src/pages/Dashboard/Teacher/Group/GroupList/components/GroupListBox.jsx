@@ -76,28 +76,28 @@ const GroupListBox = () => {
         <tbody>
           {group.map((item, idx) => {
             return (
-              <tr className="hover:bg-blue-50 " key={item.id}>
-                <td className=" py-2.5 ">
+              <tr className="hover:bg-blue-50 border-b-2 border-b-gray-300" key={item.id}>
+                <td className=" py-2.5  ">
                   {item.title ? item.title : "ไม่มีชื่อหัวข้อ"}
                 </td>
                 <td>{item.status}</td>
-                <td className="py-2.5 ">
+                <td className="py-2.5  ">
                   <ProgressBar percent={Math.floor(Math.random() * 100)} />
                 </td>
                 <td>{null}</td>
                 {ctx.role === "admin" ? (
                   <Fragment>
-                    <td className="py-2.5 ">
+                    <td className="py-2.5  ">
                       <button 
                         onClick={() => clickDetailHandler(item.id)}
-                        className="px-2 py-1  bg-green-600 hover:bg-green-500 rounded text-white shadow-lg"
+                        className="px-2 py-1  bg-green-600 hover:bg-green-500 rounded-lg text-white shadow-lg"
                       >
                         รายละเอียด
                       </button>
                     </td>
-                    <td className="py-2.5">
+                    <td className="py-2.5 ">
                       <button
-                        className="px-8 py-1  bg-red-600 hover:bg-red-500 rounded text-white shadow-lg"
+                        className="px-8 py-1  bg-red-600 hover:bg-red-500 rounded-lg text-white shadow-lg"
                         onClick={() => deleteGroupHandler(item.id)}
                       >
                         ลบ
@@ -108,7 +108,7 @@ const GroupListBox = () => {
                   <td >
                     <button
                       onClick={() => clickDetailHandler(item.id)}
-                      className="px-2 py-1   bg-green-600 hover:bg-green-500 rounded text-white shadow-lg"
+                      className="px-2 py-1   bg-green-600 hover:bg-green-500 rounded-lg text-white shadow-lg"
                     >
                       รายละเอียด
                     </button>

@@ -20,7 +20,7 @@ const HeaderResearcher = ({
 
 }) => {
   return (
-    <div className="">
+    <div className=" ">
       <HeaderButton setMenu={setMenu} menu={menu} />
       {menu === "filter" ? (
         <HeaderFilter

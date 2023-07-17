@@ -7,8 +7,8 @@ const InsertCategorieRow = ({
   insertFormDataSubmitHandler,
 }) => {
   return (
-    <tr>
-      <td>
+    <tr >
+      <td className="py-1 border-b-2 border-l-2 border-gray-300 ">
         <input
           type="text"
           name="room"
@@ -17,7 +17,7 @@ const InsertCategorieRow = ({
           onChange={(e) => insertFormDataHandler(e)}
         />
       </td>
-      <td>
+      <td className="py-1 border-2 border-gray-300">
         <select
           name="type"
           id=""
@@ -31,7 +31,7 @@ const InsertCategorieRow = ({
           <option value="Q">Q</option>
         </select>
       </td>
-      <td>
+      <td className="py-1 border-b-2 border-gray-300">
         <input
           type="text"
           name="year"
@@ -40,10 +40,10 @@ const InsertCategorieRow = ({
           onChange={(e) => insertFormDataHandler(e)}
         />
       </td>
-      <td>
+      <td className="py-1 border-2 border-gray-300">
         <AddButton onClick={insertFormDataSubmitHandler}>เพิ่ม</AddButton>
       </td>
-      <td>
+      <td className="py-1 border-2 border-gray-300">
         <CancelButton onClick={isInsertButtonHandler}>ยกเลิก</CancelButton>
       </td>
     </tr>

@@ -11,7 +11,7 @@ const InsertTeacherRow = ({ setInsertFormData, cancelInsertRow,insertFormDataSub
 
   return (
     <tr>
-      <td>
+      <td className="py-1 border-b-2 border-l-2 border-gray-300">
         {" "}
         <input
           type="text"
@@ -22,7 +22,7 @@ const InsertTeacherRow = ({ setInsertFormData, cancelInsertRow,insertFormDataSub
           onChange={(e) => insertFormDataChangeHandler(e)}
         />
       </td>
-      <td>
+      <td className="py-1 border-b-2 border-gray-300">
         {" "}
         <input
           type="text"
@@ -33,7 +33,7 @@ const InsertTeacherRow = ({ setInsertFormData, cancelInsertRow,insertFormDataSub
           onChange={(e) => insertFormDataChangeHandler(e)}
         />
       </td>
-      <td>
+      <td className="py-1 border-b-2 border-gray-300">
         {" "}
         <input
           type="text"
@@ -44,7 +44,7 @@ const InsertTeacherRow = ({ setInsertFormData, cancelInsertRow,insertFormDataSub
           onChange={(e) => insertFormDataChangeHandler(e)}
         />
       </td>
-      <td>
+      <td className="py-1 border-b-2 border-gray-300">
         {" "}
         <input
           type="text"
@@ -55,7 +55,7 @@ const InsertTeacherRow = ({ setInsertFormData, cancelInsertRow,insertFormDataSub
           onChange={(e) => insertFormDataChangeHandler(e)}
         />
       </td>
-      <td>
+      <td className="py-1 border-b-2 border-gray-300">
         {" "}
         <input
           type="text"
@@ -66,7 +66,7 @@ const InsertTeacherRow = ({ setInsertFormData, cancelInsertRow,insertFormDataSub
           onChange={(e) => insertFormDataChangeHandler(e)}
         />
       </td>
-      <td>
+      <td className="py-1 border-b-2 border-gray-300">
         {" "}
         <input
           type="text"
@@ -77,11 +77,11 @@ const InsertTeacherRow = ({ setInsertFormData, cancelInsertRow,insertFormDataSub
           onChange={(e) => insertFormDataChangeHandler(e)}
         />
       </td>
-      <td className="border-2">
+      <td className="border-2 border-gray-300">
         {" "}
         <AddButton onClick={()=>insertFormDataSubmitHandler()}>เพิ่ม</AddButton>
       </td>
-      <td className="border-2">
+      <td className="border-2 border-gray-300">
         {" "}
         <CancelButton onClick={() => cancelInsertRow()}>ยกเลิก</CancelButton>
       </td>

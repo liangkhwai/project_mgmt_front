@@ -10,7 +10,7 @@ const EditCategorieRoom = ({
   return (
     <>
       <tr>
-        <td>
+        <td className="py-1 border-2 border-gray-300">
           <input
             type="text"
             name="room"
@@ -19,7 +19,7 @@ const EditCategorieRoom = ({
             onChange={(e) => editFormDataChangeHandler(e)}
           />
         </td>
-        <td>
+        <td className="py-1 border-2 border-gray-300">
           <select
             name="type"
             id=""
@@ -34,7 +34,7 @@ const EditCategorieRoom = ({
           </select>
           {/* <input type="text" name="" id="" /> */}
         </td>
-        <td>
+        <td className="py-1 border-2 border-gray-300">
           <input
             type="text"
             name="year"
@@ -43,10 +43,10 @@ const EditCategorieRoom = ({
             onChange={(e) => editFormDataChangeHandler(e)}
           />
         </td>
-        <td>
+        <td className="py-1 border-2 border-gray-300">
           <SaveButton onClick={editFormSubmitHandler}>บันทึก</SaveButton>
         </td>
-        <td>
+        <td className="py-1 border-2 border-gray-300"> 
           <CancelButton onClick={cancelEditForm}>ยกเลิก</CancelButton>
         </td>
       </tr>

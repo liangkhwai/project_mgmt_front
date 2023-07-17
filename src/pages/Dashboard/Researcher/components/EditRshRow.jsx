@@ -10,10 +10,10 @@ const EditRshRow = ({
 }) => {
   console.log("edit = ",rsh)
   return (
-    <tr className="text-center">
+    <tr className="text-center ">
       <td>
         <input
-          className="w-full"
+          className="w-full "
           type="text"
           name="student_id"
           id=""
@@ -90,7 +90,7 @@ const EditRshRow = ({
       </td>
       <td>
         <button
-          className="px-3 py-2 rounded bg-red-500 text-black"
+          className="px-3 py-2 rounded bg-red-500 text-black "
           onClick={() => cancelEditFormHandler()}
         >
           ยกเลิก

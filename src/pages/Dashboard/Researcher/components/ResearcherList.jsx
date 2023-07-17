@@ -5,15 +5,15 @@ const ResearcherList = ({ rsh, setEditRshIdHandler, deleteHandler }) => {
   // console.log(rsh);
 
   return (
-    <tr className="text-center">
-      <td>{rsh.student_id}</td>
-      <td>{rsh.firstname}</td>
-      <td>{rsh.lastname}</td>
-      <td>{rsh.categorie_room.room}</td>
-      <td>{rsh.email}</td>
-      <td>{rsh.tel}</td>
-      <td>{rsh.grade}</td>
-      <td>
+    <tr className="text-center ">
+      <td className="py-1 border-2 border-gray-300">{rsh.student_id}</td>
+      <td className="py-1 border-2 border-gray-300">{rsh.firstname}</td>
+      <td className="py-1 border-2 border-gray-300">{rsh.lastname}</td>
+      <td className="py-1 border-2 border-gray-300">{rsh.categorie_room.room}</td>
+      <td className="py-1 border-2 border-gray-300">{rsh.email}</td>
+      <td className="py-1 border-2 border-gray-300">{rsh.tel}</td>
+      <td className="py-1 border-2 border-gray-300">{rsh.grade}</td>
+      <td className="py-1 border-2 border-gray-300"> 
         <UpdateButton onClick={() => setEditRshIdHandler(rsh.id, rsh)}>
           แก้ไข
         </UpdateButton>
@@ -24,7 +24,7 @@ const ResearcherList = ({ rsh, setEditRshIdHandler, deleteHandler }) => {
           แก้ไข
         </button> */}
       </td>
-      <td>
+      <td className="py-1 border-2 border-gray-300">
         <DeleteButton onClick={() => deleteHandler(rsh.id)}>ลบ</DeleteButton>
         {/* <button
           className="px-3 py-2 rounded bg-red-500 text-black"

@@ -216,14 +216,14 @@ const TableCategorieResearcher = ({
       <table className="table w-full border">
         <thead>
           <tr>
-            <th>ห้อง</th>
-            <th>หลักสูตร</th>
-            <th>ปีการศึกษา</th>
-            <th>แก้ไข</th>
-            <th>ลบ</th>
+            <th className="py-2 border-2 border-gray-300">ห้อง</th>
+            <th className="py-2 border-2 border-gray-300">หลักสูตร</th>
+            <th className="py-2 border-2 border-gray-300">ปีการศึกษา</th>
+            <th className="py-2 border-2 border-gray-300">แก้ไข</th>
+            <th className="py-2 border-2 border-gray-300">ลบ</th>
           </tr>
         </thead>
-        <tbody className="text-center">
+        <tbody className="text-center ">
           {roomList.map((data, idx) => (
             <Fragment key={idx}>
               {data.id === editRoomId ? (
@@ -252,7 +252,7 @@ const TableCategorieResearcher = ({
           )}
         </tbody>
       </table>
-      <div className="flex justify-end">
+      <div className="flex justify-end my-5 ">
         <AddButton onClick={isInsertButtonHandler}>เพิ่มหมวดหมู่</AddButton>
       </div>
     </div>
