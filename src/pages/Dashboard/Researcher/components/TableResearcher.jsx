@@ -81,19 +81,19 @@ const TableResearcher = ({
   ReactModal.setAppElement("#root");
 
   return (
-    <div className="pt-10 mx-10">
+    <div className="pt-10 mx-10 ">
       <table className="table table-responsive w-full border">
         <thead>
           <tr>
-            <th>รหัสนักศึกษา</th>
-            <th>ชื่อ</th>
-            <th>นามสกุล</th>
-            <th>ห้อง</th>
-            <th>อีเมลล์</th>
-            <th>เบอร์โทร</th>
-            <th>เกรดเฉลี่ย</th>
-            <th>แก้ไข</th>
-            <th>ลบ</th>
+            <th className="py-2 border-2 border-gray-300">รหัสนักศึกษา</th>
+            <th className="py-2 border-2 border-gray-300">ชื่อ</th>
+            <th className="py-2 border-2 border-gray-300">นามสกุล</th>
+            <th className="py-2 border-2 border-gray-300">ห้อง</th>
+            <th className="py-2 border-2 border-gray-300">อีเมลล์</th>
+            <th className="py-2 border-2 border-gray-300">เบอร์โทร</th>
+            <th className="py-2 border-2 border-gray-300">เกรดเฉลี่ย</th>
+            <th className="py-2 border-2 border-gray-300">แก้ไข</th>
+            <th className="py-2 border-2 border-gray-300">ลบ</th>
           </tr>
         </thead>
         <tbody>
@@ -164,15 +164,15 @@ const TableResearcher = ({
           selectorHandler={selectorHandler}
         />
       </ReactModal>
-      <div className="flex justify-end">
+      <div className="flex justify-end my-5 ">
         <button
-          className="px-3 py-2 rounded bg-green-500 text-black"
+          className="px-3 py-2 mx-5  bg-green-600 rounded-lg text-white shadow-lg hover:bg-green-500"
           onClick={() => fileInputHandler()}
         >
           เพิ่มนักวิจัย (CSV)
         </button>
         <button
-          className="px-3 py-2 rounded bg-green-500 text-black"
+          className="px-3 py-2   bg-green-600 rounded-lg text-white shadow-lg hover:bg-green-500"
           onClick={() => isInsertHandler()}
         >
           เพิ่มนักวิจัย (ปกติ)

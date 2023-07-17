@@ -141,7 +141,7 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
               <td className=" py-2 text-start border-2 border-gray-300 font-semibold text-black">
                 ชื่อ
               </td>
-              <td className=" py-2 text-start border-2 border-gray-300 font-semibold  text-black">
+              <td className=" py-2 text-start border-2  border-gray-300 font-semibold  text-black">
                 นามสกุล
               </td>
               <td className=" py-2 text-start border-2 border-gray-300 font-semibold  text-black">
@@ -193,7 +193,7 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
         </table>
         {ctx.role === "admin" && (
           <Fragment>
-            <div className="flex">
+            <div className="flex py-1  border-b-2 border-r-2 border-r-2 border-l-2 border-gray-300">
               <ComboBox
                 loadedResearcherList={loadedResearcherList}
                 selectedItem={selectedItem}
@@ -201,7 +201,7 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
               />
 
               <input
-                className="input"
+                className="input "
                 type="text"
                 name=""
                 id=""
@@ -209,7 +209,7 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
                 value={selectedItem ? selectedItem.firstname : ""}
               />
               <input
-                className="input"
+                className="input "
                 type="text"
                 name=""
                 id=""
@@ -217,7 +217,7 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
                 value={selectedItem ? selectedItem.lastname : ""}
               />
               <input
-                className="input"
+                className="input "
                 type="text"
                 name=""
                 id=""

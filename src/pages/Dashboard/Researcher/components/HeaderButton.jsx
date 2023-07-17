@@ -27,7 +27,7 @@ const HeaderButton = ({ setMenu, menu }) => {
         className={`px-10 py-2   rounded-t-md ${bg2}`}
         onClick={() => clickHandler("addcategories")}
       >
-        เพื่อหมวดหมู่นักศึกษา
+        เพื่มหมวดหมู่นักศึกษา
       </button>
     </div>
   );

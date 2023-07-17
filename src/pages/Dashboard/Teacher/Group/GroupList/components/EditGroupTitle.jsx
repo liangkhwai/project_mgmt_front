@@ -11,7 +11,6 @@ const EditGroupTitle = (props) => {
 
   const mutation = useMutation({
     mutationFn: async (titleInputHandler) => {
-    
       const reponse = await fetch(
         "http://localhost:8080/group/changeGroupTitle",
         {
@@ -49,7 +48,7 @@ const EditGroupTitle = (props) => {
             onChange={(e) => inputChangeHandler(e.target.value)}
           />
           <button
-            className="py-1 px-4 text-sm  text-black bg-white  rounded-full shadow-md hover:bg-light-blue-50"
+            className="py-1 px-4  mx-3 text-sm  text-blue-800 bg-white  rounded-full shadow-md "
             onClick={() => clickSubmitFormHandler()}
           >
             ยืนยัน
@@ -59,7 +58,7 @@ const EditGroupTitle = (props) => {
         <div className="">
           {title}{" "}
           <button
-            className="py-1 px-4  text-sm  text-black bg-white  rounded-full shadow-md hover:bg-light-blue-50 "
+            className="py-1 px-4  mx-3 text-sm  text-blue-800 bg-white  rounded-full shadow-md"
             onClick={() => setIsEditing(!isEditing)}
           >
             แก้ไข
