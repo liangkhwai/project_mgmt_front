@@ -1,71 +1,70 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Title from "../../../../../UI/Title";
 import Body from "../../../../../UI/Body";
 import FormRandom from "./components/FormRandom";
 import ResultRandom from "./components/ResultRandom";
-
+import { useQuery } from "react-query";
 const RandomGroup = () => {
+  const [teacher, setTeacher] = useState([]);
+  const [group, setGroup] = useState([]);
 
-  const groupDemo = [
-    {
-      id:2,
-      title:"กลุ่มที่ 1"
-    },
-    {
-      id:2,
-      title:"กลุ่มที่ 2"
-    },
-    {
-      id:3,
-      title:"กลุ่มที่ 3"
-    },
-    {
-      id:4,
-      title:"กลุ่มที่ 4"
-    },
-    {
-      id:5,
-      title:"กลุ่มที่ 5"
-    },
-    {
-      id:6,
-      title:"กลุ่มที่ 6"
-    },
-    {
-      id:7,
-      title:"กลุ่มที่ 7"
-    },
-    {
-      id:8,
-      title:"กลุ่มที่ 8"
-    },
-    {
-      id:9,
-      title:"กลุ่มที่ 9"
-    },
-    {
-      id:10,
-      title:"กลุ่มที่ 10"
-    },
-    {
-      id:11,
-      title:"กลุ่มที่ 11"
-    },
-  ]
+  const getTeacherList = useQuery({
+    queryKey: "getTeacher",
+    queryFn: async () => {
+      const response = await fetch("http://localhost:8080/teachers/list", {
+        method: "get",
+        credentials: "include",
+      });
 
+      return response.json();
+    },
+  });
 
+  const getGroupList = useQuery({
+    queryKey: "getGroups",
+    queryFn: async () => {
+      const response = await fetch("http://localhost:8080/group/getAllGroup", {
+        method: "get",
+        credentials: "include",
+      });
+      return response.json();
+    },
+  });
+  useEffect(() => {
+    if (getTeacherList.data) {
+      let addLimitTeacher = getTeacherList.data.map((obj) => {
+        return { ...obj, limit: 0 };
+      });
+      setTeacher(addLimitTeacher);
+    }
+  }, [getTeacherList.data]);
 
-   
+  useEffect(() => {
+    if (getGroupList.data) {
+      // console.log(getGroupList.data);
+      let addTchGroup = getGroupList.data.map((obj) => {
+        return { ...obj, boards: { advisor: {role:"advisor"}, board1: {role:"board1"}, board2: {role:"board2"} } };
+      });
+      console.log(addTchGroup);
+      setGroup(addTchGroup);
+    }
+  }, [getGroupList.data]);
+
   return (
     <div className="mx-10">
       <Title>สุ่มกรรมการสอบ</Title>
       <Body>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid gap-4">
           <div className="border rounded-md text-center border-black">
-            <FormRandom />
+            <FormRandom
+              teacher={teacher}
+              setTeacher={setTeacher}
+              group={group}
+              setGroup={setGroup}
+            />
           </div>
           <div className="border rounded-md text-center border-black">
-            <ResultRandom />
+            <ResultRandom group={group} setGroup={setGroup} />
           </div>
         </div>
       </Body>

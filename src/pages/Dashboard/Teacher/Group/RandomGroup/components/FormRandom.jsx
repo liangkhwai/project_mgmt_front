@@ -1,44 +1,199 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import { useQuery } from "react-query";
 
-const FormRandom = () => {
-  const teacher = [
-    {
-      name: "อ.เก๋",
-      limit: 0,
-    },
-    {
-      name: "อ.ปุ๋ย",
-      limit: 0,
-    },
-    {
-      name: "อ.ทัศ",
-      limit: 0,
-    },
-    {
-      name: "อ.หนุ่ม",
-      limit: 0,
-    },
-    {
-      name: "อ.โย",
-      limit: 0,
-    },
-    {
-      name: "อ.พิศ",
-      limit: 0,
-    },
-    {
-      name: "อ.สุ",
-      limit: 0,
-    },
-  ];
+const FormRandom = ({ teacher, setTeacher, group, setGroup }) => {
+  const [isDisable, setIsDisable] = useState(true);
+  console.log(teacher);
+  // const [teacher, setTeacher] = useState([]);
+  // const [group,setGroup] = useState([])
+
+  // const getTeacherList = useQuery({
+  //   queryKey: "getTeacher",
+  //   queryFn: async () => {
+  //     const response = await fetch("http://localhost:8080/teachers/list", {
+  //       method: "get",
+  //       credentials: "include",
+  //     });
+
+  //     return response.json();
+  //   },
+
+  // });
+
+  // const getGroupList = useQuery({
+  //   queryKey:"getGroups",
+  //   queryFn:async()=>{
+  //     const response = await fetch("http://localhost:8080/group/getAllGroup",
+  //     {
+  //       method:"get",
+  //       credentials:"include"
+  //     })
+  //     return response.json()
+
+  //   }
+  // })
+
+  // useEffect(()=>{
+  //   if(getTeacherList.data){
+  //     let addLimitTeacher = getTeacherList.data.map((obj) => {
+  //       return { ...obj, limit: 0 };
+  //     });
+  //     setTeacher(addLimitTeacher)
+  //   }
+  // },[getTeacherList.data])
+
+  // useEffect(()=>{
+  //   if(getGroupList.data){
+  //     setGroup(getGroupList.data)
+  //   }
+  // },[getGroupList.data])
 
   const changeLimitHandler = (e) => {
     const { name, value } = e.target;
     console.log(name, value);
+    let teacherTmp = [...teacher];
+    const indexTeacher = teacherTmp.findIndex(
+      (item) => item.firstname === name
+    );
+    teacherTmp[indexTeacher].limit = parseInt(value);
+    console.log(teacherTmp);
+    setTeacher(teacherTmp);
 
-    
+    const sumLimit = teacherTmp.reduce((prev, curr) => prev + curr.limit, 0);
+    console.log(sumLimit);
 
+    // const isEvenOrOod = sumLimit % 2;
+    // console.log(isEvenOrOod);
+    if (sumLimit >= group.length) {
+      setIsDisable(false);
+    } else {
+      setIsDisable(true);
+    }
+  };
 
+  const clickSubmitHandler = () => {
+    let tchGroup = [];
+    let teachers = [...teacher];
+    let groups = [...group];
+    // add tch to arr by limit
+    for (let i = 0; i < teachers.length; i++) {
+      let round = 1;
+
+      while (round <= teachers[i].limit) {
+        tchGroup.push({ ...teachers[i] });
+        round++;
+      }
+    }
+    console.log(tchGroup);
+
+    // shuffle tchGroup
+    for (let i = tchGroup.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      let temp = tchGroup[i];
+      tchGroup[i] = tchGroup[j];
+      tchGroup[j] = temp;
+    }
+
+    console.log(tchGroup);
+
+    // for(let i = 0 ; i <groups.length;i++){
+    //   groups[i].advisor = tchGroup[i]
+    // }
+
+    for (let i = teachers.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      let temp = teachers[i];
+      teachers[i] = teachers[j];
+      teachers[j] = temp;
+    }
+
+    // groups.map((item, idx) => {
+    //   let teachersNoAdvisor = teachers.filter(
+    //     (item) => item.id !== tchGroup[idx].id
+    //   );
+    //   let teachersNoAdvisorAndBoard1 = teacher.filter(
+    //     (item) =>
+    //       item.id !== tchGroup[idx].id && item.id !== teachersNoAdvisor[idx].id
+    //   );
+
+    //   item.boards.advisor = tchGroup[idx];
+    //   item.boards.board1 = teachersNoAdvisor[idx];
+    //   item.boards.board2 = teachersNoAdvisorAndBoard1[idx];
+    // });
+    const updatedGroups = groups.map((item, idx) => {
+      let teachers = [...teacher];
+      let teachersNoAdvisor = teachers.filter(
+        (teacherItem) => teacherItem.id !== tchGroup[idx].id
+      );
+      let randIndexBoard1 = Math.floor(
+        Math.random() * teachersNoAdvisor.length
+      );
+
+      let teachersNoAdvisorAndBoard1 = teachersNoAdvisor.filter(
+        (teacherItem) =>
+          // teacherItem.id !== tchGroup[idx].id &&
+          teacherItem.id !== teachersNoAdvisor[randIndexBoard1].id
+      );
+      let randIndexBoard2 = Math.floor(
+        Math.random() * teachersNoAdvisorAndBoard1.length
+      );
+
+      console.log("advisor:", tchGroup[idx]);
+      console.log("no advisor :", teachersNoAdvisor);
+      console.log("no advisor && board1 :", teachersNoAdvisorAndBoard1);
+
+      item.boards = {
+        advisor: { ...tchGroup[idx], role: "advisor" },
+        board1: { ...teachersNoAdvisor[randIndexBoard1], role: "board1" },
+        board2: {
+          ...teachersNoAdvisorAndBoard1[randIndexBoard2],
+          role: "board2",
+        },
+      };
+
+      return item;
+    });
+    console.log(updatedGroups);
+
+    setGroup(groups);
+
+    console.log(groups);
+
+    // let groups = [...group];
+    // // console.log(teachers);
+    // // console.log(groups);
+    // console.log(teachers);
+    // for (let i = teachers.length - 1; i > 0; i--) {
+    //   const j = Math.floor(Math.random() * (i + 1));
+    //   [teachers[i], teachers[j]] = [teachers[j], teachers[i]];
+    // }
+    // console.log(teachers);
+
+    // let teacherIndex = 0;
+    // for (let i = 0; i < groups.length; i++) {
+    //   const groupss = groups[i];
+
+    //   const assignTeacher = (teacher) => {
+    //     // console.log(teacher);
+    //     if(teacher.limit === ""){
+    //       return ""
+    //     }
+    //     if (teacher.limit > 0) {
+    //       teacher.limit--;
+    //       return teacher.firstname;
+    //     }
+    //     return "";
+    //   };
+
+    //   // console.log(teachers[teacherIndex]);
+    //   groupss.advisor = assignTeacher(teachers[teacherIndex]) || "";
+    //   groupss.bord1 = assignTeacher(teachers[teacherIndex + 1]) || "";
+    //   groupss.bord2 = assignTeacher(teachers[teacherIndex + 2]) || "";
+
+    //   teacherIndex += 3;
+    // }
+
+    // console.log(groups);
   };
 
   return (
@@ -49,12 +204,11 @@ const FormRandom = () => {
 
         {teacher.map((item, idx) => {
           return (
-            <Fragment>
-              <div>{item.name}</div>
+            <Fragment key={idx}>
+              <div>{item.firstname}</div>
               <div>
-                {" "}
                 <select
-                  name={item.name}
+                  name={item.firstname}
                   id=""
                   className="w-14"
                   onChange={(e) => changeLimitHandler(e)}
@@ -77,9 +231,18 @@ const FormRandom = () => {
         })}
       </div>
 
-      <button className="px-4 py-1 bg-green-300 rounded-md my-2 hover:bg-green-500">
+      <button
+        className="px-4 py-1 bg-green-300 rounded-md my-2 hover:bg-green-500 disabled:opacity-50 disabled:bg-green-100"
+        disabled={isDisable}
+        onClick={() => clickSubmitHandler()}
+      >
         สุ่ม
       </button>
+      {isDisable && (
+        <div className="text-center font-bold text-red-500 ">
+          ** ต้องการที่ปรึกษา {group.length} คน **
+        </div>
+      )}
     </div>
   );
 };
