@@ -1,52 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import { SaveButton } from "../../../../../../UI/button";
 
-const FormRandom = ({ teacher, setTeacher, group, setGroup }) => {
+const FormRandom = ({ teacher, setTeacher, group, setGroup, setIsRamdom }) => {
   const [isDisable, setIsDisable] = useState(true);
   console.log(teacher);
-  // const [teacher, setTeacher] = useState([]);
-  // const [group,setGroup] = useState([])
-
-  // const getTeacherList = useQuery({
-  //   queryKey: "getTeacher",
-  //   queryFn: async () => {
-  //     const response = await fetch("http://localhost:8080/teachers/list", {
-  //       method: "get",
-  //       credentials: "include",
-  //     });
-
-  //     return response.json();
-  //   },
-
-  // });
-
-  // const getGroupList = useQuery({
-  //   queryKey:"getGroups",
-  //   queryFn:async()=>{
-  //     const response = await fetch("http://localhost:8080/group/getAllGroup",
-  //     {
-  //       method:"get",
-  //       credentials:"include"
-  //     })
-  //     return response.json()
-
-  //   }
-  // })
-
-  // useEffect(()=>{
-  //   if(getTeacherList.data){
-  //     let addLimitTeacher = getTeacherList.data.map((obj) => {
-  //       return { ...obj, limit: 0 };
-  //     });
-  //     setTeacher(addLimitTeacher)
-  //   }
-  // },[getTeacherList.data])
-
-  // useEffect(()=>{
-  //   if(getGroupList.data){
-  //     setGroup(getGroupList.data)
-  //   }
-  // },[getGroupList.data])
 
   const changeLimitHandler = (e) => {
     const { name, value } = e.target;
@@ -62,8 +20,6 @@ const FormRandom = ({ teacher, setTeacher, group, setGroup }) => {
     const sumLimit = teacherTmp.reduce((prev, curr) => prev + curr.limit, 0);
     console.log(sumLimit);
 
-    // const isEvenOrOod = sumLimit % 2;
-    // console.log(isEvenOrOod);
     if (sumLimit >= group.length) {
       setIsDisable(false);
     } else {
@@ -153,11 +109,11 @@ const FormRandom = ({ teacher, setTeacher, group, setGroup }) => {
 
       return item;
     });
-    console.log(updatedGroups);
 
-    setGroup(groups);
-
+    // console.log(updatedGroups);
     console.log(groups);
+    setGroup(groups);
+    setIsRamdom(true)
 
     // let groups = [...group];
     // // console.log(teachers);
@@ -238,6 +194,7 @@ const FormRandom = ({ teacher, setTeacher, group, setGroup }) => {
       >
         สุ่ม
       </button>
+
       {isDisable && (
         <div className="text-center font-bold text-red-500 ">
           ** ต้องการที่ปรึกษา {group.length} คน **

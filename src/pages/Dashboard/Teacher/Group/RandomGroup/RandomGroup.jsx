@@ -7,7 +7,7 @@ import { useQuery } from "react-query";
 const RandomGroup = () => {
   const [teacher, setTeacher] = useState([]);
   const [group, setGroup] = useState([]);
-
+  const [isRandom,setIsRamdom] = useState(false)
   const getTeacherList = useQuery({
     queryKey: "getTeacher",
     queryFn: async () => {
@@ -23,7 +23,7 @@ const RandomGroup = () => {
   const getGroupList = useQuery({
     queryKey: "getGroups",
     queryFn: async () => {
-      const response = await fetch("http://localhost:8080/group/getAllGroup", {
+      const response = await fetch("http://localhost:8080/group/getAllGroup/random", {
         method: "get",
         credentials: "include",
       });
@@ -41,7 +41,7 @@ const RandomGroup = () => {
 
   useEffect(() => {
     if (getGroupList.data) {
-      // console.log(getGroupList.data);
+      console.log(getGroupList.data);
       let addTchGroup = getGroupList.data.map((obj) => {
         return { ...obj, boards: { advisor: {role:"advisor"}, board1: {role:"board1"}, board2: {role:"board2"} } };
       });
@@ -61,10 +61,11 @@ const RandomGroup = () => {
               setTeacher={setTeacher}
               group={group}
               setGroup={setGroup}
+              setIsRamdom = {setIsRamdom}
             />
           </div>
           <div className="border rounded-md text-center border-black">
-            <ResultRandom group={group} setGroup={setGroup} />
+            <ResultRandom group={group} setGroup={setGroup} isRandom={isRandom} />
           </div>
         </div>
       </Body>
