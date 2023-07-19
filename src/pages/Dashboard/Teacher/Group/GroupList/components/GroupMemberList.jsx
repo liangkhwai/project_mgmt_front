@@ -193,7 +193,7 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
         </table>
         {ctx.role === "admin" && (
           <Fragment>
-            <div className="flex py-1  border-b-2 border-r-2 border-r-2 border-l-2 border-gray-300">
+            <div className="flex py-1  border-b-2  border-r-2 border-l-2 border-gray-300">
               <ComboBox
                 loadedResearcherList={loadedResearcherList}
                 selectedItem={selectedItem}
