@@ -39,8 +39,9 @@ const EditGroupTitle = (props) => {
   return (
     <div>
       {isEditing ? (
-        <div className="">
+        <div>
           <input
+            className="focus:bg-blue-50"
             type="text"
             name=""
             id=""
