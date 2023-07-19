@@ -21,6 +21,7 @@ import { checkHasGroup,getGroupDetail } from "./loader/group";
 import GroupList from "./pages/Dashboard/Teacher/Group/GroupList/GroupList";
 import RandomGroup from "./pages/Dashboard/Teacher/Group/RandomGroup/RandomGroup";
 import GroupDetail from "./pages/Dashboard/Teacher/Group/GroupList/components/GroupDetail";
+import Calendar from "./pages/Dashboard/Teacher/Calendar/Calendar";
 const router = createBrowserRouter([
   {
     element: <Landing />,
@@ -93,6 +94,10 @@ const router = createBrowserRouter([
         loader:({ params}) =>{
           return getGroupDetail(params.grpId)
         }
+      },
+      {
+        path:"/dashboard/calendar/book",
+        element: <Calendar/>
       }
     ],
   },

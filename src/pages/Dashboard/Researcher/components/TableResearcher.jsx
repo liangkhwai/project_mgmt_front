@@ -70,6 +70,7 @@ const TableResearcher = ({
   const customStyles = {
     content: {
       width: "30%",
+     
       top: "50%",
       left: "50%",
       right: "auto",
