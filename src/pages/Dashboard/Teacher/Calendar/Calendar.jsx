@@ -9,12 +9,37 @@ import Body from "../../../../UI/Body";
 import Modal from "../../../../UI/Modal";
 import ModalContent from "./components/ModalContent";
 import dayjs from "dayjs";
-import thLocale from '@fullcalendar/core/locales/th';
+import thLocale from "@fullcalendar/core/locales/th";
+import { useQuery } from "react-query";
 
 const Calendar = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState();
   const [events, setEvents] = useState([]);
+
+  const getEventList = useQuery({
+    queryFn:async()=>{
+      const response = await fetch("http://localhost:8080/free_hours/getEvent",
+      {
+        method:"post",
+        body:JSON.stringify({tchId:localStorage.getItem("id")}),
+        headers:{"Content-Type": "application/json"}
+      })
+
+      return response.json()
+
+
+    },
+   
+  })
+  useEffect(()=>{
+    if(getEventList.data){
+      console.log(getEventList.data);
+    setEvents(prev=> [...prev,...getEventList.data])
+    }
+  },[getEventList.data])
+
+
   const handleOpenModal = (date) => {
     setModalOpen(true);
   };
@@ -32,24 +57,9 @@ const Calendar = () => {
   }, []);
   const calendarRef = useRef(null);
 
-  //   useEffect(() => {
-  //     const calendarApi = calendarRef.current.getApi();
-  //     calendarApi.setOption("selectable", true);
-  //     calendarApi.setOption("selectMirror", true);
-  //     calendarApi.setOption("select", handleDateSelect);
-  //   }, []);
-
   const handleSelect = (event) => {
     console.log(event);
-    // const endDate = new Date(event.endStr);
-    // endDate.setDate(endDate.getDate() - 1);
-    // endDate.setHours(0);
-    // const subtractDate = endDate.toISOString().split("T")[0];
-    // console.log(subtractDate);
 
-    // const newDateEnd = new Date(subtractDate);
-
-    // const startTime = dayjs(event.start.toString()).set("hour", 12).$d;
     let startTime = dayjs(event.start.toString()).$d;
     let endTime = dayjs(event.end.toString()).$d;
     let isAllDay = true;
@@ -78,24 +88,13 @@ const Calendar = () => {
   const handleClick = (event) => {
     console.log(event);
 
-    const newEvent = {  
+    const newEvent = {
       title: "(ไม่มีชื่อ)",
       date: event.date,
       allDay: event.allDay,
     };
-    
   };
   const eventDidMount = (info) => {
-    // Modify the event format
-    // console.log(info);
-    // const eventEl = info.el;
-    // const eventTitle = info.event.title;
-    // const eventStart = dayjs(info.event.start).locale('th').format('HH:mm');
-    // const eventEnd = dayjs(info.event.end).locale('th').format('HH:mm');
-
-    // // Customize the event content, e.g., change the event title or add additional information
-    // // eventEl.innerHTML = `<strong>${eventTitle}</strong><br>Start: ${eventStart}<br>End: ${eventEnd}`;
-    // eventEl.innerHTML = `<strong>${eventTitle}</strong> &nbsp;${eventStart}`;
     const { event } = info;
     console.log(event);
     const eventTitle = event.title;

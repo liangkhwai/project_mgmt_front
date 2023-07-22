@@ -1,7 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { AddButton } from "../../../../../UI/button";
 import dayjs from "dayjs";
-import "dayjs/locale/th";
+// import "dayjs/locale/th";
+import { useMutation } from "react-query";
 const ModalContent = ({ selectedDate, setEvents, handleCloseModal }) => {
   const [date, setDate] = useState(selectedDate);
   const [dateStart, setDateStart] = useState(date.start);
@@ -257,10 +258,37 @@ const ModalContent = ({ selectedDate, setEvents, handleCloseModal }) => {
     });
   };
 
+  const mutation = useMutation({
+    mutationFn: async (date) => {
+      const response = await fetch("http://localhost:8080/free_hours/add", {
+        method: "POST",
+        body: JSON.stringify({date:date,tchId:localStorage.getItem("id") }),
+        credentials:"include",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      return response.json();
+    },
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
+
   const submitHandlerEvent = () => {
     console.log(date);
+
+    console.log(date.start);
+    console.log(date.end);
     setEvents((prev) => [...prev, date]);
+    mutation.mutate(date)
     handleCloseModal();
+
+
+
+
+
+
+
   };
 
   return (
