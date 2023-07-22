@@ -3,7 +3,13 @@ import { AddButton, DeleteButton } from "../../../../../UI/button";
 import dayjs from "dayjs";
 // import "dayjs/locale/th";
 import { useMutation } from "react-query";
-const ModalContent = ({ selectedDate, setEvents, handleCloseModal, type,events }) => {
+const ModalContent = ({
+  selectedDate,
+  setEvents,
+  handleCloseModal,
+  type,
+  events,
+}) => {
   console.log(selectedDate);
   const [date, setDate] = useState(selectedDate);
   const [dateStart, setDateStart] = useState(date.start);
@@ -297,9 +303,12 @@ const ModalContent = ({ selectedDate, setEvents, handleCloseModal, type,events }
       const event = data;
       let dateStart = dayjs(event.start).$d;
       let dateEnd = dayjs(event.end).$d;
-      if(event.allDay === true){
-        dateStart = dayjs(event.start).set('hour',0).set('minute',0).$d
-        dateEnd = dayjs(event.end).add(1,'day').set('hour',0).set('minute',0).$d
+      if (event.allDay === true) {
+        dateStart = dayjs(event.start).set("hour", 0).set("minute", 0).$d;
+        dateEnd = dayjs(event.end)
+          .add(1, "day")
+          .set("hour", 0)
+          .set("minute", 0).$d;
       }
       event.start = dateStart;
       event.end = dateEnd;
@@ -310,43 +319,73 @@ const ModalContent = ({ selectedDate, setEvents, handleCloseModal, type,events }
   });
 
   const updateEvent = useMutation({
-    mutationFn:async(event)=>{
-      const response = await fetch('http://localhost:8080/free_hours/updateEvent',{
-        method:"patch",
-        body:JSON.stringify({}),
-        headers:{"Content-Type": "application/json"}
-      })
-      return response.json()
+    mutationFn: async (event) => {
+      const response = await fetch(
+        "http://localhost:8080/free_hours/updateEvent",
+        {
+          method: "PATCH",
+          body: JSON.stringify({ event: event }),
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      return response.json();
     },
-    onSuccess:(event)=>{
+    onSuccess: (event) => {
+      console.log(event);
+      const updatedData = event;
+      const eventTmp = [...events];
+      const filterEvent = events.findIndex(
+        (item, idx) => item.id === parseInt(updatedData.id)
+      );
+      eventTmp[filterEvent].title = updatedData.title;
+      eventTmp[filterEvent].start = dayjs(updatedData.start).$d;
+      eventTmp[filterEvent].end = dayjs(updatedData.end).$d;
+      eventTmp[filterEvent].allDay = updatedData.allDay;
+      console.log(eventTmp);
+      setEvents([...eventTmp]);
+      handleCloseModal();
+    },
+  });
 
+  const deleteEvent = useMutation({
+    mutationFn: async (id) => {
+      const response = await fetch("http://localhost:8080/free_hours/delete", {
+        method: "post",
+        body: JSON.stringify({ id }),
+        headers: { "Content-Type": "application/json" },
+      });
+      return response.json();
+    },
+    onSuccess: (data) => {
+      const eventId = data
+      const filterEvent = events.filter((item)=> item.id !== data)
+      console.log(filterEvent);
+      setEvents(filterEvent)
+      handleCloseModal()
+
+    },
+  });
+
+  const updateEventHandler = () => {
+    console.log(events);
+    updateEvent.mutate(date);
+  };
+
+  const deleteEventHandler = () => {
+    if (window.confirm("Are you sure delete this event ?")) {
+      console.log(date.id);
+      deleteEvent.mutate(date.id);
     }
 
-  })
-  const updateEventHandler = ()=>{
-    console.log(events);
-    const eventTmp = [...events]
-    const filterEvent = events.findIndex((item,idex) => item.id === parseInt(date.id))
-
-    eventTmp[filterEvent].title = date.title
-    eventTmp[filterEvent].start = dayjs(date.start).$d
-    eventTmp[filterEvent].end = dayjs(date.end).$d
-    eventTmp[filterEvent].allDay = date.allDay
-    console.log(eventTmp);
-    setEvents([...eventTmp])
-    handleCloseModal()
-
-  }
-
-
+  };
 
   const submitHandlerEvent = () => {
-    console.log(date)
+    console.log(date);
     console.log(date.start);
     console.log(date.end);
     mutation.mutate(date);
   };
-
 
   return (
     <div>
@@ -431,7 +470,13 @@ const ModalContent = ({ selectedDate, setEvents, handleCloseModal, type,events }
           <Fragment>
             <AddButton onClick={() => updateEventHandler()}>บันทึก</AddButton>
             &nbsp;
-            <DeleteButton>ลบ</DeleteButton>
+            <DeleteButton
+              onClick={() => {
+                deleteEventHandler();
+              }}
+            >
+              ลบ
+            </DeleteButton>
           </Fragment>
         )}
       </div>
