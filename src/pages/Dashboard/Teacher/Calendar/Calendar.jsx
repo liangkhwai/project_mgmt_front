@@ -11,34 +11,53 @@ import ModalContent from "./components/ModalContent";
 import dayjs from "dayjs";
 import thLocale from "@fullcalendar/core/locales/th";
 import { useQuery } from "react-query";
+import { useLoaderData } from "react-router-dom";
 
 const Calendar = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [eventEdit, setEventEdit] = useState();
+  const [isEventEditOpen, setIsEventEditOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState();
-  const [events, setEvents] = useState([]);
+  const data = useLoaderData()
+  const [events, setEvents] = useState([...data]);
+  const [eventsKey, setEventsKey] = useState(0);
 
-  const getEventList = useQuery({
-    queryFn:async()=>{
-      const response = await fetch("http://localhost:8080/free_hours/getEvent",
-      {
-        method:"post",
-        body:JSON.stringify({tchId:localStorage.getItem("id")}),
-        headers:{"Content-Type": "application/json"}
-      })
+  // const getEventList = useQuery({
+  //   queryFn: async () => {
+  //     const response = await fetch(
+  //       "http://localhost:8080/free_hours/getEvent",
+  //       {
+  //         method: "post",
+  //         body: JSON.stringify({ tchId: localStorage.getItem("id") }),
+  //         headers: { "Content-Type": "application/json" },
+  //       }
+  //     );
 
-      return response.json()
+  //     return response.json();
+  //   },
+  // });
+  // useEffect(() => {
+  //   if (getEventList.data) {
+  //     console.log(getEventList.data);
+  //     const updateToDayJs = getEventList.data.map((event)=>{
+  //       const start = dayjs(event.start).$d
+  //       const end = dayjs(event.end).$d
+
+  //       return {
+  //         ...event,start: start,end:end
+  //       }
+        
+  //     })
 
 
-    },
-   
-  })
+  //     setEvents((prev) => [...prev, ...updateToDayJs]);
+  //   }
+  // }, [getEventList.data]);
   useEffect(()=>{
-    if(getEventList.data){
-      console.log(getEventList.data);
-    setEvents(prev=> [...prev,...getEventList.data])
-    }
-  },[getEventList.data])
-
+    console.log(events);
+    setEventsKey((prev) => prev + 1);
+  },[events])
+ 
 
   const handleOpenModal = (date) => {
     setModalOpen(true);
@@ -48,6 +67,13 @@ const Calendar = () => {
     setModalOpen(false);
   };
 
+  const handleEventOpenModal = () => {
+    setIsEventEditOpen(true);
+  };
+  const handleEventCloseModal = () => {
+    setIsEventEditOpen(false);
+  };
+
   const headerToolbar = useMemo(() => {
     return {
       left: "prev,next today",
@@ -55,21 +81,24 @@ const Calendar = () => {
       right: "dayGridMonth,timeGridWeek,timeGridDay,list",
     };
   }, []);
-  const calendarRef = useRef(null);
 
+ 
   const handleSelect = (event) => {
     console.log(event);
 
     let startTime = dayjs(event.start.toString()).$d;
     let endTime = dayjs(event.end.toString()).$d;
+    console.log(startTime, endTime);
     let isAllDay = true;
     if (event.view.type === "dayGridMonth") {
       startTime = dayjs(event.start.toString()).set("hour", 12).$d;
-      endTime = dayjs(event.end.toString())
-        .subtract(1, "day")
-        .set("hour", 13).$d;
+      // .set("hour", 12).$d;
+      endTime = dayjs(event.end.toString()).subtract(1,'day').set("hour", 13).$d;
+      // .set("hour", 13).subtract(1, "day").$d;
     } else if (event.view.type === "timeGridWeek") {
       isAllDay = false;
+    }else{
+      isAllDay = false
     }
     console.log(endTime);
 
@@ -78,6 +107,7 @@ const Calendar = () => {
       start: startTime,
       end: endTime,
       allDay: isAllDay,
+      type: event.view.type,
     };
 
     console.log(newEvent);
@@ -85,28 +115,18 @@ const Calendar = () => {
     handleOpenModal();
     // setEvents([...events, newEvent]);
   };
-  const handleClick = (event) => {
-    console.log(event);
 
-    const newEvent = {
-      title: "(ไม่มีชื่อ)",
-      date: event.date,
-      allDay: event.allDay,
-    };
-  };
   const eventDidMount = (info) => {
     const { event } = info;
-    console.log(event);
     const eventTitle = event.title;
     const eventStart = dayjs(event.start).locale("th").format("HH:mm");
-    const eventEnd = dayjs(event.end).locale("th").format("HH:mm");
 
     return {
       html: `
-        <div class{${event.allDay === true && "bg-light-blue-600"}}}>
+        <div class="cursor-pointer w-full">
           ${
             event.allDay === false ? eventStart : ""
-          } &nbsp;<strong>${eventTitle}</strong> 
+          } &nbsp;<strong class="cursor-pointer">${eventTitle}</strong> 
         </div>
       `,
     };
@@ -117,6 +137,37 @@ const Calendar = () => {
       html: `<strong className="m-2">อีก ${event.num} กิจกรรม</strong>`,
     };
   };
+  const eventClick = (info) => {
+    console.log(info);
+    console.log(info.event.start);
+    console.log(info.event.end);
+
+    // let startTime = dayjs(info.event.start.toString()).$d;
+    // let endTime = dayjs(info.event.end.toString()).$d;
+    // let isAllDay = true;
+    // if (event.view.type === "dayGridMonth") {
+    //   startTime = dayjs(event.start.toString()).set("hour", 12).$d;
+    //   endTime = dayjs(event.end.toString())
+    //     .subtract(1, "day")
+    //     .set("hour", 13).$d;
+    // } else if (event.view.type === "timeGridWeek") {
+    //   isAllDay = false;
+    // }
+    // console.log(endTime);
+
+    const newEvent = {
+      title: info.event.title,
+      start: info.event.start,
+      end: info.event.end,
+      allDay: info.event.allDay,
+      id: parseInt(info.event.id),
+      type: info.view.type,
+    };
+
+    console.log(newEvent);
+    setEventEdit(newEvent);
+    handleEventOpenModal();
+  };
 
   return (
     <div className="mx-5">
@@ -124,28 +175,7 @@ const Calendar = () => {
       <Body>
         <div className="">
           <FullCalendar
-            ref={calendarRef}
-            // timeZone="local"
-            // views={{
-            //   day: {
-            //     slotDuration: "00:30:00",
-            //     slotMinTime: "09:00:00",
-            //     slotMaxTime: "19:00:00",
-            //     selectMinDistance: 3,
-            //     selectable: true,
-            //     selectMirror: true,
-            //     dateClick: handleClick,
-            //   },
-            //   week: {
-            //     slotDuration: "00:30:00",
-            //     slotMinTime: "09:00:00",
-            //     slotMaxTime: "19:00:00",
-            //     selectMinDistance: 3,
-            //     selectable: true,
-            //     selectMirror: true,
-            //   },
-            // }}
-            // width={150}
+            key={eventsKey}
             height={700}
             plugins={[
               dayGridPlugin,
@@ -154,7 +184,6 @@ const Calendar = () => {
               listPlugin,
             ]}
             initialView="dayGridMonth"
-            // dateClick={handleClick}
             selectMirror={true}
             headerToolbar={headerToolbar}
             selectable={true}
@@ -162,20 +191,32 @@ const Calendar = () => {
             select={handleSelect}
             events={events}
             slotEventOverlap={true}
-            // eventMaxStack={5}
             dayMaxEvents={3}
-            // defaultAllDay={false}
             eventContent={eventDidMount}
             moreLinkContent={moreLinkContent}
             locale={thLocale}
-          />
+            eventClick={eventClick}
+            forceEventDuration={true}
 
+          />
           <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
             <div className=" z-auto h-full w-full  ">
               <ModalContent
                 selectedDate={selectedDate}
                 setEvents={setEvents}
                 handleCloseModal={handleCloseModal}
+                type="add"
+              />
+            </div>
+          </Modal>
+          <Modal isOpen={isEventEditOpen} onClose={handleEventCloseModal}>
+            <div className=" z-auto h-full w-full  ">
+              <ModalContent
+              events={events}
+                selectedDate={eventEdit}
+                setEvents={setEvents}
+                handleCloseModal={handleEventCloseModal}
+                type="edit"
               />
             </div>
           </Modal>

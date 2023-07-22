@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { checkAuth } from "./loader/auth";
 import ResearcherList from "./pages/Dashboard/Researcher/Researcher";
 import { getList,getSelfInfo } from "./loader/researcher";
+import { getEventListTch } from "./loader/free_hours";
 import React from "react";
 import Thesis from "./pages/Landing/Thesis";
 import Faq from "./pages/Landing/Faq";
@@ -96,8 +97,11 @@ const router = createBrowserRouter([
         }
       },
       {
-        path:"/dashboard/calendar/book",
-        element: <Calendar/>
+        path:"/dashboard/calendar/book/:tchId",
+        element: <Calendar/>,
+        loader:({params})=>{
+          return getEventListTch(params.tchId)
+        }
       }
     ],
   },

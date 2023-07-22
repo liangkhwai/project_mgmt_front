@@ -1,118 +1,120 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { AddButton } from "../../../../../UI/button";
+import { AddButton, DeleteButton } from "../../../../../UI/button";
 import dayjs from "dayjs";
 // import "dayjs/locale/th";
 import { useMutation } from "react-query";
-const ModalContent = ({ selectedDate, setEvents, handleCloseModal }) => {
+const ModalContent = ({ selectedDate, setEvents, handleCloseModal, type,events }) => {
+  console.log(selectedDate);
   const [date, setDate] = useState(selectedDate);
   const [dateStart, setDateStart] = useState(date.start);
   const [dateEnd, setDateEnd] = useState(date.end);
   const [hourAm, setHourAm] = useState(12);
   const [hourPm, setHourPm] = useState(13);
-  const [isAllDay, setIsAllDay] = useState(true);
+  const [isAllDay, setIsAllDay] = useState(selectedDate.allDay);
+  const [isChecked, setIsChecked] = useState(false);
   const [isAddTime, setIsAddTime] = useState(false);
- const pmDefault = [
-  {
-    name: "00.00",
-    val: 0,
-  },
-  {
-    name: "01.00",
-    val: 1,
-  },
-  {
-    name: "02.00",
-    val: 2,
-  },
-  {
-    name: "03.00",
-    val: 3,
-  },
-  {
-    name: "04.00",
-    val: 4,
-  },
-  {
-    name: "05.00",
-    val: 5,
-  },
-  {
-    name: "06.00",
-    val: 6,
-  },
-  {
-    name: "07.00",
-    val: 7,
-  },
-  {
-    name: "08.00",
-    val: 8,
-  },
-  {
-    name: "09.00",
-    val: 9,
-  },
-  {
-    name: "10.00",
-    val: 10,
-  },
-  {
-    name: "11.00",
-    val: 11,
-  },
-  {
-    name: "12.00",
-    val: 12,
-  },
-  {
-    name: "13.00",
-    val: 13,
-  },
-  {
-    name: "14.00",
-    val: 14,
-  },
-  {
-    name: "15.00",
-    val: 15,
-  },
-  {
-    name: "16.00",
-    val: 16,
-  },
-  {
-    name: "17.00",
-    val: 17,
-  },
-  {
-    name: "18.00",
-    val: 18,
-  },
-  {
-    name: "19.00",
-    val: 19,
-  },
-  {
-    name: "20.00",
-    val: 20,
-  },
-  {
-    name: "21.00",
-    val: 21,
-  },
-  {
-    name: "22.00",
-    val: 22,
-  },
-  {
-    name: "23.00",
-    val: 23,
-  },
-  {
-    name: "24.00",
-    val: 24,
-  },
- ]
+  const pmDefault = [
+    {
+      name: "00.00",
+      val: 0,
+    },
+    {
+      name: "01.00",
+      val: 1,
+    },
+    {
+      name: "02.00",
+      val: 2,
+    },
+    {
+      name: "03.00",
+      val: 3,
+    },
+    {
+      name: "04.00",
+      val: 4,
+    },
+    {
+      name: "05.00",
+      val: 5,
+    },
+    {
+      name: "06.00",
+      val: 6,
+    },
+    {
+      name: "07.00",
+      val: 7,
+    },
+    {
+      name: "08.00",
+      val: 8,
+    },
+    {
+      name: "09.00",
+      val: 9,
+    },
+    {
+      name: "10.00",
+      val: 10,
+    },
+    {
+      name: "11.00",
+      val: 11,
+    },
+    {
+      name: "12.00",
+      val: 12,
+    },
+    {
+      name: "13.00",
+      val: 13,
+    },
+    {
+      name: "14.00",
+      val: 14,
+    },
+    {
+      name: "15.00",
+      val: 15,
+    },
+    {
+      name: "16.00",
+      val: 16,
+    },
+    {
+      name: "17.00",
+      val: 17,
+    },
+    {
+      name: "18.00",
+      val: 18,
+    },
+    {
+      name: "19.00",
+      val: 19,
+    },
+    {
+      name: "20.00",
+      val: 20,
+    },
+    {
+      name: "21.00",
+      val: 21,
+    },
+    {
+      name: "22.00",
+      val: 22,
+    },
+    {
+      name: "23.00",
+      val: 23,
+    },
+    {
+      name: "24.00",
+      val: 24,
+    },
+  ];
   const [am, setAm] = useState([
     {
       name: "00.00",
@@ -215,7 +217,9 @@ const ModalContent = ({ selectedDate, setEvents, handleCloseModal }) => {
       val: 24,
     },
   ]);
-  const [pm, setPm] = useState([...pmDefault.filter((item)=> item.val >= hourPm)]);
+  const [pm, setPm] = useState([
+    ...pmDefault.filter((item) => item.val >= hourPm),
+  ]);
   useEffect(() => {
     console.log(date);
   }, [date]);
@@ -251,19 +255,37 @@ const ModalContent = ({ selectedDate, setEvents, handleCloseModal }) => {
     // setDateEnd(dayjsEnd);
   };
 
-  const handleChangeCheckBox = () => {
+  const handleChangeCheckBox = (event) => {
+    // console.log(event.target.checked);
+
     setIsAllDay(!isAllDay);
-    setDate((prev) => {
-      return { ...prev, allDay: !isAllDay };
-    });
+    if (date.type === "dayGridMonth") {
+      setDate((prev) => {
+        return { ...prev, allDay: !isChecked };
+      });
+    } else {
+      setDate((prev) => {
+        return { ...prev, allDay: !isChecked };
+      });
+    }
+    setIsChecked(!isChecked);
+  };
+
+  const addTimeHandler = () => {
+    if (date.type === "dayGridMonth") {
+      setDate((prev) => {
+        return { ...prev, allDay: !prev.allDay };
+      });
+    }
+    setIsAddTime(!isAddTime);
   };
 
   const mutation = useMutation({
     mutationFn: async (date) => {
       const response = await fetch("http://localhost:8080/free_hours/add", {
         method: "POST",
-        body: JSON.stringify({date:date,tchId:localStorage.getItem("id") }),
-        credentials:"include",
+        body: JSON.stringify({ date: date, tchId: localStorage.getItem("id") }),
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
       });
 
@@ -271,49 +293,92 @@ const ModalContent = ({ selectedDate, setEvents, handleCloseModal }) => {
     },
     onSuccess: (data) => {
       console.log(data);
+      console.log(date);
+      const event = data;
+      let dateStart = dayjs(event.start).$d;
+      let dateEnd = dayjs(event.end).$d;
+      if(event.allDay === true){
+        dateStart = dayjs(event.start).set('hour',0).set('minute',0).$d
+        dateEnd = dayjs(event.end).add(1,'day').set('hour',0).set('minute',0).$d
+      }
+      event.start = dateStart;
+      event.end = dateEnd;
+      console.log(event);
+      setEvents((prev) => [...prev, event]);
+      handleCloseModal();
     },
   });
 
-  const submitHandlerEvent = () => {
-    console.log(date);
+  const updateEvent = useMutation({
+    mutationFn:async(event)=>{
+      const response = await fetch('http://localhost:8080/free_hours/updateEvent',{
+        method:"patch",
+        body:JSON.stringify({}),
+        headers:{"Content-Type": "application/json"}
+      })
+      return response.json()
+    },
+    onSuccess:(event)=>{
 
+    }
+
+  })
+  const updateEventHandler = ()=>{
+    console.log(events);
+    const eventTmp = [...events]
+    const filterEvent = events.findIndex((item,idex) => item.id === parseInt(date.id))
+
+    eventTmp[filterEvent].title = date.title
+    eventTmp[filterEvent].start = dayjs(date.start).$d
+    eventTmp[filterEvent].end = dayjs(date.end).$d
+    eventTmp[filterEvent].allDay = date.allDay
+    console.log(eventTmp);
+    setEvents([...eventTmp])
+    handleCloseModal()
+
+  }
+
+
+
+  const submitHandlerEvent = () => {
+    console.log(date)
     console.log(date.start);
     console.log(date.end);
-    setEvents((prev) => [...prev, date]);
-    mutation.mutate(date)
-    handleCloseModal();
-
-
-
-
-
-
-
+    mutation.mutate(date);
   };
+
 
   return (
     <div>
       <div>
-        <input
-          type="text"
-          name=""
-          id=""
-          className="w-full"
-          placeholder="เพิ่มชื่อและเวลา"
-          onChange={(e) =>
-            setDate((prev) => ({ ...prev, title: e.target.value }))
-          }
-        />
+        {type === "add" ? (
+          <input
+            type="text"
+            name=""
+            id=""
+            className="w-full"
+            placeholder="เพิ่มชื่อและเวลา"
+            onChange={(e) =>
+              setDate((prev) => ({ ...prev, title: e.target.value }))
+            }
+          />
+        ) : (
+          <input
+            type="text"
+            name=""
+            id=""
+            className="w-full"
+            placeholder="เพิ่มชื่อและเวลา"
+            value={date.title}
+            onChange={(e) =>
+              setDate((prev) => ({ ...prev, title: e.target.value }))
+            }
+          />
+        )}
       </div>
       <div></div>
       {startDate} - {endDate}{" "}
-      <button
-        className="border rounded-md p-1 text-gray-800 hover:bg-gray-100 text-sm"
-        onClick={() => setIsAddTime(!isAddTime)}
-      >
-        เพิ่มเวลา
-      </button>
-      {isAddTime && (
+      {isAddTime ? (
         <Fragment>
           <div>
             <select onChange={handleHourChangeAm} value={hourAm}>
@@ -340,24 +405,35 @@ const ModalContent = ({ selectedDate, setEvents, handleCloseModal }) => {
               type="checkbox"
               name=""
               id=""
-              checked={isAllDay}
-              onChange={() => handleChangeCheckBox()}
+              checked={isChecked}
+              onChange={(e) => handleChangeCheckBox(e)}
             />{" "}
             <span>ตลอดทั้งวัน</span>
           </div>
         </Fragment>
+      ) : (
+        <button
+          className="border rounded-md p-1 text-gray-800 hover:bg-gray-100 text-sm"
+          onClick={() => addTimeHandler()}
+        >
+          เพิ่มเวลา
+        </button>
       )}
       <div>
-        after Am : {hourAm}
+        เริ่ม : {dayjs(date.start.toString()).$d.toString()}
         <br />
-        after Pm : {hourPm}
-        <br />
-        after start : {dayjs(date.start.toString()).$d.toString()}
-        <br />
-        after start : {dayjs(date.end.toString()).$d.toString()}
+        จบ : {dayjs(date.end.toString()).$d.toString()}
       </div>
       <div className="my-1 text-center">
-        <AddButton onClick={() => submitHandlerEvent()}>บันทึก</AddButton>
+        {type === "add" ? (
+          <AddButton onClick={() => submitHandlerEvent()}>บันทึก</AddButton>
+        ) : (
+          <Fragment>
+            <AddButton onClick={() => updateEventHandler()}>บันทึก</AddButton>
+            &nbsp;
+            <DeleteButton>ลบ</DeleteButton>
+          </Fragment>
+        )}
       </div>
     </div>
   );
