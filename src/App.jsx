@@ -23,6 +23,9 @@ import GroupList from "./pages/Dashboard/Teacher/Group/GroupList/GroupList";
 import RandomGroup from "./pages/Dashboard/Teacher/Group/RandomGroup/RandomGroup";
 import GroupDetail from "./pages/Dashboard/Teacher/Group/GroupList/components/GroupDetail";
 import Calendar from "./pages/Dashboard/Teacher/Calendar/Calendar";
+import RequestExam from "./pages/Dashboard/Researcher/Request_exam/RequestExam";
+import Files from "./pages/Dashboard/Admin/Files/Files";
+import Docs from "./pages/Landing/Docs";
 const router = createBrowserRouter([
   {
     element: <Landing />,
@@ -42,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "/thesis",
         element: <Thesis />,
+      },
+      {
+        path: "/files",
+        element: <Docs />,
       },
       {
         path: "/faq",
@@ -102,6 +109,14 @@ const router = createBrowserRouter([
         loader:({params})=>{
           return getEventListTch(params.tchId)
         }
+      },
+      {
+        path:"/dashboard/request/exam",
+        element: <RequestExam/>
+      },
+      {
+        path:"/dashboard/files/upload",
+        element:<Files/>
       }
     ],
   },

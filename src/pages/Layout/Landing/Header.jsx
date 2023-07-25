@@ -78,6 +78,14 @@ const Header = () => {
                   <div>ติดต่อเรา</div>
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/files"
+                  className="hover:text-blue-600 duration-300 transition-colors"
+                >
+                  <div>เอกสาร</div>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
