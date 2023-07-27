@@ -8,7 +8,7 @@ import Dashboard from "./pages/Dashboardd/Dashboard";
 import { useContext } from "react";
 import { checkAuth } from "./loader/auth";
 import ResearcherList from "./pages/Dashboard/Researcher/Researcher";
-import { getList,getSelfInfo } from "./loader/researcher";
+import { getList, getSelfInfo } from "./loader/researcher";
 import { getEventListTch } from "./loader/free_hours";
 import React from "react";
 import Thesis from "./pages/Landing/Thesis";
@@ -18,7 +18,7 @@ import Teacher from "./pages/Dashboard/Teacher/Teacher";
 import Group from "./pages/Dashboard/Researcher/Group/Group";
 import CreateGroup from "./pages/Dashboard/Researcher/Group/create_group/CreateGroup";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { checkHasGroup,getGroupDetail } from "./loader/group";
+import { checkHasGroup, getGroupDetail } from "./loader/group";
 import GroupList from "./pages/Dashboard/Teacher/Group/GroupList/GroupList";
 import RandomGroup from "./pages/Dashboard/Teacher/Group/RandomGroup/RandomGroup";
 import GroupDetail from "./pages/Dashboard/Teacher/Group/GroupList/components/GroupDetail";
@@ -26,6 +26,7 @@ import Calendar from "./pages/Dashboard/Teacher/Calendar/Calendar";
 import RequestExam from "./pages/Dashboard/Researcher/Request_exam/RequestExam";
 import Files from "./pages/Dashboard/Admin/Files/Files";
 import Docs from "./pages/Landing/Docs";
+import ExamRequest from "./pages/Dashboard/Teacher/ExamRequest/ExamRequest";
 const router = createBrowserRouter([
   {
     element: <Landing />,
@@ -81,7 +82,7 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/group",
         element: <Group />,
-        loader:getSelfInfo
+        loader: getSelfInfo,
       },
       {
         path: "/dashboard/group/create",
@@ -89,34 +90,38 @@ const router = createBrowserRouter([
         loader: checkHasGroup,
       },
       {
-        path:"/dashboard/grouplist",
-        element: <GroupList/>
+        path: "/dashboard/grouplist",
+        element: <GroupList />,
       },
       {
-        path:"/dashboard/random",
-        element: <RandomGroup/>
+        path: "/dashboard/random",
+        element: <RandomGroup />,
       },
       {
-        path:"/dashboard/group/:grpId",
-        element: <GroupDetail/>,
-        loader:({ params}) =>{
-          return getGroupDetail(params.grpId)
-        }
+        path: "/dashboard/group/:grpId",
+        element: <GroupDetail />,
+        loader: ({ params }) => {
+          return getGroupDetail(params.grpId);
+        },
       },
       {
-        path:"/dashboard/calendar/book/:tchId",
-        element: <Calendar/>,
-        loader:({params})=>{
-          return getEventListTch(params.tchId)
-        }
+        path: "/dashboard/calendar/book/:tchId",
+        element: <Calendar />,
+        loader: ({ params }) => {
+          return getEventListTch(params.tchId);
+        },
       },
       {
-        path:"/dashboard/request/exam",
-        element: <RequestExam/>
+        path: "/dashboard/request/exam",
+        element: <RequestExam />,
       },
       {
-        path:"/dashboard/files/upload",
-        element:<Files/>
+        path: "/dashboard/files/upload",
+        element: <Files />,
+      },
+      {
+        path: "/dashboard/exam/request",
+        element: <ExamRequest/>
       }
     ],
   },

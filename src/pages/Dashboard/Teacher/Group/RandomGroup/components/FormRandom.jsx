@@ -113,7 +113,7 @@ const FormRandom = ({ teacher, setTeacher, group, setGroup, setIsRamdom }) => {
     // console.log(updatedGroups);
     console.log(groups);
     setGroup(groups);
-    setIsRamdom(true)
+    setIsRamdom(true);
 
     // let groups = [...group];
     // // console.log(teachers);

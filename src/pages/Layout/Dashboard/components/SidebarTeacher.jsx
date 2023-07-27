@@ -11,9 +11,19 @@ const SidebarTeacher = () => {
         </Link>
       </li>
       <li className="">
-        <Link to={`/dashboard/calendar/book/${localStorage.getItem('id')}`} className="">
+        <Link
+          to={`/dashboard/calendar/book/${localStorage.getItem("id")}`}
+          className=""
+        >
           <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
             ลงชั่วโมงว่าง
+          </div>
+        </Link>
+      </li>
+      <li className="">
+        <Link to="/dashboard/exam/request" className="">
+          <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
+            รายการขอสอบ
           </div>
         </Link>
       </li>
