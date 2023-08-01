@@ -18,10 +18,11 @@ const Calendar = () => {
   const [eventEdit, setEventEdit] = useState();
   const [isEventEditOpen, setIsEventEditOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState();
-  const data = useLoaderData()
+  const data = useLoaderData();
   const [events, setEvents] = useState([...data]);
   const [eventsKey, setEventsKey] = useState(0);
 
+  const calendarRef = useRef();
   // const getEventList = useQuery({
   //   queryFn: async () => {
   //     const response = await fetch(
@@ -46,18 +47,18 @@ const Calendar = () => {
   //       return {
   //         ...event,start: start,end:end
   //       }
-        
-  //     })
 
+  //     })
 
   //     setEvents((prev) => [...prev, ...updateToDayJs]);
   //   }
   // }, [getEventList.data]);
-  useEffect(()=>{
+  useEffect(() => {
     console.log(events);
-    setEventsKey((prev) => prev + 1);
-  },[events])
- 
+    // setEventsKey((prev) => prev + 1);
+    // const calendarInstance = calendarRef.current.getApi()
+    // calendarRef.rerenderHeader();
+  }, []);
 
   const handleOpenModal = (date) => {
     setModalOpen(true);
@@ -82,7 +83,6 @@ const Calendar = () => {
     };
   }, []);
 
- 
   const handleSelect = (event) => {
     console.log(event);
 
@@ -93,12 +93,14 @@ const Calendar = () => {
     if (event.view.type === "dayGridMonth") {
       startTime = dayjs(event.start.toString()).set("hour", 12).$d;
       // .set("hour", 12).$d;
-      endTime = dayjs(event.end.toString()).subtract(1,'day').set("hour", 13).$d;
+      endTime = dayjs(event.end.toString())
+        .subtract(1, "day")
+        .set("hour", 13).$d;
       // .set("hour", 13).subtract(1, "day").$d;
     } else if (event.view.type === "timeGridWeek") {
       isAllDay = false;
-    }else{
-      isAllDay = false
+    } else {
+      isAllDay = false;
     }
     console.log(endTime);
 
@@ -175,7 +177,8 @@ const Calendar = () => {
       <Body>
         <div className="">
           <FullCalendar
-            key={eventsKey}
+            // key={eventsKey}
+
             height={700}
             plugins={[
               dayGridPlugin,
@@ -197,7 +200,6 @@ const Calendar = () => {
             locale={thLocale}
             eventClick={eventClick}
             forceEventDuration={true}
-
           />
           <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
             <div className=" z-auto h-full w-full  ">
@@ -212,7 +214,7 @@ const Calendar = () => {
           <Modal isOpen={isEventEditOpen} onClose={handleEventCloseModal}>
             <div className=" z-auto h-full w-full  ">
               <ModalContent
-              events={events}
+                events={events}
                 selectedDate={eventEdit}
                 setEvents={setEvents}
                 handleCloseModal={handleEventCloseModal}

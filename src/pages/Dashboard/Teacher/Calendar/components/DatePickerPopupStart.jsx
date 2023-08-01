@@ -37,13 +37,13 @@ const DatePickerPopupStart = ({ date, setDate }) => {
   return (
     <div className="relative" ref={pickerRef}>
       <button
-        className="px-4 py-2 text-white bg-blue-500 rounded-lg shadow"
+        className="px-4 py-2 text-black hover:bg-gray-100 rounded-lg shadow"
         onClick={handleButtonClick}
       >
         {dayjs(date.start.toString()).locale("TH").format("D MMMM YYYY")}
       </button>
       {showPicker && (
-        <div className="absolute z-10 mt-2 p-5 bg-white">
+        <div className="absolute z-10 mt-2 p-5 bg-white -left-52">
           <DayPicker
             mode="single"
             selected={date}

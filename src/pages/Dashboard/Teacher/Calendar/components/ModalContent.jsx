@@ -385,18 +385,25 @@ const ModalContent = ({
     console.log(date);
     console.log(date.start);
     console.log(date.end);
+    if (date.start > date.end) {
+      console.log("more date");
+      setDate((prev) => {
+        return { ...prev, start: date.end, end: date.start };
+      });
+    }
+    console.log(date);
     mutation.mutate(date);
   };
 
   return (
     <div>
-      <div>
+      <div className="mb-3">
         {type === "add" ? (
           <input
             type="text"
             name=""
             id=""
-            className="w-full"
+            className="w-full rounded-md"
             placeholder="เพิ่มชื่อและเวลา"
             onChange={(e) =>
               setDate((prev) => ({ ...prev, title: e.target.value }))
@@ -407,7 +414,7 @@ const ModalContent = ({
             type="text"
             name=""
             id=""
-            className="w-full"
+            className="w-full rounded-md"
             placeholder="เพิ่มชื่อและเวลา"
             value={date.title}
             onChange={(e) =>
@@ -417,14 +424,25 @@ const ModalContent = ({
         )}
       </div>
       <div></div>
-      {startDate} - {endDate} 
-      <div>
-      <DatePickerPopupStart date={date} setDate={setDate} />
-      <DatePickerPopupEnd date={date} setDate={setDate} />
+      {/* {startDate} - {endDate} */}
+      <div className="flex items-center">
+        <DatePickerPopupStart date={date} setDate={setDate} />
+        <div className="mx-3">ถึง</div>
+        <DatePickerPopupEnd date={date} setDate={setDate} />
+        {!isAddTime && (
+          <div className="ml-3">
+            <button
+              className="border rounded-md px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm"
+              onClick={() => addTimeHandler()}
+            >
+              เพิ่มเวลา
+            </button>
+          </div>
+        )}
       </div>
-      {isAddTime ? (
+      {isAddTime && (
         <Fragment>
-          <div>
+          <div className="my-3">
             <select onChange={handleHourChangeAm} value={hourAm}>
               {am.map((item, idx) => {
                 return (
@@ -455,20 +473,13 @@ const ModalContent = ({
             <span>ตลอดทั้งวัน</span>
           </div>
         </Fragment>
-      ) : (
-        <button
-          className="border rounded-md p-1 text-gray-800 hover:bg-gray-100 text-sm"
-          onClick={() => addTimeHandler()}
-        >
-          เพิ่มเวลา
-        </button>
       )}
-      <div>
+      {/* <div>
         เริ่ม : {dayjs(date.start.toString()).$d.toString()}
         <br />
         จบ : {dayjs(date.end.toString()).$d.toString()}
-      </div>
-      <div className="my-1 text-center">
+      </div> */}
+      <div className="mt-4 text-center">
         {type === "add" ? (
           <AddButton onClick={() => submitHandlerEvent()}>บันทึก</AddButton>
         ) : (
