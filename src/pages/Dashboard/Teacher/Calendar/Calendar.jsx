@@ -23,41 +23,8 @@ const Calendar = () => {
   const [eventsKey, setEventsKey] = useState(0);
 
   const calendarRef = useRef();
-  // const getEventList = useQuery({
-  //   queryFn: async () => {
-  //     const response = await fetch(
-  //       "http://localhost:8080/free_hours/getEvent",
-  //       {
-  //         method: "post",
-  //         body: JSON.stringify({ tchId: localStorage.getItem("id") }),
-  //         headers: { "Content-Type": "application/json" },
-  //       }
-  //     );
-
-  //     return response.json();
-  //   },
-  // });
-  // useEffect(() => {
-  //   if (getEventList.data) {
-  //     console.log(getEventList.data);
-  //     const updateToDayJs = getEventList.data.map((event)=>{
-  //       const start = dayjs(event.start).$d
-  //       const end = dayjs(event.end).$d
-
-  //       return {
-  //         ...event,start: start,end:end
-  //       }
-
-  //     })
-
-  //     setEvents((prev) => [...prev, ...updateToDayJs]);
-  //   }
-  // }, [getEventList.data]);
   useEffect(() => {
     console.log(events);
-    // setEventsKey((prev) => prev + 1);
-    // const calendarInstance = calendarRef.current.getApi()
-    // calendarRef.rerenderHeader();
   }, []);
 
   const handleOpenModal = (date) => {
@@ -172,7 +139,7 @@ const Calendar = () => {
   };
 
   return (
-    <div className="mx-5">
+    <div className="mx-10">
       <Title>ลงชั่วโมงว่าง</Title>
       <Body>
         <div className="">

@@ -9,7 +9,7 @@ import { useContext } from "react";
 import { checkAuth } from "./loader/auth";
 import ResearcherList from "./pages/Dashboard/Researcher/Researcher";
 import { getList, getSelfInfo } from "./loader/researcher";
-import { getEventListTch } from "./loader/free_hours";
+import { getAllEvents, getEventListTch } from "./loader/free_hours";
 import React from "react";
 import Thesis from "./pages/Landing/Thesis";
 import Faq from "./pages/Landing/Faq";
@@ -27,6 +27,7 @@ import RequestExam from "./pages/Dashboard/Researcher/Request_exam/RequestExam";
 import Files from "./pages/Dashboard/Admin/Files/Files";
 import Docs from "./pages/Landing/Docs";
 import ExamRequest from "./pages/Dashboard/Teacher/ExamRequest/ExamRequest";
+import CalendarView from "./pages/Dashboard/Teacher/Calendar/views/CalendarView";
 const router = createBrowserRouter([
   {
     element: <Landing />,
@@ -112,6 +113,11 @@ const router = createBrowserRouter([
         },
       },
       {
+        path: "/dashboard/calendar/view",
+        element: <CalendarView />,
+        loader: ()=> getAllEvents()
+      },
+      {
         path: "/dashboard/request/exam",
         element: <RequestExam />,
       },
@@ -121,8 +127,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/exam/request",
-        element: <ExamRequest/>
-      }
+        element: <ExamRequest />,
+      },
     ],
   },
 ]);
