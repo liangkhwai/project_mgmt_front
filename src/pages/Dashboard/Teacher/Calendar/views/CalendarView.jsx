@@ -11,10 +11,13 @@ import { useQuery } from "react-query";
 import { useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import Body from "../../../../../UI/Body";
+import Modal from "../../../../../UI/Modal";
+import ModalContentView from "./components/ModalContentView";
 const CalendarView = () => {
   const loadedEvents = useLoaderData();
-  console.log(loadedEvents);
   const [events, setEvents] = useState([...loadedEvents]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState();
 
   const headerToolbar = useMemo(() => {
     return {
@@ -44,6 +47,19 @@ const CalendarView = () => {
       html: `<strong className="m-2">อีก ${event.num} กิจกรรม</strong>`,
     };
   };
+  const handleSelectedEvent = (info) => {
+    const eventInfo = {
+      title: info.event.title,
+      start: info.event.start,
+      end: info.event.end,
+      allDay: info.event.allDay,
+      id: parseInt(info.event.id),
+      type: info.view.type,
+    };
+    console.log(eventInfo);
+    setSelectedEvent(eventInfo);
+    setIsModalOpen(!isModalOpen);
+  };
 
   return (
     <div className="mx-10">
@@ -66,9 +82,18 @@ const CalendarView = () => {
           eventContent={eventDidMount}
           moreLinkContent={moreLinkContent}
           locale={thLocale}
+          eventClick={handleSelectedEvent}
           // eventClick={eventClick}
           forceEventDuration={true}
         />
+        <Modal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(!isModalOpen)}
+        >
+          <div className="z-auto h-full w-full">
+            <ModalContentView selectedEvent={selectedEvent} />
+          </div>
+        </Modal>
       </Body>
     </div>
   );

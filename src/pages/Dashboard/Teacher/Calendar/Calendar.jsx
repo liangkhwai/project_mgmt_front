@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import thLocale from "@fullcalendar/core/locales/th";
 import { useQuery } from "react-query";
 import { useLoaderData } from "react-router-dom";
+import ModalContentView from "./components/ModalContentView";
 
 const Calendar = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -20,12 +21,6 @@ const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState();
   const data = useLoaderData();
   const [events, setEvents] = useState([...data]);
-  const [eventsKey, setEventsKey] = useState(0);
-
-  const calendarRef = useRef();
-  useEffect(() => {
-    console.log(events);
-  }, []);
 
   const handleOpenModal = (date) => {
     setModalOpen(true);
@@ -52,7 +47,6 @@ const Calendar = () => {
 
   const handleSelect = (event) => {
     console.log(event);
-
     let startTime = dayjs(event.start.toString()).$d;
     let endTime = dayjs(event.end.toString()).$d;
     console.log(startTime, endTime);
@@ -110,20 +104,6 @@ const Calendar = () => {
     console.log(info);
     console.log(info.event.start);
     console.log(info.event.end);
-
-    // let startTime = dayjs(info.event.start.toString()).$d;
-    // let endTime = dayjs(info.event.end.toString()).$d;
-    // let isAllDay = true;
-    // if (event.view.type === "dayGridMonth") {
-    //   startTime = dayjs(event.start.toString()).set("hour", 12).$d;
-    //   endTime = dayjs(event.end.toString())
-    //     .subtract(1, "day")
-    //     .set("hour", 13).$d;
-    // } else if (event.view.type === "timeGridWeek") {
-    //   isAllDay = false;
-    // }
-    // console.log(endTime);
-
     const newEvent = {
       title: info.event.title,
       start: info.event.start,
@@ -131,6 +111,7 @@ const Calendar = () => {
       allDay: info.event.allDay,
       id: parseInt(info.event.id),
       type: info.view.type,
+      teacher: info.event.extendedProps.teacher
     };
 
     console.log(newEvent);
@@ -144,8 +125,6 @@ const Calendar = () => {
       <Body>
         <div className="">
           <FullCalendar
-            // key={eventsKey}
-
             height={700}
             plugins={[
               dayGridPlugin,
@@ -180,7 +159,7 @@ const Calendar = () => {
           </Modal>
           <Modal isOpen={isEventEditOpen} onClose={handleEventCloseModal}>
             <div className=" z-auto h-full w-full  ">
-              <ModalContent
+              <ModalContentView
                 events={events}
                 selectedDate={eventEdit}
                 setEvents={setEvents}

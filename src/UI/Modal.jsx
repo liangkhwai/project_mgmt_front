@@ -1,12 +1,12 @@
-import React, { useEffect, useRef } from 'react';
-import { FaTimes } from 'react-icons/fa';
+import React, { useEffect, useRef } from "react";
+import { FaTimes } from "react-icons/fa";
 
 const Modal = ({ isOpen, onClose, children }) => {
   const modalRef = useRef(null);
 
   useEffect(() => {
     const handleEscapeKey = (event) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         onClose();
       }
     };
@@ -18,13 +18,13 @@ const Modal = ({ isOpen, onClose, children }) => {
     };
 
     if (isOpen) {
-      document.addEventListener('keydown', handleEscapeKey);
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("keydown", handleEscapeKey);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('keydown', handleEscapeKey);
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("keydown", handleEscapeKey);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen, onClose]);
 

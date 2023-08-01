@@ -28,6 +28,13 @@ import Files from "./pages/Dashboard/Admin/Files/Files";
 import Docs from "./pages/Landing/Docs";
 import ExamRequest from "./pages/Dashboard/Teacher/ExamRequest/ExamRequest";
 import CalendarView from "./pages/Dashboard/Teacher/Calendar/views/CalendarView";
+import th from "dayjs/locale/th";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+import dayjs from "dayjs";
+dayjs.extend(customParseFormat);
+dayjs.extend(localizedFormat);
+dayjs.locale(th);
 const router = createBrowserRouter([
   {
     element: <Landing />,
@@ -106,17 +113,17 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "/dashboard/calendar/book/:tchId",
+        path: "/dashboard/calendar/book",
         element: <Calendar />,
-        loader: ({ params }) => {
-          return getEventListTch(params.tchId);
+        loader: () => {
+          return getAllEvents();
         },
       },
-      {
-        path: "/dashboard/calendar/view",
-        element: <CalendarView />,
-        loader: ()=> getAllEvents()
-      },
+      // {
+      //   path: "/dashboard/calendar/view",
+      //   element: <CalendarView />,
+      //   loader: ()=> getAllEvents()
+      // },
       {
         path: "/dashboard/request/exam",
         element: <RequestExam />,
