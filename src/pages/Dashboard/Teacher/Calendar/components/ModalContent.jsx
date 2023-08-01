@@ -4,7 +4,8 @@ import dayjs from "dayjs";
 // import "dayjs/locale/th";
 import { DayPicker } from "react-day-picker";
 import { useMutation } from "react-query";
-import DatePickerPopup from "./DatePickerPopup";
+import DatePickerPopupStart from "./DatePickerPopupStart";
+import DatePickerPopupEnd from "./DatePickerPopupEnd";
 const ModalContent = ({
   selectedDate,
   setEvents,
@@ -416,7 +417,11 @@ const ModalContent = ({
         )}
       </div>
       <div></div>
-      {startDate} - {endDate} <DatePickerPopup date={date} setDate={setDate} />
+      {startDate} - {endDate} 
+      <div>
+      <DatePickerPopupStart date={date} setDate={setDate} />
+      <DatePickerPopupEnd date={date} setDate={setDate} />
+      </div>
       {isAddTime ? (
         <Fragment>
           <div>

@@ -3,7 +3,7 @@ import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import dayjs from "dayjs";
 
-const DatePickerPopup = ({ date, setDate }) => {
+const DatePickerPopupEnd = ({ date, setDate }) => {
   const [showPicker, setShowPicker] = useState(false);
   const pickerRef = useRef(null);
 
@@ -22,17 +22,17 @@ const DatePickerPopup = ({ date, setDate }) => {
     };
   }, []);
 
-  const onChangeDateHandler=(e)=>{
+  const onChangeDateHandler = (e) => {
     console.log(e);
     console.log(date);
-    console.log(dayjs(date.start).$d);
-    console.log(dayjs(e).get('date'));
+    console.log(dayjs(date.end).$d);
+    console.log(dayjs(e).get("date"));
     // console.log(dayjs(date.start).set('date',dayjs(e).get('date')).$d);
-    const newDate = dayjs(date.start).set('date',dayjs(e).get('date')).$d
+    const newDate = dayjs(date.end).set("date", dayjs(e).get("date")).$d;
     setDate((prev) => {
-        return { ...prev, start: newDate };
-      });
-  }
+      return { ...prev, end: newDate };
+    });
+  };
 
   return (
     <div className="relative" ref={pickerRef}>
@@ -40,7 +40,7 @@ const DatePickerPopup = ({ date, setDate }) => {
         className="px-4 py-2 text-white bg-blue-500 rounded-lg shadow"
         onClick={handleButtonClick}
       >
-        Open Date Picker
+        {dayjs(date.end.toString()).locale("TH").format("D MMMM YYYY")}
       </button>
       {showPicker && (
         <div className="absolute z-10 mt-2 p-5 bg-white">
@@ -55,4 +55,4 @@ const DatePickerPopup = ({ date, setDate }) => {
   );
 };
 
-export default DatePickerPopup;
+export default DatePickerPopupEnd;
