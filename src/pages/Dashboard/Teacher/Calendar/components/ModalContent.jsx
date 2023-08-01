@@ -2,7 +2,9 @@ import React, { Fragment, useEffect, useState } from "react";
 import { AddButton, DeleteButton } from "../../../../../UI/button";
 import dayjs from "dayjs";
 // import "dayjs/locale/th";
+import { DayPicker } from "react-day-picker";
 import { useMutation } from "react-query";
+import DatePickerPopup from "./DatePickerPopup";
 const ModalContent = ({
   selectedDate,
   setEvents,
@@ -358,12 +360,11 @@ const ModalContent = ({
       return response.json();
     },
     onSuccess: (data) => {
-      const eventId = data
-      const filterEvent = events.filter((item)=> item.id !== data)
+      const eventId = data;
+      const filterEvent = events.filter((item) => item.id !== data);
       console.log(filterEvent);
-      setEvents(filterEvent)
-      handleCloseModal()
-
+      setEvents(filterEvent);
+      handleCloseModal();
     },
   });
 
@@ -377,7 +378,6 @@ const ModalContent = ({
       console.log(date.id);
       deleteEvent.mutate(date.id);
     }
-
   };
 
   const submitHandlerEvent = () => {
@@ -416,7 +416,7 @@ const ModalContent = ({
         )}
       </div>
       <div></div>
-      {startDate} - {endDate}{" "}
+      {startDate} - {endDate} <DatePickerPopup date={date} setDate={setDate} />
       {isAddTime ? (
         <Fragment>
           <div>
