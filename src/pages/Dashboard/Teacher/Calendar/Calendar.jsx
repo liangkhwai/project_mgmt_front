@@ -13,7 +13,7 @@ import thLocale from "@fullcalendar/core/locales/th";
 import { useQuery } from "react-query";
 import { useLoaderData } from "react-router-dom";
 import ModalContentView from "./components/ModalContentView";
-
+import 'D:/project_mgmt/src/pages/Dashboard/Teacher/Calendar/components/CustomCalendar.css'
 const Calendar = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [eventEdit, setEventEdit] = useState();
@@ -111,20 +111,21 @@ const Calendar = () => {
       allDay: info.event.allDay,
       id: parseInt(info.event.id),
       type: info.view.type,
-      teacher: info.event.extendedProps.teacher
+      teacher: info.event.extendedProps.teacher,
     };
 
     console.log(newEvent);
     setEventEdit(newEvent);
     handleEventOpenModal();
   };
-
+ 
   return (
     <div className="mx-10">
       <Title>ลงชั่วโมงว่าง</Title>
       <Body>
         <div className="">
           <FullCalendar
+            
             height={700}
             plugins={[
               dayGridPlugin,
@@ -158,7 +159,7 @@ const Calendar = () => {
             </div>
           </Modal>
           <Modal isOpen={isEventEditOpen} onClose={handleEventCloseModal}>
-            <div className=" z-auto h-full w-full  ">
+            <div className="!z-50 h-full w-full  ">
               <ModalContentView
                 events={events}
                 selectedDate={eventEdit}
