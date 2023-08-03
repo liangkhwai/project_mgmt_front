@@ -301,16 +301,15 @@ const ModalContent = ({
       return response.json();
     },
     onSuccess: (data) => {
-      console.log(data);
       console.log(date);
+      console.log(data);
       const event = data;
-      let dateStart = dayjs(event.start).$d;
-      let dateEnd = dayjs(event.end).$d;
+      let dateStart = dayjs(event.start_time).add(7,'hour').$d;
+      let dateEnd = dayjs(event.end_time).add(7,'hour').$d;
       if (event.allDay === true) {
-        dateStart = dayjs(event.start).set("hour", 0).set("minute", 0).$d;
-        dateEnd = dayjs(event.end)
+        dateStart = dayjs(event.start_time).add(7,'hour').set("minute", 0).$d;
+        dateEnd = dayjs(event.end_time).add(7,'hour')
           .add(1, "day")
-          .set("hour", 0)
           .set("minute", 0).$d;
       }
       event.start = dateStart;
