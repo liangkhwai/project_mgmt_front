@@ -5,6 +5,9 @@ import DatePickerPopupEnd from "./DatePickerPopupEnd";
 import dayjs from "dayjs";
 import { AddButton, DeleteButton } from "../../../../../UI/button";
 import { useMutation } from "react-query";
+import DatePicker from "react-datepicker";
+import "./CustomTimePicker.css";
+import "react-datepicker/dist/react-datepicker.css";
 const ModalContentEdit = ({
   selectedDate,
   events,
@@ -311,7 +314,6 @@ const ModalContentEdit = ({
             : event
         )
       );
-      
 
       handleCloseModal();
     },
@@ -345,6 +347,16 @@ const ModalContentEdit = ({
       deleteEvent.mutate(date.id);
     }
   };
+  const onChangeTimeStart = (info) => {
+    console.log(info);
+    setDate((prev) => ({ ...prev, start: info }));
+  };
+  const onChangeTimeEnd = (info) => {
+    console.log(info);
+    setDate((prev) => ({ ...prev, end: info }));
+  };
+  const minTime = dayjs().set("hour", 9).set("minute", 0).$d;
+  const maxTime = dayjs().set("hour", 17).set("minute", 0).$d;
   return (
     <div>
       <input
@@ -358,56 +370,47 @@ const ModalContentEdit = ({
           setDate((prev) => ({ ...prev, title: e.target.value }))
         }
       />
-      <div className="flex items-center">
+      <div className="flex items-center my-3">
         <DatePickerPopupStart date={date} setDate={setDate} />
+        <div className="w-16 rounded-lg hover:bg-gray-100 shadow ml-1">
+          <DatePicker
+            key={1}
+            minTime={minTime}
+            maxTime={maxTime}
+            selected={date.start}
+            onChange={(date) => onChangeTimeStart(date)}
+            showTimeSelect
+            showTimeSelectOnly
+            timeIntervals={30}
+            ClassName="custom-datepicker-input"
+            wrapperClassName="customWrapper"
+            timeFormat="HH:mm"
+            timeCaption="Time"
+            dateFormat="h:mm"
+            popperPlacement="right"
+          />
+        </div>
         <div className="mx-3">ถึง</div>
-        <DatePickerPopupEnd date={date} setDate={setDate} />
-        {!isAddTime && (
-          <div className="ml-3">
-            <button
-              className="border rounded-md px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm"
-              onClick={() => addTimeHandler()}
-            >
-              เพิ่มเวลา
-            </button>
-          </div>
-        )}
+        <DatePickerPopupEnd date={date} setDate={setDate} type="edit" />
+        <div className="w-16 rounded-lg hover:bg-gray-100 shadow ml-1">
+          <DatePicker
+            key={2}
+            minTime={minTime}
+            maxTime={maxTime}
+            selected={date.end}
+            onChange={(date) => onChangeTimeEnd(date)}
+            showTimeSelect
+            showTimeSelectOnly
+            timeIntervals={30}
+            timeFormat="HH:mm"
+            timeCaption="Time"
+            dateFormat="HH:mm"
+            popperPlacement="right"
+          />
+        </div>
       </div>
-      {isAddTime && (
-        <Fragment>
-          <div className="my-3">
-            <select onChange={handleHourChangeAm} value={hourAm}>
-              {am.map((item, idx) => {
-                return (
-                  <option key={idx} value={item.val}>
-                    {item.name}
-                  </option>
-                );
-              })}
-            </select>
-            -
-            <select onChange={handleHourChangePm} value={hourPm}>
-              {pm.map((item, idx) => {
-                return (
-                  <option key={idx} value={item.val}>
-                    {item.name}
-                  </option>
-                );
-              })}
-            </select>
-            &emsp;
-            <input
-              type="checkbox"
-              name=""
-              id=""
-              checked={isChecked}
-              onChange={(e) => handleChangeCheckBox(e)}
-            />{" "}
-            <span>ตลอดทั้งวัน</span>
-          </div>
-        </Fragment>
-      )}
-      <Fragment>
+
+      <div className="text-center">
         <AddButton onClick={() => updateEventHandler()}>บันทึก</AddButton>
         &nbsp;
         <DeleteButton
@@ -417,7 +420,7 @@ const ModalContentEdit = ({
         >
           ลบ
         </DeleteButton>
-      </Fragment>
+      </div>
     </div>
   );
 };

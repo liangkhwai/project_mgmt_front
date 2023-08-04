@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import dayjs from "dayjs";
+import th from 'dayjs/locale/th'
 
-const DatePickerPopupEnd = ({ date, setDate }) => {
+const DatePickerPopupEnd = ({ date, setDate,type }) => {
   const [showPicker, setShowPicker] = useState(false);
   const pickerRef = useRef(null);
 
@@ -46,7 +47,7 @@ const DatePickerPopupEnd = ({ date, setDate }) => {
         <div className="absolute z-10 mt-2 p-5 bg-white">
           <DayPicker
             mode="single"
-            selected={date}
+            selected={date.end}
             onSelect={onChangeDateHandler}
           />
         </div>

@@ -48,11 +48,12 @@ const Calendar = () => {
   }, []);
 
   const handleSelect = (event) => {
+    console.log("this is select !!!!!!!!!!!!!!!");
+
     console.log(event);
     let startTime = dayjs(event.start.toString()).$d;
     let endTime = dayjs(event.end.toString()).$d;
-    console.log(startTime, endTime);
-    let isAllDay = true;
+    let isAllDay = false;
     if (event.view.type === "dayGridMonth") {
       startTime = dayjs(event.start.toString()).set("hour", 12).$d;
       // .set("hour", 12).$d;
@@ -60,6 +61,8 @@ const Calendar = () => {
         .subtract(1, "day")
         .set("hour", 13).$d;
       // .set("hour", 13).subtract(1, "day").$d;
+
+      // endTime = dayjs(event.end.toString()).subtract(1, "minute").$d;
     } else if (event.view.type === "timeGridWeek") {
       isAllDay = false;
     } else {
@@ -102,7 +105,9 @@ const Calendar = () => {
       html: `<strong className="m-2">อีก ${event.num} กิจกรรม</strong>`,
     };
   };
+
   const eventClick = (info) => {
+    console.log("this is event click !!!!!!!!!!!!!!!");
     console.log(info);
     console.log(info.event.start);
     console.log(info.event.end);
@@ -120,8 +125,12 @@ const Calendar = () => {
     setEventEdit(newEvent);
     handleEventOpenModal();
   };
-
-
+  const slotFormat =  {
+    hour: '2-digit', // Display hours in 2-digit format (e.g., 01, 02, ..., 12)
+    minute: '2-digit', // Display minutes in 2-digit format (e.g., 00, 01, ..., 59)
+    omitZeroMinute: false, // Include zero minutes (e.g., 01:00, 02:30, ...)
+    meridiem: false // Remove AM/PM from the label
+  }
   return (
     <div className="mx-10">
       <Title>ลงชั่วโมงว่าง</Title>
@@ -129,7 +138,6 @@ const Calendar = () => {
         <div className="">
           <FullCalendar
             ref={calendarRef}
-            
             height={700}
             plugins={[
               dayGridPlugin,
@@ -151,6 +159,9 @@ const Calendar = () => {
             locale={thLocale}
             eventClick={eventClick}
             forceEventDuration={true}
+            slotMinTime= "09:00:00"
+            slotMaxTime= "17:00:01"
+            slotLabelFormat={slotFormat}
           />
           <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
             <div className=" z-auto h-full w-full  ">

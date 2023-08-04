@@ -1,0 +1,12 @@
+.react-datepicker-wrapper,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+  display: block;
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+}
+.react-datepicker__input-container input:hover {
+    background-color: #F5F5F5;
+  }

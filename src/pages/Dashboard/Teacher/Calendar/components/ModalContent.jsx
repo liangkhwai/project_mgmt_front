@@ -6,6 +6,9 @@ import { DayPicker } from "react-day-picker";
 import { useMutation } from "react-query";
 import DatePickerPopupStart from "./DatePickerPopupStart";
 import DatePickerPopupEnd from "./DatePickerPopupEnd";
+import DatePicker from "react-datepicker";
+import "./CustomTimePicker.css";
+import "react-datepicker/dist/react-datepicker.css";
 const ModalContent = ({
   selectedDate,
   setEvents,
@@ -13,7 +16,6 @@ const ModalContent = ({
   type,
   events,
 }) => {
-  console.log(selectedDate);
   const [date, setDate] = useState(selectedDate);
   const [dateStart, setDateStart] = useState(date.start);
   const [dateEnd, setDateEnd] = useState(date.end);
@@ -229,9 +231,6 @@ const ModalContent = ({
   const [pm, setPm] = useState([
     ...pmDefault.filter((item) => item.val >= hourPm),
   ]);
-  useEffect(() => {
-    console.log(date);
-  }, [date]);
 
   const startDate = dayjs(date.start.toString())
     .locale("th")
@@ -281,12 +280,12 @@ const ModalContent = ({
   };
 
   const addTimeHandler = () => {
-    if (date.type === "dayGridMonth") {
-      setDate((prev) => {
-        return { ...prev, allDay: !prev.allDay };
-      });
-    }
-    setIsAddTime(!isAddTime);
+    // if (date.type === "dayGridMonth") {
+    //   setDate((prev) => {
+    //     return { ...prev, allDay: !prev.allDay };
+    //   });
+    // }
+    // setIsAddTime(!isAddTime);
   };
 
   const mutation = useMutation({
@@ -304,13 +303,13 @@ const ModalContent = ({
       console.log(date);
       console.log(data);
       const event = data;
-      let dateStart = dayjs(event.start_time).add(7,'hour').$d;
-      let dateEnd = dayjs(event.end_time).add(7,'hour').$d;
+      let dateStart = dayjs(event.start_time).$d;
+      let dateEnd = dayjs(event.end_time).$d;
       if (event.allDay === true) {
-        dateStart = dayjs(event.start_time).add(7,'hour').set("minute", 0).$d;
-        dateEnd = dayjs(event.end_time).add(7,'hour')
-          .add(1, "day")
-          .set("minute", 0).$d;
+        // dateStart = dayjs(event.start_time).add(7,'hour').set("minute", 0).$d;
+        // dateEnd = dayjs(event.end_time).add(7,'hour')
+        //   .add(1, "day")
+        //   .set("minute", 0).$d;
       }
       event.start = dateStart;
       event.end = dateEnd;
@@ -394,6 +393,16 @@ const ModalContent = ({
     mutation.mutate(date);
   };
 
+  const onChangeTimeStart = (info) => {
+    console.log(info);
+    setDate((prev) => ({ ...prev, start: info }));
+  };
+  const onChangeTimeEnd = (info) => {
+    console.log(info);
+    setDate((prev) => ({ ...prev, end: info }));
+  };
+  const minTime = dayjs().set('hour',9).set('minute',0).$d
+  const maxTime = dayjs().set('hour',17).set('minute',0).$d
   return (
     <div>
       <div className="mb-3">
@@ -424,11 +433,46 @@ const ModalContent = ({
       </div>
       <div></div>
       {/* {startDate} - {endDate} */}
-      <div className="flex items-center">
+      <div className="flex items-center ">
         <DatePickerPopupStart date={date} setDate={setDate} />
+        <div className="w-16 rounded-lg hover:bg-gray-100 shadow ml-1">
+          <DatePicker
+            key={1}
+            minTime={minTime}
+            maxTime={maxTime}
+            selected={date.start}
+            onChange={(date) => onChangeTimeStart(date)}
+            showTimeSelect
+            showTimeSelectOnly
+            timeIntervals={30}
+            ClassName="custom-datepicker-input"
+            wrapperClassName="customWrapper"
+            timeFormat="HH:mm"
+            timeCaption="Time"
+            dateFormat="h:mm"
+            
+            popperPlacement="right"timela
+          />
+        </div>
         <div className="mx-3">ถึง</div>
         <DatePickerPopupEnd date={date} setDate={setDate} />
-        {!isAddTime && (
+        <div className="w-16 rounded-lg hover:bg-gray-100 shadow ml-1">
+          <DatePicker
+            key={2}
+            minTime={minTime}
+            maxTime={maxTime}
+            selected={date.end}
+            onChange={(date) => onChangeTimeEnd(date)}
+            showTimeSelect
+            showTimeSelectOnly
+            timeIntervals={30}
+            timeFormat="HH:mm"
+            timeCaption="Time"
+            dateFormat="HH:mm"
+            popperPlacement="right"
+          />
+        </div>
+        {/* {!isAddTime && (
           <div className="ml-3">
             <button
               className="border rounded-md px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm"
@@ -437,42 +481,45 @@ const ModalContent = ({
               เพิ่มเวลา
             </button>
           </div>
-        )}
+        )} */}
       </div>
+
       {isAddTime && (
-        <Fragment>
-          <div className="my-3">
-            <select onChange={handleHourChangeAm} value={hourAm}>
-              {am.map((item, idx) => {
-                return (
-                  <option key={idx} value={item.val}>
-                    {item.name}
-                  </option>
-                );
-              })}
-            </select>
-            -
-            <select onChange={handleHourChangePm} value={hourPm}>
-              {pm.map((item, idx) => {
-                return (
-                  <option key={idx} value={item.val}>
-                    {item.name}
-                  </option>
-                );
-              })}
-            </select>
-            &emsp;
-            <input
-              type="checkbox"
-              name=""
-              id=""
-              checked={isChecked}
-              onChange={(e) => handleChangeCheckBox(e)}
-            />{" "}
-            <span>ตลอดทั้งวัน</span>
-          </div>
-        </Fragment>
+        // <Fragment>
+        //   <div className="my-3">
+        //     <select onChange={handleHourChangeAm} value={hourAm}>
+        //       {am.map((item, idx) => {
+        //         return (
+        //           <option key={idx} value={item.val}>
+        //             {item.name}
+        //           </option>
+        //         );
+        //       })}
+        //     </select>
+        //     -
+        //     <select onChange={handleHourChangePm} value={hourPm}>
+        //       {pm.map((item, idx) => {
+        //         return (
+        //           <option key={idx} value={item.val}>
+        //             {item.name}
+        //           </option>
+        //         );
+        //       })}
+        //     </select>
+        //     &emsp;
+        //     {/* <input
+        //       type="checkbox"
+        //       name=""
+        //       id=""
+        //       checked={isChecked}
+        //       onChange={(e) => handleChangeCheckBox(e)}
+        //     />{" "}
+        //     <span>ตลอดทั้งวัน</span> */}
+        //   </div>
+        // </Fragment>
+        <div></div>
       )}
+
       {/* <div>
         เริ่ม : {dayjs(date.start.toString()).$d.toString()}
         <br />
