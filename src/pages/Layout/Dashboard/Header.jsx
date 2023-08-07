@@ -16,7 +16,7 @@ const Header = ({ openHandler }) => {
         <button onClick={openHandler} className="ml-5">
           <AiOutlineMenuUnfold size="2em" color="grey" />
         </button>
-        <div className="">Search input</div>
+        {/* <div className="">Search input</div> */}
       </div>
       <div className="flex items-center gap-4">
         <div>NotificationsMenu</div>

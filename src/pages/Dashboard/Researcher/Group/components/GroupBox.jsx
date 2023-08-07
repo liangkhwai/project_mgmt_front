@@ -1,31 +1,73 @@
 import React, { Fragment, useEffect, useState } from "react";
 import GroupList from "./GroupList";
-import { useNavigate } from "react-router-dom";
+import BoardList from "./BoardList";
+import ExamRequestBox from "./ExamRequestBox";
+import { useQuery } from "react-query";
 
-const GroupBox = ({ userGroup }) => {
-  const navigate = useNavigate()
+const GroupBox = ({ selfInfo }) => {
+  const [boards, setBoards] = useState([]);
   const [groupList, setGroupList] = useState([]);
+  const [requestExam, setRequestExam] = useState([]);
+
   useEffect(() => {
-    let userId = localStorage.getItem("id")
-    async function getGroupList() {
-      const res = await fetch("http://localhost:8080/researcher/getGroupList", {
-        method: "post",
-        body:JSON.stringify({userId:userId}),
-        credentials: "include",
-        headers:{"Content-Type":"application/json"}
-      });
+    const fetchBoards = async () => {
+      const res = await fetch(
+        `http://localhost:8080/boards/get/${selfInfo.groupId}`,
+        {
+          method: "get",
+        }
+      );
       const data = await res.json();
-      if(res.status === 401) return navigate("/dashboard")
-      console.log(data);
-      setGroupList(data.groupList);
-    }
-    getGroupList();
+        console.log(data);
+      setBoards(data);
+    };
+
+    const fetchMember = async () => {
+      const res = await fetch(
+        `http://localhost:8080/researcher/getGroupList/${selfInfo.groupId}`,
+        {
+          method: "get",
+        }
+      );
+      const data = await res.json();
+
+      setGroupList(data);
+    };
+
+    const fetchRequestExam = async () => {
+      const res = await fetch(
+        `http://localhost:8080/requestExam/getRequestGroup/${selfInfo.groupId}`,
+        {
+          method: "GET",
+        }
+      );
+      const data = await res.json();
+      setRequestExam(data);
+    };
+
+    fetchBoards();
+    fetchMember();
+    fetchRequestExam();
   }, []);
-  
+
   return (
-    <Fragment>
-      <GroupList groupList={groupList} />
-    </Fragment>
+    <div>
+      <GroupList groupList={groupList} setGroupList={setGroupList} />
+      <div className="grid grid-cols-12 gap-2 my-3">
+        <div className="w-full  col-span-8 border rounded-xl shadow-md">
+          <ExamRequestBox requestExam={requestExam} />
+        </div>
+        <div className="w-full col-span-4">
+          {boards.length > 0 ? (
+            <div className="flex flex-col border rounded-xl shadow-md">
+              {<BoardList boards={boards} />}
+            </div>
+          ) : (
+            <div className="flex justify-center items-center h-full">รอผู้ดูแลระบบสุ่ม</div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 

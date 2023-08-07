@@ -24,7 +24,7 @@ const Sidebar = ({ isOpen }) => {
         <SimpleBar style={{ maxHeight: maxHeight }}>
           <div data-simplebar className="">
             {isOpen && (
-              <Link to="/dashboard/index">
+              <Link to="/dashboard/">
                 <img
                   src={logo}
                   alt="eiei"

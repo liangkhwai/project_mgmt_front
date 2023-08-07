@@ -30,10 +30,10 @@ const RequestExam = () => {
     <div className="mx-10">
       <Title>ขอสอบ</Title>
       <Body>
-      {groupInfo ? ( 
+        {groupInfo ? (
           <FormRequestExam groupInfo={groupInfo} />
         ) : (
-          <p>Loading...</p> 
+          <p>Loading...</p>
         )}
       </Body>
     </div>

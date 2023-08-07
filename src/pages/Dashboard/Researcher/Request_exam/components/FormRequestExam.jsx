@@ -2,9 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { AddButton } from "../../../../../UI/button";
 import { useMutation } from "react-query";
 const FormRequestExam = ({ groupInfo }) => {
-  console.log(groupInfo);
   const [selectedFiles, setSelectedFiles] = useState([]);
-
   const [examRequest, setExamRequest] = useState({
     type: "สอบหัวข้อ",
     des: "",
@@ -26,11 +24,14 @@ const FormRequestExam = ({ groupInfo }) => {
 
   const requestExam = useMutation({
     mutationFn: async (formData) => {
-      const response = await fetch("http://localhost:8080/requestExam/request", {
-        method: "post",
-        body: formData,
-        credentials:"include",
-      });
+      const response = await fetch(
+        "http://localhost:8080/requestExam/request",
+        {
+          method: "post",
+          body: formData,
+          credentials: "include",
+        }
+      );
 
       return response.json();
     },
@@ -43,11 +44,11 @@ const FormRequestExam = ({ groupInfo }) => {
     console.log(examRequest);
     console.log(selectedFiles);
     selectedFiles.forEach((file, index) => {
-        formData.append("files", file, file.name);
-      });
+      formData.append("files", file, file.name);
+    });
     for (const pair of formData.entries()) {
-        console.log(`${pair[0]}, ${pair[1]}`);
-      }
+      console.log(`${pair[0]}, ${pair[1]}`);
+    }
     requestExam.mutate(formData);
   };
 
@@ -116,7 +117,7 @@ const FormRequestExam = ({ groupInfo }) => {
             multiple
             className="w-full"
             onChange={(e) => handleFileChange(e)}
-            multipleaccept=".pdf" 
+            multipleaccept=".pdf"
           />
         </div>
       </div>

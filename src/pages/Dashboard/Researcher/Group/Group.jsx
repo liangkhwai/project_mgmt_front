@@ -6,45 +6,8 @@ import GroupBox from "./components/GroupBox";
 import { useQuery } from "react-query";
 
 const Group = () => {
-  const selfInfo = useLoaderData()
+  const selfInfo = useLoaderData();
   console.log(selfInfo);
-  // const [userData, setUserData] = useState(selfInfo);
-  // useEffect(() => {
-  //   async function getUser() {
-  //     const res = await fetch("http://localhost:8080/researcher/getOne", {
-  //       method: "GET",
-  //       credentials: "include",
-  //     });
-  //     const data = await res.json();
-  //     setUserData(data.userData);
-  //   }
-  //   getUser();
-  // }, []);
-
-  // const { isLoading, error, data, status } = useQuery(
-  //   "getOneUser",
-  //   async () => {
-  //     const response = await fetch("http://localhost:8080/researcher/getOne", {
-  //       method: "GET",
-  //       credentials: "include",
-  //     });
-
-  //     const data = await response.json();
-  //     console.log(data);
-  //     return data;
-  //   }
-  // );
-  // useEffect(() => {
-  //   if (data) {
-  //     console.log(data);
-  //     console.log(data);
-  //     setUserData(data);
-  //   }
-  // }, [data]);
-
-  // if (isLoading) return "Loading...";
-
-  // if (error) return "An error has occurred: " + error;
   return (
     <div className="mx-10">
       <Title>กลุ่มโปรเจค</Title>
@@ -57,8 +20,7 @@ const Group = () => {
             </div>
           </Link>
         ) : (
-          <GroupBox />
-        
+          <GroupBox selfInfo={selfInfo}/>
         )}
       </Body>
     </div>
