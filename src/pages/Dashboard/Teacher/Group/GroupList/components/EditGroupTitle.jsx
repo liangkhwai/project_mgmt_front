@@ -39,9 +39,13 @@ const EditGroupTitle = (props) => {
   return (
     <div>
       {isEditing ? (
-        <div>
+        <div className="flex items-center">
+          <div className="text-xl mr-2">
+
+          ชื่อหัวข้อ
+          </div>
           <input
-            className="focus:bg-blue-50"
+            className="focus:bg-blue-50 text-xl"
             type="text"
             name=""
             id=""
@@ -56,8 +60,8 @@ const EditGroupTitle = (props) => {
           </button>
         </div>
       ) : (
-        <div className="">
-          {title}{" "}
+        <div className="text-2xl flex items-center">
+          <div className="text-xl">ชื่อหัวข้อ : {title} </div>
           <button
             className="py-1 px-4  mx-3 text-sm  text-blue-800 bg-white  rounded-full shadow-md"
             onClick={() => setIsEditing(!isEditing)}

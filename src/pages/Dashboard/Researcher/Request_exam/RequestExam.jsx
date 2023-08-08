@@ -1,30 +1,53 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Title from "../../../../UI/Title";
 import Body from "../../../../UI/Body";
 import FormRequestExam from "./components/FormRequestExam";
 import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../../../../context/auth";
 const RequestExam = () => {
+  const navigate = useNavigate();
   const [groupInfo, setGroupInfo] = useState();
-  const { isLoading, data, status } = useQuery({
-    queryFn: async () => {
+
+  useEffect(() => {
+    const getGroup = async () => {
       const response = await fetch("http://localhost:8080/group/getGroup", {
         method: "get",
         credentials: "include",
       });
 
-      return response.json();
-    },
-  });
+      const data = await response.json();
+      if (data) {
+        setGroupInfo(data);
+      } else {
+        // alert("กรุณาสร้างกลุ่มก่อน");
+        // navigate("/dashboard/group");
+      }
+    };
 
-  useEffect(() => {
-    if (data) {
-      console.log("ข้อมูลมาแล้ว");
-      console.log(data);
-      setGroupInfo(data);
-    }
-  }, [data]);
+    // const getBoards = async () => {
+    //   const response = await fetch(
+    //     `http://localhost:8080/boards/get/${localStorage.getItem("grpId")}`,
+    //     {
+    //       method: "get",
+    //       credentials: "include",
+    //     }
+    //   );
 
-  if (isLoading) return "Loading....";
+    //   const data = await response.json();
+    //   console.log(data);
+    //   if (data.length <= 0) {
+    //     alert("รอการสุ่มกรรมการ");
+    //     // window.location.href = '/dashboard/group'
+    //     navigate("/dashboard/group");
+    //   } else {
+    //     ;
+    //   }
+    // };
+
+    // getBoards();
+    getGroup();
+  }, []);
 
   return (
     <div className="mx-10">
@@ -33,7 +56,7 @@ const RequestExam = () => {
         {groupInfo ? (
           <FormRequestExam groupInfo={groupInfo} />
         ) : (
-          <p>Loading...</p>
+          <p>กรุณาสร้างกลุ่มโปรเจค...</p>
         )}
       </Body>
     </div>

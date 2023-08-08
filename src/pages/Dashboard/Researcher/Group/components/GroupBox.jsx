@@ -42,7 +42,7 @@ const GroupBox = ({ selfInfo }) => {
         }
       );
       const data = await res.json();
-      setRequestExam(data);
+      setRequestExam(data.slice(0,3));
     };
 
     fetchBoards();

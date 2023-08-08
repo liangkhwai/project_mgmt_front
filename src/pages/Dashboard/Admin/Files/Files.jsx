@@ -112,9 +112,10 @@ const Files = () => {
 
   return (
     <div className="mx-10">
-      <Title>ไฟล์</Title>
+      <Title>อัพโหลดไฟล์เอกสาร</Title>
       <Body>
-        <div>
+        <div className="my-10">
+          <div className="text-xl">รายการเอกสาร</div>
           <FileLists fileLists={fileLists} removeFileList={removeFileList} />
         </div>
 

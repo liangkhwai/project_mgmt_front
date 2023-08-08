@@ -23,55 +23,44 @@ const RequestLogLists = ({ requestStatusAssign }) => {
           รายละเอียด
         </div>
       </div>
-      {requestStatusAssign.map((item, idx) => {
-        return (
-          <Fragment key={item.id}>
-            <div
-              className="grid grid-cols-5 py-1 text-center content-center "
-              key={item.id}
-            >
-              <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
-                {item.title}
-              </div>
-              <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
-                {item.categories}
-              </div>
-              <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
-                {item.status}
-              </div>
-              <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
-                <DropdownFiles files={item.files} />
-              </div>
-              <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
-                <textarea
-                  rows=""
-                  cols=""
-                  disabled
-                  value={item.description}
-                  className="p-1 bg-gray-100 rounded-xl"
-                ></textarea>
-              </div>
-            </div>
-            {/* {item.files && (
-              <ul className="list-disc col-span-4 list-inside">
-                {item.files.map((item) => {
-                  return (
-                    <li className="p-2  py-2 text-start" key={item.id}>
-                      <Link
-                        className="bg-light-blue-200 p-2 rounded-md"
-                        target="_blank"
-                        to={`http://localhost:8080/files/request/${item.originalname}`}
-                      >
-                        {item.originalname}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            )} */}
-          </Fragment>
-        );
-      })}
+      {requestStatusAssign.length <= 0 ? (
+            <div className="col-span-5 text-center text-xl py-2 border  ">ยังไม่มีประวัติการขอสอบ ณ ขณะนี้</div>
+            ) : (
+        <Fragment>
+          {requestStatusAssign.map((item, idx) => {
+            return (
+              <Fragment key={item.id}>
+                <div
+                  className="grid grid-cols-5 py-1 text-center content-center "
+                  key={item.id}
+                >
+                  <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
+                    {item.title}
+                  </div>
+                  <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
+                    {item.categories}
+                  </div>
+                  <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
+                    {item.status}
+                  </div>
+                  <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
+                    <DropdownFiles files={item.files} />
+                  </div>
+                  <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
+                    <textarea
+                      rows=""
+                      cols=""
+                      disabled
+                      value={item.description}
+                      className="p-1 bg-gray-100 rounded-xl"
+                    ></textarea>
+                  </div>
+                </div>
+              </Fragment>
+            );
+          })}
+        </Fragment>
+      )}
     </div>
   );
 };

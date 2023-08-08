@@ -80,21 +80,23 @@ const EditRshRow = ({
           onChange={(e) => editFormHandler(e)}
         />
       </td>
-      <td>
+      <td colSpan={3}>
+        <div className="flex justify-evenly">
         <button
-          className="px-3 py-2 rounded bg-yellow-400 text-black"
+          className="px-3 py-2 rounded bg-yellow-400 text-white"
           onClick={() => editFormSubmitHandler()}
         >
           บันทึก
         </button>
-      </td>
-      <td>
+      {/* </td>
+      <td> */}
         <button
-          className="px-3 py-2 rounded bg-red-500 text-black "
+          className="px-3 py-2 rounded bg-red-500 text-white "
           onClick={() => cancelEditFormHandler()}
         >
           ยกเลิก
         </button>
+        </div>
       </td>
     </tr>
   );

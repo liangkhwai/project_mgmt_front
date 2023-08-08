@@ -32,6 +32,7 @@ import th from "dayjs/locale/th";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import dayjs from "dayjs";
+import { checkBoards } from "./loader/boards";
 dayjs.extend(customParseFormat);
 dayjs.extend(localizedFormat);
 dayjs.locale(th);
@@ -127,6 +128,7 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/request/exam",
         element: <RequestExam />,
+        loader: checkBoards
       },
       {
         path: "/dashboard/files/upload",

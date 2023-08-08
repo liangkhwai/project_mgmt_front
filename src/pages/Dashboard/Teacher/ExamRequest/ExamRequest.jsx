@@ -9,7 +9,7 @@ const ExamRequest = () => {
   const [requestList, setRequestList] = useState([]);
   const [requestStatusAssign, setRequestStatusAssign] = useState([]);
   const [selectMenu, setSelectMenu] = useState("List");
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const getExamRequest = async () => {
       const res = await fetch("http://localhost:8080/requestExam/getRequest", {
@@ -27,12 +27,16 @@ const ExamRequest = () => {
       setRequestData(data);
       setRequestList(notAssign);
       setRequestStatusAssign(assgin);
+      setIsLoading(true);
     };
     getExamRequest();
+    setIsLoading(false);
   }, []);
 
-  const requestListLog = requestData.filter((item)=> item.isApprove !== null)
-  const requestListFilter = requestData.filter((item)=> item.isApprove == null)
+  const requestListLog = requestData.filter((item) => item.isApprove !== null);
+  const requestListFilter = requestData.filter(
+    (item) => item.isApprove == null
+  );
 
   return (
     <div className="mx-10">
@@ -40,12 +44,26 @@ const ExamRequest = () => {
 
       <Body>
         <div className="">
-          <button className="px-3 py-1 bg-light-blue-600 rounded-xl mx-1 text-white" onClick={()=> setSelectMenu("List")}>รายการขอสอบ</button>
-          <button className="px-3 py-1 bg-light-blue-600 rounded-xl mx-1 text-white" onClick={()=> setSelectMenu("Log")}>ประวัติการขอสอบ</button>
+          <button
+            className="px-3 py-1 bg-light-blue-600 rounded-xl mx-1 text-white"
+            onClick={() => setSelectMenu("List")}
+          >
+            รายการขอสอบ
+          </button>
+          <button
+            className="px-3 py-1 bg-light-blue-600 rounded-xl mx-1 text-white"
+            onClick={() => setSelectMenu("Log")}
+          >
+            ประวัติการขอสอบ
+          </button>
         </div>
 
         {selectMenu === "List" && requestData ? (
-          <RequestLists requestList={requestListFilter} setRequestData={setRequestData} />
+          <RequestLists
+            requestList={requestListFilter}
+            setRequestData={setRequestData}
+            isLoading={isLoading}
+          />
         ) : (
           <RequestLogLists requestStatusAssign={requestListLog} />
         )}

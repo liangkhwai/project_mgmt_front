@@ -88,13 +88,11 @@ const Calendar = () => {
     const { event } = info;
     const eventTitle = event.title;
     const eventStart = dayjs(event.start).locale("th").format("HH:mm");
-
+    const eventEnd = dayjs(event.end).locale("th").format("HH:mm");
     return {
       html: `
         <div class="cursor-pointer w-full">
-          ${
-            event.allDay === false ? eventStart : ""
-          } &nbsp;<strong class="cursor-pointer">${eventTitle}</strong> 
+          ${eventStart} - ${eventEnd} &nbsp;<strong class="cursor-pointer">${eventTitle}</strong> 
         </div>
       `,
     };
@@ -125,12 +123,12 @@ const Calendar = () => {
     setEventEdit(newEvent);
     handleEventOpenModal();
   };
-  const slotFormat =  {
-    hour: '2-digit', // Display hours in 2-digit format (e.g., 01, 02, ..., 12)
-    minute: '2-digit', // Display minutes in 2-digit format (e.g., 00, 01, ..., 59)
+  const slotFormat = {
+    hour: "2-digit", // Display hours in 2-digit format (e.g., 01, 02, ..., 12)
+    minute: "2-digit", // Display minutes in 2-digit format (e.g., 00, 01, ..., 59)
     omitZeroMinute: false, // Include zero minutes (e.g., 01:00, 02:30, ...)
-    meridiem: false // Remove AM/PM from the label
-  }
+    meridiem: false, // Remove AM/PM from the label
+  };
   return (
     <div className="mx-10">
       <Title>ลงชั่วโมงว่าง</Title>
@@ -159,8 +157,8 @@ const Calendar = () => {
             locale={thLocale}
             eventClick={eventClick}
             forceEventDuration={true}
-            slotMinTime= "09:00:00"
-            slotMaxTime= "17:00:01"
+            slotMinTime="09:00:00"
+            slotMaxTime="17:00:01"
             slotLabelFormat={slotFormat}
           />
           <Modal isOpen={isModalOpen} onClose={handleCloseModal}>

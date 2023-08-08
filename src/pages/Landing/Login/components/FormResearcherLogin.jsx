@@ -32,6 +32,8 @@ const FormResearcherLogin = () => {
     const data = await response.json();
     if (data.status === 200) {
       console.log(data);
+      ctx.setGrpId(data.grpId)
+      localStorage.setItem("grpId",data.grpId)
       ctx.loginHandler(data.userId);
       console.log(data.userName);
       ctx.usernameHandler(data.userName);

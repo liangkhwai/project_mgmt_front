@@ -7,10 +7,13 @@ export const AuthContextProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState();
   const [role, setRole] = useState(null);
+  const [grpId,setGrpId] = useState(null)
 
   // const setIsTeacherLoginHandler = () => {
   //   setIsTeacher(true);
   // };
+
+  
 
   const checkLogged = async () => {
     const res = await checkAuthTF();
@@ -91,6 +94,8 @@ export const AuthContextProvider = (props) => {
         usernameHandler: usernameHandler,
         getUsername,
         setRole: setRole,
+        setGrpId:setGrpId,
+        grpId:grpId,
         role: role,
       }}
     >
