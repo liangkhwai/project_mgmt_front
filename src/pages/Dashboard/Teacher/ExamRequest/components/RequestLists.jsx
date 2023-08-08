@@ -1,8 +1,9 @@
 import React, { Fragment } from "react";
 import { useMutation } from "react-query";
 import { Link } from "react-router-dom";
+import DropdownFiles from "./DropdownFiles";
 
-const RequestLists = ({ requestList }) => {
+const RequestLists = ({ requestList, setRequestData }) => {
   const approveHandler = useMutation({
     mutationFn: async ({ isApprove, categories, id }) => {
       console.log(isApprove, categories, id);
@@ -24,6 +25,22 @@ const RequestLists = ({ requestList }) => {
     },
     onSuccess: (data) => {
       console.log(data);
+      setRequestData((prev) => {
+        const index = prev.findIndex((item) => item.id === data.id);
+
+        if (index !== -1) {
+          const updatedItem = { ...data };
+
+          const updatedState = [...prev];
+          updatedState[index] = updatedItem;
+          console.log(prev[index]);
+          console.log(updatedState[index]);
+          return updatedState;
+        }
+
+        // If the item with the given ID is not found, return the previous state unchanged
+        return prev;
+      });
     },
   });
 
@@ -35,7 +52,7 @@ const RequestLists = ({ requestList }) => {
   return (
     <div>
       <div className="text-center font-bold text-xl py-5 ">การขอสอบล่าสุด</div>
-      <div className="grid grid-cols-6 py-1 text-center content-center ">
+      <div className="grid grid-cols-7 py-1 text-center content-center ">
         <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
           ชื่อหัวข้อ
         </div>
@@ -45,8 +62,12 @@ const RequestLists = ({ requestList }) => {
         <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
           สถานะ
         </div>
+
         <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
           รายละเอียด
+        </div>
+        <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
+          ไฟล์
         </div>
         <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
           อนุมัติ
@@ -57,9 +78,9 @@ const RequestLists = ({ requestList }) => {
       </div>
       {requestList.map((item, idx) => {
         return (
-          <Fragment>
+          <Fragment key={item.id}>
             <div
-              className="grid grid-cols-6 py-1 text-center content-center "
+              className="grid grid-cols-7 py-1 text-center content-center "
               key={item.id}
             >
               <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
@@ -72,7 +93,16 @@ const RequestLists = ({ requestList }) => {
                 {item.status}
               </div>
               <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
-                {item.description}
+                <textarea
+                  rows=""
+                  cols=""
+                  disabled
+                  value={item.description}
+                  className="p-1 bg-gray-100 rounded-xl"
+                ></textarea>
+              </div>
+              <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
+                <DropdownFiles files={item.files} />
               </div>
               <div className="w-full bg-gray-200 flex items-center py- justify-center">
                 <button
@@ -90,11 +120,11 @@ const RequestLists = ({ requestList }) => {
                   ไม่อนุมัติ
                 </button>
               </div>
-              {item.files && (
+              {/* {item.files && (
                 <ul className="list-disc col-span-6 list-inside">
                   {item.files.map((item) => {
                     return (
-                      <li className="p-2  py-2 text-start">
+                      <li className="p-2  py-2 text-start" key={item.id}>
                         <Link
                           className="bg-light-blue-200 p-2 rounded-md"
                           target="_blank"
@@ -106,7 +136,7 @@ const RequestLists = ({ requestList }) => {
                     );
                   })}
                 </ul>
-              )}
+              )} */}
             </div>
           </Fragment>
         );

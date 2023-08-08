@@ -4,53 +4,58 @@ import RequestLists from "./components/RequestLists";
 import Title from "../../../../UI/Title";
 import Body from "../../../../UI/Body";
 import RequestLogLists from "./components/RequestLogLists";
-
 const ExamRequest = () => {
+  const [requestData, setRequestData] = useState([]);
   const [requestList, setRequestList] = useState([]);
   const [requestStatusAssign, setRequestStatusAssign] = useState([]);
-  const { data, isLoading } = useQuery({
-    queryFn: async () => {
-      const response = await fetch(
-        "http://localhost:8080/requestExam/getRequest",
-        {
-          method: "post",
-          body: JSON.stringify({
-            tchId: parseInt(localStorage.getItem("id")),
-          }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      return response.json();
-    },
-  });
+  const [selectMenu, setSelectMenu] = useState("List");
 
   useEffect(() => {
-    if (data) {
+    const getExamRequest = async () => {
+      const res = await fetch("http://localhost:8080/requestExam/getRequest", {
+        method: "post",
+        body: JSON.stringify({
+          tchId: parseInt(localStorage.getItem("id")),
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
       const assgin = data.filter((item) => item.isApprove !== null);
       const notAssign = data.filter((item) => item.isApprove === null);
       console.log(assgin);
       console.log(notAssign);
+      setRequestData(data);
       setRequestList(notAssign);
       setRequestStatusAssign(assgin);
+    };
+    getExamRequest();
+  }, []);
 
-      //   console.log(data);
-      //   setRequestList(data);
-    }
-  }, [data]);
-
-  if (isLoading) return "Loading...";
+  const requestListLog = requestData.filter((item)=> item.isApprove !== null)
+  const requestListFilter = requestData.filter((item)=> item.isApprove == null)
 
   return (
     <div className="mx-10">
       <Title>รายการขอสอบ</Title>
 
       <Body>
-        {data && (
+        <div className="">
+          <button className="px-3 py-1 bg-light-blue-600 rounded-xl mx-1 text-white" onClick={()=> setSelectMenu("List")}>รายการขอสอบ</button>
+          <button className="px-3 py-1 bg-light-blue-600 rounded-xl mx-1 text-white" onClick={()=> setSelectMenu("Log")}>ประวัติการขอสอบ</button>
+        </div>
+
+        {selectMenu === "List" && requestData ? (
+          <RequestLists requestList={requestListFilter} setRequestData={setRequestData} />
+        ) : (
+          <RequestLogLists requestStatusAssign={requestListLog} />
+        )}
+
+        {/* {requestData && (
           <div>
             <RequestLists requestList={requestList} />
             <RequestLogLists requestStatusAssign={requestStatusAssign} />
           </div>
-        )}
+        )} */}
       </Body>
     </div>
   );
