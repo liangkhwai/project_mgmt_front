@@ -2,8 +2,9 @@ import React from "react";
 import { Fragment } from "react";
 import { AddButton } from "../../../../../../UI/button";
 import { useMutation } from "react-query";
+import { v4 } from "uuid";
 const ResultRandom = ({ group, setGroup, isRandom }) => {
-  console.log(group);
+  // console.log(group);
 
   const mutation = useMutation({
     mutationFn: async () => {
@@ -16,93 +17,42 @@ const ResultRandom = ({ group, setGroup, isRandom }) => {
       return response.json();
     },
     onSuccess: (data) => {
+      setGroup([]);
       console.log(data);
     },
   });
 
   const clickSubmitHandler = () => {
+    console.log(group);
     if (window.confirm("ยืนยันการสุ่มจะไม่สามารถเปลี่ยนแปลงได้")) {
-      
       mutation.mutate(group);
     }
-    
   };
 
   return (
     <div className="">
       {group.map((item, idx) => {
         return (
-          <Fragment key={idx}>
+          <Fragment key={v4()}>
             <div className="border py-2 bg-gray-200 text-left my-2">
-              {idx + 1} {item.title}
+              <div className="mx-5 font-bold">
+                {idx + 1}.{" "}
+                {item.title ? item.title : "ยังไม่ตั้งชื่อหัวข้อโปรเจค"}
+              </div>
               <div className="grid grid-cols-3">
-                <div
-                  className={
-                    item.boards.advisor.id === 2
-                      ? "bg-red-400 text-center"
-                      : item.boards.advisor.id === 3
-                      ? "bg-yellow-200 text-center"
-                      : item.boards.advisor.id === 4
-                      ? "bg-blue-gray-200 text-center"
-                      : item.boards.advisor.id === 5
-                      ? "bg-gray-400 text-center"
-                      : item.boards.advisor.id === 6
-                      ? "bg-brown-300 text-center"
-                      : item.boards.advisor.id === 7
-                      ? "bg-deep-orange-300 text-center"
-                      : item.boards.advisor.id === 8
-                      ? "bg-amber-200 text-center"
-                      : ""
-                  }
-                >
+                <div className="mx-5 my-3 text-center">
                   ที่ปรึกษา <br />
                   {item.boards.advisor.firstname === null
                     ? "ไม่มี"
                     : item.boards.advisor.firstname}
                 </div>
-                <div
-                  className={
-                    item.boards.board1.id === 2
-                      ? "bg-red-400 text-center"
-                      : item.boards.board1.id === 3
-                      ? "bg-yellow-200 text-center"
-                      : item.boards.board1.id === 4
-                      ? "bg-blue-gray-200 text-center"
-                      : item.boards.board1.id === 5
-                      ? "bg-gray-400 text-center"
-                      : item.boards.board1.id === 6
-                      ? "bg-brown-300 text-center"
-                      : item.boards.board1.id === 7
-                      ? "bg-deep-orange-300 text-center"
-                      : item.boards.board1.id === 8
-                      ? "bg-amber-200 text-center"
-                      : ""
-                  }
-                >
+                <div className="mx-5 my-3 text-center">
                   กรรมการสอบ <br />
                   {item.boards.board1.firstname === null
                     ? "ไม่มี"
                     : item.boards.board1.firstname}
                 </div>
-                <div
-                  className={
-                    item.boards.board2.id === 2
-                      ? "bg-red-400 text-center"
-                      : item.boards.board2.id === 3
-                      ? "bg-yellow-200 text-center"
-                      : item.boards.board2.id === 4
-                      ? "bg-blue-gray-200 text-center"
-                      : item.boards.board2.id === 5
-                      ? "bg-gray-400 text-center"
-                      : item.boards.board2.id === 6
-                      ? "bg-brown-300 text-center"
-                      : item.boards.board2.id === 7
-                      ? "bg-deep-orange-300 text-center"
-                      : item.boards.board2.id === 8
-                      ? "bg-amber-200 text-center"
-                      : ""
-                  }
-                >
+                <div className="mx-5 my-3 text-center">
                   กรรมการสอบ <br />
                   {item.boards.board2.firstname === null
                     ? "ไม่มี"

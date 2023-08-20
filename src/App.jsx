@@ -128,7 +128,7 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/request/exam",
         element: <RequestExam />,
-        loader: checkBoards
+       
       },
       {
         path: "/dashboard/files/upload",

@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { useMutation } from "react-query";
 
-const ResearcherRow = ({ rsh, idx, setIsEditing, setGroupList }) => {
+const ResearcherRow = ({ rsh, idx, setIsEditing, setGroupList,group }) => {
   const [isEditingTel, setIsEditingTel] = useState(false);
   const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [isEditingGrade, setIsEditingGrade] = useState(false);
@@ -48,54 +48,57 @@ const ResearcherRow = ({ rsh, idx, setIsEditing, setGroupList }) => {
   };
   return (
     <tr key={rsh.id}>
-      <td>{idx + 1}</td>
+      <td className={ group.leaderId === rsh.id ? `bg-yellow-300`:``}>{idx + 1}</td>
       <td onClick={() => console.log(rsh)}>{rsh.student_id}</td>
       <td>
         {rsh.firstname} {rsh.lastname}
       </td>
-      <td onClick={() => setIsEditingTel(true)}>
+      <td onClick={() => setIsEditingTel(true)} className="bg-light-blue-100 border hover:bg-light-blue-200">
         {isEditingTel ? (
           <input
             type="text"
             name="tel"
             id=""
+            className=""
             autoFocus
             onChange={(e) => handleChangeValue(e)}
             onBlur={(e) => handleOnBlur(e)}
             value={rsh.tel ? rsh.tel : ""}
           />
         ) : (
-          <Fragment> {rsh.tel}</Fragment>
+          <Fragment> <div className="">{rsh.tel}</div></Fragment>
         )}
       </td>
-      <td onClick={() => setIsEditingEmail(true)}>
+      <td onClick={() => setIsEditingEmail(true)} className="bg-light-blue-100 border hover:bg-light-blue-200">
         {isEditingEmail ? (
           <input
             type="text"
             name="email"
             id=""
+            className=""
             autoFocus
             onChange={(e) => handleChangeValue(e)}
             onBlur={(e) => handleOnBlur(e)}
             value={rsh.email ? rsh.email : ""}
           />
         ) : (
-          <Fragment> {rsh.email}</Fragment>
+          <Fragment> <div className="">{rsh.email}</div></Fragment>
         )}
       </td>
-      <td onClick={() => setIsEditingGrade(true)}>
+      <td onClick={() => setIsEditingGrade(true)} className="bg-light-blue-100 border hover:bg-light-blue-200">
         {isEditingGrade ? (
           <input
             type="text"
             name="grade"
             id=""
+            className=""
             autoFocus
             onChange={(e) => handleChangeValue(e)}
             onBlur={(e) => handleOnBlur(e)}
             value={rsh.grade ? rsh.grade : ""}
           />
         ) : (
-          <Fragment> {rsh.grade}</Fragment>
+          <Fragment> <div className="">{rsh.grade}</div></Fragment>
         )}
       </td>
     </tr>

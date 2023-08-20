@@ -7,10 +7,14 @@ const EditRshRow = ({
   editFormSubmitHandler,
   editSelectedRoom,
   roomData,
+  idx
 }) => {
   console.log("edit = ",rsh)
   return (
     <tr className="text-center ">
+      <td>
+        {idx+1}
+      </td>
       <td>
         <input
           className="w-full "
@@ -53,7 +57,7 @@ const EditRshRow = ({
       <td>
         <input
           className="w-full"
-          type="text"
+          type="email"
           name="email"
           id=""
           value={rsh.email}
@@ -63,7 +67,7 @@ const EditRshRow = ({
       <td>
         <input
           className="w-full"
-          type="text"
+          type="tel"
           name="tel"
           id=""
           value={rsh.tel}
@@ -73,7 +77,7 @@ const EditRshRow = ({
       <td>
         <input
           className="w-full"
-          type="text"
+          type="number"
           name="grade"
           id=""
           value={rsh.grade}

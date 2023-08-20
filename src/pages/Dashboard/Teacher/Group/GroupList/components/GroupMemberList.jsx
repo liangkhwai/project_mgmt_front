@@ -123,9 +123,9 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
       {/* <Title>{groupDetail && groupDetail.title}</Title> */}
 
       {ctx.role === "admin" ? (
-          <EditGroupTitle title={groupDetail.title} />
+        <EditGroupTitle title={groupDetail.title} />
       ) : (
-          <span>ชื่อหัวข้อ {groupDetail ? groupDetail.title : ""}</span>
+        <span>ชื่อหัวข้อ {groupDetail ? groupDetail.title : ""}</span>
       )}
 
       <div className="text-center font-bold text-lg ">รายชื่อสมาชิก</div>
@@ -192,7 +192,7 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
                     {item.grade}
                   </td>
                   <td className="border-2 py-2 border-gray-300  text-gray-800">
-                  เกรดโปรเจค
+                  {item.gradeProject}
                   </td>
                   {ctx.role === "admin" && (
                     <td className="border-2 py-2 border-gray-300 text-center  text-white">
@@ -212,7 +212,7 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
       </table>
       {ctx.role === "admin" && (
         <Fragment>
-          <div className="flex py-1  border-b-2  border-r-2 border-l-2 border-gray-300">
+          <div className="flex justify-around items-center py-3  border-2  border-gray-300 my-5">
             <ComboBox
               loadedResearcherList={loadedResearcherList}
               selectedItem={selectedItem}
@@ -220,7 +220,7 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
             />
 
             <input
-              className="input "
+              className="input bg-gray-300 rounded-xl border-none text-center"
               type="text"
               name=""
               id=""
@@ -228,7 +228,7 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
               value={selectedItem ? selectedItem.firstname : ""}
             />
             <input
-              className="input "
+              className="input bg-gray-300 rounded-xl border-none text-center"
               type="text"
               name=""
               id=""
@@ -236,23 +236,24 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
               value={selectedItem ? selectedItem.lastname : ""}
             />
             <input
-              className="input "
+              className="input bg-gray-300 rounded-xl border-none text-center"
               type="text"
               name=""
               id=""
               disabled
               value={selectedItem ? selectedItem.categorie_room.room : ""}
             />
-          </div>
-          <div className="text-end mt-6">
+
             <button
-              className="px-4 py-1 bg-green-600 rounded-md text-white hover:bg-green-500  shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 bg-green-600 rounded-md text-white hover:bg-green-500  shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={() => addResearcherToGroup()}
               ref={buttonRef}
               disabled={isDisable}
             >
               เพิ่มนักวิจัย
             </button>
+
+          
           </div>
         </Fragment>
       )}

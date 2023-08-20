@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 
 const BoardList = ({ boards }) => {
   const [boardsItem, setBoardsItem] = useState([boards]);
-
+  console.log(boards);
   const findRole = (role) => {
     if (role === "advisor") {
       return "อาจารย์ที่ปรึกษา";

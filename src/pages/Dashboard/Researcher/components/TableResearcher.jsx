@@ -86,6 +86,8 @@ const TableResearcher = ({
       <table className="table table-responsive w-full border">
         <thead>
           <tr>
+          <th className="py-2 border-2 border-gray-300">ลำดับ</th>
+
             <th className="py-2 border-2 border-gray-300">รหัสนักศึกษา</th>
             <th className="py-2 border-2 border-gray-300">ชื่อ</th>
             <th className="py-2 border-2 border-gray-300">นามสกุล</th>
@@ -93,6 +95,8 @@ const TableResearcher = ({
             <th className="py-2 border-2 border-gray-300">อีเมลล์</th>
             <th className="py-2 border-2 border-gray-300">เบอร์โทร</th>
             <th className="py-2 border-2 border-gray-300">เกรดเฉลี่ย</th>
+            
+            <th className="py-2 border-2 border-gray-300">สถานะโปรเจค</th>
             <th className="py-2 border-2 border-gray-300">เกรดโปรเจค</th>
             <th className="py-2 border-2 border-gray-300">แก้ไข</th>
             <th className="py-2 border-2 border-gray-300">ลบ</th>
@@ -109,10 +113,12 @@ const TableResearcher = ({
                   editFormSubmitHandler={editFormSubmitHandler}
                   editSelectedRoom={editSelectedRoom}
                   roomData={roomData}
+                  idx={idx}
                 />
               ) : (
                 <ResearcherList
                   rsh={rsh}
+                idx={idx}
                   setEditRshIdHandler={setEditRshIdHandler}
                   deleteHandler={deleteHandler}
                   setRshList={setRshList}
@@ -172,13 +178,13 @@ const TableResearcher = ({
           className="px-3 py-2 mx-5  bg-green-600 rounded-lg text-white shadow-lg hover:bg-green-500"
           onClick={() => fileInputHandler()}
         >
-          เพิ่มนักวิจัย (CSV)
+          นำเข้าข้อมูล (Excel)
         </button>
         <button
           className="px-3 py-2   bg-green-600 rounded-lg text-white shadow-lg hover:bg-green-500"
           onClick={() => isInsertHandler()}
         >
-          เพิ่มนักวิจัย (ปกติ)
+          เพิ่มนักวิจัย
         </button>
       </div>
       <div className="">

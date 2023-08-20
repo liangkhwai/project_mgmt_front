@@ -4,7 +4,6 @@ import AuthContext from "../../../../../../context/auth";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 
-
 const GroupListBox = () => {
   const [group, setGroup] = useState([]);
   const ctx = useContext(AuthContext);
@@ -65,37 +64,46 @@ const GroupListBox = () => {
       <table className="table w-full my-5">
         <thead>
           <tr className="text-md text-center  bg-gray-50 border rounded-3xl">
+            <td>ลำดับ</td>
             <td className="py-3  font-semibold ">ชื่อหัวข้อ</td>
-            <td className="p-3  font-semibold ">สถานะ</td>
-            <td className="py-3  font-semibold ">ความคืบหน้า</td>
-            <td className="p-3  font-semibold ">สมาชิก</td>
-            <td className=""></td>
-            <td className=""></td>
+            <td className="">ความคืบหน้า</td>
+            {ctx.role === "admin" ? (
+              <Fragment>
+                <td className="py-2.5  ">รายละเอียด</td>
+                <td className="py-2.5 ">ลบ</td>
+              </Fragment>
+            ) : (
+              <td>รายละเอียด</td>
+            )}
           </tr>
         </thead>
         <tbody>
           {group.map((item, idx) => {
             return (
-              <tr className="hover:bg-blue-50 border-b-2 border-b-gray-300" key={item.id}>
+              <tr
+                className="hover:bg-blue-50 border-b-2 border-b-gray-300"
+                key={item.id}
+              >
+                <td className="">{idx + 1}</td>
                 <td className=" py-2.5  ">
                   {item.title ? item.title : "ไม่มีชื่อหัวข้อ"}
                 </td>
-                <td>{item.status}</td>
+                {/* <td>{item.status}</td> */}
                 <td className="py-2.5  ">
                   <ProgressBar percent={Math.floor(Math.random() * 100)} />
                 </td>
-                <td>{null}</td>
+                {/* <td>{null}</td> */}
                 {ctx.role === "admin" ? (
                   <Fragment>
-                    <td className="py-2.5  ">
-                      <button 
+                    <td className="py-2.5 text-center ">
+                      <button
                         onClick={() => clickDetailHandler(item.id)}
                         className="px-2 py-1  bg-green-600 hover:bg-green-500 rounded-lg text-white shadow-lg"
                       >
                         รายละเอียด
                       </button>
                     </td>
-                    <td className="py-2.5 ">
+                    <td className="py-2.5 text-center">
                       <button
                         className="px-8 py-1  bg-red-600 hover:bg-red-500 rounded-lg text-white shadow-lg"
                         onClick={() => deleteGroupHandler(item.id)}
@@ -105,7 +113,7 @@ const GroupListBox = () => {
                     </td>
                   </Fragment>
                 ) : (
-                  <td >
+                  <td>
                     <button
                       onClick={() => clickDetailHandler(item.id)}
                       className="px-2 py-1   bg-green-600 hover:bg-green-500 rounded-lg text-white shadow-lg"

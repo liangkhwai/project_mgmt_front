@@ -39,6 +39,7 @@ const GroupList = ({ groupList, setGroupList }) => {
 
   useEffect(() => {
     if (data) {
+      console.log(data);
       setGroup(data);
     }
   }, [data]);
@@ -62,6 +63,18 @@ const GroupList = ({ groupList, setGroupList }) => {
     mutation.mutate(inputRef.current.value);
   };
 
+  const sortLeader = groupList.sort((a,b)=>{
+    if(a.id === group.leaderId){
+      return -1;
+    }else if(b.id === group.leaderId){
+      return 1
+    }
+    return 0
+
+
+  })
+
+
   return (
     <div className="w-full border border-black p-5 rounded-md ">
       <TitleGroup />
@@ -78,13 +91,14 @@ const GroupList = ({ groupList, setGroupList }) => {
             </tr>
           </thead>
           <tbody>
-            {groupList.map((item, idx) => (
+            {sortLeader.map((item, idx) => (
               <ResearcherRow
                 rsh={item}
                 idx={idx}
                 setIsEditing={setIsEditing}
                 setGroupList={setGroupList}
                 key={item.id}
+                group={group}
               />
             ))}
           </tbody>

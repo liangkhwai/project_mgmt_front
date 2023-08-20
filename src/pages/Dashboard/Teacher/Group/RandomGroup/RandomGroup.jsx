@@ -4,10 +4,11 @@ import Body from "../../../../../UI/Body";
 import FormRandom from "./components/FormRandom";
 import ResultRandom from "./components/ResultRandom";
 import { useQuery } from "react-query";
+import { v4 as uuidv4 } from "uuid";
 const RandomGroup = () => {
   const [teacher, setTeacher] = useState([]);
   const [group, setGroup] = useState([]);
-  const [isRandom,setIsRamdom] = useState(false)
+  const [isRandom, setIsRamdom] = useState(false);
   const getTeacherList = useQuery({
     queryKey: "getTeacher",
     queryFn: async () => {
@@ -23,17 +24,20 @@ const RandomGroup = () => {
   const getGroupList = useQuery({
     queryKey: "getGroups",
     queryFn: async () => {
-      const response = await fetch("http://localhost:8080/group/getAllGroup/random", {
-        method: "get",
-        credentials: "include",
-      });
+      const response = await fetch(
+        "http://localhost:8080/group/getAllGroup/random",
+        {
+          method: "get",
+          credentials: "include",
+        }
+      );
       return response.json();
     },
   });
   useEffect(() => {
     if (getTeacherList.data) {
       let addLimitTeacher = getTeacherList.data.map((obj) => {
-        return { ...obj, limit: 0 };
+        return { ...obj, limit: 0, limitBoard: 0 };
       });
       setTeacher(addLimitTeacher);
     }
@@ -41,11 +45,18 @@ const RandomGroup = () => {
 
   useEffect(() => {
     if (getGroupList.data) {
-      console.log(getGroupList.data);
+      // console.log(getGroupList.data);
       let addTchGroup = getGroupList.data.map((obj) => {
-        return { ...obj, boards: { advisor: {role:"advisor"}, board1: {role:"board1"}, board2: {role:"board2"} } };
+        return {
+          ...obj,
+          boards: {
+            advisor: { role: "advisor" },
+            board1: { role: "board1" },
+            board2: { role: "board2" },
+          },
+        };
       });
-      console.log(addTchGroup);
+      // console.log(addTchGroup);
       setGroup(addTchGroup);
     }
   }, [getGroupList.data]);
@@ -61,11 +72,15 @@ const RandomGroup = () => {
               setTeacher={setTeacher}
               group={group}
               setGroup={setGroup}
-              setIsRamdom = {setIsRamdom}
+              setIsRamdom={setIsRamdom}
             />
           </div>
           <div className="border rounded-md text-center border-black">
-            <ResultRandom group={group} setGroup={setGroup} isRandom={isRandom} />
+            <ResultRandom
+              group={group}
+              setGroup={setGroup}
+              isRandom={isRandom}
+            />
           </div>
         </div>
       </Body>

@@ -1,7 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { AddButton } from "../../../../../UI/button";
 import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
 const FormRequestExam = ({ groupInfo }) => {
+  const navigate = useNavigate()
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [examRequest, setExamRequest] = useState({
     type: "สอบหัวข้อ",
@@ -35,6 +37,9 @@ const FormRequestExam = ({ groupInfo }) => {
 
       return response.json();
     },
+    onSuccess:()=>{
+      navigate('/dashboard/group')
+    }
   });
   const submitHandler = () => {
     const formData = new FormData();

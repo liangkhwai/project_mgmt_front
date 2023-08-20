@@ -6,6 +6,7 @@ const ResearcherList = ({
   setEditRshIdHandler,
   deleteHandler,
   setRshList,
+  idx
 }) => {
   // console.log(rsh);
   const check = false;
@@ -40,8 +41,11 @@ const ResearcherList = ({
   const notEdtAgainHandler = () => {
     alert("ไม่สามารถแก้ไขได้");
   };
+  console.log(rsh);
   return (
     <tr className="text-center ">
+      <td className="py-1 border-2 border-gray-300">{idx+1}</td>
+
       <td className="py-1 border-2 border-gray-300">{rsh.student_id}</td>
       <td className="py-1 border-2 border-gray-300">{rsh.firstname}</td>
       <td className="py-1 border-2 border-gray-300">{rsh.lastname}</td>
@@ -51,6 +55,11 @@ const ResearcherList = ({
       <td className="py-1 border-2 border-gray-300">{rsh.email}</td>
       <td className="py-1 border-2 border-gray-300">{rsh.tel}</td>
       <td className="py-1 border-2 border-gray-300">{rsh.grade}</td>
+      {/* <td className="py-1 border-2 border-gray-300">{rsh.group.id}</td> */}
+      <td className="py-1 border-2 border-gray-300">
+        {rsh.group ? rsh.group.status : "ยังไม่สอบหัวข้อ"}
+      </td>
+
       <td
         className="py-1 border-2 border-gray-300 bg-yellow-300 hover:bg-red-400 cursor-pointer"
         onClick={() => {

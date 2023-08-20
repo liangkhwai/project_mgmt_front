@@ -6,10 +6,11 @@ import TableList from "./components/TableList.jsx";
 import InputForm from "./components/InputForm.jsx";
 import { AddButton } from "../../../../../UI/button.jsx";
 import AuthContext from "../../../../../context/auth.jsx";
+import { useNavigate } from "react-router-dom";
 
 const CreateGroup = () => {
   const [loadedResearcherList, setLoadedResearcherList] = useState([]);
-
+  const navigate = useNavigate()
   const [rshList, setRshList] = useState([]);
   useEffect(() => {
     async function fetchRshList() {
@@ -53,6 +54,7 @@ const CreateGroup = () => {
     }).then(async (res) => {
       const data = await res.json();
       console.log(data);
+      navigate('/dashboard/group')
     });
   };
 
