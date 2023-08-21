@@ -119,6 +119,7 @@ const TableResearcher = ({
                 <ResearcherList
                   rsh={rsh}
                 idx={idx}
+                startIndex={startIndex}
                   setEditRshIdHandler={setEditRshIdHandler}
                   deleteHandler={deleteHandler}
                   setRshList={setRshList}

@@ -6,7 +6,8 @@ const ResearcherList = ({
   setEditRshIdHandler,
   deleteHandler,
   setRshList,
-  idx
+  idx,
+  startIndex
 }) => {
   // console.log(rsh);
   const check = false;
@@ -44,7 +45,7 @@ const ResearcherList = ({
   console.log(rsh);
   return (
     <tr className="text-center ">
-      <td className="py-1 border-2 border-gray-300">{idx+1}</td>
+      <td className="py-1 border-2 border-gray-300">{startIndex+idx+1}</td>
 
       <td className="py-1 border-2 border-gray-300">{rsh.student_id}</td>
       <td className="py-1 border-2 border-gray-300">{rsh.firstname}</td>
