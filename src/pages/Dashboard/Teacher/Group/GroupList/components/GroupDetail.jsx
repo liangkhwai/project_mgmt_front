@@ -43,7 +43,7 @@ const GroupDetail = () => {
     <div className="mx-10">
       <Title>รายละเอียดกลุ่มโปรเจค</Title>
       <Body>
-        <GroupMemberList grpDetail={grpDetail} grpId={grpId} />
+        <GroupMemberList grpDetail={grpDetail}setGrpDetail={setGrpDetail} grpId={grpId} />
         <div className="grid grid-cols-12 gap-2 my-3">
           <div className="w-full  col-span-8 border rounded-xl shadow-md">
             <ExamRequestBox requestExam={requestExam} />

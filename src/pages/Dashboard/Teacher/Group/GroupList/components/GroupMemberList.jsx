@@ -6,9 +6,10 @@ import TitleGroup from "../../../../Researcher/Group/components/TitleGroup";
 import EditGroupTitle from "./EditGroupTitle";
 import ComboBox from "../../../../Researcher/Group/create_group/components/ComboBoxSearcherRsh";
 import { useRef } from "react";
+import {RiVipCrown2Fill} from 'react-icons/ri/index'
 import AuthContext from "../../../../../../context/auth";
 
-const GroupMemberList = ({ grpId, grpDetail }) => {
+const GroupMemberList = ({ grpId, grpDetail,setGrpDetail }) => {
   console.log(grpId);
   const ctx = useContext(AuthContext);
   const [groupDetail, setGroupDetail] = useState(grpDetail);
@@ -82,7 +83,18 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
     });
 
     const data = await response.json();
-    return data;
+    
+    const sortLeader = data.sort((a, b) => {
+      if (a.id === grpDetail.leaderId) {
+        return -1;
+      } else if (b.id === grpDetail.leaderId) {
+        return 1;
+      }
+      return 0;
+    });
+
+    
+    return sortLeader;
   });
 
   useEffect(() => {
@@ -118,14 +130,54 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
   const addResearcherToGroup = () => {
     addMember.mutate(selectedItem.id);
   };
+
+  // const sortLeader = groupMember.sort((a, b) => {
+  //   if (a.id === groupDetail.leaderId) {
+  //     return -1;
+  //   } else if (b.id === groupDetail.leaderId) {
+  //     return 1;
+  //   }
+  //   return 0;
+  // });
+
+  const changeLeaderClick = async(grpId,rshId)=>{
+    console.log(grpId,rshId);
+    const response = await fetch("http://localhost:8080/group/changeLeaderGroup",
+    {
+      method:"post",
+      body:JSON.stringify({grpId:grpId,rshId:rshId}),
+      headers:{"Content-Type":"application/json"}
+    })
+
+    const data = await response.json()
+    console.log(data);
+    
+    setGrpDetail(data.updatedGroup)
+    const sortLeader = data.refreshGroupMember.sort((a, b) => {
+      if (a.id === data.updatedGroup.leaderId) {
+        return -1;
+      } else if (b.id === data.updatedGroup.leaderId) {
+        return 1;
+      }
+      return 0;
+    });
+
+    setGroupMember(sortLeader)
+    
+
+  }
+
+
+
+
   return (
     <div className="mx-10">
       {/* <Title>{groupDetail && groupDetail.title}</Title> */}
 
       {ctx.role === "admin" ? (
-        <EditGroupTitle title={groupDetail.title} />
+        <EditGroupTitle title={grpDetail.title} />
       ) : (
-        <span>ชื่อหัวข้อ {groupDetail ? groupDetail.title : ""}</span>
+        <span>ชื่อหัวข้อ {grpDetail ? grpDetail.title : ""}</span>
       )}
 
       <div className="text-center font-bold text-lg ">รายชื่อสมาชิก</div>
@@ -133,6 +185,9 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
       <table className="table table-auto w-full border-collapse border-gray-400">
         <thead>
           <tr className="w-full ">
+            <td className=" py-2 text-start border-2 border-gray-300 font-semibold text-black">
+              ลำดับ
+            </td>
             <td className=" py-2 text-start border-2 border-gray-300 font-semibold text-black">
               ชื่อ
             </td>
@@ -158,9 +213,14 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
               เกรดโปรเจค
             </td>
             {ctx.role === "admin" && (
+              <>
+              <td className=" py-2 text-center border-2 border-gray-300 font-semibold  text-black">
+                หัวหน้ากลุ่ม
+              </td>
               <td className=" py-2 text-center border-2 border-gray-300 font-semibold  text-black">
                 ลบ
               </td>
+              </>
             )}
           </tr>
         </thead>
@@ -170,6 +230,15 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
             return (
               <Fragment key={item.student_id}>
                 <tr>
+                  <td
+                    className={
+                      grpDetail.leaderId === item.id
+                        ? `bg-yellow-300 border-2 py-2 border-gray-300  text-gray-800`
+                        : `border-2 py-2 border-gray-300  text-gray-800`
+                    }
+                  >
+                    {idx + 1}
+                  </td>
                   <td className="border-2 py-2 border-gray-300  text-gray-800">
                     {item.firstname}
                   </td>
@@ -192,9 +261,31 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
                     {item.grade}
                   </td>
                   <td className="border-2 py-2 border-gray-300  text-gray-800">
-                  {item.gradeProject}
+                    {item.gradeProject}
                   </td>
                   {ctx.role === "admin" && (
+                    <>
+                    <td className="border-2 py-2 border-gray-300 text-center  text-white">
+                      {grpDetail.leaderId === item.id
+                      ?
+                      <button
+                        className="px-5 py-1 disabled:cursor-not-allowed  bg-gray-400  rounded-lg shadow-lg"
+                        onClick={() => deleteFromGroupHandler(item.id)}
+                        disabled
+                      >
+                        <RiVipCrown2Fill color="yellow"/>
+                      </button>
+                      :
+                      <button
+                        className="px-5 py-1  bg-green-400 hover:bg-green-600 rounded-lg shadow-lg"
+                        onClick={() => changeLeaderClick(grpDetail.id,item.id)}
+                      >
+                        <RiVipCrown2Fill color="yellow"/>
+                      </button>
+                      
+                      }
+                      
+                    </td>
                     <td className="border-2 py-2 border-gray-300 text-center  text-white">
                       <button
                         className="px-5 py-1  bg-red-600 hover:bg-red-500 rounded-lg shadow-lg"
@@ -203,6 +294,7 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
                         ลบ
                       </button>
                     </td>
+                    </>
                   )}
                 </tr>
               </Fragment>
@@ -252,8 +344,6 @@ const GroupMemberList = ({ grpId, grpDetail }) => {
             >
               เพิ่มนักวิจัย
             </button>
-
-          
           </div>
         </Fragment>
       )}
