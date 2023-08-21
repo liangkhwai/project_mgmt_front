@@ -218,7 +218,7 @@ const TableCategorieResearcher = ({
           <tr>
             <th className="py-2 border-2 border-gray-300">ห้อง</th>
             <th className="py-2 border-2 border-gray-300">หลักสูตร</th>
-            <th className="py-2 border-2 border-gray-300">ปีการศึกษา</th>
+            <th className="py-2 border-2 border-gray-300">ปีที่เข้าศึกษา</th>
             <th className="py-2 border-2 border-gray-300">แก้ไข</th>
             <th className="py-2 border-2 border-gray-300">ลบ</th>
           </tr>
