@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import { useQuery } from "react-query";
 import { useLoaderData, useParams } from "react-router-dom";
 import GroupMemberList from "./GroupMemberList";
@@ -6,13 +6,22 @@ import ExamRequestBox from "../../../../Researcher/Group/components/ExamRequestB
 import BoardList from "../../../../Researcher/Group/components/BoardList";
 import Body from "../../../../../../UI/Body";
 import Title from "../../../../../../UI/Title";
-
+import { useContext } from "react";
+import AuthContext from "../../../../../../context/auth";
+import ReactModal from "react-modal";
+import AddButton, { SaveButton } from "../../../../../../UI/button";
 const GroupDetail = () => {
+  const ctx = useContext(AuthContext);
   const getGroupDetail = useLoaderData();
   const [grpDetail, setGrpDetail] = useState(getGroupDetail);
   const [boards, setBoards] = useState([]);
   const [requestExam, setRequestExam] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [teachers, setTeachers] = useState([]);
   let { grpId } = useParams();
+  const [editBoard, setEditBoard] = useState([]);
+  const [isDupeBoard, setIsDupeBoard] = useState(false);
+
   useEffect(() => {
     const fetchBoards = async () => {
       const res = await fetch(`http://localhost:8080/boards/get/${grpId}`, {
@@ -21,6 +30,7 @@ const GroupDetail = () => {
       const data = await res.json();
       console.log(data);
       setBoards(data);
+      setEditBoard(data);
     };
 
     const fetchRequestExam = async () => {
@@ -35,22 +45,123 @@ const GroupDetail = () => {
       setRequestExam(data.slice(0, 3));
     };
 
+    const fetchTeacherList = async () => {
+      const res = await fetch("http://localhost:8080/teachers/list", {
+        method: "GET",
+      });
+
+      const data = await res.json();
+      console.log(data);
+      setTeachers(data);
+    };
+
     fetchBoards();
 
     fetchRequestExam();
+    fetchTeacherList();
   }, []);
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+    },
+  };
+
+  const findRole = (role) => {
+    if (role === "advisor") {
+      return "อาจารย์ที่ปรึกษา";
+    } else if (role === "board1") {
+      return "ประธานกรรมการสอบ";
+    } else {
+      return "กรรมการสอบ";
+    }
+  };
+  const changeEditBoardHandler = (e) => {
+    const { name, value } = e.target;
+    console.log(name, value);
+
+    const testEdit = editBoard.map((teacher) =>
+      teacher.role === name
+        ? { ...teacher, teacherId: parseInt(value) }
+        : teacher
+    );
+    console.log(testEdit);
+    setEditBoard(testEdit);
+
+    // setEditBoard(prevTeachers =>
+    //   prevTeachers.map(teacher =>
+    //     teacher.role === name ? { ...teacher, teacherId: value } : teacher
+    //   )
+    // );
+  };
+  console.log(editBoard);
+  const hasDuplicateTeacherId = editBoard.some(
+    (teacher, index, array) =>
+      array.findIndex((t) => t.teacherId === teacher.teacherId) !== index
+  );
+
+  const controlOpenModalHandler = () => {
+    setIsModalOpen(true);
+    setEditBoard(boards);
+  };
+  useEffect(() => {
+    const hasDuplicateTeacherId = editBoard.some(
+      (teacher, index, array) =>
+        array.findIndex((t) => t.teacherId === teacher.teacherId) !== index
+    );
+
+    if (hasDuplicateTeacherId) {
+      setIsDupeBoard(true);
+    } else {
+      setIsDupeBoard(false);
+    }
+  }, [editBoard]);
+  ReactModal.setAppElement("#root");
+
+  const updateBoardSubmitHandler = async () => {
+    const res = await fetch("http://localhost:8080/boards/updateBoard", {
+      method: "PUT",
+      body: JSON.stringify({updatedBoard:editBoard,grpId:grpId}),
+      headers: { "Content-Type": "application/json" },
+    });
+
+  const data = await res.json()
+  console.log(data);
+    setBoards(data)
+    setIsModalOpen(false)
+
+  };
+
+
+
+
   return (
-    <div className="mx-10">
+    <div className="mx-10" id="grpDetailApp">
       <Title>รายละเอียดกลุ่มโปรเจค</Title>
       <Body>
-        <GroupMemberList grpDetail={grpDetail}setGrpDetail={setGrpDetail} grpId={grpId} />
+        <GroupMemberList
+          grpDetail={grpDetail}
+          setGrpDetail={setGrpDetail}
+          grpId={grpId}
+        />
         <div className="grid grid-cols-12 gap-2 my-3">
           <div className="w-full  col-span-8 border rounded-xl shadow-md">
             <ExamRequestBox requestExam={requestExam} />
           </div>
-          <div className="w-full col-span-4">
+          <div
+            className={
+              ctx.role === "admin"
+                ? "w-full col-span-4 border rounded-xl shadow-md hover:bg-gray-200 hover:cursor-pointer"
+                : "w-full col-span-4 border rounded-xl shadow-md "
+            }
+            onClick={() => controlOpenModalHandler()}
+          >
             {boards.length > 0 ? (
-              <div className="flex flex-col border rounded-xl shadow-md">
+              <div className="flex flex-col">
                 {<BoardList boards={boards} />}
               </div>
             ) : (
@@ -61,6 +172,53 @@ const GroupDetail = () => {
           </div>
         </div>
       </Body>
+      <ReactModal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <div>
+          <div className="text-center text-2xl py-3">
+            แก้ไขรายชื่อกรรมการสอบ
+          </div>
+          {boards.map((item, idx) => (
+            <Fragment key={item.id}>
+              <div className="flex justify-between py-5 border-b">
+                <div className="px-5">{findRole(item.role)}</div>
+                <div className="px-5">
+                  <select
+                    id=""
+                    defaultValue={item.id}
+                    onChange={(e) => changeEditBoardHandler(e)}
+                    name={item.role}
+                  >
+                    {teachers.map((tch, idx) => (
+                      <option key={tch.id} value={tch.id}>
+                        {tch.firstname} {tch.lastname}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </Fragment>
+          ))}
+          {hasDuplicateTeacherId && (
+            <div className="text-center text-red-500 font-bold py-3">
+              **กรุณาเลือกกรรมการสอบที่ไม่ซ้ำกัน**
+            </div>
+          )}
+          <div className="text-center mt-5">
+            <button
+              className="px-3 py-2 rounded-md bg-green-400 text-white hover:bg-green-600 disabled:cursor-not-allowed disabled:bg-gray-400 disabled:opacity-50"
+              disabled={isDupeBoard}
+              onClick={updateBoardSubmitHandler}
+            >
+              บันทึก
+            </button>
+          </div>
+        </div>
+      </ReactModal>
     </div>
   );
 };
