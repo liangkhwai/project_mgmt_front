@@ -3,7 +3,7 @@ import ProgressBar from "../../../../../../UI/ProgressBar";
 import AuthContext from "../../../../../../context/auth";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
-
+import Swal from "sweetalert2";
 const GroupListBox = () => {
   const [group, setGroup] = useState([]);
   const ctx = useContext(AuthContext);
@@ -26,9 +26,14 @@ const GroupListBox = () => {
     },
     onSuccess: (data) => {
       setGroup(group.filter((item) => item.id !== parseInt(data)));
+      Swal.fire("ลบ!", "ลบข้อมูลกลุ่มเรียบร้อยแล้ว", "success");
     },
     onError: (data) => {
-      alert(data);
+      Swal.fire(
+        "Error",
+        "ไม่สามารถลบได้ เรื่องจากมีผู้วิจัยอยู่ในกลุ่ม",
+        "error"
+      );
     },
   });
 
@@ -57,7 +62,20 @@ const GroupListBox = () => {
   };
 
   const deleteGroupHandler = (grpId) => {
-    deleteGroup.mutate(grpId);
+    Swal.fire({
+      title: "ลบ?",
+      text: "คุณต้องการลบข้อมูลนี้หรือไม่!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "ลบ!",
+      cancelButtonText: "ยกเลิก",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteGroup.mutate(grpId);
+      }
+    });
   };
   return (
     <div>

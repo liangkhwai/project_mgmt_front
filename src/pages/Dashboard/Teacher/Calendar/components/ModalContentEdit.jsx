@@ -8,6 +8,7 @@ import { useMutation } from "react-query";
 import DatePicker from "react-datepicker";
 import "./CustomTimePicker.css";
 import "react-datepicker/dist/react-datepicker.css";
+import Swal from "sweetalert2";
 const ModalContentEdit = ({
   selectedDate,
   events,
@@ -316,7 +317,20 @@ const ModalContentEdit = ({
       );
 
       handleCloseModal();
+      Swal.fire({
+        icon: "success", 
+        title: "สำเร็จ",
+        text: "แก้ไขข้อมูลกิจกรรมสำเร็จ!",
+      })
     },
+    onError: (error) => {
+      console.log(error);
+      Swal.fire({
+        icon: "error", 
+        title: "เกิดข้อผิดพลาด",
+        text: "แก้ไขข้อมูลกิจกรรมไม่สำเร็จ!",
+      })
+    }
   });
 
   const deleteEvent = useMutation({
@@ -334,18 +348,58 @@ const ModalContentEdit = ({
       console.log(filterEvent);
       setEvents(filterEvent);
       handleCloseModal();
+      Swal.fire({
+        icon: "success",
+        title: "สำเร็จ",
+        text: "ลบข้อมูลกิจกรรมสำเร็จ!",
+      });
     },
+    onError: (error) => {
+
+      Swal.fire({
+        icon: "error",
+        title: "เกิดข้อผิดพลาด",
+        text: "ลบข้อมูลกิจกรรมไม่สำเร็จ!",
+      });
+    }
   });
   const updateEventHandler = () => {
     console.log(date);
-    updateEvent.mutate(date);
+    Swal.fire({
+      title: 'แก้ไขข้อมูลกิจกรรม?',
+      text: "คุณต้องการแก้ไขข้อมูลกิจกรรมนี้หรือไม่!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'แก้ไข!',
+      cancelButtonText: 'ยกเลิก'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        updateEvent.mutate(date);
+        
+      }
+    })
   };
 
   const deleteEventHandler = () => {
-    if (window.confirm("Are you sure delete this event ?")) {
-      console.log(date.id);
-      deleteEvent.mutate(date.id);
-    }
+   
+      Swal.fire({
+        title: 'ลบข้อมูลกิจกรรม?',
+        text: "คุณต้องการลบข้อมูลกิจกรรมนี้หรือไม่!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'ลบ!',
+        cancelButtonText: 'ยกเลิก'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          
+          deleteEvent.mutate(date.id);
+        }
+      })
+    
   };
   const onChangeTimeStart = (info) => {
     console.log(info);
@@ -386,7 +440,7 @@ const ModalContentEdit = ({
             wrapperClassName="customWrapper"
             timeFormat="HH:mm"
             timeCaption="Time"
-            dateFormat="h:mm"
+            dateFormat="HH:mm"
             popperPlacement="right"
           />
         </div>

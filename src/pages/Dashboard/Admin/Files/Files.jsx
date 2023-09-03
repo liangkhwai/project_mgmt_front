@@ -6,6 +6,7 @@ import FileList from "./components/FileList";
 import { useEffect } from "react";
 import { useRef } from "react";
 import FileLists from "./components/FileLists";
+import Swal from "sweetalert2";
 const Files = () => {
   const [fileLists, setFileLists] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -49,6 +50,19 @@ const Files = () => {
       setFileLists((prev) => [...prev, ...data]);
       setSelectedFiles([]);
       inputRef.current.value = null;
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "อัพโหลดไฟล์สำเร็จ!",
+      });
+    },
+    onError: (error) => {
+      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "เกิดข้อผิดพลาด!",
+      });
     },
   });
   const fileDelete = useMutation({
@@ -67,6 +81,19 @@ const Files = () => {
         (item, idx) => item.id !== parseInt(data)
       );
       setFileLists(filterFileLists);
+      Swal.fire({
+        icon: "success",
+        title: "สำเร็จ!",
+        text: "ลบไฟล์สำเร็จ!",
+      });
+    },
+    onError: (error) => {
+      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "เกิดข้อผิดพลาด!",
+      });
     },
   });
 
@@ -75,17 +102,37 @@ const Files = () => {
   }, [selectedFiles]);
 
   const uploadFileHandler = () => {
-    if (window.confirm("Are you sure upload these files")) {
-      const formData = new FormData();
-      console.log(selectedFiles);
-      selectedFiles.forEach((file, index) => {
-        console.log(file);
-        formData.append("files", file);
-      });
-      filesUpload.mutate(formData);
-    } else {
-      return;
-    }
+    Swal.fire({
+      title: "เพิ่มเอกสาร?",
+      text: "คุณต้องการเพิ่มเอกสารหรือไม่!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "เพิ่ม!",
+      cancelButtonText: "ยกเลิก",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const formData = new FormData();
+        console.log(selectedFiles);
+        selectedFiles.forEach((file, index) => {
+          console.log(file);
+          formData.append("files", file);
+        });
+
+        if(selectedFiles.length === 0){
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "กรุณาเพิ่มไฟล์เอกสาร!",
+            timer: 2000,
+            timerProgressBar: true,
+          });
+          return
+        }
+        filesUpload.mutate(formData);
+      }
+    });
   };
   const removeSelectedFile = (event) => {
     console.log(inputRef.current);
@@ -100,14 +147,21 @@ const Files = () => {
   };
 
   const removeFileList = (id) => {
-    if (window.confirm("Are you sure delete this file")) {
-      fileDelete.mutate(id);
-    } else {
-      return;
-    }
-
-
-    
+    Swal.fire({
+      title: "ลบไฟล์?",
+      text: "คุณต้องการลบไฟล์นี้ใช่หรือไม่!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "ลบ!",
+      cancelButtonText: "ยกเลิก",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        
+        fileDelete.mutate(id);
+      }
+    });
   };
 
   return (

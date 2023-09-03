@@ -9,6 +9,7 @@ import DatePickerPopupEnd from "./DatePickerPopupEnd";
 import DatePicker from "react-datepicker";
 import "./CustomTimePicker.css";
 import "react-datepicker/dist/react-datepicker.css";
+import Swal from "sweetalert2";
 const ModalContent = ({
   selectedDate,
   setEvents,
@@ -316,6 +317,19 @@ const ModalContent = ({
       console.log(event);
       setEvents((prev) => [...prev, event]);
       handleCloseModal();
+      Swal.fire({
+        icon: "success",
+        title: "สำเร็จ",
+        text: "เพิ่มกิจกรรมสำเร็จ!",
+      });
+    },
+    onError: (error) => {
+      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "เกิดข้อผิดพลาด",
+        text: "เพิ่มกิจกรรมไม่สำเร็จ!",
+      });
     },
   });
 
@@ -380,17 +394,27 @@ const ModalContent = ({
   };
 
   const submitHandlerEvent = () => {
-    console.log(date);
-    console.log(date.start);
-    console.log(date.end);
-    if (date.start > date.end) {
-      console.log("more date");
-      setDate((prev) => {
-        return { ...prev, start: date.end, end: date.start };
-      });
-    }
-    console.log(date);
-    mutation.mutate(date);
+    Swal.fire({
+      title: "เพิ่มกิจกรรม?",
+      text: "คุณต้องการเพิ่มข้อมูลกิจกรรมนี้หรือไม่!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "เพิ่ม!",
+      cancelButtonText: "ยกเลิก",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (date.start > date.end) {
+          console.log("more date");
+          setDate((prev) => {
+            return { ...prev, start: date.end, end: date.start };
+          });
+        }
+        console.log(date);
+        mutation.mutate(date);
+      }
+    });
   };
 
   const onChangeTimeStart = (info) => {
@@ -401,8 +425,8 @@ const ModalContent = ({
     console.log(info);
     setDate((prev) => ({ ...prev, end: info }));
   };
-  const minTime = dayjs().set('hour',9).set('minute',0).$d
-  const maxTime = dayjs().set('hour',17).set('minute',0).$d
+  const minTime = dayjs().set("hour", 9).set("minute", 0).$d;
+  const maxTime = dayjs().set("hour", 17).set("minute", 0).$d;
   return (
     <div>
       <div className="mb-3">
@@ -450,8 +474,8 @@ const ModalContent = ({
             timeFormat="HH:mm"
             timeCaption="Time"
             dateFormat="h:mm"
-            
-            popperPlacement="right"timela
+            popperPlacement="right"
+            timela
           />
         </div>
         <div className="mx-3">ถึง</div>

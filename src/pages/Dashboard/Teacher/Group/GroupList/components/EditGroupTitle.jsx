@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "react-query";
 import { useParams } from "react-router-dom";
-
+import Swal from "sweetalert2";
 const EditGroupTitle = (props) => {
   const [titleInputHandler, setTitleInputHandler] = useState(props.title);
   const [isEditing, setIsEditing] = useState(false);
@@ -24,12 +24,38 @@ const EditGroupTitle = (props) => {
     onSuccess: () => {
       setTitle(titleInputHandler);
       setIsEditing(!isEditing);
+      Swal.fire({
+        icon: "success",
+        title: "แก้ไขสำเร็จ",
+        text: "แก้ไขข้อมูลสำเร็จ",
+      });
     },
+    onError:()=>{
+      Swal.fire({
+        icon: "error",
+        title: "ไม่สามารถแก้ไขได้",
+        text: "กรุณาลองใหม่อีกครั้ง",
+      });
+    }
   });
 
   const clickSubmitFormHandler = () => {
     console.log(grpId);
-    mutation.mutate(titleInputHandler);
+    Swal.fire({
+      title: 'แก้ไขข้อมูล?',
+      text: "คุณต้องการแก้ไขข้อมูลชื่อหัวข้อหรือไม่!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'แก้ไข!',
+      cancelButtonText: 'ยกเลิก'
+    }).then((result) => {
+      if (result.isConfirmed) {
+       
+        mutation.mutate(titleInputHandler);
+      }
+    })
   };
 
   const inputChangeHandler = (value) => {

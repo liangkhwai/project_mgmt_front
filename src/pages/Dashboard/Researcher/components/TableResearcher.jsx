@@ -70,7 +70,7 @@ const TableResearcher = ({
   const customStyles = {
     content: {
       width: "30%",
-     
+
       top: "50%",
       left: "50%",
       right: "auto",
@@ -86,7 +86,7 @@ const TableResearcher = ({
       <table className="table table-responsive w-full border">
         <thead>
           <tr>
-          <th className="py-2 border-2 border-gray-300">ลำดับ</th>
+            <th className="py-2 border-2 border-gray-300">ลำดับ</th>
 
             <th className="py-2 border-2 border-gray-300">รหัสนักศึกษา</th>
             <th className="py-2 border-2 border-gray-300">ชื่อ</th>
@@ -95,7 +95,7 @@ const TableResearcher = ({
             <th className="py-2 border-2 border-gray-300">อีเมลล์</th>
             <th className="py-2 border-2 border-gray-300">เบอร์โทร</th>
             <th className="py-2 border-2 border-gray-300">เกรดเฉลี่ย</th>
-            
+
             <th className="py-2 border-2 border-gray-300">สถานะโปรเจค</th>
             <th className="py-2 border-2 border-gray-300">เกรดโปรเจค</th>
             <th className="py-2 border-2 border-gray-300">แก้ไข</th>
@@ -118,8 +118,8 @@ const TableResearcher = ({
               ) : (
                 <ResearcherList
                   rsh={rsh}
-                idx={idx}
-                startIndex={startIndex}
+                  idx={idx}
+                  startIndex={startIndex}
                   setEditRshIdHandler={setEditRshIdHandler}
                   deleteHandler={deleteHandler}
                   setRshList={setRshList}

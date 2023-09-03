@@ -7,14 +7,12 @@ const EditRshRow = ({
   editFormSubmitHandler,
   editSelectedRoom,
   roomData,
-  idx
+  idx,
 }) => {
-  console.log("edit = ",rsh)
+  console.log("edit = ", rsh);
   return (
     <tr className="text-center ">
-      <td>
-        {idx+1}
-      </td>
+      <td>{idx + 1}</td>
       <td>
         <input
           className="w-full "
@@ -46,7 +44,12 @@ const EditRshRow = ({
         />
       </td>
       <td>
-        <select name="" id="" onChange={(e) => editSelectedRoom(e)} value={rsh.categorieRoomId}>
+        <select
+          name=""
+          id=""
+          onChange={(e) => editSelectedRoom(e)}
+          value={rsh.categorieRoomId}
+        >
           {roomData.map((data, idx) => (
             <option key={idx} value={data.id}>
               {`${data.room} (${data.year.substring(2)})`}
@@ -84,22 +87,22 @@ const EditRshRow = ({
           onChange={(e) => editFormHandler(e)}
         />
       </td>
-      <td colSpan={3}>
+      <td colSpan={4}>
         <div className="flex justify-evenly">
-        <button
-          className="px-3 py-2 rounded bg-yellow-400 text-white"
-          onClick={() => editFormSubmitHandler()}
-        >
-          บันทึก
-        </button>
-      {/* </td>
+          <button
+            className="px-3 py-2 rounded bg-yellow-400 text-white"
+            onClick={() => editFormSubmitHandler()}
+          >
+            บันทึก
+          </button>
+          {/* </td>
       <td> */}
-        <button
-          className="px-3 py-2 rounded bg-red-500 text-white "
-          onClick={() => cancelEditFormHandler()}
-        >
-          ยกเลิก
-        </button>
+          <button
+            className="px-3 py-2 rounded bg-red-500 text-white "
+            onClick={() => cancelEditFormHandler()}
+          >
+            ยกเลิก
+          </button>
         </div>
       </td>
     </tr>

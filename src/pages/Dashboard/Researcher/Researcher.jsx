@@ -5,8 +5,7 @@ import EditRshRow from "./components/EditRshRow";
 import { nanoid } from "nanoid";
 import InsertResearcherRow from "./components/InsertResearcherRow";
 import FileDetail from "./components/FileDetail";
-// import Modal from "@mui/material/Modal";
-// import Box from "@mui/material/Box";
+import Swal from "sweetalert2";
 import HeaderResearcher from "./components/HeaderResearcher";
 import TableResearcher from "./components/TableResearcher";
 const Researcher = () => {
@@ -89,120 +88,129 @@ const Researcher = () => {
     setEditFormData((prev) => ({ ...prev, [name]: val }));
   };
   const insertFormSubmitHandler = async () => {
-    const insertData = {
-      id: nanoid(),
-      student_id: insertFormData.student_id,
-      firstname: insertFormData.firstname,
-      lastname: insertFormData.lastname,
-      categorieRoomId: insertFormData.categorieRoomId,
-      email: insertFormData.email,
-      tel: insertFormData.tel,
-      grade: insertFormData.grade,
-    };
-    console.log("data before insert  = ", insertData);
-    const response = await fetch("http://localhost:8080/researcher/insert", {
-      method: "post",
-      body: JSON.stringify(insertData),
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-    })
-      .then((response) => {
-        if (response.status !== 201) {
-          throw new Error("User already exits");
-        } else {
-          const data = response.json();
-          return data;
-        }
-      })
-      .then((data) => {
-        // insertData.id = data.id;
-        console.log("data = " + data);
-        setRshList((prev) => [...prev, data]);
-        setLoadedResearcher((prev) => [...prev, data]);
-        setIsInsert(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    Swal.fire({
+      title: "เพิ่มข้อมูล?",
+      text: "คุณต้องการเพิ่มข้อมูลนี้หรือไม่!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "เพิ่ม!",
+      cancelButtonText: "ยกเลิก",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const insertData = {
+          id: nanoid(),
+          student_id: insertFormData.student_id,
+          firstname: insertFormData.firstname,
+          lastname: insertFormData.lastname,
+          categorieRoomId: insertFormData.categorieRoomId,
+          email: insertFormData.email,
+          tel: insertFormData.tel,
+          grade: insertFormData.grade,
+        };
+        console.log("data before insert  = ", insertData);
+        const response = await fetch(
+          "http://localhost:8080/researcher/insert",
+          {
+            method: "post",
+            body: JSON.stringify(insertData),
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+          }
+        )
+          .then((response) => {
+            if (response.status !== 201) {
+              Swal.fire(
+                "ไม่สำเร็จ",
+                "มีข้อมูลผู้ใช้นี้อยู่ในระบบแล้ว",
+                "error"
+              );
+              throw new Error("User already exits");
+            } else {
+              const data = response.json();
+              return data;
+            }
+          })
+          .then((data) => {
+            // insertData.id = data.id;
+            console.log("data = " + data);
+            setRshList((prev) => [...prev, data]);
+            setLoadedResearcher((prev) => [...prev, data]);
+            setIsInsert(false);
+            Swal.fire("เพิ่มสำเร็จ!", "เพิ่มข้อมูลสำเร็จ", "success");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
   };
   const editFormSubmitHandler = async () => {
-    console.log(editFormData);
-    const editData = {
-      id: editRshId,
-      student_id: editFormData.student_id,
-      firstname: editFormData.firstname,
-      lastname: editFormData.lastname,
-      categorieRoomId: editFormData.categorieRoomId,
-      email: editFormData.email,
-      tel: editFormData.tel,
-      grade: editFormData.grade,
-    };
-    // console.log(editData);
+    Swal.fire({
+      title: "คุณต้องการแก้ไขหรือไม่?",
+      text: "",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "แก้ไข",
+      cancelButtonText: "ยกเลิก",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        console.log(editFormData);
+        const editData = {
+          id: editRshId,
+          student_id: editFormData.student_id,
+          firstname: editFormData.firstname,
+          lastname: editFormData.lastname,
+          categorieRoomId: editFormData.categorieRoomId,
+          email: editFormData.email,
+          tel: editFormData.tel,
+          grade: editFormData.grade,
+        };
 
-    const response = await fetch("http://localhost:8080/researcher/update", {
-      method: "put",
-      body: JSON.stringify(editData),
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        // console.log(data);
-        console.log("it's now ");
-        console.log(rshList);
-        console.log(loadedResearcher);
-        const rshTemp = rshList;
-        const loadedResearcherTmpp = loadedResearcher;
-        console.log("clone now");
-        console.log(rshTemp);
-        // console.log(loadedResearcherTmpp);
-        // console.log(editRshId);
-        const index = rshTemp.findIndex((rsh) => rsh.id === editRshId);
-        const indexLoaded = loadedResearcherTmpp.findIndex(
-          (rsh) => rsh.id === editRshId
-        );
+        const response = await fetch(
+          "http://localhost:8080/researcher/update",
+          {
+            method: "put",
+            body: JSON.stringify(editData),
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+          }
+        )
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("it's now ");
+            console.log(rshList);
+            console.log(loadedResearcher);
+            const rshTemp = rshList;
+            const loadedResearcherTmpp = loadedResearcher;
+            console.log("clone now");
+            console.log(rshTemp);
 
-        // console.table(
-        //   rshTemp[index].categorieRoomId,
-        //   editFormData.categorieRoomId
-        // );
+            const index = rshTemp.findIndex((rsh) => rsh.id === editRshId);
+            const indexLoaded = loadedResearcherTmpp.findIndex(
+              (rsh) => rsh.id === editRshId
+            );
 
-        // if (
-        //   rshTemp[index].categorieRoomId ===
-        //   Number(editFormData.categorieRoomId)
-        // ) {
-        //   rshTemp[index] = data;
-        //   loadedResearcherTmp[index] = data;
-        //   setRshList(rshTemp);
-        // setLoadedResearcher(loadedResearcherTmp);
+            rshTemp[index] = data;
 
-        //   console.log(true);
-        // } else {
-        //   console.log(false);
-        //   const editRoomChangeFilter = rshTemp.filter(
-        //     (item, idx) => item.id !== editRshId
-        //   );
-        //   setRshList(editRoomChangeFilter)
-        //   setLoadedResearcher(editRoomChangeFilter);
+            loadedResearcherTmpp[indexLoaded] = data;
 
-        // }
-        rshTemp[index] = data;
-        // console.log(loadedResearcherTmpp);
+            console.log(rshTemp[index]);
+            setRshList(rshTemp);
+            setLoadedResearcher(loadedResearcherTmpp);
 
-        loadedResearcherTmpp[indexLoaded] = data;
-        // console.log(loadedResearcherTmpp);
-        // console.log(index);
-        // console.log(rshTemp);
-        console.log(rshTemp[index]);
-        // console.log(loadedResearcherTmpp[index]);
-        setRshList(rshTemp);
-        setLoadedResearcher(loadedResearcherTmpp);
+            setEditRshId(null);
+          })
+          .catch((err) => console.log(err));
 
-        setEditRshId(null);
-      })
-      .catch((err) => console.log(err));
+        Swal.fire("แก้ไข!", "แก้ไขข้อมูลเสร็จสิ้น", "success");
+      }
+    });
   };
   const isInsertHandler = () => {
     setIsInsert(!isInsert);
@@ -212,33 +220,60 @@ const Researcher = () => {
   };
 
   const deleteHandler = async (id) => {
-    const rshTemp = [...rshList];
-    const dataTemp = rshTemp.filter((i) => i.id !== id);
-    console.log(dataTemp);
-    const response = await fetch("http://localhost:8080/researcher/delete", {
-      method: "post",
-      body: JSON.stringify({ id: id }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    })
-      .then((data) => {
-        const res = data.json();
-        return res;
-      })
-      .then((res) => {
+    Swal.fire({
+      title: "ลบข้อมูลนี้หรือไม่?",
+      text: "เมื่อลบแล้วจะไม่สามารถกู้คืนได้",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "ลบ",
+      cancelButtonText: "ยกเลิก",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
         const rshTemp = [...rshList];
-        const loadedTemp = [...loadedResearcher];
         const dataTemp = rshTemp.filter((i) => i.id !== id);
-        const loadedDataTemp = loadedTemp.filter((i) => i.id !== id);
         console.log(dataTemp);
-        setLoadedResearcher(loadedDataTemp);
-        setRshList(dataTemp);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        const response = await fetch(
+          "http://localhost:8080/researcher/delete",
+          {
+            method: "post",
+            body: JSON.stringify({ id: id }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        )
+          .then((data) => {
+            if (data.status === 500) {
+              Swal.fire(
+                "ไม่สำเร็จ!",
+                "ไม่สามารถลบได้เนื่องจากผู้วิจัยอยู่ในกลุ่ม",
+                "error"
+              );
+              // window.alert("ไม่สามารถลบได้เนื่องผู้วิจัยอยู่ในกลุ่ม");
+              throw new Error("ไม่สามารถลบได้");
+            }
+
+            const res = data.json();
+            return res;
+          })
+          .then((res) => {
+            const rshTemp = [...rshList];
+            const loadedTemp = [...loadedResearcher];
+            const dataTemp = rshTemp.filter((i) => i.id !== id);
+            const loadedDataTemp = loadedTemp.filter((i) => i.id !== id);
+            console.log(dataTemp);
+            setLoadedResearcher(loadedDataTemp);
+            setRshList(dataTemp);
+            Swal.fire("ลบ!", "ข้อมูลของคุณถูกลบเรียบร้อย", "success");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
   };
 
   const [file, setFile] = useState(null);
@@ -263,7 +298,20 @@ const Researcher = () => {
   };
 
   const fileSubmitHandler = async (e) => {
-    console.log(e);
+
+    Swal.fire({
+      title: 'เพิ่มข้อมูล?',
+      text: "คุณต้องการเพิ่มข้อมูลด้วยไฟล์ Excel หรือไม่!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'เพิ่ม!',
+      cancelButtonText: 'ยกเลิก',
+
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        console.log(e);
     e.preventDefault();
     const formData = new FormData();
     console.log(file);
@@ -295,8 +343,20 @@ const Researcher = () => {
         setModalOpen(false);
         setRshList((prev) => [...prev, ...data.data]);
         setLoadedResearcher((prev) => [...prev, ...data.data]);
+        
+        Swal.fire(
+          'เพิ่มข้อมูลสำเร็จ!',
+          'ข้อมูลของนักวิจัยได้ถูกเพิ่มเรียบร้อย',
+          'success'
+        )
         // console.table(data.data);
       });
+      }
+    })
+
+
+
+    
   };
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -346,7 +406,7 @@ const Researcher = () => {
     // setInsertMenuRoom(type === "all" ? loaderData.dataRoomList : filteredRoom);
     setInsertMenuRoom(type === "all" ? categorie : filteredRoom);
     setItemOffSet(0);
-    setNowPage(0)
+    setNowPage(0);
   };
 
   const filterRoomList = (room) => {
@@ -403,7 +463,7 @@ const Researcher = () => {
     );
 
     setRoomSelector(room);
-    setNowPage(0)
+    setNowPage(0);
     setItemOffSet(0);
   };
 

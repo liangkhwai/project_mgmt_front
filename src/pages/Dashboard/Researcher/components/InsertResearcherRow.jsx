@@ -8,11 +8,11 @@ const InsertResearcherRow = ({
   roomData,
   roomSelected,
   insertSelectorRoom,
-  insertMenuRoom
+  insertMenuRoom,
 }) => {
   return (
     <tr>
-      <td>
+      <td colSpan={2}>
         <input
           className="w-full"
           type="text"
@@ -86,11 +86,19 @@ const InsertResearcherRow = ({
           placeholder="เกรด"
         />
       </td>
-      <td>
-        <button onClick={() => insertFormSubmitHandler()}>เพิ่ม</button>
-      </td>
-      <td>
-        <button onClick={() => cancelInsertHadnler()}>ยกเลิก</button>
+      <td className="text-center" colSpan={4}>
+        <button
+          className="px-4 py-2 bg-green-600 rounded-xl mx-1 text-white shadow-sm"
+          onClick={() => insertFormSubmitHandler()}
+        >
+          เพิ่ม
+        </button>
+        <button
+          className="px-4 py-2 bg-red-600 rounded-xl mx-1 text-white shadow-sm"
+          onClick={() => cancelInsertHadnler()}
+        >
+          ยกเลิก
+        </button>
       </td>
     </tr>
   );
