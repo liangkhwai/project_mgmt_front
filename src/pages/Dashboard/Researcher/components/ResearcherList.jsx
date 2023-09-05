@@ -58,7 +58,7 @@ const ResearcherList = ({
       <td className="py-1 border-2 border-gray-300">{rsh.grade}</td>
       {/* <td className="py-1 border-2 border-gray-300">{rsh.group.id}</td> */}
       <td className="py-1 border-2 border-gray-300">
-        {rsh.group ? rsh.group.status : "ยังไม่สอบหัวข้อ"}
+        {rsh.group ? rsh.group.status : "ยังไม่ยื่นสอบหัวข้อ"}
       </td>
 
       <td

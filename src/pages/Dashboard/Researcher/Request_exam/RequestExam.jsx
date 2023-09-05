@@ -27,7 +27,7 @@ const RequestExam = () => {
 
   return (
     <div className="mx-10">
-      <Title>ขอสอบ</Title>
+      <Title>ขอขึ้นสอบปริญญานิพนธ์</Title>
       <Body>
         
         

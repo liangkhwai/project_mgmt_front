@@ -192,15 +192,15 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
   const changeLeaderClick = async (grpId, rshId) => {
     console.log(grpId, rshId);
     Swal.fire({
-      title: 'เปลี่ยนหัวหน้ากลุ่ม?',
+      title: "เปลี่ยนหัวหน้ากลุ่ม?",
       text: "คุณต้องการเปลี่ยนหัวหน้ากลุ่มหรือไม่!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'เปลี่ยน!',
-      cancelButtonText: 'ยกเลิก'
-    }).then(async(result) => {
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "เปลี่ยน!",
+      cancelButtonText: "ยกเลิก",
+    }).then(async (result) => {
       const response = await fetch(
         "http://localhost:8080/group/changeLeaderGroup",
         {
@@ -209,17 +209,17 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
           headers: { "Content-Type": "application/json" },
         }
       );
-        if(response.status === 500){
-          Swal.fire({
-            icon: 'error',
-            title: 'เกิดข้อผิดพลาด',
-            text: 'ไม่สามารถเปลี่ยนหัวหน้ากลุ่มได้',
-          })
-          throw new Error("Error")
-        }
+      if (response.status === 500) {
+        Swal.fire({
+          icon: "error",
+          title: "เกิดข้อผิดพลาด",
+          text: "ไม่สามารถเปลี่ยนหัวหน้ากลุ่มได้",
+        });
+        throw new Error("Error");
+      }
       const data = await response.json();
       console.log(data);
-  
+
       setGrpDetail(data.updatedGroup);
       const sortLeader = data.refreshGroupMember.sort((a, b) => {
         if (a.id === data.updatedGroup.leaderId) {
@@ -229,19 +229,12 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
         }
         return 0;
       });
-  
+
       setGroupMember(sortLeader);
       if (result.isConfirmed) {
-        Swal.fire(
-          'สำเร็จ!',
-          'เปลี่ยนหัวหน้ากลุ่มสำเร็จ',
-          'success'
-        )
+        Swal.fire("สำเร็จ!", "เปลี่ยนหัวหน้ากลุ่มสำเร็จ", "success");
       }
-    })
-
-
-   
+    });
   };
 
   return (
