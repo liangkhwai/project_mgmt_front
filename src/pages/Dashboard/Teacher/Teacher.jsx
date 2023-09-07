@@ -13,6 +13,7 @@ const Teacher = () => {
         credentials: "include",
       });
       const data = await res.json();
+      console.log(data);
       setTeacherLists(data);
     }
     fetchTeacherlist();

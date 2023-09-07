@@ -1,6 +1,11 @@
 import React from "react";
 import { CancelButton, SaveButton } from "../../../../UI/button";
-const EditTeacherRow = ({ dataEdit, cancelEdit, setEditFormData,editFormDataSubmitHandler }) => {
+const EditTeacherRow = ({
+  dataEdit,
+  cancelEdit,
+  setEditFormData,
+  editFormDataSubmitHandler,
+}) => {
   const editFormDataChangeHandler = (e) => {
     const name = e.target.name;
     const val = e.target.value;
@@ -13,7 +18,7 @@ const EditTeacherRow = ({ dataEdit, cancelEdit, setEditFormData,editFormDataSubm
 
   return (
     <tr className="text-center ">
-      <td >
+      <td>
         <input
           type="text"
           name="prefix"
@@ -73,8 +78,20 @@ const EditTeacherRow = ({ dataEdit, cancelEdit, setEditFormData,editFormDataSubm
           onChange={(e) => editFormDataChangeHandler(e)}
         />
       </td>
+      <td>
+        <input
+          type="color"
+          name="color_calendar"
+          value={dataEdit.color_calendar}
+          id=""
+          onChange={(e) => editFormDataChangeHandler(e)}
+        />
+      </td>
+
       <td className="border-2 px-5 py-1">
-        <SaveButton onClick={()=>editFormDataSubmitHandler()}>บันทึก</SaveButton>
+        <SaveButton onClick={() => editFormDataSubmitHandler()}>
+          บันทึก
+        </SaveButton>
       </td>
       <td className="border-2 px-5 py-1">
         <CancelButton onClick={() => cancelEditIdHandler()}>

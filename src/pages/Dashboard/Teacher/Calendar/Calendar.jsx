@@ -87,13 +87,14 @@ const Calendar = () => {
   const eventDidMount = (info) => {
     const { event } = info;
     const eventTitle = event.title;
+    console.log(event);
     const eventStart = dayjs(event.start).locale("th").format("HH:mm");
     const eventEnd = dayjs(event.end).locale("th").format("HH:mm");
     return {
       html: `
-        <div class="cursor-pointer w-full">
-          ${eventStart} - ${eventEnd} &nbsp;<strong class="cursor-pointer">${eventTitle}</strong> 
-        </div>
+        <span class="cursor-pointer w-full border break-all">
+          ${eventStart}-${eventEnd} <span class="font-bold">${event.extendedProps.teacher.firstname}</span> 
+        </span>
       `,
     };
   };

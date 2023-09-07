@@ -13,6 +13,8 @@ const TeacherRow = ({
     setEditFormData(data);
   };
 
+  console.log(data);
+
   return (
     <tr className="">
       <td className="border-2 py-1 border-gray-300 ">{data.prefix}</td>
@@ -21,6 +23,16 @@ const TeacherRow = ({
       <td className="border-2 py-1 border-gray-300">{data.email}</td>
       <td className="border-2 py-1 border-gray-300">{data.tel}</td>
       <td className="border-2 py-1 border-gray-300">{data.line_id}</td>
+      <td className="border-2 py-1 border-gray-300">
+        <input
+          type="color"
+          name="color_calendar"
+          value={data.color_calendar}
+          id=""
+          onChange={(e) => console.log(e)}
+          disabled
+        />
+      </td>
       <td className="border-2 py-1 border-gray-300">
         <UpdateButton onClick={() => editTchIdHandler(data.id, data)}>
           แก้ไข

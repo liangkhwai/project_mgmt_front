@@ -6,6 +6,8 @@ const InsertTeacherRow = ({ setInsertFormData, cancelInsertRow,insertFormDataSub
     const name = e.target.name;
     const val = e.target.value;
 
+    console.log(name,val);
+
     setInsertFormData((prev) => ({ ...prev, [name]: val }));
   };
 
@@ -74,6 +76,17 @@ const InsertTeacherRow = ({ setInsertFormData, cancelInsertRow,insertFormDataSub
           id=""
           className="w-full"
           placeholder="Line Id"
+          onChange={(e) => insertFormDataChangeHandler(e)}
+        />
+      </td>
+      <td className="py-1 border-b-2 border-gray-300">
+        {" "}
+        <input
+          type="color"
+          name="color_calendar"
+          id=""
+          className="w-full"
+          placeholder=""
           onChange={(e) => insertFormDataChangeHandler(e)}
         />
       </td>

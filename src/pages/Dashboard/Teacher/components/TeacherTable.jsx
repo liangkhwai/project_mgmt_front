@@ -12,6 +12,7 @@ const TeacherTable = ({ data, setData }) => {
     lastname: "",
     tel: "",
     email: "",
+    color_calendar: "",
     line_id: "",
   });
 
@@ -21,6 +22,7 @@ const TeacherTable = ({ data, setData }) => {
     lastname: "",
     tel: "",
     email: "",
+    color_calendar: "", 
     line_id: "",
   });
 
@@ -48,6 +50,7 @@ const TeacherTable = ({ data, setData }) => {
           firstname: insertFormData.firstname,
           lastname: insertFormData.lastname,
           email: insertFormData.email,
+          color_calendar: insertFormData.color_calendar,
           tel: insertFormData.tel,
           line_id: insertFormData.line_id,
         };
@@ -87,6 +90,7 @@ const TeacherTable = ({ data, setData }) => {
           lastname: editFormData.lastname,
           email: editFormData.email,
           tel: editFormData.tel,
+          color_calendar: editFormData.color_calendar,
           line_id: editFormData.line_id,
         };
     
@@ -190,6 +194,9 @@ const TeacherTable = ({ data, setData }) => {
             </td>
             <td className="border-2 py-1  font-semibold border-gray-300">
               Line Id
+            </td>
+            <td className="border-2 py-1 font-semibold border-gray-300">
+              สีในปฏิทิน
             </td>
             <td className="border-2 py-1  font-semibold border-gray-300">
               แก้ไข

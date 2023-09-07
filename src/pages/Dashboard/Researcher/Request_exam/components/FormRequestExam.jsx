@@ -3,10 +3,12 @@ import { AddButton } from "../../../../../UI/button";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import BoardList from "../../Group/components/BoardList";
+import dayjs from "dayjs";
 const FormRequestExam = ({ groupInfo }) => {
   const navigate = useNavigate();
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [boards, setBoards] = useState([]);
+  const [leader, setLeader] = useState();
   const [examRequest, setExamRequest] = useState({
     type: "สอบหัวข้อ",
     des: "",
@@ -28,7 +30,17 @@ const FormRequestExam = ({ groupInfo }) => {
       console.log(data);
       setBoards(data);
     };
+    const fetchLeader = async () => {
+      const res = await fetch(`http://localhost:8080/researcher/getOne`, {
+        method: "get",
+        credentials: "include",
+      });
+      const data = await res.json();
+      console.log(data);
+      setLeader(data);
+    };
     fetchBoards();
+    fetchLeader();
   }, []);
 
   const inputChangeHandler = (e) => {
@@ -116,30 +128,41 @@ const FormRequestExam = ({ groupInfo }) => {
   //     console.log(index);
   //   }
   // });
-
+  const findRole = (role) => {
+    if (role === "advisor") {
+      return "อาจารย์ที่ปรึกษา";
+    } else if (role === "board1") {
+      return "ประธานกรรมการสอบ";
+    } else {
+      return "กรรมการสอบ";
+    }
+  };
   return (
     <Fragment>
       <div>
         <div className="my-5">
-          <div id="header" className="my-3">
-            <h1 className="text-center text-xl font-bold">
+          <div id="header" className="my-3 mb-12">
+            <div className="text-end">{dayjs().format("D/MM/YYYY")}</div>
+            <h1 className="text-center text-2xl font-bold my-5">
               ใบแจ้งนัดหมายการสอบ
             </h1>
-            <h1 className="text-center text-xl font-bold">
-              รายวิชา 32-406-081-405 Senior Project
-            </h1>
-            <h1 className="text-center text-xl font-bold">
+
+            <h1 className="text-center text-2xl font-bold my-5">
               สาขาวิชาระบบสารสนเทศ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน
               วิทยาเขตขอนแก่น
             </h1>
           </div>
-        <div>
-          เรื่อง ขอแจ้งนัดหมายการสอบรายวิชา 32-406-081-405 Senior Project ประจำภาคการศึกษาที่ 2/2564
-        </div>
+          <section>
+            <div className="my-5">
+              เรื่อง ขอแจ้งนัดหมายการสอบรายวิชา Senior Project
+            </div>
+            <div className="my-5">
+              เรียน อาจารย์ประจำวิชาโครงการวิจัยระดับปริญญาตรี
+            </div>
+          </section>
 
-          
           <div className="mb-1">
-            <label htmlFor="title" className="font-bold">
+            <label htmlFor="title" className="">
               ชื่อหัวข้อ
             </label>
           </div>
@@ -153,19 +176,23 @@ const FormRequestExam = ({ groupInfo }) => {
           />
         </div>
         <div className="w-full text-center border rounded-md  border-gray-700">
-          <div className="grid grid-cols-3 ">
-            <div></div>
-            <div className="border">
-              <BoardList boards={boards} />
-            </div>
-
-            <div></div>
+          <div className="flex flex-row justify-around py-5">
+            {boards.map((item, idx) => (
+              <div key={item.id}>
+                <div>
+                  {findRole(item.role)} {item.firstname} {item.lastname}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-
+        <div className="my-5">
+          กลุ่มข้าพเจ้าได้ดำเนินโครงการตามข้อกำหนดรายวิชา มีความคืบหน้า
+          อยู่ในระดับที่มีความพร้อมที่จะขอสอบ
+        </div>
         <div className="my-5">
           <div className="mb-1">
-            <label htmlFor="type" className="font-bold">
+            <label htmlFor="type" className="">
               ประเภทการขอสอบ
             </label>
           </div>
@@ -190,7 +217,7 @@ const FormRequestExam = ({ groupInfo }) => {
         </div>
         <div className="my-5">
           <div className="mb-1">
-            <label htmlFor="des" className="font-bold">
+            <label htmlFor="des" className="">
               รายละเอียด
             </label>
           </div>
@@ -206,7 +233,7 @@ const FormRequestExam = ({ groupInfo }) => {
         </div>
         <div className="my-5">
           <div className="mb-1">
-            <label htmlFor="file" className="font-bold">
+            <label htmlFor="file" className="">
               แนบเอกสารขอสอบ
             </label>
           </div>

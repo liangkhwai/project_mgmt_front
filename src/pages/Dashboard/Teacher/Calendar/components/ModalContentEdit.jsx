@@ -409,8 +409,8 @@ const ModalContentEdit = ({
     console.log(info);
     setDate((prev) => ({ ...prev, end: info }));
   };
-  const minTime = dayjs().set("hour", 9).set("minute", 0).$d;
-  const maxTime = dayjs().set("hour", 17).set("minute", 0).$d;
+  const minTime = dayjs().set("hour", 8).set("minute", 0).$d;
+  const maxTime = dayjs().set("hour", 20).set("minute", 0).$d;
   return (
     <div>
       <input

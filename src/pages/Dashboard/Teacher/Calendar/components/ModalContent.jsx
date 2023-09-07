@@ -473,7 +473,7 @@ const ModalContent = ({
             wrapperClassName="customWrapper"
             timeFormat="HH:mm"
             timeCaption="Time"
-            dateFormat="h:mm"
+            dateFormat="HH:mm"
             popperPlacement="right"
             timela
           />
