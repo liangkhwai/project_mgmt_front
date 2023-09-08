@@ -9,7 +9,7 @@ import BoardCalendar from "./components/BoardCalendar";
 const RequestBooking = () => {
   const [groupInfo, setGroupInfo] = useState(null);
   const [boards, setBoards] = useState([]);
-
+  const [lastEvent, setLastEvent] = useState(null);
   useEffect(() => {
     const fetchBoards = async () => {
       const res = await fetch(
@@ -34,6 +34,22 @@ const RequestBooking = () => {
         setGroupInfo(data);
       }
     };
+    const getLastRequest = async () => {
+      const response = await fetch(
+        `http://localhost:8080/requestExam/getLastRequest/${localStorage.getItem(
+          "grpId"
+        )}`,
+        {
+          method: "get",
+          credentials: "include",
+        }
+      );
+      
+      const data = await response.json();
+      console.log(data);
+      setLastEvent(data);
+    };
+    getLastRequest();
     getGroup();
     fetchBoards();
   }, []);
@@ -42,14 +58,21 @@ const RequestBooking = () => {
     <div className="mx-10">
       <Title>ขึ้นสอบปริญญานิพนธ์</Title>
       <Body>
-        <div className="text-center text-2xl my-5">ขึ้นสอบปริญญานิพนธ์</div>
-        <div className="text-center text-2xl my-5">
-          สาขาวิชาระบบสารสนเทศ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตขอนแก่น
-        </div>
-        <TitleGroup groupInfo={groupInfo} />
-        <RequestCategorie groupInfo={groupInfo} />
-        <BoardGroup boards={boards} />
-        <BoardCalendar groupInfo={groupInfo} />
+        {lastEvent?.isApprove ? (
+          <>
+            <div className="text-center text-2xl my-5">ขึ้นสอบปริญญานิพนธ์</div>
+            <div className="text-center text-2xl my-5">
+              สาขาวิชาระบบสารสนเทศ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน
+              วิทยาเขตขอนแก่น
+            </div>
+            <TitleGroup groupInfo={groupInfo} />
+            <RequestCategorie groupInfo={groupInfo} />
+            <BoardGroup boards={boards} />
+            <BoardCalendar groupInfo={groupInfo} />
+          </>
+        ) : (
+          <div>กรุณายื่นใบขอขึ้นสอบ หรือ รออาจารย์อนุมัติการขึ้นสอบ</div>
+        )}
       </Body>
     </div>
   );

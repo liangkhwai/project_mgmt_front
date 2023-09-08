@@ -7,9 +7,13 @@ import listPlugin from "@fullcalendar/list";
 import thLocale from "@fullcalendar/core/locales/th";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-
+import ModalBooking from "./ModalBooking";
+import Modal from "../../../../../UI/Modal";
 const BoardCalendar = ({ groupInfo }) => {
   const [events, setEvents] = useState([]);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [eventInfo, setEventInfo] = useState(null);
+  
   useEffect(() => {
     async function getEventOnlyGroup() {
       const res = await fetch(
@@ -26,6 +30,7 @@ const BoardCalendar = ({ groupInfo }) => {
       console.log(data);
       setEvents(data);
     }
+    
     getEventOnlyGroup();
   }, []);
   const eventDidMount = (info) => {
@@ -43,47 +48,44 @@ const BoardCalendar = ({ groupInfo }) => {
     };
   };
 
+  const eventClick = (info) => {
+    console.log(info);
+    setEventInfo(info.event);
+    setModalOpen(true);
+  };
 
-  
 
   return (
     <div className="border mt-5 rounded-md border-gray-600">
       <div className="m-10 ">
-        {!events.length === 0 ?
-        
-    
-        <FullCalendar
-          height={700}
-          plugins={[
-            dayGridPlugin,
-            interactionPlugin,
-            timeGridPlugin,
-            listPlugin,
-          ]}
-          initialView="dayGridMonth"
-          selectMirror={true}
-          //  headerToolbar={headerToolbar}
-          // selectable={true}
-          weekends={true}
-          //  select={handleSelect}
-          events={events}
-          slotEventOverlap={true}
-          dayMaxEvents={3}
-           eventContent={eventDidMount}
-          //  moreLinkContent={moreLinkContent}
-          locale={thLocale}
-          //  eventClick={eventClick}
-          // forceEventDuration={true}
-          // slotMinTime="09:00:00"
-          // slotMaxTime="17:00:01"
-          //  slotLabelFormat={slotFormat}
-        />
-    :
-    
-    <div className="text-center font-bold text-xl">ไม่พบเวลาอาจารย์ทั้ง 3 ท่านที่ตรงกัน กรุณาติดต่ออาจารย์</div>
-    
-    }
+        {events.length === 0 ? (
+          <div className="text-center font-bold text-xl">
+            ไม่พบเวลาอาจารย์ทั้ง 3 ท่านที่ตรงกัน กรุณาติดต่ออาจารย์
+          </div>
+        ) : (
+          <FullCalendar
+            height={700}
+            plugins={[
+              dayGridPlugin,
+              interactionPlugin,
+              timeGridPlugin,
+              listPlugin,
+            ]}
+            initialView="dayGridMonth"
+            selectMirror={true}
+            weekends={true}
+            events={events}
+            slotEventOverlap={true}
+            dayMaxEvents={3}
+            eventContent={eventDidMount}
+            locale={thLocale}
+            eventClick={eventClick}
+          />
+        )}
       </div>
+      <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+        <ModalBooking eventInfo={eventInfo} />
+      </Modal>
     </div>
   );
 };
