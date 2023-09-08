@@ -87,7 +87,6 @@ const FormRequestExam = ({ groupInfo }) => {
   };
 
   const target = groupInfo.status;
-  // const target = "รออนุมัติยื่นสอบหัวข้อ";
   let resultTarget;
 
   if (target === "ยังไม่ยื่นสอบหัวข้อ") {
@@ -204,16 +203,6 @@ const FormRequestExam = ({ groupInfo }) => {
             className="w-full rounded-md py-2 px-2"
             value={resultTarget}
           />
-          {/* <select
-            className="w-full rounded-md py-2 px-2"
-            name="type"
-            id="type"
-            onChange={(e) => inputChangeHandler(e)}
-          >
-            <option value="สอบหัวข้อ">สอบหัวข้อ</option>
-            <option value="สอบก้าวหน้า">สอบก้าวหน้า</option>
-            <option value="สอบป้องกัน">สอบป้องกัน</option>
-          </select> */}
         </div>
         <div className="my-5">
           <div className="mb-1">

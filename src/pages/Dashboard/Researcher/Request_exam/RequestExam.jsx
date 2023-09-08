@@ -7,7 +7,9 @@ const RequestExam = () => {
  
   const [groupInfo, setGroupInfo] = useState(null);
 
+
   useEffect(() => {
+    
     const getGroup = async () => {
       const response = await fetch("http://localhost:8080/group/getGroup", {
         method: "get",
@@ -21,10 +23,11 @@ const RequestExam = () => {
         setGroupInfo(data);
       }
     };
+    
 
     getGroup();
   }, []);
-
+ 
   return (
     <div className="mx-10">
       <Title>ใบแจ้งนัดหมายการสอบ</Title>

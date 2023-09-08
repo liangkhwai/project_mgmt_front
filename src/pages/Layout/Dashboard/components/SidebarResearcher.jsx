@@ -33,9 +33,9 @@ const SidebarResearcher = () => {
         </Link>
       </li>
       <li className="">
-        <Link to="/dashboard/request/exam" className="">
+        <Link to="/dashboard/exam/booking" className="">
           <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
-          ขอขึ้นสอบปริญญานิพนธ์
+          ขึ้นสอบปริญญานิพนธ์
           </div>
         </Link>
       </li>

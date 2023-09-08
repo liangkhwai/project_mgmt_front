@@ -92,7 +92,7 @@ const Calendar = () => {
     const eventEnd = dayjs(event.end).locale("th").format("HH:mm");
     return {
       html: `
-        <span class="cursor-pointer w-full border break-all" style="background-color:${event.extendedProps.teacher.color_calendar}">
+        <span class="cursor-pointer w-full border break-all rounded-md hover:opacity-80" style="background-color:${event.extendedProps.teacher.color_calendar}">
           ${eventStart}-${eventEnd} <span class="font-bold">${event.extendedProps.teacher.firstname}</span> 
         </span>
       `,
