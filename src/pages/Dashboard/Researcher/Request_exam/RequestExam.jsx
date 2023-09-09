@@ -56,8 +56,7 @@ const RequestExam = () => {
                 )
               ) : (
                 <>
-                
-                <FormRequestExam groupInfo={groupInfo} />
+                  <FormRequestExam groupInfo={groupInfo} />
                 </>
               )}
             </>

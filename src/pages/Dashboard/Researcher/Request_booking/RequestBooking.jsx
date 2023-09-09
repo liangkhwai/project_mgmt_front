@@ -44,7 +44,7 @@ const RequestBooking = () => {
           credentials: "include",
         }
       );
-      
+
       const data = await response.json();
       console.log(data);
       setLastEvent(data);
