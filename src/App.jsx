@@ -34,6 +34,7 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 import dayjs from "dayjs";
 import { checkBoards } from "./loader/boards";
 import RequestBooking from "./pages/Dashboard/Researcher/Request_booking/RequestBooking";
+import ExamResult from "./pages/Dashboard/Admin/Result/ExamResult";
 dayjs.extend(customParseFormat);
 dayjs.extend(localizedFormat);
 dayjs.locale(th);
@@ -129,7 +130,6 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/request/exam",
         element: <RequestExam />,
-       
       },
       {
         path: "/dashboard/files/upload",
@@ -141,8 +141,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/exam/booking",
-        element: <RequestBooking/>
-      }
+        element: <RequestBooking />,
+      },
+      {
+        path: "/dashboard/exam/result",
+        element: <ExamResult />,
+      },
     ],
   },
 ]);

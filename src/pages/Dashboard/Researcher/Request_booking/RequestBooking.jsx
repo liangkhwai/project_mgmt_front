@@ -68,7 +68,7 @@ const RequestBooking = () => {
             <TitleGroup groupInfo={groupInfo} />
             <RequestCategorie groupInfo={groupInfo} />
             <BoardGroup boards={boards} />
-            <BoardCalendar groupInfo={groupInfo} />
+            <BoardCalendar groupInfo={groupInfo} lastEvent={lastEvent} />
           </>
         ) : (
           <div>กรุณายื่นใบขอขึ้นสอบ หรือ รออาจารย์อนุมัติการขึ้นสอบ</div>

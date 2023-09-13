@@ -53,6 +53,13 @@ const SidebarAdmin = () => {
           </div>
         </Link>
       </li>
+      <li className="">
+        <Link to="/dashboard/exam/result" className="">
+          <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
+            รายการขึ้นสอบ
+          </div>
+        </Link>
+      </li>
     </Fragment>
   );
 };

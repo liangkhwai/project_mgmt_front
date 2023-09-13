@@ -9,11 +9,11 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import ModalBooking from "./ModalBooking";
 import Modal from "../../../../../UI/Modal";
-const BoardCalendar = ({ groupInfo }) => {
+const BoardCalendar = ({ lastEvent }) => {
   const [events, setEvents] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
   const [eventInfo, setEventInfo] = useState(null);
-  
+
   useEffect(() => {
     async function getEventOnlyGroup() {
       const res = await fetch(
@@ -30,7 +30,7 @@ const BoardCalendar = ({ groupInfo }) => {
       console.log(data);
       setEvents(data);
     }
-    
+
     getEventOnlyGroup();
   }, []);
   const eventDidMount = (info) => {
@@ -53,7 +53,6 @@ const BoardCalendar = ({ groupInfo }) => {
     setEventInfo(info.event);
     setModalOpen(true);
   };
-
 
   return (
     <div className="border mt-5 rounded-md border-gray-600">
@@ -84,7 +83,7 @@ const BoardCalendar = ({ groupInfo }) => {
         )}
       </div>
       <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
-        <ModalBooking eventInfo={eventInfo} />
+        <ModalBooking eventInfo={eventInfo} lastEvent={lastEvent} />
       </Modal>
     </div>
   );
