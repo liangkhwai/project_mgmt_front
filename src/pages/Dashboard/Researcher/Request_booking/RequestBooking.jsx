@@ -10,6 +10,7 @@ const RequestBooking = () => {
   const [groupInfo, setGroupInfo] = useState(null);
   const [boards, setBoards] = useState([]);
   const [lastEvent, setLastEvent] = useState(null);
+  const [isBooked, setIsBooked] = useState();
   useEffect(() => {
     const fetchBoards = async () => {
       const res = await fetch(
@@ -48,7 +49,20 @@ const RequestBooking = () => {
       const data = await response.json();
       console.log(data);
       setLastEvent(data);
+      const checkBooked = await fetch(
+        `http://localhost:8080/exam_booking/checkBooked/${data.id}`,
+        {
+          method: "get",
+          credentials: "include",
+        }
+      );
+
+      const resultChecked = await checkBooked.json();
+
+      console.log(resultChecked);
+      setIsBooked(resultChecked);
     };
+
     getLastRequest();
     getGroup();
     fetchBoards();
@@ -58,7 +72,7 @@ const RequestBooking = () => {
     <div className="mx-10">
       <Title>ขึ้นสอบปริญญานิพนธ์</Title>
       <Body>
-        {lastEvent?.isApprove ? (
+        {lastEvent?.isApprove && !isBooked ? (
           <>
             <div className="text-center text-2xl my-5">ขึ้นสอบปริญญานิพนธ์</div>
             <div className="text-center text-2xl my-5">

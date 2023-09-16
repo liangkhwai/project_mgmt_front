@@ -128,6 +128,7 @@ const GroupList = ({ groupList, setGroupList }) => {
   return (
     <div className="w-full border border-black p-5 rounded-md ">
       <TitleGroup />
+      <div>สถานะกลุ่ม : {group?.status}</div>
       <div className="rounded-md border border-black">
         <table className="table-auto w-full text-center  ">
           <thead>

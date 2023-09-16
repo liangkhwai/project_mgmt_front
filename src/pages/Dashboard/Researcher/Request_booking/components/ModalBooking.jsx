@@ -1,8 +1,11 @@
 import React from "react";
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 const ModalBooking = ({ eventInfo, lastEvent }) => {
+  const navigate = useNavigate();
   console.log(eventInfo);
+  console.log(lastEvent);
   const eventSubmit = {
     requestId: lastEvent,
     start: eventInfo.start,
@@ -35,6 +38,21 @@ const ModalBooking = ({ eventInfo, lastEvent }) => {
 
         const data = await response.json();
         console.log(data);
+        if (response.status === 200) {
+          Swal.fire({
+            title: "จองสำเร็จ",
+            icon: "success",
+            timer: 1000,
+          }).then(() => {
+            navigate("/dashboard/group");
+          });
+        } else {
+          Swal.fire({
+            title: "จองไม่สำเร็จ",
+            icon: "error",
+            confirmButtonText: "ตกลง",
+          });
+        }
       }
     });
   };

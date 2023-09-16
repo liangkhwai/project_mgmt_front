@@ -15,10 +15,6 @@ const FormRequestExam = ({ groupInfo }) => {
   });
 
   useEffect(() => {
-    console.log(examRequest);
-  }, [examRequest]);
-
-  useEffect(() => {
     const fetchBoards = async () => {
       const res = await fetch(
         `http://localhost:8080/boards/get/${groupInfo.id}`,
@@ -72,7 +68,7 @@ const FormRequestExam = ({ groupInfo }) => {
   });
   const submitHandler = () => {
     const formData = new FormData();
-    formData.append("category", examRequest.type);
+    formData.append("category", resultTarget);
     formData.append("description", examRequest.des);
     formData.append("grpId", groupInfo.id);
     console.log(examRequest);
@@ -91,23 +87,30 @@ const FormRequestExam = ({ groupInfo }) => {
 
   if (target === "ยังไม่ยื่นสอบหัวข้อ") {
     resultTarget = "สอบหัวข้อ";
-  } else if (target === "อนุมัติยื่นสอบหัวข้อ") {
-    resultTarget = "สอบก้าวหน้า";
-  } else if (target === "ปฏิเสธยื่นสอบหัวข้อ") {
+  } else if (target === "สอบหัวข้อ") {
     resultTarget = "สอบหัวข้อ";
-  } else if (target === "อนุมัติยื่นสอบก้าวหน้า") {
-    resultTarget = "สอบป้องกัน";
-  } else if (target === "ปฏิเสธยื่นสอบก้าวหน้า") {
+  } else if (target === "ยังไม่ยื่นสอบก้าวหน้า") {
     resultTarget = "สอบก้าวหน้า";
-  } else if (target === "อนุมัติยื่นสอบป้องกัน") {
-    resultTarget = "----------------";
-    return (
-      <div className="text-center text-xl   font-bold ">
-        กลุ่มของคุณผ่านแล้ว กรุณายื่นไฟล์ปริญญานิพนธ์
-      </div>
-    );
-  } else if (target === "ปฏิเสธยื่นสอบป้องกัน") {
+  } else if (target === "สอบก้าวหน้า") {
+    resultTarget = "สอบก้าวหน้า";
+  } else if (target === "ยังไม่ยื่นสอบป้องกัน") {
     resultTarget = "สอบป้องกัน";
+  } else if (target === "สอบป้องกัน") {
+    resultTarget = "----------------";
+
+    // } else if (target === "อนุมัติยื่นสอบก้าวหน้า") {
+    //   resultTarget = "สอบป้องกัน";
+    // } else if (target === "ปฏิเสธยื่นสอบก้าวหน้า") {
+    //   resultTarget = "สอบก้าวหน้า";
+    // } else if (target === "อนุมัติยื่นสอบป้องกัน") {
+    //   resultTarget = "----------------";
+    //   return (
+    //     <div className="text-center text-xl   font-bold ">
+    //       กลุ่มของคุณผ่านแล้ว กรุณายื่นไฟล์ปริญญานิพนธ์
+    //     </div>
+    //   );
+    // } else if (target === "ปฏิเสธยื่นสอบป้องกัน") {
+    //   resultTarget = "สอบป้องกัน";
   } else {
     return (
       <div className="text-center text-xl   font-bold ">{target}จากอาจารย์</div>

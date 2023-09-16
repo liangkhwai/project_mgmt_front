@@ -5,8 +5,8 @@ import DropdownFiles from "./DropdownFiles";
 
 const RequestLists = ({ requestList, setRequestData, isLoading }) => {
   const approveHandler = useMutation({
-    mutationFn: async ({ isApprove, categories, id }) => {
-      console.log(isApprove, categories, id);
+    mutationFn: async ({ isApprove, categories, item }) => {
+      console.log(isApprove, categories, item);
 
       const response = await fetch(
         "http://localhost:8080/requestExam/setStatus",
@@ -15,7 +15,7 @@ const RequestLists = ({ requestList, setRequestData, isLoading }) => {
           body: JSON.stringify({
             isApprove: isApprove,
             categories: categories,
-            id: id,
+            item: item,
           }),
           // credentials: "include",
           headers: { "Content-Type": "application/json" },
@@ -44,9 +44,9 @@ const RequestLists = ({ requestList, setRequestData, isLoading }) => {
     },
   });
 
-  const submitHandler = (isApprove, categories, id) => {
-    console.log(isApprove, categories, id);
-    approveHandler.mutate({ isApprove, categories, id });
+  const submitHandler = (isApprove, categories,item) => {
+    console.log(isApprove, categories, item);
+    approveHandler.mutate({ isApprove, categories, item });
   };
 
   return (
@@ -79,7 +79,9 @@ const RequestLists = ({ requestList, setRequestData, isLoading }) => {
       {isLoading ? (
         <Fragment>
           {requestList.length <= 0 ? (
-            <div className="col-span-7 text-center text-xl py-2 border  ">ยังไม่มีรายการขอสอบ ณ ขณะนี้</div>
+            <div className="col-span-7 text-center text-xl py-2 border  ">
+              ยังไม่มีรายการขอสอบ ณ ขณะนี้
+            </div>
           ) : (
             <Fragment>
               {requestList.map((item, idx) => {
@@ -114,7 +116,7 @@ const RequestLists = ({ requestList, setRequestData, isLoading }) => {
                         <button
                           className="px-4 py-1 bg-green-400 rounded-md"
                           onClick={() =>
-                            submitHandler(true, item.categories, item.id)
+                            submitHandler(true, item.categories, item)
                           }
                         >
                           อนุมัติ
@@ -124,7 +126,7 @@ const RequestLists = ({ requestList, setRequestData, isLoading }) => {
                         <button
                           className="px-4 py-1 bg-red-200 rounded-md"
                           onClick={() =>
-                            submitHandler(false, item.categories, item.id)
+                            submitHandler(false, item.categories, item)
                           }
                         >
                           ไม่อนุมัติ

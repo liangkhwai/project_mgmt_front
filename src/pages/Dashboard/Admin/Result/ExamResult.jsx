@@ -31,6 +31,7 @@ const ExamResult = () => {
               <th>ลำดับ</th>
               <th>ชื่อกลุ่ม</th>
               <th>สถานะ</th>
+              {/* <th>ขอสอบ</th> */}
               <th>เวลา</th>
               <th>ผ่าน</th>
               <th>ไม่ผ่าน</th>
@@ -39,7 +40,12 @@ const ExamResult = () => {
           <tbody>
             {resultLists.map((item, idx) => (
               <Fragment key={item.id}>
-                <ResultRow result={item} idx={idx} key={item.id} setResultLists={setResultLists} />
+                <ResultRow
+                  result={item}
+                  idx={idx}
+                  key={item.id}
+                  setResultLists={setResultLists}
+                />
               </Fragment>
             ))}
           </tbody>

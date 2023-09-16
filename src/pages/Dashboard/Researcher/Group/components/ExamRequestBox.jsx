@@ -6,7 +6,7 @@ const ExamRequestBox = ({ requestExam }) => {
       <table className="table w-full">
         <thead>
           <tr>
-            <th>ประเภทการสอบ</th>
+            <th>ประเภทการขอสอบ</th>
             <th>สถานะการขอสอบ</th>
             {/* <th>วันที่จองเวลาสอบ</th>
             <th>สถานะผลการสอบ</th>

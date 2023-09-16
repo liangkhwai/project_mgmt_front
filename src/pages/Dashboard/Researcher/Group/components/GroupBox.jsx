@@ -18,7 +18,7 @@ const GroupBox = ({ selfInfo }) => {
         }
       );
       const data = await res.json();
-        console.log(data);
+      console.log(data);
       setBoards(data);
     };
 
@@ -42,7 +42,7 @@ const GroupBox = ({ selfInfo }) => {
         }
       );
       const data = await res.json();
-      setRequestExam(data.slice(0,3));
+      setRequestExam(data.slice(0, 3));
     };
 
     fetchBoards();
@@ -63,7 +63,9 @@ const GroupBox = ({ selfInfo }) => {
               {<BoardList boards={boards} />}
             </div>
           ) : (
-            <div className="flex justify-center items-center h-full">รอผู้ดูแลระบบสุ่ม</div>
+            <div className="flex justify-center items-center h-full">
+              รอผู้ดูแลระบบสุ่ม
+            </div>
           )}
         </div>
       </div>
