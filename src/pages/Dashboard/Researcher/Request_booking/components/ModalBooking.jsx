@@ -36,6 +36,19 @@ const ModalBooking = ({ eventInfo, lastEvent }) => {
           }
         );
 
+        const notify = await fetch(
+          "http://localhost:8080/teachers/line/notify",
+          {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              teacher_id: eventInfo.extendedProps.teacher.map(
+                (item) => item.id
+              ),
+            }),
+          }
+        );
+
         const data = await response.json();
         console.log(data);
         if (response.status === 200) {
