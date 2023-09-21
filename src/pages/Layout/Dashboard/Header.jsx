@@ -10,6 +10,10 @@ const Header = ({ openHandler }) => {
     ctx.logoutHandler().then(() => navigate("/"));
   };
 
+  const lineNotify = async () => {
+    window.open("http://localhost:1234/auth", "_self");
+  };
+
   return (
     <div className="shadow-md flex item-center h-14 justify-between">
       <div className="flex items-center gap-4">
@@ -19,7 +23,18 @@ const Header = ({ openHandler }) => {
         {/* <div className="">Search input</div> */}
       </div>
       <div className="flex items-center gap-4">
-        <div>NotificationsMenu</div>
+        {/* <div>NotificationsMenu</div> */}
+        {ctx.role === "teacher" && (
+          <div>
+            <button
+              className="px-4 py-2 bg-green-500 rounded-xl text-white"
+              onClick={lineNotify}
+            >
+              เปิดแจ้งเตือนขึ้นสอบ
+            </button>
+          </div>
+        )}
+
         <div className="">{ctx.getUsername()}</div>
         <button
           className="mr-5 bg-gray-300 p-2 rounded-xl "

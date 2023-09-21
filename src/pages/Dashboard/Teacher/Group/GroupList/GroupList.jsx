@@ -5,7 +5,7 @@ import GroupListBox from "./components/GroupListBox";
 const GroupList = () => {
   return (
     <div className="mx-10">
-      <Title>กลุ่มนักศึกษา</Title>
+      <Title>ข้อมูลกลุ่มโปรเจค</Title>
       <Body>
         {/* <input
           className="focus:bg-blue-50 border-gray-400 "

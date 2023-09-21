@@ -10,7 +10,7 @@ const Group = () => {
   console.log(selfInfo);
   return (
     <div className="mx-10">
-      <Title>กลุ่มโปรเจค</Title>
+      <Title>ข้อมูลกลุ่มโปรเจค</Title>
       <Body>
         {selfInfo?.groupId === null ? (
           <Link to="/dashboard/group/create">
@@ -20,7 +20,7 @@ const Group = () => {
             </div>
           </Link>
         ) : (
-          <GroupBox selfInfo={selfInfo}/>
+          <GroupBox selfInfo={selfInfo} />
         )}
       </Body>
     </div>

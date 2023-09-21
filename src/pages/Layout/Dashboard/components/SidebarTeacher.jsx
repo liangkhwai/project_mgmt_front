@@ -6,7 +6,7 @@ const SidebarTeacher = () => {
       <li className="">
         <Link to="/dashboard/grouplist" className="">
           <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
-            กลุ่มนักศึกษา
+            ข้อมูลกลุ่มนักศึกษา
           </div>
         </Link>
       </li>
@@ -27,7 +27,7 @@ const SidebarTeacher = () => {
       <li className="">
         <Link to="/dashboard/exam/request" className="">
           <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
-            รายการขอสอบ
+          รายการอนุมัติการขอสอบ
           </div>
         </Link>
       </li>

@@ -40,7 +40,7 @@ const ExamRequest = () => {
 
   return (
     <div className="mx-10">
-      <Title>รายการขอสอบ</Title>
+      <Title>รายการอนุมัติการขอสอบ</Title>
 
       <Body>
         <div className="">

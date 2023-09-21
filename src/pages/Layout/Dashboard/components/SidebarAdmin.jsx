@@ -20,7 +20,7 @@ const SidebarAdmin = () => {
       <li className="">
         <Link to="/dashboard/grouplist" className="">
           <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
-            กลุ่มนักศึกษา
+            ข้อมูลกลุ่มโปรเจค
           </div>
         </Link>
       </li>
@@ -28,7 +28,7 @@ const SidebarAdmin = () => {
       <li className="">
         <Link to="/dashboard/random" className="">
           <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
-            สุ่มกลุ่มโปรเจค
+            สุ่มกรรมการสอบ
           </div>
         </Link>
       </li>
@@ -49,14 +49,14 @@ const SidebarAdmin = () => {
       <li className="">
         <Link to="/dashboard/exam/request" className="">
           <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
-            รายการขอสอบ
+            รายการอนุมัติการขอสอบ
           </div>
         </Link>
       </li>
       <li className="">
         <Link to="/dashboard/exam/result" className="">
           <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
-            รายการขึ้นสอบ
+            บันทึกผลการสอบ
           </div>
         </Link>
       </li>

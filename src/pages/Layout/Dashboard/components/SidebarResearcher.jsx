@@ -13,7 +13,7 @@ const SidebarResearcher = () => {
       <li>
         <Link to="/dashboard/group">
           <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
-            กลุ่มโปรเจค
+            ข้อมูลกลุ่มโปรเจค
           </div>
         </Link>
       </li>
@@ -28,14 +28,14 @@ const SidebarResearcher = () => {
       <li className="">
         <Link to="/dashboard/request/exam" className="">
           <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
-          ขอยื่นขึ้นสอบปริญญานิพนธ์
+          ขอยื่นสอบปริญญานิพนธ์
           </div>
         </Link>
       </li>
       <li className="">
         <Link to="/dashboard/exam/booking" className="">
           <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
-          ขึ้นสอบปริญญานิพนธ์
+          จองเวลาสอบปริญญานิพนธ์
           </div>
         </Link>
       </li>

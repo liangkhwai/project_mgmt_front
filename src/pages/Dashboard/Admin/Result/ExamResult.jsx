@@ -23,7 +23,7 @@ const ExamResult = () => {
 
   return (
     <div className="mx-10">
-      <Title>รายการขึ้นสอบ</Title>
+      <Title>บันทึกผลการสอบ</Title>
       <Body>
         <table className="table w-full text-center">
           <thead>
