@@ -9,7 +9,7 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import ModalBooking from "./ModalBooking";
 import Modal from "../../../../../UI/Modal";
-const BoardCalendar = ({ lastEvent }) => {
+const BoardCalendar = ({ lastEvent,groupInfo }) => {
   const [events, setEvents] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
   const [eventInfo, setEventInfo] = useState(null);
@@ -83,7 +83,7 @@ const BoardCalendar = ({ lastEvent }) => {
         )}
       </div>
       <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
-        <ModalBooking eventInfo={eventInfo} lastEvent={lastEvent} />
+        <ModalBooking eventInfo={eventInfo} lastEvent={lastEvent} groupInfo={groupInfo} />
       </Modal>
     </div>
   );
