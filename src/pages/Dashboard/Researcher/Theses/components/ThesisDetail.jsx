@@ -1,8 +1,9 @@
 import React from "react";
 
-const ThesisDetail = () => {
+const ThesisDetail = ({ groupInfo, groupMember, boards }) => {
+  //   console.log(groupMember);
   return (
-    <div>
+    <form>
       <div className="w-full">
         <div className="border rounded-t-xl border-b-blue-100 ">
           <div className="px-10 w-full">
@@ -10,12 +11,7 @@ const ThesisDetail = () => {
               <div className="font-bold text-blue-300 col-span-2 self-center">
                 ชื่อหัวข้อ
               </div>
-              <div className="col-span-4">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Eligendi quaerat totam adipisci error voluptate magni. Nihil
-                beatae consequatur esse corrupti, ducimus mollitia quod
-                voluptates ab inventore odio unde molestias! Neque.
-              </div>
+              <div className="col-span-4">{groupInfo?.title}</div>
             </div>
           </div>
         </div>
@@ -26,9 +22,13 @@ const ThesisDetail = () => {
                 ผู้จัดทำ
               </div>
               <div className="col-span-4">
-                lorem. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Eligendi quaerat totam adipisci error voluptate magni. Nihil
-                beatae consequatur esse corrupti, ducimus mollitia quod
+                {groupMember?.map((item, idx) => {
+                  return (
+                    <div key={idx}>
+                      {item.firstname} {item.lastname}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -41,6 +41,7 @@ const ThesisDetail = () => {
               </div>
               <div className="col-span-4">
                 <textarea
+                  required
                   name=""
                   id=""
                   cols="30"
@@ -58,15 +59,22 @@ const ThesisDetail = () => {
                 อาจารย์ที่ปรึกษา
               </div>
               <div className="col-span-4">
-                lorem. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Eligendi quaerat totam adipisci error voluptate magni. Nihil
-                beatae consequatur esse corrupti, ducimus mollitia quod
+                {boards
+                  .filter((item) => item.role === "advisor")
+                  .map(
+                    (item, idx) =>
+                      "อาจารย์ " +
+                      item.prefix +
+                      item.firstname +
+                      " " +
+                      item.lastname
+                  )}
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

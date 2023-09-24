@@ -13,7 +13,8 @@ import thLocale from "@fullcalendar/core/locales/th";
 import { useQuery } from "react-query";
 import { useLoaderData } from "react-router-dom";
 import ModalContentView from "./components/ModalContentView";
-import "D:/project_mgmt/src/pages/Dashboard/Teacher/Calendar/components/CustomCalendar.css";
+// import "D:/project_mgmt/src/pages/Dashboard/Teacher/Calendar/components/CustomCalendar.css";
+import "./components/CustomCalendar.css";
 const Calendar = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [eventEdit, setEventEdit] = useState();

@@ -21,6 +21,7 @@ const ThesisImg = () => {
     });
     setFileLists(newFileLists);
   };
+
   useEffect(() => {
     console.log(fileLists);
   }, [fileLists]);
@@ -29,7 +30,7 @@ const ThesisImg = () => {
     <div className="">
       {/* <input type="file" name="" id="" /> */}
 
-      {fileLists.length > 0 ? (
+      {fileLists?.length > 0 ? (
         <Fragment>
           <div className="">
             {fileLists.map((item, idx) => {
@@ -82,6 +83,7 @@ const ThesisImg = () => {
         name="files"
         accept="application/pdf"
         id=""
+        required
         className="hidden"
         onChange={(e) => handleFileChange(e)}
       />

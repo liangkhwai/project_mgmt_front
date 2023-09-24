@@ -120,7 +120,7 @@ const Files = () => {
           formData.append("files", file);
         });
 
-        if(selectedFiles.length === 0){
+        if (selectedFiles.length === 0) {
           Swal.fire({
             icon: "error",
             title: "Error",
@@ -128,7 +128,7 @@ const Files = () => {
             timer: 2000,
             timerProgressBar: true,
           });
-          return
+          return;
         }
         filesUpload.mutate(formData);
       }
@@ -158,7 +158,6 @@ const Files = () => {
       cancelButtonText: "ยกเลิก",
     }).then((result) => {
       if (result.isConfirmed) {
-        
         fileDelete.mutate(id);
       }
     });
