@@ -36,6 +36,7 @@ import { checkBoards } from "./loader/boards";
 import RequestBooking from "./pages/Dashboard/Researcher/Request_booking/RequestBooking";
 import ExamResult from "./pages/Dashboard/Admin/Result/ExamResult";
 import LineNotify from "./pages/Line/LineNotify";
+import Theses from "./pages/Dashboard/Researcher/Theses/Theses";
 dayjs.extend(customParseFormat);
 dayjs.extend(localizedFormat);
 dayjs.locale(th);
@@ -152,6 +153,10 @@ const router = createBrowserRouter([
         path: "/dashboard/line/invite",
         element: <LineNotify />,
       },
+      {
+        path:"/dashboard/thesis/upload",
+        element:<Theses/>
+      }
     ],
   },
 ]);

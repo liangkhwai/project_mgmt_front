@@ -24,7 +24,7 @@ const RequestExam = () => {
       }
     };
     const getLastRequest = async () => {
-      const response = await fetch(
+      const checkEvent = await fetch(
         `http://localhost:8080/requestExam/getLastRequest/${localStorage.getItem(
           "grpId"
         )}`,
@@ -34,9 +34,9 @@ const RequestExam = () => {
         }
       );
 
-      const data = await response.json();
+      const data = await checkEvent.json();
       console.log(data);
-      setLastEvent(data);
+      setLastEvent(data ? data : null);
       const checkBooked = await fetch(
         `http://localhost:8080/exam_booking/checkBooked/${data.id}`,
         {

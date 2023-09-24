@@ -2,7 +2,7 @@ import React from "react";
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-const ModalBooking = ({ eventInfo, lastEvent,groupInfo }) => {
+const ModalBooking = ({ eventInfo, lastEvent, groupInfo }) => {
   const navigate = useNavigate();
   console.log(eventInfo);
   console.log(lastEvent);
@@ -46,7 +46,7 @@ const ModalBooking = ({ eventInfo, lastEvent,groupInfo }) => {
                 (item) => item.id
               ),
               groupInfo: groupInfo,
-              event:eventSubmit
+              event: eventSubmit,
             }),
           }
         );
@@ -59,7 +59,7 @@ const ModalBooking = ({ eventInfo, lastEvent,groupInfo }) => {
             icon: "success",
             timer: 1000,
           }).then(() => {
-            navigate("/dashboard/group");
+            // navigate("/dashboard/group");
           });
         } else {
           Swal.fire({
