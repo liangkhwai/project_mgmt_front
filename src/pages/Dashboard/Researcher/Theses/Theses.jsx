@@ -11,6 +11,7 @@ const Theses = () => {
   const [groupInfo, setGroupInfo] = useState({});
   const [groupMember, setGroupMember] = useState([]);
   const [boards, setBoards] = useState([]);
+  const [theses, setTheses] = useState([]);
   useEffect(() => {
     const getGroupInfo = async () => {
       const response = await fetch("http://localhost:8080/group/getGroup", {
@@ -49,47 +50,58 @@ const Theses = () => {
       setBoards(data);
     };
 
+    const getThesis = async () => {
+      const response = await fetch(
+        `http://localhost:8080/thesis/get/${localStorage.getItem("grpId")}`,
+        {
+          method: "get",
+          credentials: "include",
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      setTheses(data);
+    };
+
     getGroupInfo();
     getGroupMember();
     getBoards();
+    getThesis();
   }, []);
 
   return (
     <div className="mx-10">
       <Title>อัพโหลดวิทยานิพนธ์</Title>
       <Body>
-        {groupInfo.leaderId === parseInt(localStorage.getItem("id")) ? (
-          <FormThesis
-            groupInfo={groupInfo}
-            groupMember={groupMember}
-            boards={boards}
-          />
+        {groupInfo ? (
+          <Fragment>
+            {groupInfo.status === "รอส่งปริญญานิพนธ์" ? (
+              <Fragment>
+                {groupInfo.leaderId === parseInt(localStorage.getItem("id")) ? (
+                  <FormThesis
+                    groupInfo={groupInfo}
+                    groupMember={groupMember}
+                    boards={boards}
+                  />
+                ) : (
+                  <div className="text-center">
+                    {" "}
+                    คุณไม่ใช่หัวหน้ากลุ่ม ไม่สามารถอัพโหลดได้
+                  </div>
+                )}
+              </Fragment>
+            ) : (
+              <Fragment>
+                {theses ? (
+                  <div>ท่านได้ส่งปริญญานิพนธ์เรียบร้อยแล้ว</div>
+                ) : (
+                  <div>สามารถส่งปริญญานิพนธ์ได้หลังจากสอบป้องกัน</div>
+                )}
+              </Fragment>
+            )}
+          </Fragment>
         ) : (
-          // <Fragment>
-          //   <form>
-          //     <div className="grid grid-cols-6 gap-4">
-          //       <div className="col-span-2 h-auto">
-          //         <ThesisImg />
-          //       </div>
-          //       <div className="col-span-4 h-auto">
-          //         <ThesisDetail
-          //           groupInfo={groupInfo}
-          //           groupMember={groupMember}
-          //           boards={boards}
-          //         />
-          //       </div>
-          //     </div>
-          //     <div className="text-end my-5">
-          //       <button className="px-4 py-2 bg-green-400 text-white rounded-xl">
-          //         อัพโหลด
-          //       </button>
-          //     </div>
-          //   </form>
-          // </Fragment>
-          <div className="text-center">
-            {" "}
-            คุณไม่ใช่หัวหน้ากลุ่ม ไม่สามารถอัพโหลดได้
-          </div>
+          <div>กรุณาสร้างกลุ่มโปรเจค</div>
         )}
       </Body>
     </div>
