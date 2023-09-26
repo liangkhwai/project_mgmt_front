@@ -47,6 +47,7 @@ const TopChart = ({ countStatus, max }) => {
   };
 
   const options = {
+    responsive: true,
     scales: {
       x: {
         stacked: false,
@@ -63,9 +64,9 @@ const TopChart = ({ countStatus, max }) => {
   };
 
   return (
-    <div className="border rounded-xl bg-white shadow-lg">
+    <div className=" rounded-xl bg-white shadow-lg w-full h-full">
       <h2 className="text-start m-3">จำนวนกลุ่มในการสอบรอบต่างๆ</h2>
-      <div className="m-5">
+      <div className="w-full">
         <Bar data={data} options={options} />
       </div>
     </div>

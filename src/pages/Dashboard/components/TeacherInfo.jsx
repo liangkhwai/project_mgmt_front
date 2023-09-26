@@ -6,10 +6,10 @@ const TeacherInfo = ({ countAdvisor }) => {
   if (!countAdvisor) return <div>loading...</div>;
 
   return (
-    <div className="border rounded-xl bg-white shadow-lg w-full h-full">
+    <div className="rounded-xl bg-white shadow-lg h-full">
       <div className="text-start m-3">คณะอาจารย์ที่กำลังดูแลกลุ่มโปรเจค</div>
       <div className="mx-5">
-        <table className="table w-full m-5 text-center">
+        <table className="table w-full text-center">
           <thead>
             <tr>
               <th>ชื่อ - นามสกุล</th>
@@ -21,7 +21,7 @@ const TeacherInfo = ({ countAdvisor }) => {
             {countAdvisor?.countAdvisor?.map((item, idx) => (
               <tr key={idx}>
                 <td>
-                  {item.firstname} {item.lastname}
+                  อาจารย์ {item.firstname} {item.lastname}
                 </td>
                 <td>{item.tel}</td>
                 <td>{item.advisor_count} กลุ่ม</td>

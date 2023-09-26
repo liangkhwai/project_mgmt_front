@@ -58,19 +58,13 @@ const TableResearcher = ({
     const newOffSet = (event.selected * ItemPerPage) % rshList.length;
     // const newOffSet = event.selected;
     // console.log(event.selected);
-    // // console.log(ItemPerPage);
-    // // console.log(rshList.length);
-    // // console.log(newOffSet);
+   
     setItemOffSet(newOffSet);
     setNowPage(event.selected);
   };
-
-  // end Paginate
-
   const customStyles = {
     content: {
       width: "30%",
-
       top: "50%",
       left: "50%",
       right: "auto",

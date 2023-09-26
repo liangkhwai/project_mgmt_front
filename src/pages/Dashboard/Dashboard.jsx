@@ -5,9 +5,12 @@ import { Student, FilePdf } from "@phosphor-icons/react";
 import { GiBookmarklet } from "react-icons/gi";
 import TopChart from "./components/TopChart";
 import TeacherInfo from "./components/TeacherInfo";
+import GroupProject from "./components/GroupProject";
 const Dashboard = () => {
   const [dashboard, setDashboard] = React.useState([]);
   const [max, setMax] = React.useState(0);
+  const [nowPage, setNowPage] = React.useState(0);
+  const [itemOffset, setItemOffSet] = React.useState(0);
   useEffect(() => {
     const getDashboard = async () => {
       const response = await fetch("http://localhost:8080/dashboard/list");
@@ -19,6 +22,7 @@ const Dashboard = () => {
     getDashboard();
   }, []);
 
+  if (!dashboard) return <div>loading...</div>;
   return (
     <div className="bg-white">
       <div
@@ -70,20 +74,24 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-2 mx-5 gap-10">
-        <div className="flex">
-          <div className="flex-1 h-full">
-            <div className="flex-grow h-full">
-              <TopChart countStatus={dashboard.countStatus} max={max} />
-            </div>
+      <div className="mx-5">
+        <div className="grid grid-cols-12 gap-10">
+          <div className="col-span-7">
+            <TopChart countStatus={dashboard.countStatus} max={max} />
+          </div>
+          <div className="col-span-5">
+            <TeacherInfo countAdvisor={dashboard} />
           </div>
         </div>
-        <div className="flex">
-          <div className="flex-1 h-full">
-            <div className="flex-grow h-full">
-              <TeacherInfo countAdvisor={dashboard} />
-            </div>
-          </div>
+        <div className="my-5"></div>
+        <div>
+          <GroupProject
+            group={dashboard}
+            itemOffset={itemOffset}
+            nowPage={nowPage}
+            setItemOffSet={setItemOffSet}
+            setNowPage={setNowPage}
+          />
         </div>
       </div>
     </div>
