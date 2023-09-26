@@ -4,7 +4,7 @@ import Contact from "./pages/Landing/Contact";
 import Login from "./pages/Landing/Login/Login";
 import Landing from "./pages/Layout/Landing/LayoutPublicContent";
 import LayoutManageContent from "./pages/Layout/Dashboard/LayoutDashboard";
-import Dashboard from "./pages/Dashboardd/Dashboard";
+import Dashboard from "./pages/Dashboard/Dashboard";
 import { useContext } from "react";
 import { checkAuth } from "./loader/auth";
 import ResearcherList from "./pages/Dashboard/Researcher/Researcher";

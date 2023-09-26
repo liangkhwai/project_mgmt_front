@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const CreateGroup = () => {
   const [loadedResearcherList, setLoadedResearcherList] = useState([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [rshList, setRshList] = useState([]);
   useEffect(() => {
     async function fetchRshList() {
@@ -54,7 +54,8 @@ const CreateGroup = () => {
     }).then(async (res) => {
       const data = await res.json();
       console.log(data);
-      navigate('/dashboard/group')
+      localStorage.setItem("grpId", data);
+      navigate("/dashboard/group");
     });
   };
 

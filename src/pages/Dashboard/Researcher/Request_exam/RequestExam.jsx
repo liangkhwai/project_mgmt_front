@@ -19,7 +19,7 @@ const RequestExam = () => {
       const data = await response.json();
       if (data) {
         console.log("hey");
-        // console.log(data);
+        console.log(data);
         setGroupInfo(data);
       }
     };

@@ -53,7 +53,7 @@ const ResearcherList = ({
       <td className="py-1 border-2 border-gray-300">
         {rsh.categorie_room.room}
       </td>
-      <td className="py-1 border-2 border-gray-300">{rsh.email}</td>
+      {/* <td className="py-1 border-2 border-gray-300">{rsh.email}</td> */}
       <td className="py-1 border-2 border-gray-300">{rsh.tel}</td>
       <td className="py-1 border-2 border-gray-300">{rsh.grade}</td>
       {/* <td className="py-1 border-2 border-gray-300">{rsh.group.id}</td> */}
