@@ -61,232 +61,256 @@ const FormRandom = ({ teacher, setTeacher, group, setGroup, setIsRamdom }) => {
     }
     return array;
   };
-  
+
   const clickSubmitHandler = () => {
     let advisorGroup = [];
     let boardGroup = [];
     let teachers = [...teacher];
+    let teacherSetting = [...teacher];
     let groups = [...group];
 
-    for (let i = 0; i < teachers.length; i++) {
-      let advicerRound = 1;
-      let boardRound = 1;
-
-      while (advicerRound <= teachers[i].limit) {
-        advisorGroup.push({ ...teachers[i] });
-        advicerRound++;
-      }
-      while (boardRound <= teachers[i].limitBoard) {
-        boardGroup.push({ ...teachers[i], uuid: v4() });
-        boardRound++;
-      }
-    }
-
-    // shuffle tchGroup
-    for (let i = advisorGroup.length - 1; i > 0; i--) {
+    //shuffle teachers
+    for (let i = teachers.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
-      let temp = advisorGroup[i];
-      advisorGroup[i] = advisorGroup[j];
-      advisorGroup[j] = temp;
+      let temp = teachers[i];
+      teachers[i] = teachers[j];
+      teachers[j] = temp;
     }
 
-    // shuffle boardGroup
-    for (let i = boardGroup.length - 1; i > 0; i--) {
+    //shuffle teachersSetting
+    for (let i = teacherSetting.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
-      let temp = boardGroup[i];
-      boardGroup[i] = boardGroup[j];
-      boardGroup[j] = temp;
+      let temp = teacherSetting[i];
+      teacherSetting[i] = teacherSetting[j];
+      teacherSetting[j] = temp;
     }
-    const updatedGroups = groups.map((item, idx) => {
-          let boardTmp = [...boardGroup];
-          let teachersNoAdvisor = boardTmp.filter(
-            (teacherItem) => teacherItem.id !== advisorGroup[idx].id
-          );
-          let randIndexBoard1 = Math.floor(
-            Math.random() * teachersNoAdvisor.length
-          );
-    
-          let teachersNoAdvisorAndBoard1 = teachersNoAdvisor.filter(
-            (teacherItem) =>
-              teacherItem.id !== teachersNoAdvisor[randIndexBoard1].id
-          );
-          let randIndexBoard2 = Math.floor(
-            Math.random() * teachersNoAdvisorAndBoard1.length
-          );
-          console.log("advisor:", advisorGroup[idx]);
-          console.log("no advisor :", teachersNoAdvisor);
-          console.log("no advisor && board1 :", teachersNoAdvisorAndBoard1);
-    
-          item.boards = {
-            advisor: { ...advisorGroup[idx], role: "advisor" },
-            board1: { ...teachersNoAdvisor[randIndexBoard1], role: "board1" },
-            board2: {
-              ...teachersNoAdvisorAndBoard1[randIndexBoard2],
-              role: "board2",
-            },
-          };
-    
-          return item;
-        });
+    // shuffle groups
+    for (let i = groups.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      let temp = groups[i];
+      groups[i] = groups[j];
+      groups[j] = temp;
+    }
 
-    // const updatedGroups = groups.map(async(item, idx) => {
-    //   console.log(boardTmp);
-    //   console.log(idx);
-    //   const board1List = boardTmp.filter((item=> item.id !== tchGroup[idx].id))
-    //   const board2List = board1List.filter((item=> item.uuid !== board1List[idx].uuid))
-    //   console.log(board1List,board2List);
+    // Global parameter
+    const result = [];
+    const resultRound = [];
+    const advisorList = teachers;
 
-    //   const  advisor = tchGroup[idx];
-    //   const  board1 = board1List[idx]
-    //   const board2 = board2List[idx]
-    //   console.log(advisor,board1,board2);
+    const projectList = groups;
 
-    //   boardTmp =  boardTmp.filter(boardItem => boardItem.uuid !== board1.uuid && boardItem.uuid !== board2.uuid);
-    //   console.log(boardTmp);
-    //   item.boards = {
-    //     advisor: { ...advisor, role: "advisor" },
-    //     board1: { ...board1, role: "board1" },
-    //     board2: {
-    //       ...board2,
-    //       role: "board2",
-    //     },
-    //   };
+    const setting = teacherSetting;
+    console.log(advisorList, projectList, setting);
+    function searchResultRound(groupSearch, advisorSearch) {
+      try {
+        if (resultRound[0].id === groupSearch) {
+          if (resultRound[1].id === advisorSearch) {
+            return true;
+          } else if (resultRound[2].id === advisorSearch) {
+            return true;
+          } else if (resultRound[3].id === advisorSearch) {
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      } catch (error) {
+        return false;
+      }
+    }
 
-    //   return item;
-    // });
+    function searchSetting(advisorCommitSearch, position) {
+      for (const settingItem of setting) {
+        if (settingItem.id === advisorCommitSearch) {
+          if (settingItem.limit > 0 && position === 1) {
+            return true;
+          } else if (settingItem.limitBoard > 0 && position === 2) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+      return false;
+    }
 
-    // console.log(updatedGroups);
-    console.log(groups);
-    // console.log(boardTmp);
-    setGroup(groups);
+    function updateSettingAdviser(keyUpdate) {
+      for (const item of setting) {
+        if (item.id === keyUpdate) {
+          item.limit = parseInt(item.limit) - 1;
+          // console.log("adviser " + keyUpdate);
+          break;
+        }
+      }
+    }
+
+    function updateSettingCommittee(keyUpdate) {
+      for (const item of setting) {
+        if (item.id === keyUpdate) {
+          // console.log("committee " + keyUpdate);
+          item.limitBoard = parseInt(item.limitBoard) - 1;
+          break;
+        }
+      }
+    }
+
+    for (const projItem of projectList) {
+      resultRound.push(projItem);
+      for (const advisorItem of advisorList) {
+        const sResult = searchResultRound(projItem.id, advisorItem.id);
+        if (!sResult) {
+          if (searchSetting(advisorItem.id, 1)) {
+            resultRound.push(advisorItem);
+            updateSettingAdviser(advisorItem.id);
+            break;
+          }
+        }
+      }
+
+      for (const advisorItem of advisorList) {
+        const sResult = searchResultRound(projItem.id, advisorItem.id);
+        if (!sResult) {
+          if (searchSetting(advisorItem.id, 2)) {
+            resultRound.push(advisorItem);
+            updateSettingCommittee(advisorItem.id);
+            break;
+          }
+        }
+      }
+
+      for (const advisorItem of advisorList) {
+        const sResult = searchResultRound(projItem.id, advisorItem.id);
+        if (!sResult) {
+          if (searchSetting(advisorItem.id, 2)) {
+            resultRound.push(advisorItem);
+            updateSettingCommittee(advisorItem.id);
+            console.log(resultRound);
+            console.log(setting);
+            result.push([...resultRound]);
+            resultRound.length = 0;
+            break;
+          }
+        }
+      }
+    }
+    console.log(result);
+    setGroup(
+      result.map((item) => {
+        return {
+          ...item[0],
+          boards: {
+            advisor: item[1],
+            board1: item[2],
+            board2: item[3],
+          },
+        };
+      })
+    );
     setIsRamdom(true);
+    // function searchResultRound(groupSearch, advisorSearch) {
+    //   try {
+    //     if (resultRound[0] === groupSearch) {
+    //       if (resultRound[1] === advisorSearch) {
+    //         return true;
+    //       } else if (resultRound[2] === advisorSearch) {
+    //         return true;
+    //       } else if (resultRound[3] === advisorSearch) {
+    //         return true;
+    //       } else {
+    //         return false;
+    //       }
+    //     } else {
+    //       return false;
+    //     }
+    //   } catch (error) {
+    //     return false;
+    //   }
+    // }
+
+    // function searchSetting(advisorCommitSearch, position) {
+    //   for (const settingItem of setting) {
+    //     if (settingItem.firstname === advisorCommitSearch) {
+    //       if (settingItem.limit > 0 && position === 1) {
+    //         return true;
+    //       } else if (settingItem.limitBoard > 0 && position === 2) {
+    //         return true;
+    //       } else {
+    //         return false;
+    //       }
+    //     }
+    //   }
+    //   return false;
+    // }
+
+    // function updateSettingAdviser(keyUpdate) {
+    //   for (const item of setting) {
+    //     if (item.firstname === keyUpdate) {
+    //       item.limit = parseInt(item.limit) - 1;
+    //       console.log("adviser " + keyUpdate);
+    //       break;
+    //     }
+    //   }
+    // }
+
+    // function updateSettingCommittee(keyUpdate) {
+    //   for (const item of setting) {
+    //     if (item.firstname === keyUpdate) {
+    //       console.log("committee " + keyUpdate);
+    //       item.limitBoard = parseInt(item.limitBoard) - 1;
+    //       break;
+    //     }
+    //   }
+    // }
+
+    // for (const projItem of projectList) {
+    //   resultRound.push(projItem.id);
+    //   for (const advisorItem of advisorList) {
+    //     const sResult = searchResultRound(projItem.id, advisorItem.firstname);
+    //     if (!sResult) {
+    //       if (searchSetting(advisorItem.firstname, 1)) {
+    //         console.table(advisorItem);
+    //         resultRound.push(advisorItem.firstname);
+    //         updateSettingAdviser(advisorItem.firstname);
+    //         break;
+    //       }
+    //     }
+    //   }
+
+    //   for (const advisorItem of advisorList) {
+    //     const sResult = searchResultRound(projItem.id, advisorItem.firstname);
+    //     if (!sResult) {
+    //       if (searchSetting(advisorItem.firstname, 2)) {
+    //         console.table(advisorItem);
+
+    //         resultRound.push(advisorItem.firstname);
+    //         updateSettingCommittee(advisorItem.firstname);
+    //         break;
+    //       }
+    //     }
+    //   }
+
+    //   for (const advisorItem of advisorList) {
+    //     const sResult = searchResultRound(projItem.id, advisorItem.firstname);
+    //     if (!sResult) {
+    //       if (searchSetting(advisorItem.firstname, 2)) {
+    //         console.table(advisorItem);
+
+    //         resultRound.push(advisorItem.firstname);
+    //         updateSettingCommittee(advisorItem.firstname);
+    //         console.log(resultRound);
+    //         console.log(setting);
+    //         result.push([...resultRound]);
+    //         resultRound.length = 0;
+    //         break;
+    //       }
+    //     }
+    //   }
+    // }
+
+    // console.log(result);
   };
-
-  // algo backup
-  // const clickSubmitHandler = () => {
-  //   let tchGroup = [];
-  //   let teachers = [...teacher];
-  //   let groups = [...group];
-  //   // add tch to arr by limit
-  //   for (let i = 0; i < teachers.length; i++) {
-  //     let round = 1;
-
-  //     while (round <= teachers[i].limit) {
-  //       tchGroup.push({ ...teachers[i] });
-  //       round++;
-  //     }
-  //   }
-  //   console.log(tchGroup);
-
-  //   // shuffle tchGroup
-  //   for (let i = tchGroup.length - 1; i > 0; i--) {
-  //     let j = Math.floor(Math.random() * (i + 1));
-  //     let temp = tchGroup[i];
-  //     tchGroup[i] = tchGroup[j];
-  //     tchGroup[j] = temp;
-  //   }
-
-  //   console.log(tchGroup);
-
-  //   // for(let i = 0 ; i <groups.length;i++){
-  //   //   groups[i].advisor = tchGroup[i]
-  //   // }
-
-  //   for (let i = teachers.length - 1; i > 0; i--) {
-  //     let j = Math.floor(Math.random() * (i + 1));
-  //     let temp = teachers[i];
-  //     teachers[i] = teachers[j];
-  //     teachers[j] = temp;
-  //   }
-
-  //   // groups.map((item, idx) => {
-  //   //   let teachersNoAdvisor = teachers.filter(
-  //   //     (item) => item.id !== tchGroup[idx].id
-  //   //   );
-  //   //   let teachersNoAdvisorAndBoard1 = teacher.filter(
-  //   //     (item) =>
-  //   //       item.id !== tchGroup[idx].id && item.id !== teachersNoAdvisor[idx].id
-  //   //   );
-
-  //   //   item.boards.advisor = tchGroup[idx];
-  //   //   item.boards.board1 = teachersNoAdvisor[idx];
-  //   //   item.boards.board2 = teachersNoAdvisorAndBoard1[idx];
-  //   // });
-  //   const updatedGroups = groups.map((item, idx) => {
-  //     let teachers = [...teacher];
-  //     let teachersNoAdvisor = teachers.filter(
-  //       (teacherItem) => teacherItem.id !== tchGroup[idx].id
-  //     );
-  //     let randIndexBoard1 = Math.floor(
-  //       Math.random() * teachersNoAdvisor.length
-  //     );
-
-  //     let teachersNoAdvisorAndBoard1 = teachersNoAdvisor.filter(
-  //       (teacherItem) =>
-  //         // teacherItem.id !== tchGroup[idx].id &&
-  //         teacherItem.id !== teachersNoAdvisor[randIndexBoard1].id
-  //     );
-  //     let randIndexBoard2 = Math.floor(
-  //       Math.random() * teachersNoAdvisorAndBoard1.length
-  //     );
-
-  //     console.log("advisor:", tchGroup[idx]);
-  //     console.log("no advisor :", teachersNoAdvisor);
-  //     console.log("no advisor && board1 :", teachersNoAdvisorAndBoard1);
-
-  //     item.boards = {
-  //       advisor: { ...tchGroup[idx], role: "advisor" },
-  //       board1: { ...teachersNoAdvisor[randIndexBoard1], role: "board1" },
-  //       board2: {
-  //         ...teachersNoAdvisorAndBoard1[randIndexBoard2],
-  //         role: "board2",
-  //       },
-  //     };
-
-  //     return item;
-  //   });
-
-  //   // console.log(updatedGroups);
-  //   console.log(groups);
-  //   setGroup(groups);
-  //   setIsRamdom(true);
-
-  //   // let groups = [...group];
-  //   // // console.log(teachers);
-  //   // // console.log(groups);
-  //   // console.log(teachers);
-  //   // for (let i = teachers.length - 1; i > 0; i--) {
-  //   //   const j = Math.floor(Math.random() * (i + 1));
-  //   //   [teachers[i], teachers[j]] = [teachers[j], teachers[i]];
-  //   // }
-  //   // console.log(teachers);
-
-  //   // let teacherIndex = 0;
-  //   // for (let i = 0; i < groups.length; i++) {
-  //   //   const groupss = groups[i];
-
-  //   //   const assignTeacher = (teacher) => {
-  //   //     // console.log(teacher);
-  //   //     if(teacher.limit === ""){
-  //   //       return ""
-  //   //     }
-  //   //     if (teacher.limit > 0) {
-  //   //       teacher.limit--;
-  //   //       return teacher.firstname;
-  //   //     }
-  //   //     return "";
-  //   //   };
-
-  //   //   // console.log(teachers[teacherIndex]);
-  //   //   groupss.advisor = assignTeacher(teachers[teacherIndex]) || "";
-  //   //   groupss.bord1 = assignTeacher(teachers[teacherIndex + 1]) || "";
-  //   //   groupss.bord2 = assignTeacher(teachers[teacherIndex + 2]) || "";
-
-  //   //   teacherIndex += 3;
-  //   // }
-
-  //   // console.log(groups);
-  // };
 
   return (
     <div className="my-1">

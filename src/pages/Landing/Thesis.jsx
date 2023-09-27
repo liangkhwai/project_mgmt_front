@@ -42,8 +42,8 @@ const Thesis = () => {
   return (
     <div className="w-full h-screen border bg-blue-50">
       <div className="mx-48">
-        <div className="h-auto flex flex-col justify-center rounded-2xl bg-white border mb-10 shadow-md mt-10">
-          <div className="flex ml-10">
+        <div className="h-auto flex flex-col justify-center rounded-2xl bg-white border shadow-md my-10">
+          <div className="flex justify-between">
             <div className="relative items-center rounded-lg">
               <button
                 onClick={() => setIsOpen1(!isOpen1)}
@@ -81,75 +81,78 @@ const Thesis = () => {
             </div>
           </div>
 
-          <div className="mt-10 mx-10 flex items-center   ">
-            <div className="text-blue-800 font-medium text-sm mr-14">
-              ปีเริ่มต้น
-              <div className="flex-1">
-                <div className="relative">
-                  <button
-                    onClick={() => setIsOpen2(!isOpen2)}
-                    className="bg-white p-1 w-56 mt-1 mb-1 text-blue-800 flex items-center justify-between font-medium text-sm rounded-lg tracking-wider border-2 border-blue-800 active:text-blue-300"
-                  >
-                    {selectedStartYear || "YYYY"}
-                    {!isOpen2 ? (
-                      <AiOutlineCaretDown className="h-8 mr-5" />
-                    ) : (
-                      <AiOutlineCaretUp className="h-8 mr-5" />
+          <div className="mt-10 mx-10 flex items-center justify-between  ">
+            <div className="flex gap-10">
+              <div className="text-blue-800 font-medium text-sm">
+                ปีเริ่มต้น
+                <div className="flex-1">
+                  <div className="relative">
+                    <button
+                      onClick={() => setIsOpen2(!isOpen2)}
+                      className="bg-white p-1 w-56 mt-1 mb-1 text-blue-800 flex items-center justify-between font-medium text-sm rounded-lg tracking-wider border-2 border-blue-800 active:text-blue-300"
+                    >
+                      {selectedStartYear || "YYYY"}
+                      {!isOpen2 ? (
+                        <AiOutlineCaretDown className="h-8 mr-5" />
+                      ) : (
+                        <AiOutlineCaretUp className="h-8 mr-5" />
+                      )}
+                    </button>
+                    {isOpen2 && (
+                      <div className="absolute w-56 bg-white border shadow-lg rounded-lg text-blue-800 font-medium text-sm">
+                        {dropdownYears.map((year) => (
+                          <div
+                            key={year}
+                            className="p-2 hover:bg-blue-100 cursor-pointer"
+                            onClick={() =>
+                              handleDropdownSelect(year, "startYear")
+                            }
+                          >
+                            {year}
+                          </div>
+                        ))}
+                      </div>
                     )}
-                  </button>
-                  {isOpen2 && (
-                    <div className="absolute w-56 bg-white border shadow-lg rounded-lg text-blue-800 font-medium text-sm">
-                      {dropdownYears.map((year) => (
-                        <div
-                          key={year}
-                          className="p-2 hover:bg-blue-100 cursor-pointer"
-                          onClick={() =>
-                            handleDropdownSelect(year, "startYear")
-                          }
-                        >
-                          {year}
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                  </div>
+                </div>
+              </div>
+              <div className="text-blue-800 font-medium text-sm">
+                ปีสิ้นสุด
+                <div className="flex-1">
+                  <div className="relative">
+                    <button
+                      onClick={() => setIsOpen3(!isOpen3)}
+                      className=" bg-white p-1 w-52 mt-1 mb-1 text-blue-800 flex items-center justify-between font-medium text-sm rounded-lg tracking-wider border-2 border-blue-800 active:text-blue-300"
+                    >
+                      {selectedEndYear || "YYYY"}
+                      {!isOpen3 ? (
+                        <AiOutlineCaretDown className="h-8 mr-5" />
+                      ) : (
+                        <AiOutlineCaretUp className="h-8 mr-5" />
+                      )}
+                    </button>
+                    {isOpen3 && (
+                      <div className="absolute w-52 mt-1 bg-white border shadow-lg rounded-lg text-blue-800 font-medium text-sm">
+                        {dropdownYears.map((year) => (
+                          <div
+                            key={year}
+                            className="p-2 hover:bg-blue-100 cursor-pointer"
+                            onClick={() =>
+                              handleDropdownSelect(year, "endYear")
+                            }
+                          >
+                            {year}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="text-blue-800 font-medium text-sm">
-              ปีสิ้นสุด
-              <div className="flex-1">
-                <div className="relative">
-                  <button
-                    onClick={() => setIsOpen3(!isOpen3)}
-                    className=" bg-white p-1 w-52 mt-1 mb-1 text-blue-800 flex items-center justify-between font-medium text-sm rounded-lg tracking-wider border-2 border-blue-800 active:text-blue-300"
-                  >
-                    {selectedEndYear || "YYYY"}
-                    {!isOpen3 ? (
-                      <AiOutlineCaretDown className="h-8 mr-5" />
-                    ) : (
-                      <AiOutlineCaretUp className="h-8 mr-5" />
-                    )}
-                  </button>
-                  {isOpen3 && (
-                    <div className="absolute w-52 mt-1 bg-white border shadow-lg rounded-lg text-blue-800 font-medium text-sm">
-                      {dropdownYears.map((year) => (
-                        <div
-                          key={year}
-                          className="p-2 hover:bg-blue-100 cursor-pointer"
-                          onClick={() => handleDropdownSelect(year, "endYear")}
-                        >
-                          {year}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-            <div className="flex pl-44 ">
-              <div></div>
-              <button className="p-1 w-72 py-3 mt-4 bg-green-700 text-white rounded-lg shadow-lg hover:bg-green-600">
-                <div className="relative">
+            <div className="flex gap-10 flex-grow justify-center">
+              <button className="p-1 px-10 py-3 mt-4 bg-green-700 text-white rounded-lg shadow-lg hover:bg-green-600">
+                <div className="">
                   <div className="flex justify-center">
                     <svg
                       className="w-6 h-5 mr-2"
@@ -167,9 +170,8 @@ const Thesis = () => {
                   </div>
                 </div>
               </button>
-              <div className="flex pl-12">
-              <button className="p-1 w-72 py-3 mt-4 bg-yellow-700 text-white rounded-lg shadow-lg hover:bg-yellow-600">
-                <div className="relative">
+              <button className="p-1 px-10 py-3 mt-4 bg-yellow-700 text-white rounded-lg shadow-lg hover:bg-yellow-600">
+                <div className="">
                   <div className="flex justify-center">
                     <svg
                       className="w-6 h-5 mr-2"
@@ -189,7 +191,6 @@ const Thesis = () => {
                   </div>
                 </div>
               </button>
-              </div>
             </div>
           </div>
 

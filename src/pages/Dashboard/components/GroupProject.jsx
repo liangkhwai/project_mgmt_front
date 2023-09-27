@@ -63,33 +63,37 @@ const GroupProject = ({
           ))}
         </tbody>
       </table>
-      <div className="">
+      <div className="mx-5">
         <div>{`Showing ${startIndex + 1} - ${Math.min(
           endIndex,
           Array.isArray(group.groupWithBoards)
             ? group.groupWithBoards.length
             : 0
-        )} of ${Array.isArray(group.groupWithBoards)
-          ? group.groupWithBoards.length
-          : 0} results`}</div>
-        <ReactPaginate
-          forcePage={nowPage}
-          breakLabel="..."
-          nextLabel="next >"
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={3}
-          marginPagesDisplayed={2}
-          pageCount={pageCount}
-          previousLabel="< previous"
-          renderOnZeroPageCount={null}
-          containerClassName="flex justify-center mt-4"
-          pageLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover-bg-blue-100"
-          activeClassName="font-medium text-blue-700"
-          activeLinkClassName="bg-blue-100"
-          breakLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover-bg-blue-100"
-          previousLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover-bg-blue-100"
-          nextLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover-bg-blue-100"
-        />
+        )} of ${
+          Array.isArray(group.groupWithBoards)
+            ? group.groupWithBoards.length
+            : 0
+        } results`}</div>
+        <div className="my-5">
+          <ReactPaginate
+            forcePage={nowPage}
+            breakLabel="..."
+            nextLabel="next >"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={3}
+            marginPagesDisplayed={2}
+            pageCount={pageCount}
+            previousLabel="< previous"
+            renderOnZeroPageCount={null}
+            containerClassName="flex justify-center mt-4"
+            pageLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover-bg-blue-100"
+            activeClassName="font-medium text-blue-700"
+            activeLinkClassName="bg-blue-100"
+            breakLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover-bg-blue-100"
+            previousLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover-bg-blue-100"
+            nextLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover-bg-blue-100"
+          />
+        </div>
       </div>
     </div>
   );

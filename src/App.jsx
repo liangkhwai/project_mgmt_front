@@ -37,6 +37,7 @@ import RequestBooking from "./pages/Dashboard/Researcher/Request_booking/Request
 import ExamResult from "./pages/Dashboard/Admin/Result/ExamResult";
 import LineNotify from "./pages/Line/LineNotify";
 import Theses from "./pages/Dashboard/Researcher/Theses/Theses";
+import NewThesis from "./pages/Landing/NewThesis";
 dayjs.extend(customParseFormat);
 dayjs.extend(localizedFormat);
 dayjs.locale(th);
@@ -58,7 +59,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/thesis",
-        element: <Thesis />,
+        element: <NewThesis />,
+      },
+      {
+        path:"/theses",
+        element:<Thesis />
       },
       {
         path: "/files",
@@ -154,9 +159,9 @@ const router = createBrowserRouter([
         element: <LineNotify />,
       },
       {
-        path:"/dashboard/thesis/upload",
-        element:<Theses/>
-      }
+        path: "/dashboard/thesis/upload",
+        element: <Theses />,
+      },
     ],
   },
 ]);
@@ -166,7 +171,7 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </QueryClientProvider>
   );
 }

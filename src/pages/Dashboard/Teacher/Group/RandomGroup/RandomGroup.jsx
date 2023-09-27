@@ -73,6 +73,7 @@ const RandomGroup = () => {
               group={group}
               setGroup={setGroup}
               setIsRamdom={setIsRamdom}
+              isRandom={isRandom}
             />
           </div>
           <div className="border rounded-md text-center border-black">
