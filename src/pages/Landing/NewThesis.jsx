@@ -1,15 +1,37 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, Fragment } from "react";
 import {
   AiOutlineCaretDown,
   AiOutlineCaretUp,
   AiOutlineDown,
-  AiOutlineUp,
 } from "react-icons/ai";
+import { BsDownload, BsFillCloudDownloadFill } from "react-icons/bs";
 
 const NewThesis = () => {
+  const [theses, setTheses] = React.useState([]);
   const [openDetail, setOpenDetail] = React.useState(false);
+  const [openYear, setOpenYear] = React.useState("");
+  const [openYearEnd, setOpenYearEnd] = React.useState("");
+
   const [detail, setDetail] = React.useState("รายละเอียดทั้งหมด");
+  const [filterData, setFilterData] = React.useState(theses);
+  const [searchData, setSearchData] = React.useState([]);
   const detailRef = useRef(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("http://localhost:8080/thesis/all", {
+        method: "GET",
+      });
+      const data = await res.json();
+      console.log(data);
+      const dataFilter = data.map(
+        (item) => (item.researchers_names = item.researchers_names.split(","))
+      );
+      setTheses(data);
+      setFilterData(data);
+    };
+    fetchData();
+  }, []);
+
   useEffect(() => {
     function handleClickOutside(event) {
       if (detailRef.current && !detailRef.current.contains(event.target)) {
@@ -32,15 +54,87 @@ const NewThesis = () => {
     "ผู้สร้างผลงาน",
     "รายละเอียดทั้งหมด",
   ];
-  const dropdownYears = [
-    "YYYY",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025",
-  ];
+
+  const handleSearch = (e) => {
+    const query = e.target.value;
+    setSearchData(query);
+    if (detail === "ชื่อเรื่อง") {
+      const filtered = theses.filter((item) => {
+        const year = new Date(item.years).getFullYear() + 543;
+        console.log(year);
+        const isYearInRange =
+          (!openYear || year >= parseInt(openYear)) &&
+          (!openYearEnd || year <= parseInt(openYearEnd));
+
+        return (
+          item.title.toLowerCase().includes(query.toLowerCase()) &&
+          isYearInRange
+        );
+      });
+      setFilterData(filtered);
+    } else if (detail === "อาจารย์ที่ปรึกษา") {
+      const filtered = theses.filter((item) => {
+        const year = new Date(item.years).getFullYear() + 543;
+        console.log(year);
+        const isYearInRange =
+          (!openYear || year >= parseInt(openYear)) &&
+          (!openYearEnd || year <= parseInt(openYearEnd));
+
+        return (
+          item.advisor_name.toLowerCase().includes(query.toLowerCase()) &&
+          isYearInRange
+        );
+      });
+
+      setFilterData(filtered);
+    } else if (detail === "ผู้สร้างผลงาน") {
+      const filtered = theses.filter((item) => {
+        const year = new Date(item.years).getFullYear() + 543;
+        console.log(year);
+        const isYearInRange =
+          (!openYear || year >= parseInt(openYear)) &&
+          (!openYearEnd || year <= parseInt(openYearEnd));
+
+        return (
+          item.researchers_names
+            .join("")
+            .toLowerCase()
+            .includes(query.toLowerCase()) && isYearInRange
+        );
+      });
+
+      setFilterData(filtered);
+    } else if (detail === "รายละเอียดทั้งหมด") {
+      const filtered = theses.filter((item) => {
+        const year = new Date(item.years).getFullYear() + 543;
+        console.log(year);
+        const isYearInRange =
+          (!openYear || year >= parseInt(openYear)) &&
+          (!openYearEnd || year <= parseInt(openYearEnd));
+
+        return (
+          (item.title.toLowerCase().includes(query.toLowerCase()) ||
+            (item.advisor_name &&
+              item.advisor_name.toLowerCase().includes(query.toLowerCase())) ||
+            (item.researchers_names &&
+              item.researchers_names.some((name) =>
+                name.toLowerCase().includes(query.toLowerCase())
+              ))) &&
+          isYearInRange
+        );
+      });
+
+      setFilterData(filtered);
+    }
+  };
+
+  const clearFilter = () => {
+    setFilterData(theses);
+    setOpenYear("");
+    setOpenYearEnd("");
+    setSearchData("");
+    setDetail("รายละเอียดทั้งหมด");
+  };
 
   return (
     <div className="">
@@ -57,11 +151,11 @@ const NewThesis = () => {
                   {openDetail ? <AiOutlineCaretUp /> : <AiOutlineCaretDown />}
                 </button>
                 {openDetail && (
-                  <div className="flex flex-col w-full absolute bg-white border shadow-lg rounded-lg text-blue-800 font-medium text-sm">
+                  <div className="z-10 flex flex-col w-full absolute bg-white border shadow-lg rounded-lg text-blue-800 font-medium text-sm">
                     {dropdownOptions.map((option, index) => (
                       <button
                         key={index}
-                        className="p-2 hover:bg-blue-100"
+                        className="p-2 hover:bg-blue-100 "
                         onClick={() => setDetailFilter(option)}
                       >
                         {option}
@@ -80,26 +174,38 @@ const NewThesis = () => {
                   name=""
                   id=""
                   placeholder="ค้นหาปริญญานิพนธ์..."
+                  onChange={handleSearch}
+                  value={searchData}
                 />
               </div>
             </div>
           </div>
-          <div className="flex flex-col my-5 md:flex-col xl:flex-row">
-            <div className="flex gap-10 justify-center xl:justify-normal">
-              <div className="flex flex-col gap-1">
+          <div className="flex flex-col my-5  xl:flex-col 2xl:flex-row ">
+            <div className="flex gap-10 justify-center xl:justify-center">
+              <div className="gap-1 relative h-[60%]">
                 <div className="text-blue-600">ปีเริ่มต้น</div>
-                <button className="w-full h-full border rounded-md border-blue-400   flex items-center justify-between gap-24 py-1 px-3">
-                  YYYY <AiOutlineDown />
-                </button>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value={openYear}
+                  onChange={(e) => setOpenYear(e.target.value)}
+                  className="w-full h-full border rounded-md border-blue-400   flex items-center justify-between gap-20 md:gap-20 lg:gap-32 xl:gap-60 py-1 px-3"
+                />
               </div>
-              <div className="flex flex-col gap-1">
+              <div className="gap-1 relative h-[60%]">
                 <div className="text-blue-600">ปีสิ้นสุด</div>
-                <button className="w-full h-full border rounded-md border-blue-400   flex items-center justify-between gap-24 py-1 px-3">
-                  YYYY <AiOutlineDown />
-                </button>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value={openYearEnd}
+                  onChange={(e) => setOpenYearEnd(e.target.value)}
+                  className="w-full h-full border rounded-md border-blue-400   flex items-center justify-between gap-20 md:gap-20 lg:gap-32 xl:gap-60 py-1 px-3"
+                />
               </div>
             </div>
-            <div className="flex gap-10 flex-grow justify-center min-w-md">
+            <div className="flex gap-2 xl:gap-2 2xl:gap-5 flex-grow justify-center min-w-md">
               <button className="p-1 px-10 py-3 mt-4 bg-green-700 text-white rounded-lg shadow-lg hover:bg-green-600">
                 <div className="">
                   <div className="flex justify-center">
@@ -119,7 +225,10 @@ const NewThesis = () => {
                   </div>
                 </div>
               </button>
-              <button className="p-1 px-10 py-3 mt-4 bg-yellow-700 text-white rounded-lg shadow-lg hover:bg-yellow-600">
+              <button
+                className="p-1 px-10 py-3 mt-4 bg-yellow-700 text-white rounded-lg shadow-lg hover:bg-yellow-600"
+                onClick={clearFilter}
+              >
                 <div className="">
                   <div className="flex justify-center">
                     <svg
@@ -153,80 +262,45 @@ const NewThesis = () => {
           </div>
 
           <div className="grid grid-cols-6 px-5 py-3">
-            <div className="col-span-4">ชื่อเรื่อง</div>
-            <div className="text-center">ปีการศึกษา</div>
-            <div className="text-center">ดาวน์โหลด</div>
+            <div className="col-span-4 text-blue-700">ชื่อเรื่อง</div>
+            <div className="text-center text-blue-700">ปีการศึกษา</div>
+            <div className="text-center text-blue-700">ดาวน์โหลด</div>
           </div>
-          <div className="md:grid md:grid-cols-6 p-5 border rounded-2xl place-items-center flex flex-col mb-3">
-            <div className="col-span-4">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Exercitationem architecto tenetur quos odio, quo minus vitae
-              itaque similique! Facilis et officiis odio? Fugiat esse provident
-              reprehenderit quasi repellendus magni necessitatibus.
-            </div>
-            <div className="text-center">2563</div>
-            <div className="text-center">
-              <button className="px-4 py-2 rounded-xl bg-green-500 text-white">
-                ดาวน์โหลด
-              </button>
-            </div>
-          </div>
-          <div className="md:grid md:grid-cols-6 p-5 border rounded-2xl place-items-center flex flex-col mb-3">
-            <div className="col-span-4">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Exercitationem architecto tenetur quos odio, quo minus vitae
-              itaque similique! Facilis et officiis odio? Fugiat esse provident
-              reprehenderit quasi repellendus magni necessitatibus.
-            </div>
-            <div className="text-center">2563</div>
-            <div className="text-center">
-              <button className="px-4 py-2 rounded-xl bg-green-500 text-white">
-                ดาวน์โหลด
-              </button>
-            </div>
-          </div>
-          <div className="md:grid md:grid-cols-6 p-5 border rounded-2xl place-items-center flex flex-col mb-3">
-            <div className="col-span-4">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Exercitationem architecto tenetur quos odio, quo minus vitae
-              itaque similique! Facilis et officiis odio? Fugiat esse provident
-              reprehenderit quasi repellendus magni necessitatibus.
-            </div>
-            <div className="text-center">2563</div>
-            <div className="text-center">
-              <button className="px-4 py-2 rounded-xl bg-green-500 text-white">
-                ดาวน์โหลด
-              </button>
-            </div>
-          </div>
-          <div className="md:grid md:grid-cols-6 p-5 border rounded-2xl place-items-center flex flex-col mb-3">
-            <div className="col-span-4">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Exercitationem architecto tenetur quos odio, quo minus vitae
-              itaque similique! Facilis et officiis odio? Fugiat esse provident
-              reprehenderit quasi repellendus magni necessitatibus.
-            </div>
-            <div className="text-center">2563</div>
-            <div className="text-center">
-              <button className="px-4 py-2 rounded-xl bg-green-500 text-white">
-                ดาวน์โหลด
-              </button>
-            </div>
-          </div>
-          <div className="md:grid md:grid-cols-6 p-5 border rounded-2xl place-items-center flex flex-col mb-3">
-            <div className="col-span-4">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Exercitationem architecto tenetur quos odio, quo minus vitae
-              itaque similique! Facilis et officiis odio? Fugiat esse provident
-              reprehenderit quasi repellendus magni necessitatibus.
-            </div>
-            <div className="text-center">2563</div>
-            <div className="text-center">
-              <button className="px-4 py-2 rounded-xl bg-green-500 text-white">
-                ดาวน์โหลด
-              </button>
-            </div>
-          </div>
+
+          {filterData.map((thesis) => (
+            <Fragment>
+              <div className="md:grid md:grid-cols-6 p-5 border rounded-2xl flex flex-col mb-3">
+                <div className="col-span-4 text-start">
+                  <div className="text-xl text-blue-600">{thesis.title}</div>
+                  <div>
+                    โดย{" "}
+                    {thesis.researchers_names.map((name, index) => {
+                      if (index === 0) {
+                        // Last item, append "และ" before the name
+                        return `${name} `;
+                      } else if (
+                        index ===
+                        thesis.researchers_names.length - 1
+                      ) {
+                        return `และ ${name} `;
+                      } else {
+                        return `,${name} `;
+                      }
+                    })}
+                  </div>
+                  <div>อาจารย์ที่ปรึกษา : อาจารย์ {thesis.advisor_name}</div>
+                </div>
+                <div className="text-center self-center">
+                  {new Date(thesis.years).getFullYear(500) + 543}
+                </div>
+                <div className="text-center self-center">
+                  <button className="px-4 py-2 rounded-xl bg-green-500 text-white" onClick={()=> window.open(`http://localhost:8080/files/thesis/${thesis.filename}`,'_blank')}> 
+                    <BsDownload />
+                  </button>
+                </div>
+              </div>
+            </Fragment>
+          ))}
         </div>
       </div>
     </div>
