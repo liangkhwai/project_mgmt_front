@@ -38,7 +38,7 @@ const GroupDetail = () => {
         `http://localhost:8080/requestExam/getRequestGroup/${grpId}`,
         {
           method: "GET",
-        }
+        },
       );
       const data = await res.json();
       console.log(data);
@@ -87,7 +87,7 @@ const GroupDetail = () => {
     const testEdit = editBoard.map((teacher) =>
       teacher.role === name
         ? { ...teacher, teacherId: parseInt(value) }
-        : teacher
+        : teacher,
     );
     console.log(testEdit);
     setEditBoard(testEdit);
@@ -101,7 +101,7 @@ const GroupDetail = () => {
   console.log(editBoard);
   const hasDuplicateTeacherId = editBoard.some(
     (teacher, index, array) =>
-      array.findIndex((t) => t.teacherId === teacher.teacherId) !== index
+      array.findIndex((t) => t.teacherId === teacher.teacherId) !== index,
   );
 
   const controlOpenModalHandler = () => {
@@ -111,7 +111,7 @@ const GroupDetail = () => {
   useEffect(() => {
     const hasDuplicateTeacherId = editBoard.some(
       (teacher, index, array) =>
-        array.findIndex((t) => t.teacherId === teacher.teacherId) !== index
+        array.findIndex((t) => t.teacherId === teacher.teacherId) !== index,
     );
 
     if (hasDuplicateTeacherId) {
@@ -125,19 +125,15 @@ const GroupDetail = () => {
   const updateBoardSubmitHandler = async () => {
     const res = await fetch("http://localhost:8080/boards/updateBoard", {
       method: "PUT",
-      body: JSON.stringify({updatedBoard:editBoard,grpId:grpId}),
+      body: JSON.stringify({ updatedBoard: editBoard, grpId: grpId }),
       headers: { "Content-Type": "application/json" },
     });
 
-  const data = await res.json()
-  console.log(data);
-    setBoards(data)
-    setIsModalOpen(false)
-
+    const data = await res.json();
+    console.log(data);
+    setBoards(data);
+    setIsModalOpen(false);
   };
-
-
-
 
   return (
     <div className="mx-10" id="grpDetailApp">
@@ -148,15 +144,15 @@ const GroupDetail = () => {
           setGrpDetail={setGrpDetail}
           grpId={grpId}
         />
-        <div className="grid grid-cols-12 gap-2 my-3">
-          <div className="w-full  col-span-8 border rounded-xl shadow-md">
+        <div className="my-3 grid grid-cols-12 gap-2">
+          <div className="col-span-8  w-full rounded-xl border shadow-md">
             <ExamRequestBox requestExam={requestExam} />
           </div>
           <div
             className={
               ctx.role === "admin"
-                ? "w-full col-span-4 border rounded-xl shadow-md hover:bg-gray-200 hover:cursor-pointer"
-                : "w-full col-span-4 border rounded-xl shadow-md "
+                ? "col-span-4 w-full rounded-xl border shadow-md hover:cursor-pointer hover:bg-gray-200"
+                : "col-span-4 w-full rounded-xl border shadow-md "
             }
             onClick={() => controlOpenModalHandler()}
           >
@@ -165,7 +161,7 @@ const GroupDetail = () => {
                 {<BoardList boards={boards} />}
               </div>
             ) : (
-              <div className="flex justify-center items-center h-full">
+              <div className="flex h-full items-center justify-center">
                 รอผู้ดูแลระบบสุ่ม
               </div>
             )}
@@ -179,12 +175,12 @@ const GroupDetail = () => {
         contentLabel="Example Modal"
       >
         <div>
-          <div className="text-center text-2xl py-3">
+          <div className="py-3 text-center text-2xl">
             แก้ไขรายชื่อกรรมการสอบ
           </div>
           {boards.map((item, idx) => (
             <Fragment key={item.id}>
-              <div className="flex justify-between py-5 border-b">
+              <div className="flex justify-between border-b py-5">
                 <div className="px-5">{findRole(item.role)}</div>
                 <div className="px-5">
                   <select
@@ -204,13 +200,13 @@ const GroupDetail = () => {
             </Fragment>
           ))}
           {hasDuplicateTeacherId && (
-            <div className="text-center text-red-500 font-bold py-3">
+            <div className="py-3 text-center font-bold text-red-500">
               **กรุณาเลือกกรรมการสอบที่ไม่ซ้ำกัน**
             </div>
           )}
-          <div className="text-center mt-5">
+          <div className="mt-5 text-center">
             <button
-              className="px-3 py-2 rounded-md bg-green-400 text-white hover:bg-green-600 disabled:cursor-not-allowed disabled:bg-gray-400 disabled:opacity-50"
+              className="rounded-md bg-green-400 px-3 py-2 text-white disabled:cursor-not-allowed disabled:bg-gray-400 disabled:opacity-50 hover:bg-green-600"
               disabled={isDupeBoard}
               onClick={updateBoardSubmitHandler}
             >

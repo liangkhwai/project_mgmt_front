@@ -294,7 +294,15 @@ const NewThesis = () => {
                   {new Date(thesis.years).getFullYear(500) + 543}
                 </div>
                 <div className="text-center self-center">
-                  <button className="px-4 py-2 rounded-xl bg-green-500 text-white" onClick={()=> window.open(`http://localhost:8080/files/thesis/${thesis.filename}`,'_blank')}> 
+                  <button
+                    className="px-4 py-2 rounded-xl bg-green-500 text-white"
+                    onClick={() =>
+                      window.open(
+                        `http://localhost:8080/files/thesis/${thesis.filename}`,
+                        "_blank"
+                      )
+                    }
+                  >
                     <BsDownload />
                   </button>
                 </div>

@@ -38,6 +38,7 @@ import ExamResult from "./pages/Dashboard/Admin/Result/ExamResult";
 import LineNotify from "./pages/Line/LineNotify";
 import Theses from "./pages/Dashboard/Researcher/Theses/Theses";
 import NewThesis from "./pages/Landing/NewThesis";
+import Random from "./pages/Dashboard/Teacher/Group/RandomGroup/ManualRandom/Random";
 dayjs.extend(customParseFormat);
 dayjs.extend(localizedFormat);
 dayjs.locale(th);
@@ -113,7 +114,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/random",
-        element: <RandomGroup />,
+        element: <Random/>,
       },
       {
         path: "/dashboard/group/:grpId",
