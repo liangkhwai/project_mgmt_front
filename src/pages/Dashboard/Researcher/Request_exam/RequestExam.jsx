@@ -9,6 +9,7 @@ const RequestExam = () => {
   const [lastEvent, setLastEvent] = useState(null);
   const [isBooked, setIsBooked] = useState();
   const [isResult, setIsResult] = useState();
+  const [isRandomBoard, setIsRandomBoard] = useState(false);
   useEffect(() => {
     const getGroup = async () => {
       const response = await fetch("http://localhost:8080/group/getGroup", {
@@ -26,12 +27,12 @@ const RequestExam = () => {
     const getLastRequest = async () => {
       const checkEvent = await fetch(
         `http://localhost:8080/requestExam/getLastRequest/${localStorage.getItem(
-          "grpId"
+          "grpId",
         )}`,
         {
           method: "get",
           credentials: "include",
-        }
+        },
       );
 
       const data = await checkEvent.json();
@@ -42,7 +43,7 @@ const RequestExam = () => {
         {
           method: "get",
           credentials: "include",
-        }
+        },
       );
 
       const resultChecked = await checkBooked.json();
@@ -54,16 +55,46 @@ const RequestExam = () => {
         {
           method: "get",
           credentials: "include",
-        }
+        },
       );
 
       const resultedChecked = await checkResulted.json();
       console.log(resultedChecked);
       setIsResult(resultedChecked);
     };
+
+    const checkBoardList = async () => {
+      const response = await fetch(
+        `http://localhost:8080/boards/get/${localStorage.getItem("grpId")}`,
+        {
+          method: "get",
+          credentials: "include",
+        },
+      );
+
+      const data = await response.json();
+      console.log(data);
+      if (data.length <= 0 || data.length === null) {
+        setIsRandomBoard(false);
+      } else {
+        setIsRandomBoard(true);
+      }
+    };
+    checkBoardList();
     getLastRequest();
     getGroup();
   }, []);
+
+  if (!isRandomBoard) {
+    return (
+      <div className="mx-10">
+        <Title>ใบแจ้งนัดหมายการสอบ</Title>
+        <Body>
+          <div>กรุณาสร้างกรรมการสอบก่อน</div>
+        </Body>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-10">
