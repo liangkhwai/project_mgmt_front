@@ -87,10 +87,19 @@ const EditRshRow = ({
           onChange={(e) => editFormHandler(e)}
         />
       </td>
+      <td>
+        <input
+          type="checkbox"
+          name="isLate"
+          id=""
+          checked={rsh.isLate}
+          onChange={(e) => editFormHandler(e)}
+        />
+      </td>
       <td colSpan={4}>
         <div className="flex justify-evenly">
           <button
-            className="px-3 py-2 rounded bg-yellow-400 text-white"
+            className="rounded bg-yellow-400 px-3 py-2 text-white"
             onClick={() => editFormSubmitHandler()}
           >
             บันทึก
@@ -98,7 +107,7 @@ const EditRshRow = ({
           {/* </td>
       <td> */}
           <button
-            className="px-3 py-2 rounded bg-red-500 text-white "
+            className="rounded bg-red-500 px-3 py-2 text-white "
             onClick={() => cancelEditFormHandler()}
           >
             ยกเลิก

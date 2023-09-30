@@ -7,14 +7,14 @@ const ResearcherList = ({
   deleteHandler,
   setRshList,
   idx,
-  startIndex
+  startIndex,
 }) => {
   // console.log(rsh);
   const check = false;
 
   const editGradeProjectHandler = async (rsh) => {
     const gradeProjectValue = prompt(
-      "การแก้ไขเกรดโปรเจคนี้สามารถแก้ได้ครั้งเดียว"
+      "การแก้ไขเกรดโปรเจคนี้สามารถแก้ได้ครั้งเดียว",
     );
 
     if (gradeProjectValue === null || gradeProjectValue === undefined) {
@@ -45,24 +45,24 @@ const ResearcherList = ({
   console.log(rsh);
   return (
     <tr className="text-center ">
-      <td className="py-1 border-2 border-gray-300">{startIndex+idx+1}</td>
+      <td className="border-2 border-gray-300 py-1">{startIndex + idx + 1}</td>
 
-      <td className="py-1 border-2 border-gray-300">{rsh.student_id}</td>
-      <td className="py-1 border-2 border-gray-300">{rsh.firstname}</td>
-      <td className="py-1 border-2 border-gray-300">{rsh.lastname}</td>
-      <td className="py-1 border-2 border-gray-300">
+      <td className="border-2 border-gray-300 py-1">{rsh.student_id}</td>
+      <td className="border-2 border-gray-300 py-1">{rsh.firstname}</td>
+      <td className="border-2 border-gray-300 py-1">{rsh.lastname}</td>
+      <td className="border-2 border-gray-300 py-1">
         {rsh.categorie_room.room}
       </td>
       {/* <td className="py-1 border-2 border-gray-300">{rsh.email}</td> */}
-      <td className="py-1 border-2 border-gray-300">{rsh.tel}</td>
-      <td className="py-1 border-2 border-gray-300">{rsh.grade}</td>
+      <td className="border-2 border-gray-300 py-1">{rsh.tel}</td>
+      <td className="border-2 border-gray-300 py-1">{rsh.grade}</td>
       {/* <td className="py-1 border-2 border-gray-300">{rsh.group.id}</td> */}
-      <td className="py-1 border-2 border-gray-300">
+      <td className="border-2 border-gray-300 py-1">
         {rsh.group ? rsh.group.status : "ยังไม่ยื่นสอบหัวข้อ"}
       </td>
 
       <td
-        className="py-1 border-2 border-gray-300 bg-yellow-300 hover:bg-red-400 cursor-pointer"
+        className="cursor-pointer border-2 border-gray-300 bg-yellow-300 py-1 hover:bg-red-400"
         onClick={() => {
           rsh.isEditGradeProject
             ? notEdtAgainHandler()
@@ -71,8 +71,11 @@ const ResearcherList = ({
       >
         {rsh.grade_project}
       </td>
+      <td className="border-2 border-gray-300 py-1">
+        <input type="checkbox" name="" id="" checked={rsh.isLate} disabled />
+      </td>
 
-      <td className="py-1 border-2 border-gray-300">
+      <td className="border-2 border-gray-300 py-1">
         <UpdateButton onClick={() => setEditRshIdHandler(rsh.id, rsh)}>
           แก้ไข
         </UpdateButton>
@@ -83,7 +86,7 @@ const ResearcherList = ({
           แก้ไข
         </button> */}
       </td>
-      <td className="py-1 border-2 border-gray-300">
+      <td className="border-2 border-gray-300 py-1">
         <DeleteButton onClick={() => deleteHandler(rsh.id)}>ลบ</DeleteButton>
         {/* <button
           className="px-3 py-2 rounded bg-red-500 text-black"

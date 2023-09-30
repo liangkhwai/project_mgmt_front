@@ -58,7 +58,7 @@ const TableResearcher = ({
     const newOffSet = (event.selected * ItemPerPage) % rshList.length;
     // const newOffSet = event.selected;
     // console.log(event.selected);
-   
+
     setItemOffSet(newOffSet);
     setNowPage(event.selected);
   };
@@ -76,28 +76,29 @@ const TableResearcher = ({
   ReactModal.setAppElement("#root");
 
   return (
-    <div className="pt-10 mx-10 ">
-      <table className="table table-responsive w-full border">
+    <div className="mx-10 pt-10 ">
+      <table className="table-responsive table w-full border">
         <thead>
           <tr>
-            <th className="py-2 border-2 border-gray-300">ลำดับ</th>
+            <th className="border-2 border-gray-300 py-2">ลำดับ</th>
 
-            <th className="py-2 border-2 border-gray-300">รหัสนักศึกษา</th>
-            <th className="py-2 border-2 border-gray-300">ชื่อ</th>
-            <th className="py-2 border-2 border-gray-300">นามสกุล</th>
-            <th className="py-2 border-2 border-gray-300">ห้อง</th>
+            <th className="border-2 border-gray-300 py-2">รหัสนักศึกษา</th>
+            <th className="border-2 border-gray-300 py-2">ชื่อ</th>
+            <th className="border-2 border-gray-300 py-2">นามสกุล</th>
+            <th className="border-2 border-gray-300 py-2">ห้อง</th>
             {/* <th className="py-2 border-2 border-gray-300">อีเมลล์</th> */}
-            <th className="py-2 border-2 border-gray-300">เบอร์โทร</th>
-            <th className="py-2 border-2 border-gray-300">เกรดเฉลี่ย</th>
+            <th className="border-2 border-gray-300 py-2">เบอร์โทร</th>
+            <th className="border-2 border-gray-300 py-2">เกรดเฉลี่ย</th>
 
-            <th className="py-2 border-2 border-gray-300">สถานะโปรเจค</th>
-            <th className="py-2 border-2 border-gray-300">
+            <th className="border-2 border-gray-300 py-2">สถานะโปรเจค</th>
+            <th className="border-2 border-gray-300 py-2">
               เกรด
               <br />
               โปรเจค
             </th>
-            <th className="py-2 border-2 border-gray-300">แก้ไข</th>
-            <th className="py-2 border-2 border-gray-300">ลบ</th>
+            <th className="border-2 border-gray-300 py-2">ติด I</th>
+            <th className="border-2 border-gray-300 py-2">แก้ไข</th>
+            <th className="border-2 border-gray-300 py-2">ลบ</th>
           </tr>
         </thead>
         <tbody>
@@ -172,15 +173,15 @@ const TableResearcher = ({
           selectorHandler={selectorHandler}
         />
       </ReactModal>
-      <div className="flex justify-end my-5 ">
+      <div className="my-5 flex justify-end ">
         <button
-          className="px-3 py-2 mx-5  bg-green-600 rounded-lg text-white shadow-lg hover:bg-green-500"
+          className="mx-5 rounded-lg bg-green-600  px-3 py-2 text-white shadow-lg hover:bg-green-500"
           onClick={() => fileInputHandler()}
         >
           นำเข้าข้อมูล (Excel)
         </button>
         <button
-          className="px-3 py-2   bg-green-600 rounded-lg text-white shadow-lg hover:bg-green-500"
+          className="rounded-lg bg-green-600   px-3 py-2 text-white shadow-lg hover:bg-green-500"
           onClick={() => isInsertHandler()}
         >
           เพิ่มนักวิจัย
@@ -189,7 +190,7 @@ const TableResearcher = ({
       <div className="">
         <div>{`Showing ${startIndex + 1} - ${Math.min(
           endIndex,
-          rshList.length
+          rshList.length,
         )} of ${rshList.length} results`}</div>
         <ReactPaginate
           forcePage={nowPage}

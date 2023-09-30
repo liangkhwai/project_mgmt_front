@@ -12,7 +12,7 @@ const Researcher = () => {
   const loaderData = useLoaderData();
   const [isInsert, setIsInsert] = useState(false);
   const [loadedResearcher, setLoadedResearcher] = useState(
-    loaderData.dataResearcherList
+    loaderData.dataResearcherList,
   );
   const [rshList, setRshList] = useState(loadedResearcher);
   const [roomData, setRoomData] = useState(loaderData.dataRoomList);
@@ -25,6 +25,7 @@ const Researcher = () => {
     email: "",
     tel: "",
     grade: "",
+    isLate: "",
   });
 
   const editSelectedRoom = (e) => {
@@ -69,6 +70,7 @@ const Researcher = () => {
       email: rsh.email,
       tel: rsh.tel,
       grade: rsh.grade,
+      isLate: rsh.isLate,
     };
     setEditFormData(editValues);
   };
@@ -85,6 +87,15 @@ const Researcher = () => {
     const name = e.target.name;
     const val = e.target.value;
     console.log(val);
+    if (name === "isLate") {
+      console.log(e);
+      setEditFormData((prev) => ({
+        ...prev,
+        [name]: e.target.checked === true ? true : false,
+      }));
+      return;
+    }
+
     setEditFormData((prev) => ({ ...prev, [name]: val }));
   };
   const insertFormSubmitHandler = async () => {
@@ -117,14 +128,14 @@ const Researcher = () => {
             body: JSON.stringify(insertData),
             headers: { "Content-Type": "application/json" },
             credentials: "include",
-          }
+          },
         )
           .then((response) => {
             if (response.status !== 201) {
               Swal.fire(
                 "ไม่สำเร็จ",
                 "มีข้อมูลผู้ใช้นี้อยู่ในระบบแล้ว",
-                "error"
+                "error",
               );
               throw new Error("User already exits");
             } else {
@@ -168,6 +179,7 @@ const Researcher = () => {
           email: editFormData.email,
           tel: editFormData.tel,
           grade: editFormData.grade,
+          isLate: editFormData.isLate,
         };
 
         const response = await fetch(
@@ -177,7 +189,7 @@ const Researcher = () => {
             body: JSON.stringify(editData),
             headers: { "Content-Type": "application/json" },
             credentials: "include",
-          }
+          },
         )
           .then((response) => {
             return response.json();
@@ -193,7 +205,7 @@ const Researcher = () => {
 
             const index = rshTemp.findIndex((rsh) => rsh.id === editRshId);
             const indexLoaded = loadedResearcherTmpp.findIndex(
-              (rsh) => rsh.id === editRshId
+              (rsh) => rsh.id === editRshId,
             );
 
             rshTemp[index] = data;
@@ -243,14 +255,14 @@ const Researcher = () => {
               "Content-Type": "application/json",
             },
             credentials: "include",
-          }
+          },
         )
           .then((data) => {
             if (data.status === 500) {
               Swal.fire(
                 "ไม่สำเร็จ!",
                 "ไม่สามารถลบได้เนื่องจากผู้วิจัยอยู่ในกลุ่ม",
-                "error"
+                "error",
               );
               // window.alert("ไม่สามารถลบได้เนื่องผู้วิจัยอยู่ในกลุ่ม");
               throw new Error("ไม่สามารถลบได้");
@@ -298,65 +310,59 @@ const Researcher = () => {
   };
 
   const fileSubmitHandler = async (e) => {
-
     Swal.fire({
-      title: 'เพิ่มข้อมูล?',
+      title: "เพิ่มข้อมูล?",
       text: "คุณต้องการเพิ่มข้อมูลด้วยไฟล์ Excel หรือไม่!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'เพิ่ม!',
-      cancelButtonText: 'ยกเลิก',
-
-    }).then(async(result) => {
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "เพิ่ม!",
+      cancelButtonText: "ยกเลิก",
+    }).then(async (result) => {
       if (result.isConfirmed) {
         console.log(e);
-    e.preventDefault();
-    const formData = new FormData();
-    console.log(file);
-    formData.append("file", file);
-    formData.append("selector", roomSelector);
-    console.log(Object.fromEntries(formData));
-    const response = await fetch(
-      "http://localhost:8080/researcher/insertXlsx",
-      {
-        method: "post",
-        body: formData,
-        // { formData: formData, roomSelector: roomSelector },
-        headers: {
-          // "Content-Type":
-          //   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        },
-        credentials: "include",
-      }
-    )
-      .then((res) => {
-        const data = res.json();
-        // setFile(null);
-        return data;
-      })
-      .then((data) => {
-        console.log(data);
-        fileRef.current.value = null;
-
-        setModalOpen(false);
-        setRshList((prev) => [...prev, ...data.data]);
-        setLoadedResearcher((prev) => [...prev, ...data.data]);
-        
-        Swal.fire(
-          'เพิ่มข้อมูลสำเร็จ!',
-          'ข้อมูลของนักวิจัยได้ถูกเพิ่มเรียบร้อย',
-          'success'
+        e.preventDefault();
+        const formData = new FormData();
+        console.log(file);
+        formData.append("file", file);
+        formData.append("selector", roomSelector);
+        console.log(Object.fromEntries(formData));
+        const response = await fetch(
+          "http://localhost:8080/researcher/insertXlsx",
+          {
+            method: "post",
+            body: formData,
+            // { formData: formData, roomSelector: roomSelector },
+            headers: {
+              // "Content-Type":
+              //   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            },
+            credentials: "include",
+          },
         )
-        // console.table(data.data);
-      });
+          .then((res) => {
+            const data = res.json();
+            // setFile(null);
+            return data;
+          })
+          .then((data) => {
+            console.log(data);
+            fileRef.current.value = null;
+
+            setModalOpen(false);
+            setRshList((prev) => [...prev, ...data.data]);
+            setLoadedResearcher((prev) => [...prev, ...data.data]);
+
+            Swal.fire(
+              "เพิ่มข้อมูลสำเร็จ!",
+              "ข้อมูลของนักวิจัยได้ถูกเพิ่มเรียบร้อย",
+              "success",
+            );
+            // console.table(data.data);
+          });
       }
-    })
-
-
-
-    
+    });
   };
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -390,14 +396,14 @@ const Researcher = () => {
     const type = filterVal;
     const categorie = [...roomData];
     const filteredRoom = categorie.filter(
-      (categorie) => categorie.type === type
+      (categorie) => categorie.type === type,
     );
 
     // setCategories(type === "all" ? loaderData.dataRoomList : filteredRoom);
     setCategories(type === "all" ? categorie : filteredRoom);
 
     const filteredRshList = researcherList.filter(
-      (rsh) => rsh.categorie_room.type === filterVal
+      (rsh) => rsh.categorie_room.type === filterVal,
     );
     console.log("filted " + filteredRshList);
     setRshList(filterVal === "all" ? researcherList : filteredRshList);
@@ -421,21 +427,21 @@ const Researcher = () => {
     // console.log(rshList);
 
     const filteredRoomScope = researcherList.filter(
-      (researcherList) => researcherList.categorieRoomId === Number(room)
+      (researcherList) => researcherList.categorieRoomId === Number(room),
     );
 
     const filteredAllListTypeScope = researcherList.filter(
-      (rsh) => rsh.categorie_room.type === typeFilter
+      (rsh) => rsh.categorie_room.type === typeFilter,
     );
 
     // const insertFilteredRoom= roomData.filter((room,idx) =>  )
 
     const insertFilteredRoomType = roomDataTmp.filter(
-      (room, idx) => room.type === typeFilter
+      (room, idx) => room.type === typeFilter,
     );
     console.log(roomDataTmp);
     const insertFilteredRoomScope = roomDataTmp.filter(
-      (room, idx) => Number(room.id) === parseRoom
+      (room, idx) => Number(room.id) === parseRoom,
     );
 
     console.log(typeof parseRoom);
@@ -449,7 +455,7 @@ const Researcher = () => {
         ? typeFilter === "all"
           ? researcherList
           : filteredAllListTypeScope
-        : filteredRoomScope
+        : filteredRoomScope,
     );
 
     // ยังไม่เสร็จ
@@ -459,7 +465,7 @@ const Researcher = () => {
         ? typeFilter === "all"
           ? roomDataTmp
           : insertFilteredRoomType
-        : insertFilteredRoomScope
+        : insertFilteredRoomScope,
     );
 
     setRoomSelector(room);
@@ -481,7 +487,7 @@ const Researcher = () => {
 
   return (
     <div className="mx-10">
-      <h1 className="text-3xl my-10">ผู้วิจัย</h1>
+      <h1 className="my-10 text-3xl">ผู้วิจัย</h1>
 
       <HeaderResearcher
         rshList={rshList}
@@ -501,7 +507,7 @@ const Researcher = () => {
 
       <div className="pb-20"></div>
 
-      <div className="bg-white rounded-md ">
+      <div className="rounded-md bg-white ">
         {menu === "filter" && (
           <TableResearcher
             nowPage={nowPage}
