@@ -96,6 +96,15 @@ const EditRshRow = ({
           onChange={(e) => editFormHandler(e)}
         />
       </td>
+      <td>
+        <input
+          type="checkbox"
+          name="waitRegister"
+          id=""
+          checked={rsh.waitRegister}
+          onChange={(e) => editFormHandler(e)}
+        />
+      </td>
       <td colSpan={4}>
         <div className="flex justify-evenly">
           <button

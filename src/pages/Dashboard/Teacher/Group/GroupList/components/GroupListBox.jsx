@@ -19,7 +19,7 @@ const GroupListBox = () => {
       });
       if (response.status === 500) {
         throw new Error(
-          "Failed to delete the group. It is referenced by other records."
+          "Failed to delete the group. It is referenced by other records.",
         );
       }
       return await response.json();
@@ -31,8 +31,8 @@ const GroupListBox = () => {
     onError: (data) => {
       Swal.fire(
         "Error",
-        "ไม่สามารถลบได้ เรื่องจากมีผู้วิจัยอยู่ในกลุ่ม",
-        "error"
+        "ไม่สามารถลบได้ เนื่องจากกลุ่มนี้มีการดำเนินการแล้ว",
+        "error",
       );
     },
   });
@@ -46,7 +46,7 @@ const GroupListBox = () => {
 
       const data = await response.json();
       return data;
-    }
+    },
   );
 
   useEffect(() => {
@@ -79,9 +79,9 @@ const GroupListBox = () => {
   };
   return (
     <div>
-      <table className="table w-full my-5">
+      <table className="my-5 table w-full">
         <thead>
-          <tr className="text-md text-center  bg-gray-50 border rounded-3xl">
+          <tr className="text-md rounded-3xl  border bg-gray-50 text-center">
             <td>ลำดับ</td>
             <td className="py-3  font-semibold ">ชื่อหัวข้อ</td>
             <td className="">ความคืบหน้า</td>
@@ -99,7 +99,7 @@ const GroupListBox = () => {
           {group.map((item, idx) => {
             return (
               <tr
-                className="hover:bg-blue-50 border-b-2 border-b-gray-300"
+                className="border-b-2 border-b-gray-300 hover:bg-blue-50"
                 key={item.id}
               >
                 <td className="">{idx + 1}</td>
@@ -116,14 +116,14 @@ const GroupListBox = () => {
                     <td className="py-2.5 text-center ">
                       <button
                         onClick={() => clickDetailHandler(item.id)}
-                        className="px-2 py-1  bg-green-600 hover:bg-green-500 rounded-lg text-white shadow-lg"
+                        className="rounded-lg bg-green-600  px-2 py-1 text-white shadow-lg hover:bg-green-500"
                       >
                         รายละเอียด
                       </button>
                     </td>
                     <td className="py-2.5 text-center">
                       <button
-                        className="px-8 py-1  bg-red-600 hover:bg-red-500 rounded-lg text-white shadow-lg"
+                        className="rounded-lg bg-red-600  px-8 py-1 text-white shadow-lg hover:bg-red-500"
                         onClick={() => deleteGroupHandler(item.id)}
                       >
                         ลบ
@@ -134,7 +134,7 @@ const GroupListBox = () => {
                   <td>
                     <button
                       onClick={() => clickDetailHandler(item.id)}
-                      className="px-2 py-1   bg-green-600 hover:bg-green-500 rounded-lg text-white shadow-lg"
+                      className="rounded-lg bg-green-600   px-2 py-1 text-white shadow-lg hover:bg-green-500"
                     >
                       รายละเอียด
                     </button>

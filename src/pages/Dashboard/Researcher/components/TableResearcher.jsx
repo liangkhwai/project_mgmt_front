@@ -97,6 +97,7 @@ const TableResearcher = ({
               โปรเจค
             </th>
             <th className="border-2 border-gray-300 py-2">ติด I</th>
+            <th className="border-2 border-gray-300 py-2">รอลงทะเบียน</th>
             <th className="border-2 border-gray-300 py-2">แก้ไข</th>
             <th className="border-2 border-gray-300 py-2">ลบ</th>
           </tr>

@@ -71,6 +71,7 @@ const Researcher = () => {
       tel: rsh.tel,
       grade: rsh.grade,
       isLate: rsh.isLate,
+      waitRegister:rsh.waitRegister
     };
     setEditFormData(editValues);
   };
@@ -87,7 +88,7 @@ const Researcher = () => {
     const name = e.target.name;
     const val = e.target.value;
     console.log(val);
-    if (name === "isLate") {
+    if (name === "isLate" || name === "waitRegister") {
       console.log(e);
       setEditFormData((prev) => ({
         ...prev,
@@ -180,6 +181,7 @@ const Researcher = () => {
           tel: editFormData.tel,
           grade: editFormData.grade,
           isLate: editFormData.isLate,
+          waitRegister:editFormData.waitRegister
         };
 
         const response = await fetch(

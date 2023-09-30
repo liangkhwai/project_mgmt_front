@@ -74,7 +74,15 @@ const ResearcherList = ({
       <td className="border-2 border-gray-300 py-1">
         <input type="checkbox" name="" id="" checked={rsh.isLate} disabled />
       </td>
-
+      <td className="border-2 border-gray-300 py-1">
+        <input
+          type="checkbox"
+          name=""
+          id=""
+          checked={rsh.waitRegister}
+          disabled
+        />
+      </td>
       <td className="border-2 border-gray-300 py-1">
         <UpdateButton onClick={() => setEditRshIdHandler(rsh.id, rsh)}>
           แก้ไข
