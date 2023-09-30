@@ -14,6 +14,7 @@ const TeacherTable = ({ data, setData }) => {
     email: "",
     color_calendar: "",
     line_id: "",
+    isAdmin:""
   });
 
   const [insertFormData, setInsertFormData] = useState({
@@ -92,6 +93,7 @@ const TeacherTable = ({ data, setData }) => {
           tel: editFormData.tel,
           color_calendar: editFormData.color_calendar,
           line_id: editFormData.line_id,
+          isAdmin: editFormData.isAdmin,
         };
     
         const response = await fetch("http://localhost:8080/teachers/update", {
@@ -197,6 +199,9 @@ const TeacherTable = ({ data, setData }) => {
             </td>
             <td className="border-2 py-1 font-semibold border-gray-300">
               สีในปฏิทิน
+            </td>
+            <td className="border-2 py-1 font-semibold border-gray-300">
+              ผู้ดูแล
             </td>
             <td className="border-2 py-1  font-semibold border-gray-300">
               แก้ไข

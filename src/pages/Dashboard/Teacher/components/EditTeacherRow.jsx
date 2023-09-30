@@ -9,7 +9,12 @@ const EditTeacherRow = ({
   const editFormDataChangeHandler = (e) => {
     const name = e.target.name;
     const val = e.target.value;
-    setEditFormData((prev) => ({ ...prev, [name]: val }));
+    if (name === "isAdmin") {
+      setEditFormData((prev) => ({ ...prev, [name]: e.target.checked }));
+      return;
+    } else {
+      setEditFormData((prev) => ({ ...prev, [name]: val }));
+    }
   };
 
   const cancelEditIdHandler = () => {
@@ -84,6 +89,15 @@ const EditTeacherRow = ({
           name="color_calendar"
           value={dataEdit.color_calendar}
           id=""
+          onChange={(e) => editFormDataChangeHandler(e)}
+        />
+      </td>
+      <td>
+        <input
+          type="checkbox"
+          name="isAdmin"
+          id=""
+          checked={dataEdit.isAdmin}
           onChange={(e) => editFormDataChangeHandler(e)}
         />
       </td>

@@ -34,6 +34,9 @@ const TeacherRow = ({
         />
       </td>
       <td className="border-2 py-1 border-gray-300">
+        <input type="checkbox" name="" id="" checked={data.isAdmin} disabled />
+      </td>
+      <td className="border-2 py-1 border-gray-300">
         <UpdateButton onClick={() => editTchIdHandler(data.id, data)}>
           แก้ไข
         </UpdateButton>
