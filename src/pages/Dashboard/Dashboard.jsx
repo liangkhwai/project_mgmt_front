@@ -6,6 +6,8 @@ import { GiBookmarklet } from "react-icons/gi";
 import TopChart from "./components/TopChart";
 import TeacherInfo from "./components/TeacherInfo";
 import GroupProject from "./components/GroupProject";
+import ResearcherWithIncomplete from "./components/ResearcherWithIncomplete";
+import ResearcherWithNotRegister from "./components/ResearcherWithNotRegister";
 const Dashboard = () => {
   const [dashboard, setDashboard] = React.useState([]);
   const [max, setMax] = React.useState(0);
@@ -29,47 +31,47 @@ const Dashboard = () => {
         className="h-52 "
         style={{ background: "linear-gradient(#3B74AF 60%, white 40%)" }}
       >
-        <div className="p-5 text-white text-xl">รายงานทั่วไปของวิชาโปรเจค</div>
-        <div className="flex justify-around clear-both">
-          <div className="px-5 py-2 h-32 bg-white rounded-xl text-center border flex flex-col justify-around">
+        <div className="p-5 text-xl text-white">รายงานทั่วไปของวิชาโปรเจค</div>
+        <div className="clear-both flex justify-around">
+          <div className="flex h-32 flex-col justify-around rounded-xl border bg-white px-5 py-2 text-center">
             <div className="flex justify-center">
               <HiUserGroup size={30} />
             </div>
-            <div className="font-medium text-2xl">{dashboard.countGroup}</div>
+            <div className="text-2xl font-medium">{dashboard.countGroup}</div>
             <div className="text-center">จำนวนกลุ่มโปรเจคทั้งหมด</div>
           </div>
-          <div className="px-5 py-2 h-32 bg-white rounded-xl text-center  border flex flex-col justify-around">
+          <div className="flex h-32 flex-col justify-around rounded-xl border  bg-white px-5 py-2 text-center">
             <div className="flex justify-center">
               <MdEmojiPeople size={30} />
             </div>
-            <div className="font-medium text-2xl">
+            <div className="text-2xl font-medium">
               {dashboard.countResearcher}
             </div>
             <div className="text-center">จำนวนนักศึกษาที่กำลังศึกษาอยู่</div>
           </div>
-          <div className="px-5 py-2 h-32 bg-white rounded-xl text-center  border flex flex-col justify-around">
+          <div className="flex h-32 flex-col justify-around rounded-xl border  bg-white px-5 py-2 text-center">
             <div className="flex justify-center">
               <Student size={32} weight="fill" />
             </div>
-            <div className="font-medium text-2xl">
+            <div className="text-2xl font-medium">
               {dashboard.countResearcherWithStatusInGroup}
             </div>
             <div className="text-center">
               จำนวนนักศึกษาที่สำเร็จปริญญานิพนธ์
             </div>
           </div>
-          <div className="px-5 py-2 h-32 bg-white rounded-xl text-center  border flex flex-col justify-around">
+          <div className="flex h-32 flex-col justify-around rounded-xl border  bg-white px-5 py-2 text-center">
             <div className="flex justify-center">
               <GiBookmarklet size={30} />
             </div>
-            <div className="font-medium text-2xl">{dashboard.countThesis}</div>
+            <div className="text-2xl font-medium">{dashboard.countThesis}</div>
             <div className="text-center">จำนวนวิทยานิพนธ์</div>
           </div>
-          <div className="px-5 py-2 h-32 bg-white rounded-xl text-center  border flex flex-col justify-around">
+          <div className="flex h-32 flex-col justify-around rounded-xl border  bg-white px-5 py-2 text-center">
             <div className="flex justify-center">
               <FilePdf size={32} weight="fill" />{" "}
             </div>
-            <div className="font-medium text-2xl">{dashboard.countFiles}</div>
+            <div className="text-2xl font-medium">{dashboard.countFiles}</div>
             <div className="text-center">แบบฟอร์มเอกสาร</div>
           </div>
         </div>
@@ -92,6 +94,15 @@ const Dashboard = () => {
             setItemOffSet={setItemOffSet}
             setNowPage={setNowPage}
           />
+        </div>
+        <div className="my-5"></div>
+        <div className="grid grid-cols-2 gap-5 h-full pb-5">
+          <div>
+            <ResearcherWithIncomplete dashboard={dashboard} />
+          </div>
+          <div>
+            <ResearcherWithNotRegister dashboard={dashboard} />
+          </div>
         </div>
       </div>
     </div>
