@@ -17,7 +17,7 @@ const TitleGroup = () => {
       });
       const data = await res.json();
       return data;
-    }
+    },
   );
 
   useEffect(() => {
@@ -48,28 +48,32 @@ const TitleGroup = () => {
 
   return (
     <Fragment>
-      <div className="flex items-center mb-3">
+      <div className="mb-3 flex items-center">
         <div className="w-20">ชื่อหัวข้อ</div>
         {isInsert ? (
           <Fragment>
-            <div className="w-full mr-3">
+            <div className="mr-3 w-full">
               <input
                 ref={inputRef}
                 type="text"
                 className="w-full rounded-md border-black"
                 placeholder="ใส่ชื่อหัวข้อ"
-                // value={title}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               />
             </div>
             <button
-              className="px-3 py-2 hover:bg-green-200 rounded-sm transition"
-              onClick={() => updateTitleSubmitHandler()}
+              className="rounded-sm px-3 py-2 transition hover:bg-green-200"
+              onClick={() => {
+                updateTitleSubmitHandler();
+                
+              }}
             >
               <FiCheck color="green" size="25px" />
             </button>
             <button
-              className="px-3 py-2 hover:bg-green-200 rounded-sm transition"
-              onClick={() => setIsInsert(!isInsert)}
+              className="rounded-sm px-3 py-2 transition hover:bg-green-200"
+              onClick={() => {setIsInsert(!isInsert); setTitle(group.title);}}
             >
               <FiX color="red" size="25px" />
             </button>
@@ -88,7 +92,7 @@ const TitleGroup = () => {
               </Fragment>
             ) : (
               <Fragment>
-                <div className="w-full mr-3">
+                <div className="mr-3 w-full">
                   <input
                     ref={inputRef}
                     type="text"
@@ -98,7 +102,7 @@ const TitleGroup = () => {
                   />
                 </div>
                 <button
-                  className="px-3 py-2 hover:bg-green-200 rounded-sm transition"
+                  className="rounded-sm px-3 py-2 transition hover:bg-green-200"
                   onClick={() => updateTitleSubmitHandler()}
                 >
                   <FiCheck color="green" size="25px" />
