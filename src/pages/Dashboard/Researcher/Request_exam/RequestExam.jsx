@@ -103,28 +103,32 @@ const RequestExam = () => {
         {groupInfo ? (
           groupInfo &&
           groupInfo.leaderId === parseInt(localStorage.getItem("id")) ? (
-            <>
-              {lastEvent ? (
-                lastEvent.isApprove === 0 ? (
-                  <FormRequestExam groupInfo={groupInfo} />
-                ) : !isBooked?.isResult === null &&
-                  lastEvent.isApprove === 1 ? (
-                  <FormRequestExam groupInfo={groupInfo} />
-                ) : isBooked?.isResult && lastEvent.isApprove === 1 ? (
-                  <FormRequestExam groupInfo={groupInfo} />
-                ) : isBooked?.isResult &&
-                  lastEvent.isApprove === 1 &&
-                  isResult?.isResult === 0 ? (
-                  <FormRequestExam groupInfo={groupInfo} />
+            groupInfo.title !== "" ? (
+              <>
+                {lastEvent ? (
+                  lastEvent.isApprove === 0 ? (
+                    <FormRequestExam groupInfo={groupInfo} />
+                  ) : !isBooked?.isResult === null &&
+                    lastEvent.isApprove === 1 ? (
+                    <FormRequestExam groupInfo={groupInfo} />
+                  ) : isBooked?.isResult && lastEvent.isApprove === 1 ? (
+                    <FormRequestExam groupInfo={groupInfo} />
+                  ) : isBooked?.isResult &&
+                    lastEvent.isApprove === 1 &&
+                    isResult?.isResult === 0 ? (
+                    <FormRequestExam groupInfo={groupInfo} />
+                  ) : (
+                    <div>รอผลการสอบ</div>
+                  )
                 ) : (
-                  <div>รอผลการสอบ</div>
-                )
-              ) : (
-                <>
-                  <FormRequestExam groupInfo={groupInfo} />
-                </>
-              )}
-            </>
+                  <>
+                    <FormRequestExam groupInfo={groupInfo} />
+                  </>
+                )}
+              </>
+            ) : (
+              <div>กรุณาสร้างหัวข้อกลุ่ม</div>
+            )
           ) : (
             <div>ติดต่อหัวหน้ากลุ่มเพื่อทำการขอสอบ</div>
           )

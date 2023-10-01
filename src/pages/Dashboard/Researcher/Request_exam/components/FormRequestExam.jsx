@@ -4,6 +4,7 @@ import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import BoardList from "../../Group/components/BoardList";
 import dayjs from "dayjs";
+import Swal from "sweetalert2";
 const FormRequestExam = ({ groupInfo }) => {
   const navigate = useNavigate();
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -20,7 +21,7 @@ const FormRequestExam = ({ groupInfo }) => {
         `http://localhost:8080/boards/get/${groupInfo.id}`,
         {
           method: "get",
-        }
+        },
       );
       const data = await res.json();
       console.log(data);
@@ -57,29 +58,46 @@ const FormRequestExam = ({ groupInfo }) => {
           method: "post",
           body: formData,
           credentials: "include",
-        }
+        },
       );
 
       return response.json();
     },
     onSuccess: () => {
+      Swal.fire({
+        title: "ส่งขอยื่นสอบสำเร็จ",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       navigate("/dashboard/group");
     },
   });
   const submitHandler = () => {
-    const formData = new FormData();
-    formData.append("category", resultTarget);
-    formData.append("description", examRequest.des);
-    formData.append("grpId", groupInfo.id);
-    console.log(examRequest);
-    console.log(selectedFiles);
-    selectedFiles.forEach((file, index) => {
-      formData.append("files", file, file.name);
+    Swal.fire({
+      title: "ยืนยันการส่งขอยื่นสอบ",
+      text: "คุณต้องการส่งขอยื่นสอบหรือไม่",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "ยืนยัน",
+      cancelButtonText: "ยกเลิก",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const formData = new FormData();
+        formData.append("category", resultTarget);
+        formData.append("description", examRequest.des);
+        formData.append("grpId", groupInfo.id);
+        console.log(examRequest);
+        console.log(selectedFiles);
+        selectedFiles.forEach((file, index) => {
+          formData.append("files", file, file.name);
+        });
+        for (const pair of formData.entries()) {
+          console.log(`${pair[0]}, ${pair[1]}`);
+        }
+        requestExam.mutate(formData);
+      }
     });
-    for (const pair of formData.entries()) {
-      console.log(`${pair[0]}, ${pair[1]}`);
-    }
-    requestExam.mutate(formData);
   };
 
   const target = groupInfo.status;
@@ -145,11 +163,11 @@ const FormRequestExam = ({ groupInfo }) => {
         <div className="my-5">
           <div id="header" className="my-3 mb-12">
             <div className="text-end">{dayjs().format("D/MM/YYYY")}</div>
-            <h1 className="text-center text-2xl font-bold my-5">
+            <h1 className="my-5 text-center text-2xl font-bold">
               ใบแจ้งนัดหมายการสอบ
             </h1>
 
-            <h1 className="text-center text-2xl font-bold my-5">
+            <h1 className="my-5 text-center text-2xl font-bold">
               สาขาวิชาระบบสารสนเทศ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน
               วิทยาเขตขอนแก่น
             </h1>
@@ -177,7 +195,7 @@ const FormRequestExam = ({ groupInfo }) => {
             disabled
           />
         </div>
-        <div className="w-full text-center border rounded-md  border-gray-700">
+        <div className="w-full rounded-md border border-gray-700  text-center">
           <div className="flex flex-row justify-around py-5">
             {boards.map((item, idx) => (
               <div key={item.id}>
@@ -203,7 +221,7 @@ const FormRequestExam = ({ groupInfo }) => {
             name=""
             id=""
             disabled={true}
-            className="w-full rounded-md py-2 px-2"
+            className="w-full rounded-md px-2 py-2"
             value={resultTarget}
           />
         </div>
