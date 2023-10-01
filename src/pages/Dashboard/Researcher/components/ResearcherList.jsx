@@ -1,5 +1,6 @@
 import React from "react";
 import UpdateButton, { DeleteButton } from "../../../../UI/button";
+import ToggleSwitch from "./ToggleSwitch";
 
 const ResearcherList = ({
   rsh,
@@ -82,6 +83,9 @@ const ResearcherList = ({
           checked={rsh.waitRegister}
           disabled
         />
+      </td>
+      <td className="border-2 border-gray-300 py-1">
+        <ToggleSwitch rsh={rsh} isView={true} />
       </td>
       <td className="border-2 border-gray-300 py-1">
         <UpdateButton onClick={() => setEditRshIdHandler(rsh.id, rsh)}>

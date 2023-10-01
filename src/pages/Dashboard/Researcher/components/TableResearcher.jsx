@@ -5,6 +5,7 @@ import InsertResearcherRow from "./InsertResearcherRow";
 import ReactPaginate from "react-paginate";
 import FileDetail from "./FileDetail";
 import ReactModal from "react-modal";
+import ToggleSwitch from "./ToggleSwitch";
 const TableResearcher = ({
   rshList,
   editRshId,
@@ -98,6 +99,11 @@ const TableResearcher = ({
             </th>
             <th className="border-2 border-gray-300 py-2">ติด I</th>
             <th className="border-2 border-gray-300 py-2">รอลงทะเบียน</th>
+            <th className="border-2 border-gray-300 py-2">
+              สถานะ
+              <br />
+              การใช้งาน
+            </th>
             <th className="border-2 border-gray-300 py-2">แก้ไข</th>
             <th className="border-2 border-gray-300 py-2">ลบ</th>
           </tr>

@@ -26,6 +26,7 @@ const Researcher = () => {
     tel: "",
     grade: "",
     isLate: "",
+    isActive: "",
   });
 
   const editSelectedRoom = (e) => {
@@ -71,7 +72,8 @@ const Researcher = () => {
       tel: rsh.tel,
       grade: rsh.grade,
       isLate: rsh.isLate,
-      waitRegister:rsh.waitRegister
+      waitRegister: rsh.waitRegister,
+      isActive: rsh.isActive,
     };
     setEditFormData(editValues);
   };
@@ -87,8 +89,7 @@ const Researcher = () => {
   const editFormHandler = (e) => {
     const name = e.target.name;
     const val = e.target.value;
-    console.log(val);
-    if (name === "isLate" || name === "waitRegister") {
+    if (name === "isLate" || name === "waitRegister" || name === "isActive") {
       console.log(e);
       setEditFormData((prev) => ({
         ...prev,
@@ -181,7 +182,8 @@ const Researcher = () => {
           tel: editFormData.tel,
           grade: editFormData.grade,
           isLate: editFormData.isLate,
-          waitRegister:editFormData.waitRegister
+          waitRegister: editFormData.waitRegister,
+          isActive: editFormData.isActive,
         };
 
         const response = await fetch(

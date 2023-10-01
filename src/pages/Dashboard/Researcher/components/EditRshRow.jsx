@@ -1,4 +1,5 @@
 import React from "react";
+import ToggleSwitch from "./ToggleSwitch";
 
 const EditRshRow = ({
   rsh,
@@ -60,16 +61,6 @@ const EditRshRow = ({
       <td>
         <input
           className="w-full"
-          type="email"
-          name="email"
-          id=""
-          value={rsh.email}
-          onChange={(e) => editFormHandler(e)}
-        />
-      </td>
-      <td>
-        <input
-          className="w-full"
           type="tel"
           name="tel"
           id=""
@@ -77,6 +68,16 @@ const EditRshRow = ({
           onChange={(e) => editFormHandler(e)}
         />
       </td>
+      {/* <td>
+        <input
+          className="w-full"
+          type="email"
+          name="email"
+          id=""
+          value={rsh.email}
+          onChange={(e) => editFormHandler(e)}
+        />
+      </td> */}
       <td>
         <input
           className="w-full"
@@ -87,6 +88,7 @@ const EditRshRow = ({
           onChange={(e) => editFormHandler(e)}
         />
       </td>
+      <td colSpan={2}></td>
       <td>
         <input
           type="checkbox"
@@ -105,23 +107,30 @@ const EditRshRow = ({
           onChange={(e) => editFormHandler(e)}
         />
       </td>
-      <td colSpan={4}>
-        <div className="flex justify-evenly">
-          <button
-            className="rounded bg-yellow-400 px-3 py-2 text-white"
-            onClick={() => editFormSubmitHandler()}
-          >
-            บันทึก
-          </button>
-          {/* </td>
-      <td> */}
-          <button
-            className="rounded bg-red-500 px-3 py-2 text-white "
-            onClick={() => cancelEditFormHandler()}
-          >
-            ยกเลิก
-          </button>
-        </div>
+      <td>
+        <ToggleSwitch
+          rsh={rsh}
+          isView={false}
+          editFormHandler={editFormHandler}
+        />
+      </td>
+      <td>
+        {/* <div className="flex justify-evenly"> */}
+        <button
+          className="rounded bg-yellow-400 px-3 py-2 text-white"
+          onClick={() => editFormSubmitHandler()}
+        >
+          บันทึก
+        </button>
+      </td>
+      <td>
+        <button
+          className="rounded bg-red-500 px-3 py-2 text-white "
+          onClick={() => cancelEditFormHandler()}
+        >
+          ยกเลิก
+        </button>
+        {/* </div> */}
       </td>
     </tr>
   );
