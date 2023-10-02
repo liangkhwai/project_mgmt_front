@@ -131,7 +131,7 @@ const FormRequestExam = ({ groupInfo }) => {
     //   resultTarget = "สอบป้องกัน";
   } else {
     return (
-      <div className="text-center text-xl   font-bold ">{target}จากอาจารย์</div>
+      <div className="text-center text-xl   font-bold ">{target}</div>
     );
   }
 
