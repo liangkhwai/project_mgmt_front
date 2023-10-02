@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect, Fragment } from "react";
 import theseCover from "../../../../../../src/assets/thesis_cover.png";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 const FormThesis = ({ groupInfo, groupMember, boards }) => {
   const [haveFiles, setHaveFiles] = useState(false);
   const [fileLists, setFileLists] = useState([]);
   const fileInput = useRef(null);
   const [abstract, setAbstract] = useState("");
+  const navigate = useNavigate();
   const handleFileChange = (event) => {
     console.log(event.target);
     const files = event.target.files;
@@ -67,6 +69,7 @@ const FormThesis = ({ groupInfo, groupMember, boards }) => {
             title: "สำเร็จ!",
             text: "อัพโหลดปริญญานิพนธ์สำเร็จ!",
           });
+          navigate("/dashboard/group");
         } else {
           Swal.fire({
             icon: "error",
