@@ -17,7 +17,7 @@ const RequestBooking = () => {
         `http://localhost:8080/boards/get/${localStorage.getItem("grpId")}`,
         {
           method: "get",
-        }
+        },
       );
       const data = await res.json();
       console.log(data);
@@ -38,12 +38,12 @@ const RequestBooking = () => {
     const getLastRequest = async () => {
       const response = await fetch(
         `http://localhost:8080/requestExam/getLastRequest/${localStorage.getItem(
-          "grpId"
+          "grpId",
         )}`,
         {
           method: "get",
           credentials: "include",
-        }
+        },
       );
 
       const data = await response.json();
@@ -54,7 +54,7 @@ const RequestBooking = () => {
         {
           method: "get",
           credentials: "include",
-        }
+        },
       );
 
       const resultChecked = await checkBooked.json();
@@ -72,28 +72,39 @@ const RequestBooking = () => {
     <div className="mx-10">
       <Title>ขึ้นสอบปริญญานิพนธ์</Title>
       <Body>
-        {groupInfo?.title ? (
+        {groupInfo?.status !== "ส่งปริญญานิพนธ์แล้ว" ? (
           <>
-            {lastEvent?.isApprove && !isBooked ? (
+            {groupInfo?.title ? (
               <>
-                <div className="my-5 text-center text-2xl">
-                  ขึ้นสอบปริญญานิพนธ์
-                </div>
-                <div className="my-5 text-center text-2xl">
-                  สาขาวิชาระบบสารสนเทศ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน
-                  วิทยาเขตขอนแก่น
-                </div>
-                <TitleGroup groupInfo={groupInfo} />
-                <RequestCategorie groupInfo={groupInfo} />
-                <BoardGroup boards={boards} />
-                <BoardCalendar groupInfo={groupInfo} lastEvent={lastEvent} />
+                {lastEvent?.isApprove && !isBooked ? (
+                  <>
+                    <div className="my-5 text-center text-2xl">
+                      ขึ้นสอบปริญญานิพนธ์
+                    </div>
+                    <div className="my-5 text-center text-2xl">
+                      สาขาวิชาระบบสารสนเทศ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน
+                      วิทยาเขตขอนแก่น
+                    </div>
+                    <TitleGroup groupInfo={groupInfo} />
+                    <RequestCategorie groupInfo={groupInfo} />
+                    <BoardGroup boards={boards} />
+                    <BoardCalendar
+                      groupInfo={groupInfo}
+                      lastEvent={lastEvent}
+                    />
+                  </>
+                ) : (
+                  <div>
+                    กรุณายื่นใบขอขึ้นสอบ หรือ รออาจารย์อนุมัติการขึ้นสอบ
+                  </div>
+                )}
               </>
             ) : (
-              <div>กรุณายื่นใบขอขึ้นสอบ หรือ รออาจารย์อนุมัติการขึ้นสอบ</div>
+              <div>กรุณาสร้างหัวข้อกลุ่ม </div>
             )}
           </>
         ) : (
-          <div>กรุณาสร้างหัวข้อกลุ่ม </div>
+          <div>ท่านได้ส่งปริญญานิพนธ์เรียบร้อยแล้ว</div>
         )}
       </Body>
     </div>
