@@ -48,7 +48,7 @@ const ResearcherRow = ({ rsh, idx, setIsEditing, setGroupList, group }) => {
   };
   return (
     <tr key={rsh.id}>
-      <td className={group.leaderId === rsh.id ? `bg-yellow-300` : ``}>
+      <td className={group?.leaderId === rsh.id ? `bg-yellow-300` : ``}>
         {idx + 1}
       </td>
       <td onClick={() => console.log(rsh)}>{rsh.student_id}</td>
