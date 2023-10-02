@@ -9,13 +9,13 @@ const EditResearcherRow = ({ rsh, idx, setIsEditing }) => {
         {rsh.firstname} {rsh.lastname}
       </td>
       <td>
-        <input type="text" name="" id=""  onBlur={() => setIsEditing(false)} />
+        <input type="text" name="" id="" onBlur={() => setIsEditing(false)} />
       </td>
       <td>
-        <input type="text" name="" id=""  onBlur={() => setIsEditing(false)} />
+        <input type="text" name="" id="" onBlur={() => setIsEditing(false)} />
       </td>
       <td>
-        <input type="text" name="" id=""  onBlur={() => setIsEditing(false)} />
+        <input type="text" name="" id="" onBlur={() => setIsEditing(false)} />
       </td>
       {/* <td>{rsh.tel}</td>
                   <td>{rsh.email}</td>

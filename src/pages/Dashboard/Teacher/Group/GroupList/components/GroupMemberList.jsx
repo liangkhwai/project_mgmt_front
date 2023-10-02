@@ -9,6 +9,7 @@ import { useRef } from "react";
 import { RiVipCrown2Fill } from "react-icons/ri/index";
 import AuthContext from "../../../../../../context/auth";
 import Swal from "sweetalert2";
+import Member from "./Member";
 const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
   console.log(grpId);
   const ctx = useContext(AuthContext);
@@ -18,6 +19,7 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const buttonRef = useRef();
   const [isDisable, setIsDisable] = useState(true);
+  const [isAdminEdit, setIsAdminEdit] = useState(false);
   const mutation = useMutation({
     mutationFn: async (userId) => {
       const response = await fetch(
@@ -27,7 +29,7 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
           body: JSON.stringify({ userId: userId }),
           credentials: "include",
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
 
       return await response.json();
@@ -60,7 +62,7 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
           body: JSON.stringify({ userId: userId, grpId: parseInt(grpId) }),
           credentials: "include",
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
       return await response.json();
     },
@@ -68,7 +70,7 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
       setGroupMember((prev) => [...prev, selectedItem]);
       setSelectedItem(null);
       setLoadedResearcherList((prev) =>
-        prev.filter((item) => item.id !== selectedItem.id)
+        prev.filter((item) => item.id !== selectedItem.id),
       );
       const allInput = document.querySelectorAll("input.input");
       allInput.forEach((item) => (item.value = ""));
@@ -130,7 +132,7 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
 
     if (researcherList.data) {
       setLoadedResearcherList(
-        researcherList.data.filter((item, idx) => item.groupId === null)
+        researcherList.data.filter((item, idx) => item.groupId === null),
       );
     }
   }, [GroupMember.data, researcherList.data]);
@@ -207,7 +209,7 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
           method: "post",
           body: JSON.stringify({ grpId: grpId, rshId: rshId }),
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
       if (response.status === 500) {
         Swal.fire({
@@ -237,6 +239,8 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
     });
   };
 
+  //edit
+
   return (
     <div className="mx-10">
       {/* <Title>{groupDetail && groupDetail.title}</Title> */}
@@ -247,44 +251,45 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
         <span>ชื่อหัวข้อ {grpDetail ? grpDetail.title : ""}</span>
       )}
 
-      <div className="text-center font-bold text-lg ">รายชื่อสมาชิก</div>
+      <div className="text-center text-lg font-bold ">รายชื่อสมาชิก</div>
       <br />
-      <table className="table table-auto w-full border-collapse border-gray-400">
+      <table className="table w-full table-auto border-collapse border-gray-400">
         <thead>
           <tr className="w-full ">
-            <td className=" py-2 text-start border-2 border-gray-300 font-semibold text-black">
+            <td className=" border-2 border-gray-300 py-2 text-start font-semibold text-black">
               ลำดับ
             </td>
-            <td className=" py-2 text-start border-2 border-gray-300 font-semibold text-black">
+            <td className=" border-2 border-gray-300 py-2 text-start font-semibold text-black">
               ชื่อ
             </td>
-            <td className=" py-2 text-start border-2  border-gray-300 font-semibold  text-black">
+            <td className=" border-2 border-gray-300 py-2  text-start font-semibold  text-black">
               นามสกุล
             </td>
-            <td className=" py-2 text-start border-2 border-gray-300 font-semibold  text-black">
+            <td className=" border-2 border-gray-300 py-2 text-start font-semibold  text-black">
               เลขนักศึกษา
             </td>
-            <td className=" py-2 text-start border-2 border-gray-300 font-semibold  text-black">
+            <td className=" border-2 border-gray-300 py-2 text-start font-semibold  text-black">
               ห้อง
             </td>
-            <td className=" py-2 text-start border-2 border-gray-300 font-semibold  text-black">
+            <td className=" border-2 border-gray-300 py-2 text-start font-semibold  text-black">
               เบอร์โทร
             </td>
-            <td className=" py-2 text-start border-2 border-gray-300 font-semibold  text-black">
-              Email
-            </td>
-            <td className=" py-2 text-start border-2 border-gray-300 font-semibold  text-black">
+
+            <td className=" border-2 border-gray-300 py-2 text-start font-semibold  text-black">
               เกรดเฉลี่ย
             </td>
-            <td className=" py-2 text-start border-2 border-gray-300 font-semibold  text-black">
+            <td className=" border-2 border-gray-300 py-2 text-start font-semibold  text-black">
               เกรดโปรเจค
+            </td>
+            <td className="border-2 border-gray-300 py-2 text-start font-semibold text-black">
+              เทอม
             </td>
             {ctx.role === "admin" && (
               <>
-                <td className=" py-2 text-center border-2 border-gray-300 font-semibold  text-black">
+                <td className=" border-2 border-gray-300 py-2 text-center font-semibold  text-black">
                   หัวหน้ากลุ่ม
                 </td>
-                <td className=" py-2 text-center border-2 border-gray-300 font-semibold  text-black">
+                <td className=" border-2 border-gray-300 py-2 text-center font-semibold  text-black">
                   ลบ
                 </td>
               </>
@@ -293,84 +298,23 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
         </thead>
 
         <tbody>
-          {groupMember.map((item, idx) => {
-            return (
-              <Fragment key={item.student_id}>
-                <tr>
-                  <td
-                    className={
-                      grpDetail.leaderId === item.id
-                        ? `bg-yellow-300 border-2 py-2 border-gray-300  text-gray-800`
-                        : `border-2 py-2 border-gray-300  text-gray-800`
-                    }
-                  >
-                    {idx + 1}
-                  </td>
-                  <td className="border-2 py-2 border-gray-300  text-gray-800">
-                    {item.firstname}
-                  </td>
-                  <td className="border-2 py-2 border-gray-300  text-gray-800">
-                    {item.lastname}
-                  </td>
-                  <td className="border-2 py-2 border-gray-300  text-gray-800">
-                    {item.student_id}
-                  </td>
-                  <td className="border-2 py-2 border-gray-300  text-gray-800">
-                    {item.categorie_room.room}
-                  </td>
-                  <td className="border-2 py-2 border-gray-300  text-gray-800">
-                    {item.tel}
-                  </td>
-                  <td className="border-2 py-2 border-gray-300  text-gray-800">
-                    {item.email}
-                  </td>
-                  <td className="border-2 py-2 border-gray-300  text-gray-800">
-                    {item.grade}
-                  </td>
-                  <td className="border-2 py-2 border-gray-300  text-gray-800">
-                    {item.gradeProject}
-                  </td>
-                  {ctx.role === "admin" && (
-                    <>
-                      <td className="border-2 py-2 border-gray-300 text-center  text-white">
-                        {grpDetail.leaderId === item.id ? (
-                          <button
-                            className="px-5 py-1 disabled:cursor-not-allowed  bg-gray-400  rounded-lg shadow-lg"
-                            onClick={() => deleteFromGroupHandler(item.id)}
-                            disabled
-                          >
-                            <RiVipCrown2Fill color="yellow" />
-                          </button>
-                        ) : (
-                          <button
-                            className="px-5 py-1  bg-green-400 hover:bg-green-600 rounded-lg shadow-lg"
-                            onClick={() =>
-                              changeLeaderClick(grpDetail.id, item.id)
-                            }
-                          >
-                            <RiVipCrown2Fill color="yellow" />
-                          </button>
-                        )}
-                      </td>
-                      <td className="border-2 py-2 border-gray-300 text-center  text-white">
-                        <button
-                          className="px-5 py-1  bg-red-600 hover:bg-red-500 rounded-lg shadow-lg"
-                          onClick={() => deleteFromGroupHandler(item.id)}
-                        >
-                          ลบ
-                        </button>
-                      </td>
-                    </>
-                  )}
-                </tr>
-              </Fragment>
-            );
-          })}
+          {groupMember.map((item, idx) => (
+            <Member
+              rsh={item}
+              idx={idx}
+              deleteFromGroupHandler={deleteFromGroupHandler}
+              changeLeaderClick={changeLeaderClick}
+              grpId={grpId}
+              grpDetail={grpDetail}
+              setGroupMember={setGroupMember}
+              groupMember={groupMember}
+            />
+          ))}
         </tbody>
       </table>
       {ctx.role === "admin" && (
         <Fragment>
-          <div className="flex justify-around items-center py-3  border-2  border-gray-300 my-5">
+          <div className="my-5 flex items-center justify-around  border-2  border-gray-300 py-3">
             <ComboBox
               loadedResearcherList={loadedResearcherList}
               selectedItem={selectedItem}
@@ -378,7 +322,7 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
             />
 
             <input
-              className="input bg-gray-300 rounded-xl border-none text-center"
+              className="input rounded-xl border-none bg-gray-300 text-center"
               type="text"
               name=""
               id=""
@@ -386,7 +330,7 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
               value={selectedItem ? selectedItem.firstname : ""}
             />
             <input
-              className="input bg-gray-300 rounded-xl border-none text-center"
+              className="input rounded-xl border-none bg-gray-300 text-center"
               type="text"
               name=""
               id=""
@@ -394,7 +338,7 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
               value={selectedItem ? selectedItem.lastname : ""}
             />
             <input
-              className="input bg-gray-300 rounded-xl border-none text-center"
+              className="input rounded-xl border-none bg-gray-300 text-center"
               type="text"
               name=""
               id=""
@@ -403,7 +347,7 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
             />
 
             <button
-              className="px-4 py-2 bg-green-600 rounded-md text-white hover:bg-green-500  shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="rounded-md bg-green-600 px-4 py-2 text-white shadow-lg  disabled:cursor-not-allowed disabled:opacity-50 hover:bg-green-500"
               onClick={() => addResearcherToGroup()}
               ref={buttonRef}
               disabled={isDisable}

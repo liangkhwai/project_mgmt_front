@@ -105,10 +105,9 @@ const GroupDetail = () => {
   );
 
   const controlOpenModalHandler = () => {
-    if(ctx.role === "teacher"){
-      return ;
+    if (ctx.role === "teacher") {
+      return;
     }
-
 
     setIsModalOpen(true);
     setEditBoard(boards);

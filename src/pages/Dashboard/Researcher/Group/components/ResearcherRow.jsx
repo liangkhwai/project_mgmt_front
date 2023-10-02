@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { useMutation } from "react-query";
 
-const ResearcherRow = ({ rsh, idx, setIsEditing, setGroupList,group }) => {
+const ResearcherRow = ({ rsh, idx, setIsEditing, setGroupList, group }) => {
   const [isEditingTel, setIsEditingTel] = useState(false);
   const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [isEditingGrade, setIsEditingGrade] = useState(false);
@@ -48,12 +48,17 @@ const ResearcherRow = ({ rsh, idx, setIsEditing, setGroupList,group }) => {
   };
   return (
     <tr key={rsh.id}>
-      <td className={ group.leaderId === rsh.id ? `bg-yellow-300`:``}>{idx + 1}</td>
+      <td className={group.leaderId === rsh.id ? `bg-yellow-300` : ``}>
+        {idx + 1}
+      </td>
       <td onClick={() => console.log(rsh)}>{rsh.student_id}</td>
       <td>
         {rsh.firstname} {rsh.lastname}
       </td>
-      <td onClick={() => setIsEditingTel(true)} className="bg-light-blue-100 border hover:bg-light-blue-200">
+      <td
+        onClick={() => setIsEditingTel(true)}
+        className="border bg-light-blue-100 hover:bg-light-blue-200"
+      >
         {isEditingTel ? (
           <input
             type="text"
@@ -66,10 +71,16 @@ const ResearcherRow = ({ rsh, idx, setIsEditing, setGroupList,group }) => {
             value={rsh.tel ? rsh.tel : ""}
           />
         ) : (
-          <Fragment> <div className="">{rsh.tel}</div></Fragment>
+          <Fragment>
+            {" "}
+            <div className="">{rsh.tel}</div>
+          </Fragment>
         )}
       </td>
-      <td onClick={() => setIsEditingEmail(true)} className="bg-light-blue-100 border hover:bg-light-blue-200">
+      <td
+        onClick={() => setIsEditingEmail(true)}
+        className="border bg-light-blue-100 hover:bg-light-blue-200"
+      >
         {isEditingEmail ? (
           <input
             type="text"
@@ -82,10 +93,16 @@ const ResearcherRow = ({ rsh, idx, setIsEditing, setGroupList,group }) => {
             value={rsh.email ? rsh.email : ""}
           />
         ) : (
-          <Fragment> <div className="">{rsh.email}</div></Fragment>
+          <Fragment>
+            {" "}
+            <div className="">{rsh.email}</div>
+          </Fragment>
         )}
       </td>
-      <td onClick={() => setIsEditingGrade(true)} className="bg-light-blue-100 border hover:bg-light-blue-200">
+      <td
+        onClick={() => setIsEditingGrade(true)}
+        className="border bg-light-blue-100 hover:bg-light-blue-200"
+      >
         {isEditingGrade ? (
           <input
             type="text"
@@ -98,7 +115,10 @@ const ResearcherRow = ({ rsh, idx, setIsEditing, setGroupList,group }) => {
             value={rsh.grade ? rsh.grade : ""}
           />
         ) : (
-          <Fragment> <div className="">{rsh.grade}</div></Fragment>
+          <Fragment>
+            {" "}
+            <div className="">{rsh.grade}</div>
+          </Fragment>
         )}
       </td>
     </tr>
