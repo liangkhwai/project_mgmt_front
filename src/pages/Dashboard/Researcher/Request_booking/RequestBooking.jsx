@@ -72,20 +72,28 @@ const RequestBooking = () => {
     <div className="mx-10">
       <Title>ขึ้นสอบปริญญานิพนธ์</Title>
       <Body>
-        {lastEvent?.isApprove && !isBooked ? (
+        {groupInfo?.title ? (
           <>
-            <div className="text-center text-2xl my-5">ขึ้นสอบปริญญานิพนธ์</div>
-            <div className="text-center text-2xl my-5">
-              สาขาวิชาระบบสารสนเทศ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน
-              วิทยาเขตขอนแก่น
-            </div>
-            <TitleGroup groupInfo={groupInfo} />
-            <RequestCategorie groupInfo={groupInfo} />
-            <BoardGroup boards={boards} />
-            <BoardCalendar groupInfo={groupInfo} lastEvent={lastEvent} />
+            {lastEvent?.isApprove && !isBooked ? (
+              <>
+                <div className="my-5 text-center text-2xl">
+                  ขึ้นสอบปริญญานิพนธ์
+                </div>
+                <div className="my-5 text-center text-2xl">
+                  สาขาวิชาระบบสารสนเทศ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน
+                  วิทยาเขตขอนแก่น
+                </div>
+                <TitleGroup groupInfo={groupInfo} />
+                <RequestCategorie groupInfo={groupInfo} />
+                <BoardGroup boards={boards} />
+                <BoardCalendar groupInfo={groupInfo} lastEvent={lastEvent} />
+              </>
+            ) : (
+              <div>กรุณายื่นใบขอขึ้นสอบ หรือ รออาจารย์อนุมัติการขึ้นสอบ</div>
+            )}
           </>
         ) : (
-          <div>กรุณายื่นใบขอขึ้นสอบ หรือ รออาจารย์อนุมัติการขึ้นสอบ</div>
+          <div>กรุณาสร้างหัวข้อกลุ่ม </div>
         )}
       </Body>
     </div>
