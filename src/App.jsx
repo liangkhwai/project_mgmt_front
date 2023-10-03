@@ -39,6 +39,7 @@ import LineNotify from "./pages/Line/LineNotify";
 import Theses from "./pages/Dashboard/Researcher/Theses/Theses";
 import NewThesis from "./pages/Landing/NewThesis";
 import Random from "./pages/Dashboard/Teacher/Group/RandomGroup/ManualRandom/Random";
+import RequestTitle from "./pages/Dashboard/Admin/RequestTitle/RequestTitle";
 dayjs.extend(customParseFormat);
 dayjs.extend(localizedFormat);
 dayjs.locale(th);
@@ -63,8 +64,8 @@ const router = createBrowserRouter([
         element: <NewThesis />,
       },
       {
-        path:"/theses",
-        element:<Thesis />
+        path: "/theses",
+        element: <Thesis />,
       },
       {
         path: "/files",
@@ -114,7 +115,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/random",
-        element: <Random/>,
+        element: <Random />,
       },
       {
         path: "/dashboard/group/:grpId",
@@ -162,6 +163,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/thesis/upload",
         element: <Theses />,
+      },
+      {
+        path: "/dashboard/request/title",
+        element: <RequestTitle />,
       },
     ],
   },

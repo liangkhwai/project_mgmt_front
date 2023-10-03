@@ -126,11 +126,11 @@ const GroupList = ({ groupList, setGroupList }) => {
   });
 
   return (
-    <div className="w-full border border-black p-5 rounded-md ">
-      <TitleGroup />
+    <div className="w-full rounded-md border border-black p-5 ">
+      <TitleGroup setGroup ={setGroup}/>
       <div>สถานะกลุ่ม : {group?.status}</div>
       <div className="rounded-md border border-black">
-        <table className="table-auto w-full text-center  ">
+        <table className="w-full table-auto text-center  ">
           <thead>
             <tr>
               <th>ลำดับ</th>
@@ -159,7 +159,7 @@ const GroupList = ({ groupList, setGroupList }) => {
       <div>
         {sortLeader.length < 3 && (
           <Fragment>
-            <div className="flex justify-around items-center py-3  border-2  border-gray-300 my-5">
+            <div className="my-5 flex items-center justify-around  border-2  border-gray-300 py-3">
               <ComboBox
                 loadedResearcherList={researcherList}
                 selectedItem={selectedItem}
@@ -167,7 +167,7 @@ const GroupList = ({ groupList, setGroupList }) => {
               />
 
               <input
-                className="input bg-gray-300 rounded-xl border-none text-center"
+                className="input rounded-xl border-none bg-gray-300 text-center"
                 type="text"
                 name=""
                 id=""
@@ -175,7 +175,7 @@ const GroupList = ({ groupList, setGroupList }) => {
                 value={selectedItem ? selectedItem.firstname : ""}
               />
               <input
-                className="input bg-gray-300 rounded-xl border-none text-center"
+                className="input rounded-xl border-none bg-gray-300 text-center"
                 type="text"
                 name=""
                 id=""
@@ -183,7 +183,7 @@ const GroupList = ({ groupList, setGroupList }) => {
                 value={selectedItem ? selectedItem.lastname : ""}
               />
               <input
-                className="input bg-gray-300 rounded-xl border-none text-center"
+                className="input rounded-xl border-none bg-gray-300 text-center"
                 type="text"
                 name=""
                 id=""
@@ -192,7 +192,7 @@ const GroupList = ({ groupList, setGroupList }) => {
               />
 
               <button
-                className="px-4 py-2 bg-green-600 rounded-md text-white hover:bg-green-500  shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                className="rounded-md bg-green-600 px-4 py-2 text-white shadow-lg  disabled:cursor-not-allowed disabled:opacity-50 hover:bg-green-500"
                 onClick={() => addResearcherToGroup()}
                 ref={buttonRef}
                 disabled={isDisable}

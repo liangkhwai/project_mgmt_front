@@ -4,9 +4,9 @@ import { BsPencilSquare } from "react-icons/bs";
 import { useMutation, useQuery } from "react-query";
 import Swal from "sweetalert2";
 
-const TitleGroup = () => {
+const TitleGroup = ({ setGroup }) => {
   const [isInsert, setIsInsert] = useState(false);
-  const [group, setGroup] = useState();
+  const [groupDetail, setGroupDetail] = useState();
   const [title, setTitle] = useState("");
   const inputRef = useRef();
   const { isLoading, err, data, status } = useQuery(
@@ -24,7 +24,7 @@ const TitleGroup = () => {
   useEffect(() => {
     if (data) {
       console.log(data);
-      setGroup(data);
+      setGroupDetail(data);
       setTitle(data.title);
     }
   }, [data]);
@@ -65,7 +65,7 @@ const TitleGroup = () => {
           method: "put",
           body: JSON.stringify({
             title: inputRef.current.value,
-            groupId: group.id,
+            groupId: groupDetail.id,
           }),
           credentials: "include",
           headers: { "Content-Type": "application/json" },
@@ -74,7 +74,10 @@ const TitleGroup = () => {
         if (res.status === 200) {
           setTitle(inputRef.current.value);
           setIsInsert(false);
-          setGroup({ ...group, status: "ยื่นเสนอหัวข้อ" });
+
+          setGroup({ ...groupDetail, status: "ยื่นเสนอหัวข้อ" });
+          setGroupDetail({ ...groupDetail, status: "ยื่นเสนอหัวข้อ" });
+
           Swal.fire({
             title: "ส่งคำขอสำเร็จ",
             icon: "success",
@@ -113,7 +116,7 @@ const TitleGroup = () => {
               className="rounded-sm px-3 py-2 transition hover:bg-green-200"
               onClick={() => {
                 setIsInsert(!isInsert);
-                setTitle(group.title);
+                setTitle(groupDetail.title);
               }}
             >
               <FiX color="red" size="25px" />
@@ -121,8 +124,8 @@ const TitleGroup = () => {
           </Fragment>
         ) : (
           <Fragment>
-            {group?.isApproveTitle &&
-            group?.status !== "ยังไม่ยื่นสอบหัวข้อ" ? (
+            {groupDetail?.isApproveTitle &&
+            groupDetail?.status !== "ยังไม่ยื่นสอบหัวข้อ" ? (
               <Fragment>
                 <div>{title}</div>
                 <button
@@ -134,7 +137,7 @@ const TitleGroup = () => {
               </Fragment>
             ) : (
               <Fragment>
-                {group?.status === "ยังไม่ยื่นสอบหัวข้อ" ? (
+                {groupDetail?.status === "ยังไม่ยื่นสอบหัวข้อ" ? (
                   <>
                     <div className="mr-3 w-full">
                       <input
