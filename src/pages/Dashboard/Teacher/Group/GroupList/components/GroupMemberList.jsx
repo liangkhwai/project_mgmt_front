@@ -282,6 +282,12 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
               เกรดโปรเจค
             </td>
             <td className="border-2 border-gray-300 py-2 text-start font-semibold text-black">
+              ติด I
+            </td>
+            <td className="border-2 border-gray-300 py-2 text-start font-semibold text-black">
+              รอลงทะเบียน
+            </td>
+            <td className="border-2 border-gray-300 py-2 text-start font-semibold text-black">
               เทอม
             </td>
             {ctx.role === "admin" && (
