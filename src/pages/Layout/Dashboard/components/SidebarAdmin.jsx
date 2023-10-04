@@ -39,13 +39,13 @@ const SidebarAdmin = () => {
           </div>
         </Link>
       </li>
-      <li className="">
+      {/* <li className="">
         <Link to="/dashboard/calendar/book" className="">
           <div className="w-100 mb-3 flex pl-20 transition-colors duration-300 ease-in-out hover:text-blue-600">
             ลงชั่วโมงว่าง
           </div>
         </Link>
-      </li>
+      </li> */}
       <li className="">
         <Link to="/dashboard/request/title" className="">
           <div className="w-100 mb-3 flex pl-20 transition-colors duration-300 ease-in-out hover:text-blue-600">
@@ -53,13 +53,13 @@ const SidebarAdmin = () => {
           </div>
         </Link>
       </li>
-      <li className="">
+      {/* <li className="">
         <Link to="/dashboard/exam/request" className="">
           <div className="w-100 mb-3 flex pl-20 transition-colors duration-300 ease-in-out hover:text-blue-600">
             รายการอนุมัติการขอสอบ
           </div>
         </Link>
-      </li>
+      </li> */}
       <li className="">
         <Link to="/dashboard/exam/result" className="">
           <div className="w-100 mb-3 flex pl-20 transition-colors duration-300 ease-in-out hover:text-blue-600">

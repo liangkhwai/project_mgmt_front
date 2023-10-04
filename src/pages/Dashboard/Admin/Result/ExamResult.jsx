@@ -38,16 +38,24 @@ const ExamResult = () => {
             </tr>
           </thead>
           <tbody>
-            {resultLists.map((item, idx) => (
-              <Fragment key={item.id}>
+            {resultLists.length > 0 ? (
+              resultLists.map((result, index) => (
                 <ResultRow
-                  result={item}
-                  idx={idx}
-                  key={item.id}
+                  key={index}
+                  index={index}
+                  result={result}
                   setResultLists={setResultLists}
                 />
+              ))
+            ) : (
+              <Fragment>
+                <tr className="text-center">
+                  <td colSpan="6" className="py-5 text-xl font-bold ">
+                    ยังไม่มีรายการในขณะนี้
+                  </td>
+                </tr>
               </Fragment>
-            ))}
+            )}
           </tbody>
         </table>
       </Body>

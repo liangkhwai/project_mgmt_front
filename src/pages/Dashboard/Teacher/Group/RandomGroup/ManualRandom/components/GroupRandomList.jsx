@@ -23,23 +23,31 @@ const GroupRandomList = ({
             <div className="">เปิด</div>
           </div>
         </div>
-        {groupList.map((item) => {
-          return (
-            <Fragment key={item.id}>
-              <div className="my-5 flex flex-col items-center  gap-3 rounded-xl  border p-3 lg:flex-row lg:justify-between">
-                <div className="w-full   ">{item.title}</div>
-                <div>
-                  <button
-                    onClick={() => openEditModal(item)}
-                    className="rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700"
-                  >
-                    เปิด
-                  </button>
+       
+        {
+          groupList.length > 0 ? (
+            groupList.map((group, idx) => (
+              <Fragment key={idx}>
+                <div className="bg-white shadow-md rounded-md p-5 mx-8 my-5 lg:mx-0 lg:my-0">
+                  <div className="flex justify-between">
+                    <div className="text-xl">{group.title}</div>
+                    <div
+                      className="text-white cursor-pointer bg-green-400 rounded-xl px-4 py-2"
+                      onClick={() => openEditModal(group)}
+                    >
+                      เปิด
+                    </div>
+                  </div>  
+                  
                 </div>
-              </div>
-            </Fragment>
-          );
-        })}
+              </Fragment>
+            ))
+          ) : (
+            <div className="text-center font-bold text-xl p-5 border rounded-xl my-5 border-black">ไม่มีรายการกลุ่มในขณะนี้</div>
+          )
+        }
+
+
       </div>
 
       {/* <table className="table w-full">

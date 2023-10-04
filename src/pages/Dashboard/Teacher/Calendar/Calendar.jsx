@@ -44,7 +44,7 @@ const Calendar = () => {
     return {
       left: "prev,next today",
       center: "title",
-      right: "dayGridMonth,timeGridWeek,timeGridDay,list",
+      right: "dayGridMonth,list",
     };
   }, []);
 

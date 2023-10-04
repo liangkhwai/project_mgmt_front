@@ -23,9 +23,13 @@ const NewThesis = () => {
       });
       const data = await res.json();
       console.log(data);
-      const dataFilter = data.map(
-        (item) => (item.researchers_names = item.researchers_names.split(","))
-      );
+      data.map((item) => {
+        if (item.researchers_names) {
+          item.researchers_names = item.researchers_names.split(",");
+        }
+        return item;
+      });
+
       setTheses(data);
       setFilterData(data);
     };

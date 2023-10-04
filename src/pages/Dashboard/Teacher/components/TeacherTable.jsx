@@ -42,7 +42,7 @@ const TeacherTable = ({ data, setData }) => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "แก้ไข!",
+      confirmButtonText: "เพิ่ม!",
       cancelButtonText: "ยกเลิก",
     }).then(async (result) => {
       if (result.isConfirmed) {

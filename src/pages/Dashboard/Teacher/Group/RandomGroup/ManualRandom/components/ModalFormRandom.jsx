@@ -147,7 +147,7 @@ const ModalFormRandom = ({
     <div>
       <div className=" mb-10 flex justify-center  ">
         <div className="rounded-xl border bg-blue-100 p-3  text-xl">
-          {editBoardGroup.title}
+          {editBoardGroup.title ? editBoardGroup.title : "ยังไม่ตั้งชื่อหัวข้อ"}
         </div>
       </div>
 

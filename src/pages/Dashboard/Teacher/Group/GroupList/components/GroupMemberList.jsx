@@ -203,39 +203,46 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
       confirmButtonText: "เปลี่ยน!",
       cancelButtonText: "ยกเลิก",
     }).then(async (result) => {
-      const response = await fetch(
-        "http://localhost:8080/group/changeLeaderGroup",
-        {
-          method: "post",
-          body: JSON.stringify({ grpId: grpId, rshId: rshId }),
-          headers: { "Content-Type": "application/json" },
-        },
-      );
-      if (response.status === 500) {
-        Swal.fire({
-          icon: "error",
-          title: "เกิดข้อผิดพลาด",
-          text: "ไม่สามารถเปลี่ยนหัวหน้ากลุ่มได้",
-        });
-        throw new Error("Error");
-      }
-      const data = await response.json();
-      console.log(data);
 
-      setGrpDetail(data.updatedGroup);
-      const sortLeader = data.refreshGroupMember.sort((a, b) => {
-        if (a.id === data.updatedGroup.leaderId) {
-          return -1;
-        } else if (b.id === data.updatedGroup.leaderId) {
-          return 1;
-        }
-        return 0;
-      });
+      if(result.isConfirmed){
 
-      setGroupMember(sortLeader);
-      if (result.isConfirmed) {
-        Swal.fire("สำเร็จ!", "เปลี่ยนหัวหน้ากลุ่มสำเร็จ", "success");
+ const response = await fetch("http://localhost:8080/group/changeLeaderGroup", {
+   method: "post",
+   body: JSON.stringify({ grpId: grpId, rshId: rshId }),
+   headers: { "Content-Type": "application/json" },
+ });
+ if (response.status === 500) {
+   Swal.fire({
+     icon: "error",
+     title: "เกิดข้อผิดพลาด",
+     text: "ไม่สามารถเปลี่ยนหัวหน้ากลุ่มได้",
+   });
+   throw new Error("Error");
+ }
+ const data = await response.json();
+ console.log(data);
+
+ setGrpDetail(data.updatedGroup);
+ const sortLeader = data.refreshGroupMember.sort((a, b) => {
+   if (a.id === data.updatedGroup.leaderId) {
+     return -1;
+   } else if (b.id === data.updatedGroup.leaderId) {
+     return 1;
+   }
+   return 0;
+ });
+
+ setGroupMember(sortLeader);
+
+
+
       }
+
+
+
+
+     
+      
     });
   };
 

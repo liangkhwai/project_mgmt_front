@@ -180,14 +180,15 @@ const Files = () => {
             id=""
             multiple
             onChange={(e) => handleFileChange(e)}
-            className="my-2 bg-gray-300 w-full"
+            className="my-2 w-full bg-gray-300"
+            accept="application/pdf"
           />
         </div>
         <FileList files={selectedFiles} removeFile={removeSelectedFile} />
-        <div className="text-end mt-5">
+        <div className="mt-5 text-end">
           <button
             onClick={uploadFileHandler}
-            className="px-4 py-2 bg-green-500"
+            className="bg-green-500 px-4 py-2"
           >
             {" "}
             Upload

@@ -59,10 +59,12 @@ const ResearcherList = ({
       <td className="border-2 border-gray-300 py-1">{rsh.grade}</td>
       {/* <td className="py-1 border-2 border-gray-300">{rsh.group.id}</td> */}
       <td className="border-2 border-gray-300 py-1">
-        {rsh.group ? rsh.group.status : "ยังไม่ยื่นสอบหัวข้อ"}
+        {rsh.group ? rsh.group.status : "ยังไม่ยื่นเสนอหัวข้อ"}
       </td>
+      
 
-      <td
+
+      {/* <td
         className="cursor-pointer border-2 border-gray-300 bg-yellow-300 py-1 hover:bg-red-400"
         onClick={() => {
           rsh.isEditGradeProject
@@ -71,7 +73,7 @@ const ResearcherList = ({
         }}
       >
         {rsh.grade_project}
-      </td>
+      </td> */}
       <td className="border-2 border-gray-300 py-1">
         <input type="checkbox" name="" id="" checked={rsh.isLate} disabled />
       </td>

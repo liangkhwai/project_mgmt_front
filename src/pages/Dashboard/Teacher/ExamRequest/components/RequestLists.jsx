@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { useMutation } from "react-query";
 import { Link } from "react-router-dom";
 import DropdownFiles from "./DropdownFiles";
+import Swal from "sweetalert2";
 
 const RequestLists = ({ requestList, setRequestData, isLoading }) => {
   const approveHandler = useMutation({
@@ -46,7 +47,24 @@ const RequestLists = ({ requestList, setRequestData, isLoading }) => {
 
   const submitHandler = (isApprove, categories,item) => {
     console.log(isApprove, categories, item);
-    approveHandler.mutate({ isApprove, categories, item });
+
+    Swal.fire({
+      title: "คุณต้องการอนุมัติหรือไม่",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "ใช่",
+      cancelButtonText: "ไม่ใช่",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        approveHandler.mutate({ isApprove, categories, item });
+        Swal.fire("อนุมัติสำเร็จ!", "", "success");
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire("ยกเลิก", "", "error");
+      }
+    });
+
+
+    // approveHandler.mutate({ isApprove, categories, item });
   };
 
   return (

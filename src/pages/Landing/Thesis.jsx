@@ -40,28 +40,28 @@ const Thesis = () => {
   ];
 
   return (
-    <div className="w-full h-screen border bg-blue-50">
+    <div className="h-screen w-full border bg-blue-50">
       <div className="mx-48">
-        <div className="h-auto flex flex-col justify-center rounded-2xl bg-white border shadow-md my-10">
+        <div className="my-10 flex h-auto flex-col justify-center rounded-2xl border bg-white shadow-md">
           <div className="flex justify-between">
             <div className="relative items-center rounded-lg">
               <button
                 onClick={() => setIsOpen1(!isOpen1)}
-                className="bg-white p-1 w-80 mt-10 text-blue-800 flex items-center justify-between font-medium text-sm rounded-l-lg tracking-wider border-2 border-blue-800 active:text-blue-300"
+                className="mt-10 flex w-80 items-center justify-between rounded-l-lg border-2 border-blue-800 bg-white p-1 text-sm font-medium tracking-wider text-blue-800 active:text-blue-300"
               >
                 รายละเอียดทั้งหมด
                 {!isOpen1 ? (
-                  <AiOutlineCaretDown className="h-8 mr-5" />
+                  <AiOutlineCaretDown className="mr-5 h-8" />
                 ) : (
-                  <AiOutlineCaretUp className="h-8 mr-5" />
+                  <AiOutlineCaretUp className="mr-5 h-8" />
                 )}
               </button>
               {isOpen1 && (
-                <div className="absolute z-10 w-80 mt-1 bg-white border shadow-lg rounded-lg text-blue-800 font-medium text-sm">
+                <div className="absolute z-10 mt-1 w-80 rounded-lg border bg-white text-sm font-medium text-blue-800 shadow-lg">
                   {dropdownOptions.map((option) => (
                     <div
                       key={option}
-                      className="p-2 hover:bg-blue-100 cursor-pointer"
+                      className="cursor-pointer p-2 hover:bg-blue-100"
                       onClick={() => handleDropdownSelect(option)}
                     >
                       {option}
@@ -70,40 +70,40 @@ const Thesis = () => {
                 </div>
               )}
             </div>
-            <div className="relative w-full mt-10 mr-10">
+            <div className="relative mr-10 mt-10 w-full">
               <input
                 type="search"
                 id="search-dropdown"
-                className="block p-2.5 w-full z-20 text-sm text-black bg-white rounded-r-lg border-l-blue-800 border-l-1  border-blue-800 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700 dark:border-blue-800 border-2 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-800"
+                className="border-l-1 z-20 block w-full rounded-r-lg border-2 border-blue-800 border-l-blue-800 bg-white p-2.5  text-sm text-black focus:border-blue-500 focus:ring-blue-500 dark:border-blue-800 dark:border-l-gray-700 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-800"
                 placeholder="ค้นหาปริญญานิพนธ์...."
                 required
               />
             </div>
           </div>
 
-          <div className="mt-10 mx-10 flex items-center justify-between  ">
+          <div className="mx-10 mt-10 flex items-center justify-between  ">
             <div className="flex gap-10">
-              <div className="text-blue-800 font-medium text-sm">
+              <div className="text-sm font-medium text-blue-800">
                 ปีเริ่มต้น
                 <div className="flex-1">
                   <div className="relative">
                     <button
                       onClick={() => setIsOpen2(!isOpen2)}
-                      className="bg-white p-1 w-56 mt-1 mb-1 text-blue-800 flex items-center justify-between font-medium text-sm rounded-lg tracking-wider border-2 border-blue-800 active:text-blue-300"
+                      className="mb-1 mt-1 flex w-56 items-center justify-between rounded-lg border-2 border-blue-800 bg-white p-1 text-sm font-medium tracking-wider text-blue-800 active:text-blue-300"
                     >
                       {selectedStartYear || "YYYY"}
                       {!isOpen2 ? (
-                        <AiOutlineCaretDown className="h-8 mr-5" />
+                        <AiOutlineCaretDown className="mr-5 h-8" />
                       ) : (
-                        <AiOutlineCaretUp className="h-8 mr-5" />
+                        <AiOutlineCaretUp className="mr-5 h-8" />
                       )}
                     </button>
                     {isOpen2 && (
-                      <div className="absolute w-56 bg-white border shadow-lg rounded-lg text-blue-800 font-medium text-sm">
+                      <div className="absolute w-56 rounded-lg border bg-white text-sm font-medium text-blue-800 shadow-lg">
                         {dropdownYears.map((year) => (
                           <div
                             key={year}
-                            className="p-2 hover:bg-blue-100 cursor-pointer"
+                            className="cursor-pointer p-2 hover:bg-blue-100"
                             onClick={() =>
                               handleDropdownSelect(year, "startYear")
                             }
@@ -116,27 +116,27 @@ const Thesis = () => {
                   </div>
                 </div>
               </div>
-              <div className="text-blue-800 font-medium text-sm">
+              <div className="text-sm font-medium text-blue-800">
                 ปีสิ้นสุด
                 <div className="flex-1">
                   <div className="relative">
                     <button
                       onClick={() => setIsOpen3(!isOpen3)}
-                      className=" bg-white p-1 w-52 mt-1 mb-1 text-blue-800 flex items-center justify-between font-medium text-sm rounded-lg tracking-wider border-2 border-blue-800 active:text-blue-300"
+                      className=" mb-1 mt-1 flex w-52 items-center justify-between rounded-lg border-2 border-blue-800 bg-white p-1 text-sm font-medium tracking-wider text-blue-800 active:text-blue-300"
                     >
                       {selectedEndYear || "YYYY"}
                       {!isOpen3 ? (
-                        <AiOutlineCaretDown className="h-8 mr-5" />
+                        <AiOutlineCaretDown className="mr-5 h-8" />
                       ) : (
-                        <AiOutlineCaretUp className="h-8 mr-5" />
+                        <AiOutlineCaretUp className="mr-5 h-8" />
                       )}
                     </button>
                     {isOpen3 && (
-                      <div className="absolute w-52 mt-1 bg-white border shadow-lg rounded-lg text-blue-800 font-medium text-sm">
+                      <div className="absolute mt-1 w-52 rounded-lg border bg-white text-sm font-medium text-blue-800 shadow-lg">
                         {dropdownYears.map((year) => (
                           <div
                             key={year}
-                            className="p-2 hover:bg-blue-100 cursor-pointer"
+                            className="cursor-pointer p-2 hover:bg-blue-100"
                             onClick={() =>
                               handleDropdownSelect(year, "endYear")
                             }
@@ -150,12 +150,12 @@ const Thesis = () => {
                 </div>
               </div>
             </div>
-            <div className="flex gap-10 flex-grow justify-center">
-              <button className="p-1 px-10 py-3 mt-4 bg-green-700 text-white rounded-lg shadow-lg hover:bg-green-600">
+            <div className="flex flex-grow justify-center gap-10">
+              <button className="mt-4 rounded-lg bg-green-700 p-1 px-10 py-3 text-white shadow-lg hover:bg-green-600">
                 <div className="">
                   <div className="flex justify-center">
                     <svg
-                      className="w-6 h-5 mr-2"
+                      className="mr-2 h-5 w-6"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 20 20"
                       fill="currentColor"
@@ -170,11 +170,11 @@ const Thesis = () => {
                   </div>
                 </div>
               </button>
-              <button className="p-1 px-10 py-3 mt-4 bg-yellow-700 text-white rounded-lg shadow-lg hover:bg-yellow-600">
+              <button className="mt-4 rounded-lg bg-yellow-700 p-1 px-10 py-3 text-white shadow-lg hover:bg-yellow-600">
                 <div className="">
                   <div className="flex justify-center">
                     <svg
-                      className="w-6 h-5 mr-2"
+                      className="mr-2 h-5 w-6"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -195,20 +195,20 @@ const Thesis = () => {
           </div>
 
           <div className="ml-10">
-            <div className="text-4xl my-3 text-blue-800 font-normal">
+            <div className="my-3 text-4xl font-normal text-blue-800">
               รายการปริญญานิพนธ์
             </div>
-            <div className="w-96 mb-7">
+            <div className="mb-7 w-96">
               <hr className="border-blue-800" />
             </div>
-            <div className="text-sm font-semibold text-blue-800 flex text-start mb-2">
-              <div className="w-52 ml-10 flex-grow">ชื่อเรื่อง</div>
+            <div className="mb-2 flex text-start text-sm font-semibold text-blue-800">
+              <div className="ml-10 w-52 flex-grow">ชื่อเรื่อง</div>
               <div className="w-52">ปีการศึกษา</div>
               <div className="mr-10">ดาวน์โหลด</div>
             </div>
-            <div className="h-32 flex flex-col justify-center rounded-2xl bg-white border mb-10 shadow-md">
-              <div className="text-start text-xs ml-10">
-                <div className="text-xs font-semibold text-blue-800 flex text-start justify-center">
+            <div className="mb-10 flex h-32 flex-col justify-center rounded-2xl border bg-white shadow-md">
+              <div className="ml-10 text-start text-xs">
+                <div className="flex justify-center text-start text-xs font-semibold text-blue-800">
                   <div className="flex-grow">
                     ระบบจัดการข้อมูลโครงงานทางเทคโนโลธุรกิจดิจิทัล กรณีศึกษา
                     คณะบริหารธุรกิจและสารสนเทศ สาขาเทคโนโลยีธุรกิจดิจิทัล
@@ -221,7 +221,7 @@ const Thesis = () => {
                       viewBox="0 0 24 24"
                       strokeWidth="1.5"
                       stroke="currentColor"
-                      className="w-8 h-8 mr-5"
+                      className="mr-5 h-8 w-8"
                     >
                       <path
                         strokeLinecap="round"

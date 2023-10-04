@@ -79,29 +79,35 @@ const RequestTitle = () => {
             </tr>
           </thead>
           <tbody>
-            {groupList.map((group, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{group.title}</td>
-                <td>{group.status}</td>
-                <td>
-                  <button
-                    className="rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700"
-                    onClick={() => approveTitle(group.id, true)}
-                  >
-                    อนุมัติ
-                  </button>
-                </td>
-                <td>
-                  <button
-                    className="rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
-                    onClick={() => approveTitle(group.id, false)}
-                  >
-                    ไม่อนุมัติ
-                  </button>
-                </td>
+            {groupList.length > 0 ? (
+              groupList.map((group, index) => (
+                <tr key={group.id}>
+                  <td>{index + 1}</td>
+                  <td>{group.title}</td>
+                  <td>{group.status}</td>
+                  <td>
+                    <button
+                      className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                      onClick={() => approveTitle(group.id, true)}
+                    >
+                      อนุมัติ
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                      onClick={() => approveTitle(group.id, false)}
+                    >
+                      ไม่อนุมัติ
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr className="text-center">
+                <td colSpan="5" className="py-5 text-xl font-bold ">ยังไม่มีรายการในขณะนี้</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </Body>

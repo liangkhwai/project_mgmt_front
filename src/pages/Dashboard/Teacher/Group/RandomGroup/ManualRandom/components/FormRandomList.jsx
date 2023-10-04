@@ -71,7 +71,7 @@ const FormRandomList = ({ groupList, teacherList, setGroupList }) => {
             <Fragment key={idx}>
               <tr>
                 <td className="w-20 break-all sm:w-32 md:w-48 lg:w-60 xl:w-[50%] xl:break-all xl:pr-10">
-                  {item.title}
+                  {item.title ? item.title : "ไม่มีชื่อหัวข้อ"}
                 </td>
 
                 <td>
