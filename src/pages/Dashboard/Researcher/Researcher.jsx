@@ -27,6 +27,8 @@ const Researcher = () => {
     grade: "",
     isLate: "",
     isActive: "",
+    grade_project: "",
+    isEditGradeProject: false,
   });
 
   const editSelectedRoom = (e) => {
@@ -74,6 +76,8 @@ const Researcher = () => {
       isLate: rsh.isLate,
       waitRegister: rsh.waitRegister,
       isActive: rsh.isActive,
+      grade_project: rsh.grade_project,
+      isEditGradeProject: rsh.isEditGradeProject,
     };
     setEditFormData(editValues);
   };
@@ -90,6 +94,18 @@ const Researcher = () => {
     const name = e.target.name;
     const val = e.target.value;
     if (name === "isLate" || name === "waitRegister" || name === "isActive") {
+      if (
+        name === "isLate" &&
+        e.target.checked === false &&
+        editFormData.isEditGradeProject === false
+      ) {
+        setEditFormData((prev) => ({ ...prev, grade_project: "" }));
+        setEditFormData((prev) => ({
+          ...prev,
+          [name]: e.target.checked === true ? true : false,
+        }));
+        return;
+      }
       console.log(e);
       setEditFormData((prev) => ({
         ...prev,
@@ -162,8 +178,9 @@ const Researcher = () => {
   const editFormSubmitHandler = async () => {
     Swal.fire({
       title: "คุณต้องการแก้ไขหรือไม่?",
-      text: "",
+      text: "<div></div>",
       icon: "warning",
+      html:`<div style="color:red">**การลงคะแนนเกรดโปรเจคสามารถลงได้ครั้งเดียว**<br/>หากผู้วิจัยติด I จะยังสามารถแก้ไขได้</div>`,
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
@@ -172,6 +189,31 @@ const Researcher = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         console.log(editFormData);
+        if (
+          editFormData.isLate === true &&
+          editFormData.isEditGradeProject === false
+        ) {
+          editFormData.isEditGradeProject = false;
+          setEditFormData((prev) => ({ ...prev, isEditGradeProject: false }));
+        } else if (
+          editFormData.isEditGradeProject === true &&
+          editFormData.isLate === true
+        ) {
+          Swal.fire(
+            "ไม่สำเร็จ!",
+            "ไม่สามารถแก้ไขได้เนื่องจากเกรดผู้วิจัยได้ถูกแก้ไขแล้ว",
+            "error",
+          );
+          setEditFormData((prev) => ({ ...prev, isLate: false }));
+
+          return;
+        } else if (
+          editFormData.grade_project !== "F" &&
+          editFormData.grade_project !== ""
+        ) {
+          editFormData.isEditGradeProject = true;
+          setEditFormData((prev) => ({ ...prev, isEditGradeProject: true }));
+        }
         const editData = {
           id: editRshId,
           student_id: editFormData.student_id,
@@ -184,6 +226,8 @@ const Researcher = () => {
           isLate: editFormData.isLate,
           waitRegister: editFormData.waitRegister,
           isActive: editFormData.isActive,
+          grade_project: editFormData.grade_project,
+          isEditGradeProject: editFormData.isEditGradeProject,
         };
 
         const response = await fetch(

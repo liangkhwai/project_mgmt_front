@@ -61,7 +61,10 @@ const ResearcherList = ({
       <td className="border-2 border-gray-300 py-1">
         {rsh.group ? rsh.group.status : "ยังไม่ยื่นเสนอหัวข้อ"}
       </td>
-      
+      <td className={`border-2 border-gray-300 py-1 ${rsh.isEditGradeProject ? "bg-gray-400" : ""}`}>
+
+        {rsh.grade_project}
+      </td>
 
 
       {/* <td

@@ -1,5 +1,6 @@
 import React from "react";
 import ToggleSwitch from "./ToggleSwitch";
+import { scryRenderedDOMComponentsWithTag } from "react-dom/test-utils";
 
 const EditRshRow = ({
   rsh,
@@ -88,7 +89,22 @@ const EditRshRow = ({
           onChange={(e) => editFormHandler(e)}
         />
       </td>
-      <td colSpan={2}></td>
+      <td>สถานะโปรเจค</td>
+
+      <td className={`${rsh.isEditGradeProject ? "bg-gray-400" : ""}`}>
+        {rsh.isEditGradeProject === false || rsh.grade_project === "F" || (rsh.isLate === true && rsh.isEditGradeProject === false) ? (
+          <input
+            className="w-full"
+            type="text"
+            name="grade_project"
+            id=""
+            value={rsh.grade_project}
+            onChange={(e) => editFormHandler(e)}
+          />
+        ) : (
+          <div className="">{rsh.grade_project}</div>
+        )}
+      </td>
       <td>
         <input
           type="checkbox"
