@@ -79,6 +79,12 @@ const GroupListBox = () => {
   };
   return (
     <div>
+
+      <div>
+        
+      </div>
+
+
       <table className="my-5 table w-full">
         <thead>
           <tr className="text-md rounded-3xl  border bg-gray-50 text-center">
@@ -102,7 +108,8 @@ const GroupListBox = () => {
                 <td className="py-2.5">{idx + 1}</td>
                 <td className="py-2.5">{grp.title}</td>
                 <td className="py-2.5">
-                  <ProgressBar progress={grp.progress} className="w-2/3" />
+                  {grp.status}
+                  {/* <ProgressBar progress={grp.progress} className="w-2/3" /> */}
                 </td>
                 <td className="py-2.5">
                   <button

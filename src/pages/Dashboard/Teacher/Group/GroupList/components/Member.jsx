@@ -414,6 +414,16 @@ const Member = ({
         onClick={() => {
           rsh.isEditGradeProject && rsh.grade_project !== "F"
             ? editGradeProjectHandler()
+            : grpDetail?.status !== "สอบป้องกัน"
+            ? Swal.fire({
+                title: "ผิดพลาด",
+                text: "ไม่สามารถแก้ไขเกรดได้เนื่องจากกลุ่มยังไม่ได้สอบป้องกัน",
+                icon: "warning",
+                showConfirmButton: true,
+                confirmButtonText: "ตกลง",
+                timer: 3000,
+                timerProgressBar: true,
+              })
             : setIsGradeProjectEdit(true);
         }}
       >

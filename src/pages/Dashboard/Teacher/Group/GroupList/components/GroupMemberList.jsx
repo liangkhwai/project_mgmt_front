@@ -203,46 +203,38 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
       confirmButtonText: "เปลี่ยน!",
       cancelButtonText: "ยกเลิก",
     }).then(async (result) => {
+      if (result.isConfirmed) {
+        const response = await fetch(
+          "http://localhost:8080/group/changeLeaderGroup",
+          {
+            method: "post",
+            body: JSON.stringify({ grpId: grpId, rshId: rshId }),
+            headers: { "Content-Type": "application/json" },
+          },
+        );
+        if (response.status === 500) {
+          Swal.fire({
+            icon: "error",
+            title: "เกิดข้อผิดพลาด",
+            text: "ไม่สามารถเปลี่ยนหัวหน้ากลุ่มได้",
+          });
+          throw new Error("Error");
+        }
+        const data = await response.json();
+        console.log(data);
 
-      if(result.isConfirmed){
+        setGrpDetail(data.updatedGroup);
+        const sortLeader = data.refreshGroupMember.sort((a, b) => {
+          if (a.id === data.updatedGroup.leaderId) {
+            return -1;
+          } else if (b.id === data.updatedGroup.leaderId) {
+            return 1;
+          }
+          return 0;
+        });
 
- const response = await fetch("http://localhost:8080/group/changeLeaderGroup", {
-   method: "post",
-   body: JSON.stringify({ grpId: grpId, rshId: rshId }),
-   headers: { "Content-Type": "application/json" },
- });
- if (response.status === 500) {
-   Swal.fire({
-     icon: "error",
-     title: "เกิดข้อผิดพลาด",
-     text: "ไม่สามารถเปลี่ยนหัวหน้ากลุ่มได้",
-   });
-   throw new Error("Error");
- }
- const data = await response.json();
- console.log(data);
-
- setGrpDetail(data.updatedGroup);
- const sortLeader = data.refreshGroupMember.sort((a, b) => {
-   if (a.id === data.updatedGroup.leaderId) {
-     return -1;
-   } else if (b.id === data.updatedGroup.leaderId) {
-     return 1;
-   }
-   return 0;
- });
-
- setGroupMember(sortLeader);
-
-
-
+        setGroupMember(sortLeader);
       }
-
-
-
-
-     
-      
     });
   };
 
@@ -258,6 +250,7 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
         <span>ชื่อหัวข้อ {grpDetail ? grpDetail.title : ""}</span>
       )}
 
+      <div className="mt-3 text-xl">สถานะกลุ่ม : {grpDetail?.status}</div>
       <div className="text-center text-lg font-bold ">รายชื่อสมาชิก</div>
       <br />
       <table className="table w-full table-auto border-collapse border-gray-400">
