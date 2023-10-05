@@ -6,8 +6,8 @@ const TeacherInfo = ({ countAdvisor }) => {
   if (!countAdvisor) return <div>loading...</div>;
 
   return (
-    <div className="rounded-xl bg-white shadow-lg h-full">
-      <div className="text-start m-3">คณะอาจารย์ที่กำลังดูแลกลุ่มโปรเจค</div>
+    <div className="h-full rounded-xl bg-white shadow-lg">
+      <div className="m-3 text-start">คณะอาจารย์ที่กำลังดูแลกลุ่มโปรเจค</div>
       <div className="mx-5">
         <table className="table w-full text-center">
           <thead>
@@ -15,6 +15,8 @@ const TeacherInfo = ({ countAdvisor }) => {
               <th>ชื่อ - นามสกุล</th>
               <th>เบอร์โทรศัพท์</th>
               <th>ที่ปรึกษา</th>
+              <th>ประธานกรรมการสอบ</th>
+              <th>กรรมการสอบ</th>
             </tr>
           </thead>
           <tbody>
@@ -25,6 +27,8 @@ const TeacherInfo = ({ countAdvisor }) => {
                 </td>
                 <td>{item.tel}</td>
                 <td>{item.advisor_count} กลุ่ม</td>
+                <td>{item.board1_count} กลุ่ม</td>
+                <td>{item.board2_count} กลุ่ม</td>
               </tr>
             ))}
           </tbody>

@@ -33,7 +33,7 @@ const ModalBooking = ({ eventInfo, lastEvent, groupInfo }) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(eventSubmit),
             credentials: "include",
-          }
+          },
         );
 
         const notify = await fetch(
@@ -43,12 +43,12 @@ const ModalBooking = ({ eventInfo, lastEvent, groupInfo }) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               teacher_id: eventInfo.extendedProps.teacher.map(
-                (item) => item.id
+                (item) => item.id,
               ),
               groupInfo: groupInfo,
               event: eventSubmit,
             }),
-          }
+          },
         );
 
         const data = await response.json();
@@ -59,11 +59,12 @@ const ModalBooking = ({ eventInfo, lastEvent, groupInfo }) => {
             icon: "success",
             timer: 1000,
           }).then(() => {
-            // navigate("/dashboard/group");
+            navigate("/dashboard/group");
           });
         } else {
           Swal.fire({
             title: "จองไม่สำเร็จ",
+            text: `${data}`,
             icon: "error",
             confirmButtonText: "ตกลง",
           });
@@ -75,7 +76,7 @@ const ModalBooking = ({ eventInfo, lastEvent, groupInfo }) => {
   return (
     <div>
       <div className="text-center text-xl">{eventInfo.title}</div>
-      <div className="text-center my-3">
+      <div className="my-3 text-center">
         <span className="mr-5">
           วัน{dayjs(eventInfo.start).locale("th").format("dddd")} ที่{" "}
           {dayjs(eventInfo.start).locale("th").format("DD MMMM YYYY")}
@@ -97,7 +98,7 @@ const ModalBooking = ({ eventInfo, lastEvent, groupInfo }) => {
       </div>
       <div>
         <button
-          className="w-full px-4 py-2 bg-green-500 rounded-md mt-3 text-white hover:opacity-80"
+          className="mt-3 w-full rounded-md bg-green-500 px-4 py-2 text-white hover:opacity-80"
           onClick={submitBooking}
         >
           จองเวลาสอบ

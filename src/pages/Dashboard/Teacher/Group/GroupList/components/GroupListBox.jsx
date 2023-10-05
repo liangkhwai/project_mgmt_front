@@ -4,8 +4,10 @@ import AuthContext from "../../../../../../context/auth";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import FilterGroupStatus from "./FilterGroupStatus";
 const GroupListBox = () => {
   const [group, setGroup] = useState([]);
+  const [filterGroup, setFilterGroup] = useState([]); 
   const ctx = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -53,6 +55,7 @@ const GroupListBox = () => {
     if (data) {
       console.log(data);
       setGroup(data);
+      setFilterGroup(data);
     }
   }, [data]);
 
@@ -79,11 +82,9 @@ const GroupListBox = () => {
   };
   return (
     <div>
-
       <div>
-        
+        <FilterGroupStatus group={group} setFilterGroup={setFilterGroup} />
       </div>
-
 
       <table className="my-5 table w-full">
         <thead>
@@ -102,8 +103,8 @@ const GroupListBox = () => {
           </tr>
         </thead>
         <tbody>
-          {group.length > 0 ? (
-            group.map((grp, idx) => (
+          {filterGroup.length > 0 ? (
+            filterGroup.map((grp, idx) => (
               <tr key={idx} className="border-b text-center">
                 <td className="py-2.5">{idx + 1}</td>
                 <td className="py-2.5">{grp.title}</td>

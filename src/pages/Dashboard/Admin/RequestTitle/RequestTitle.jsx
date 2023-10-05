@@ -27,7 +27,7 @@ const RequestTitle = () => {
     const resultTch = res;
     console.log(resultTch);
     Swal.fire({
-      title: "คุณต้องการอนุมัติหัวข้อนี้ใช่หรือไม่?",
+      title: `คุณต้องการ${res ? "อนุมัติ" : "ไม่อนุมัติ"}หัวข้อนี้ใช่หรือไม่?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -87,7 +87,7 @@ const RequestTitle = () => {
                   <td>{group.status}</td>
                   <td>
                     <button
-                      className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                      className="rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700"
                       onClick={() => approveTitle(group.id, true)}
                     >
                       อนุมัติ
@@ -95,7 +95,7 @@ const RequestTitle = () => {
                   </td>
                   <td>
                     <button
-                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                      className="rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
                       onClick={() => approveTitle(group.id, false)}
                     >
                       ไม่อนุมัติ
@@ -105,7 +105,9 @@ const RequestTitle = () => {
               ))
             ) : (
               <tr className="text-center">
-                <td colSpan="5" className="py-5 text-xl font-bold ">ยังไม่มีรายการในขณะนี้</td>
+                <td colSpan="5" className="py-5 text-xl font-bold ">
+                  ยังไม่มีรายการในขณะนี้
+                </td>
               </tr>
             )}
           </tbody>

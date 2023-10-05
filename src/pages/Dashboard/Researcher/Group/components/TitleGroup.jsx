@@ -125,7 +125,7 @@ const TitleGroup = ({ setGroup }) => {
         ) : (
           <Fragment>
             {groupDetail?.isApproveTitle &&
-            groupDetail?.status !== "ยังไม่ยื่นสอบหัวข้อ" ? (
+            groupDetail?.status !== "ยังไม่ยื่นเสนอหัวข้อ" ? (
               <Fragment>
                 <div>{title}</div>
                 <button
@@ -137,7 +137,7 @@ const TitleGroup = ({ setGroup }) => {
               </Fragment>
             ) : (
               <Fragment>
-                {groupDetail?.status === "ยังไม่ยื่นสอบหัวข้อ" ? (
+                {groupDetail?.status === "ยังไม่ยื่นเสนอหัวข้อ" ? (
                   <>
                     <div className="mr-3 w-full">
                       <input

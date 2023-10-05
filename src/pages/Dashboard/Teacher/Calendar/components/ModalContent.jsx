@@ -240,7 +240,7 @@ const ModalContent = ({
   const handleHourChangeAm = (event) => {
     const dayjsStart = dayjs(date.start.toString()).set(
       "hour",
-      event.target.value
+      event.target.value,
     );
     console.log(dayjsStart);
     setHourAm(event.target.value);
@@ -248,7 +248,7 @@ const ModalContent = ({
       return { ...prev, start: dayjs(dayjsStart.$d).$d };
     });
     const filterMoreThanAm = pmDefault.filter(
-      (item) => item.val >= parseInt(event.target.value)
+      (item) => item.val >= parseInt(event.target.value),
     );
 
     setPm([...filterMoreThanAm]);
@@ -324,11 +324,11 @@ const ModalContent = ({
       });
     },
     onError: (error) => {
-      console.log(error);
+      console.table(error);
       Swal.fire({
         icon: "error",
         title: "เกิดข้อผิดพลาด",
-        text: "เพิ่มกิจกรรมไม่สำเร็จ!",
+        text: `เพิ่มกิจกรรมไม่สำเร็จ! ${error.message}`,
       });
     },
   });
@@ -342,7 +342,7 @@ const ModalContent = ({
           body: JSON.stringify({ event: event }),
           credentials: "include",
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
       return response.json();
     },
@@ -351,7 +351,7 @@ const ModalContent = ({
       const updatedData = event;
       const eventTmp = [...events];
       const filterEvent = events.findIndex(
-        (item, idx) => item.id === parseInt(updatedData.id)
+        (item, idx) => item.id === parseInt(updatedData.id),
       );
       eventTmp[filterEvent].title = updatedData.title;
       eventTmp[filterEvent].start = dayjs(updatedData.start).$d;
@@ -459,7 +459,7 @@ const ModalContent = ({
       {/* {startDate} - {endDate} */}
       <div className="flex items-center ">
         <DatePickerPopupStart date={date} setDate={setDate} />
-        <div className="w-16 rounded-lg hover:bg-gray-100 shadow ml-1">
+        <div className="ml-1 w-16 rounded-lg shadow hover:bg-gray-100">
           <DatePicker
             key={1}
             minTime={minTime}
@@ -480,7 +480,7 @@ const ModalContent = ({
         </div>
         <div className="mx-3">ถึง</div>
         <DatePickerPopupEnd date={date} setDate={setDate} />
-        <div className="w-16 rounded-lg hover:bg-gray-100 shadow ml-1">
+        <div className="ml-1 w-16 rounded-lg shadow hover:bg-gray-100">
           <DatePicker
             key={2}
             minTime={minTime}

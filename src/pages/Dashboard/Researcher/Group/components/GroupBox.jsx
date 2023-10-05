@@ -42,13 +42,16 @@ const GroupBox = ({ selfInfo }) => {
         }
       );
       const data = await res.json();
-      setRequestExam(data.slice(0, 3));
+      // setRequestExam(data.slice(0, 3));
+      setRequestExam(data);
     };
 
     fetchBoards();
     fetchMember();
     fetchRequestExam();
   }, []);
+
+  
 
   return (
     <div>

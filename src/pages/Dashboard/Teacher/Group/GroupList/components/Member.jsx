@@ -365,6 +365,7 @@ const Member = ({
   };
 
   console.log(rsh);
+  console.log(grpDetail);
   return (
     <tr className="text-center">
       <td
@@ -414,7 +415,9 @@ const Member = ({
         onClick={() => {
           rsh.isEditGradeProject && rsh.grade_project !== "F"
             ? editGradeProjectHandler()
-            : grpDetail?.status !== "สอบป้องกัน"
+            : grpDetail.status !== "สอบป้องกัน" &&
+              grpDetail.status !== "ส่งปริญญานิพนธ์แล้ว" &&
+              grpDetail.status !== "รอส่งปริญญานิพนธ์"
             ? Swal.fire({
                 title: "ผิดพลาด",
                 text: "ไม่สามารถแก้ไขเกรดได้เนื่องจากกลุ่มยังไม่ได้สอบป้องกัน",

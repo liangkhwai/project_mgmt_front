@@ -10,6 +10,7 @@ const EditRshRow = ({
   editSelectedRoom,
   roomData,
   idx,
+  grpDetail,
 }) => {
   console.log("edit = ", rsh);
   return (
@@ -89,10 +90,12 @@ const EditRshRow = ({
           onChange={(e) => editFormHandler(e)}
         />
       </td>
-      <td>สถานะโปรเจค</td>
+      <td>{grpDetail?.status}</td>
 
       <td className={`${rsh.isEditGradeProject ? "bg-gray-400" : ""}`}>
-        {rsh.isEditGradeProject === false || rsh.grade_project === "F" || (rsh.isLate === true && rsh.isEditGradeProject === false) ? (
+        {rsh.isEditGradeProject === false ||
+        rsh.grade_project === "F" ||
+        (rsh.isLate === true && rsh.isEditGradeProject === false) ? (
           <input
             className="w-full"
             type="text"

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import Swal from "sweetalert2";
 import { v4 as uuidv4 } from "uuid";
 const ModalFormRandom = ({
@@ -9,6 +10,26 @@ const ModalFormRandom = ({
   setIsOpen,
   setEditBoardGroup,
 }) => {
+  const [groupMember, setGroupMember] = useState([]);
+  console.log(editBoardGroup);
+  useEffect(() => {
+    const getGroupMember = async () => {
+      const response = await fetch(
+        `http://localhost:8080/group/getGroupMember`,
+        {
+          method: "POST",
+          body: JSON.stringify({ grpId: editBoardGroup.id }),
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        },
+      );
+      const data = await response.json();
+      console.log(data);
+      setGroupMember(data);
+    };
+    getGroupMember();
+  }, []);
+
   const defaultAdvsior = {
     id: 1,
     firstname: "",
@@ -37,37 +58,6 @@ const ModalFormRandom = ({
     JSON.stringify(defaultBoard2),
   );
 
-  //   const changeBoardGroup = (board, teacher) => {
-  //     teacher = JSON.parse(teacher);
-  //     console.log(board, teacher);
-  //     console.log(editBoardGroup);
-  //     setEditBoardGroup((prevProject) => ({
-  //       ...prevProject,
-  //       boards: {
-  //         ...prevProject.boards,
-  //         [board]: {
-  //           ...prevProject.boards[board],
-  //           id: teacher.id,
-  //           firstname: teacher.firstname,
-  //           lastname: teacher.lastname,
-  //         },
-  //       },
-  //     }));
-  //     // setEditBoardGroup((prev) => {
-  //     //   return {
-  //     //     ...prev,
-  //     //     boards: {
-  //     //       ...prev.boards,
-  //     //       [board]: {
-  //     //         ...prev.boards[board],
-  //     //         id: teacher.id,
-  //     //         firstname: teacher.firstname,
-  //     //         lastname: teacher.lastname,
-  //     //       },
-  //     //     },
-  //     //   };
-  //     // });
-  //   };
   const changeBoardGroup = (board, teacher) => {
     const teacherObj = JSON.parse(teacher);
     console.log(board, teacherObj);
@@ -144,82 +134,98 @@ const ModalFormRandom = ({
     }
   };
   return (
-    <div>
-      <div className=" mb-10 flex justify-center  ">
-        <div className="rounded-xl border bg-blue-100 p-3  text-xl">
+    <div className="">
+      <div className=" mb-5 flex justify-center  ">
+        <div className="   p-3  text-xl">
           {editBoardGroup.title ? editBoardGroup.title : "ยังไม่ตั้งชื่อหัวข้อ"}
         </div>
       </div>
-
-      <div className="">
-        <div className="flex flex-col items-center  lg:flex-row  lg:justify-around">
-          <div className="rounded-xl border bg-blue-100 p-5">
-            <div className="text-center">อาจารย์ที่ปรึกษา</div>
-            <select
-              onChange={(e) => {
-                changeBoardGroup("advisor", e.target.value);
-                setSelectedAdvisor(e.target.value);
-              }}
-              value={selectedAdvisor}
-              className="my-2 rounded-xl px-5 text-blue-900"
-            >
-              {teacherList.map((teacher) => (
-                <option key={uuidv4()} value={JSON.stringify(teacher)}>
-                  อาจารย์{teacher.firstname} {teacher.lastname}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="rounded-xl border bg-blue-100 p-5">
-            <div className="text-center">ประธานกรรมการสอบ</div>
-            <select
-              onChange={(e) => {
-                changeBoardGroup("board1", e.target.value);
-                setSelectedBoard1(e.target.value);
-              }}
-              value={selectedBoard1}
-              className="my-2 rounded-xl px-5 text-blue-900"
-            >
-              {teacherList.map((teacher) => (
-                <option key={uuidv4()} value={JSON.stringify(teacher)}>
-                  อาจารย์{teacher.firstname} {teacher.lastname}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="rounded-xl border bg-blue-100 p-5">
-            <div className="text-center">กรรมการสอบ</div>
-            <select
-              onChange={(e) => {
-                changeBoardGroup("board2", e.target.value);
-                setSelectedBoard2(e.target.value);
-              }}
-              value={selectedBoard2}
-              className="my-2 rounded-xl px-5 text-blue-900"
-            >
-              {teacherList.map((teacher) => (
-                <option key={uuidv4()} value={JSON.stringify(teacher)}>
-                  อาจารย์{teacher.firstname} {teacher.lastname}
-                </option>
-              ))}
-            </select>
+      <div className="mb-5 flex justify-center gap-5">
+        <div className="flex justify-center rounded-3xl border border-black">
+          <div className="flex flex-col">
+            <div className="w-full borderborder-b-black border-t-transparent border-s-transparent py-5 text-center">
+              รายชื่อนักศึกษาในกลุ่มโปรเจค
+            </div>
+            {groupMember.map((item) => (
+              <div
+                key={item.id}
+                className="my-1 w-72 rounded-xl p-5  text-center "
+              >
+                {item.firstname} {item.lastname}
+              </div>
+            ))}
           </div>
         </div>
-        <div className=" my-5 text-center">
-          <button
-            className="rounded-xl bg-green-500 px-4 py-2 text-center text-white hover:bg-green-700"
-            onClick={() => saveBoards()}
-          >
-            บันทึก
-          </button>
-          &nbsp;
-          <button
-            className="rounded-xl bg-red-500 px-4 py-2 text-center text-white hover:bg-red-700"
-            onClick={() => setIsOpen(false)}
-          >
-            ยกเลิก
-          </button>
+        <div className="">
+          <div className="flex flex-col items-center  rounded-3xl  border border-black lg:flex-col lg:justify-around bg-white">
+            <div className="rounded-xl   p-5">
+              <div className="text-center">อาจารย์ที่ปรึกษา</div>
+              <select
+                onChange={(e) => {
+                  changeBoardGroup("advisor", e.target.value);
+                  setSelectedAdvisor(e.target.value);
+                }}
+                value={selectedAdvisor}
+                className="my-2 rounded-xl px-5 text-blue-900"
+              >
+                {teacherList.map((teacher) => (
+                  <option key={uuidv4()} value={JSON.stringify(teacher)}>
+                    อาจารย์{teacher.firstname} {teacher.lastname}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="rounded-xl   p-5">
+              <div className="text-center">ประธานกรรมการสอบ</div>
+              <select
+                onChange={(e) => {
+                  changeBoardGroup("board1", e.target.value);
+                  setSelectedBoard1(e.target.value);
+                }}
+                value={selectedBoard1}
+                className="my-2 rounded-xl px-5 text-blue-900"
+              >
+                {teacherList.map((teacher) => (
+                  <option key={uuidv4()} value={JSON.stringify(teacher)}>
+                    อาจารย์{teacher.firstname} {teacher.lastname}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="rounded-xl   p-5">
+              <div className="text-center">กรรมการสอบ</div>
+              <select
+                onChange={(e) => {
+                  changeBoardGroup("board2", e.target.value);
+                  setSelectedBoard2(e.target.value);
+                }}
+                value={selectedBoard2}
+                className="my-2 rounded-xl px-5 text-blue-900"
+              >
+                {teacherList.map((teacher) => (
+                  <option key={uuidv4()} value={JSON.stringify(teacher)}>
+                    อาจารย์{teacher.firstname} {teacher.lastname}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
         </div>
+      </div>
+      <div className=" pb-5 text-center">
+        <button
+          className="rounded-xl bg-green-500 px-4 py-2 text-center text-white hover:bg-green-700"
+          onClick={() => saveBoards()}
+        >
+          บันทึก
+        </button>
+        &nbsp;
+        <button
+          className="rounded-xl bg-red-500 px-4 py-2 text-center text-white hover:bg-red-700"
+          onClick={() => setIsOpen(false)}
+        >
+          ยกเลิก
+        </button>
       </div>
     </div>
   );

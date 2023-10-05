@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import dayjs from "dayjs";
-const ResultRow = ({ result, idx, setResultLists }) => {
+const ResultRow = ({ result, index, setResultLists }) => {
   console.log("show");
   const navigate = useNavigate();
   // let resultTarget = "";
@@ -43,7 +43,7 @@ const ResultRow = ({ result, idx, setResultLists }) => {
           const data = await response.json();
           console.log(data);
           setResultLists((prev) =>
-            prev.filter((item) => item.id !== result.id)
+            prev.filter((item) => item.id !== result.id),
           );
           Swal.fire({
             icon: "success",
@@ -67,10 +67,10 @@ const ResultRow = ({ result, idx, setResultLists }) => {
 
   return (
     <tr key={result.id}>
-      <td>{idx + 1}</td>
+      <td>{index + 1}</td>
       <td
         onClick={() => navigate(`/dashboard/group/${result.grpId}`)}
-        className="hover:cursor-pointer text-light-blue-700 hover:text-light-blue-300 delay-75 transition-all  "
+        className="text-light-blue-700 transition-all delay-75 hover:cursor-pointer hover:text-light-blue-300  "
       >
         {result.title}
       </td>
@@ -83,7 +83,7 @@ const ResultRow = ({ result, idx, setResultLists }) => {
       </td>
       <td>
         <button
-          className="px-4 py-1 bg-green-600 rounded-md text-white hover:bg-green-400"
+          className="rounded-md bg-green-600 px-4 py-1 text-white hover:bg-green-400"
           onClick={() => submitResult(true)}
         >
           ผ่าน
@@ -91,7 +91,7 @@ const ResultRow = ({ result, idx, setResultLists }) => {
       </td>
       <td>
         <button
-          className="px-4 py-1 bg-red-600 rounded-md text-white hover:bg-red-400"
+          className="rounded-md bg-red-600 px-4 py-1 text-white hover:bg-red-400"
           onClick={() => submitResult(false)}
         >
           ไม่ผ่าน

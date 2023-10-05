@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, Fragment } from "react";
 import theseCover from "../../../../../../src/assets/thesis_cover.png";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import RMUTI_KORAT from "../../../../../../src/assets/RMUTI_KORAT.png";
 const FormThesis = ({ groupInfo, groupMember, boards }) => {
   const [haveFiles, setHaveFiles] = useState(false);
   const [fileLists, setFileLists] = useState([]);
@@ -88,7 +89,7 @@ const FormThesis = ({ groupInfo, groupMember, boards }) => {
       <form onSubmit={submitFormThesis}>
         <div className="grid grid-cols-6 gap-4">
           <div className="col-span-2 h-auto">
-            <div className="">
+            <div className="h-full">
               {/* <input type="file" name="" id="" /> */}
 
               {fileLists?.length > 0 ? (
@@ -98,7 +99,7 @@ const FormThesis = ({ groupInfo, groupMember, boards }) => {
                       return (
                         <div
                           key={idx}
-                          className="border w-full relative group hover:cursor-pointer"
+                          className="group relative w-full border hover:cursor-pointer"
                         >
                           <img
                             src={theseCover}
@@ -108,9 +109,9 @@ const FormThesis = ({ groupInfo, groupMember, boards }) => {
                               window.open(URL.createObjectURL(item, "_blank"))
                             }
                           />
-                          <div className="absolute top-0 right-0 z-30">
+                          <div className="absolute right-0 top-0 z-30">
                             <button
-                              className="px-2 bg-red-500  top-0 right-0 text-white hover:bg-red-200"
+                              className="right-0 top-0  bg-red-500 px-2 text-white hover:bg-red-200"
                               onClick={() => deleteImgHandler(item)}
                             >
                               X
@@ -131,10 +132,15 @@ const FormThesis = ({ groupInfo, groupMember, boards }) => {
                 </Fragment>
               ) : (
                 <div
-                  className="h-80 border-2 border-dashed border-blue-200 flex justify-center items-center hover:text-white hover:bg-blue-200 hover:cursor-pointer"
+                  className="relative flex h-full items-center justify-center border-2 border-dashed border-blue-200 hover:cursor-pointer hover:bg-blue-200 hover:text-white"
                   onClick={() => fileInput.current.click()}
                 >
-                  <div className="">เพิ่มไฟล์</div>
+                  <img
+                    src={RMUTI_KORAT}
+                    alt=""
+                    className="h-56 w-32 opacity-25"
+                  />
+                  <div className="absolute">เพิ่มไฟล์</div>
                 </div>
               )}
 
@@ -150,21 +156,25 @@ const FormThesis = ({ groupInfo, groupMember, boards }) => {
             </div>
           </div>
           <div className="col-span-4 h-auto">
-            <div className="w-full">
-              <div className="border rounded-t-xl border-b-blue-100 ">
-                <div className="px-10 w-full">
-                  <div className="grid grid-cols-6 my-5">
-                    <div className="font-bold text-blue-300 col-span-2 self-center">
+            <div className="w-full ">
+              {/* <div className="mb-5 flex justify-center">
+                <img src={RMUTI_KORAT} alt="" className="h-56 w-32" />
+              </div> */}
+
+              <div className="rounded-t-xl border border-b-blue-100 ">
+                <div className="w-full px-10">
+                  <div className="my-5 grid grid-cols-6">
+                    <div className="col-span-2 self-center font-bold text-blue-300">
                       ชื่อหัวข้อ
                     </div>
                     <div className="col-span-4">{groupInfo?.title}</div>
                   </div>
                 </div>
               </div>
-              <div className="border border-t-transparent border-b-blue-100">
-                <div className="px-10 w-full">
-                  <div className="grid grid-cols-6 my-5">
-                    <div className="font-bold text-blue-300 col-span-2 self-center">
+              <div className="border border-b-blue-100 border-t-">
+                <div className="w-full px-10">
+                  <div className="my-5 grid grid-cols-6">
+                    <div className="col-span-2 self-center font-bold text-blue-300">
                       ผู้จัดทำ
                     </div>
                     <div className="col-span-4">
@@ -179,30 +189,11 @@ const FormThesis = ({ groupInfo, groupMember, boards }) => {
                   </div>
                 </div>
               </div>
-              <div className="border border-t-transparent border-b-blue-100">
-                <div className="px-10 w-full">
-                  <div className="grid grid-cols-6 my-5">
-                    <div className="font-bold text-blue-300 col-span-2 self-center">
-                      Abstract
-                    </div>
-                    <div className="col-span-4">
-                      <textarea
-                        required
-                        name=""
-                        id=""
-                        cols="30"
-                        rows="10"
-                        className="w-full px-2 rounded-xl"
-                        onChange={(e) => setAbstract(e.target.value)}
-                      ></textarea>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="border border-t-transparent border-b-blue-100">
-                <div className="px-10 w-full">
-                  <div className="grid grid-cols-6 my-5">
-                    <div className="font-bold text-blue-300 col-span-2 self-center">
+
+              <div className="border border-b-blue-100 border-t-">
+                <div className="w-full px-10">
+                  <div className="my-5 grid grid-cols-6">
+                    <div className="col-span-2 self-center font-bold text-blue-300">
                       อาจารย์ที่ปรึกษา
                     </div>
                     <div className="col-span-4">
@@ -214,7 +205,7 @@ const FormThesis = ({ groupInfo, groupMember, boards }) => {
                             item.prefix +
                             item.firstname +
                             " " +
-                            item.lastname
+                            item.lastname,
                         )}
                     </div>
                   </div>
@@ -223,9 +214,9 @@ const FormThesis = ({ groupInfo, groupMember, boards }) => {
             </div>
           </div>
         </div>
-        <div className="text-end my-5">
+        <div className="my-5 text-end">
           <button
-            className="px-4 py-2 bg-green-400 text-white rounded-xl"
+            className="rounded-xl bg-green-400 px-4 py-2 text-white"
             type="submit"
           >
             อัพโหลด

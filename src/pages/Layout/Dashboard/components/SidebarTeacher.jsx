@@ -5,14 +5,14 @@ const SidebarTeacher = () => {
     <Fragment>
       <li className="">
         <Link to="/dashboard/grouplist" className="">
-          <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
-            ข้อมูลกลุ่มนักศึกษา
+          <div className="w-100 mb-3 flex pl-20 transition-colors duration-300 ease-in-out hover:text-blue-600">
+            ข้อมูลกลุ่มโปรเจค
           </div>
         </Link>
       </li>
       <li className="">
         <Link to="/dashboard/calendar/book" className="">
-          <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
+          <div className="w-100 mb-3 flex pl-20 transition-colors duration-300 ease-in-out hover:text-blue-600">
             ลงชั่วโมงว่าง
           </div>
         </Link>
@@ -26,8 +26,8 @@ const SidebarTeacher = () => {
       </li> */}
       <li className="">
         <Link to="/dashboard/exam/request" className="">
-          <div className="w-100 flex pl-20 hover:text-blue-600 transition-colors mb-3 ease-in-out duration-300">
-          รายการอนุมัติการขอสอบ
+          <div className="w-100 mb-3 flex pl-20 transition-colors duration-300 ease-in-out hover:text-blue-600">
+            รายการอนุมัติการขอสอบ
           </div>
         </Link>
       </li>

@@ -209,7 +209,7 @@ const Researcher = () => {
           return;
         } else if (
           editFormData.grade_project !== "F" &&
-          editFormData.grade_project !== ""
+          editFormData.grade_project !== "" && editFormData.grade_project !== null
         ) {
           editFormData.isEditGradeProject = true;
           setEditFormData((prev) => ({ ...prev, isEditGradeProject: true }));

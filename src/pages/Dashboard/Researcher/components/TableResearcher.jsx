@@ -113,6 +113,7 @@ const TableResearcher = ({
             <Fragment key={idx}>
               {editRshId === rsh.id ? (
                 <EditRshRow
+                  grpDetail={rsh.group}
                   rsh={editFormData}
                   editFormHandler={editFormHandler}
                   cancelEditFormHandler={cancelEditFormHandler}
@@ -152,7 +153,9 @@ const TableResearcher = ({
         ref={fileRef}
         onChangeCapture={(e) => fileChangeHandler(e)}
         className="hidden"
+        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
       />
+
       {/* <Modal open={modalOpen} onClose={closeModalHandler}>
         <Box sx={style}>
           <FileDetail
