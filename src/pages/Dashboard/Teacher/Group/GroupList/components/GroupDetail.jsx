@@ -10,6 +10,7 @@ import { useContext } from "react";
 import AuthContext from "../../../../../../context/auth";
 import ReactModal from "react-modal";
 import AddButton, { SaveButton } from "../../../../../../UI/button";
+import { BiArrowBack } from "react-icons/bi";
 const GroupDetail = () => {
   const ctx = useContext(AuthContext);
   const getGroupDetail = useLoaderData();
@@ -141,7 +142,17 @@ const GroupDetail = () => {
 
   return (
     <div className="mx-10" id="grpDetailApp">
-      <Title>รายละเอียดกลุ่มโปรเจค</Title>
+      <Title>
+        <div className="flex items-center gap-5">
+          <button
+            className="hover:text-light-blue-700 "
+            onClick={() => window.history.back()}
+          >
+            <BiArrowBack />
+          </button>
+          รายละเอียดกลุ่มโปรเจค
+        </div>
+      </Title>
       <Body>
         <GroupMemberList
           grpDetail={grpDetail}

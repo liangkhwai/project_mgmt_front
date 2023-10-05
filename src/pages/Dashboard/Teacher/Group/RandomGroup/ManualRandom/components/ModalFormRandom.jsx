@@ -143,7 +143,7 @@ const ModalFormRandom = ({
       <div className="mb-5 flex justify-center gap-5">
         <div className="flex justify-center rounded-3xl border border-black">
           <div className="flex flex-col">
-            <div className="w-full borderborder-b-black border-t-transparent border-s-transparent py-5 text-center">
+            <div className="borderborder-b-black w-full border-s-transparent border-t-transparent py-5 text-center">
               รายชื่อนักศึกษาในกลุ่มโปรเจค
             </div>
             {groupMember.map((item) => (
@@ -157,7 +157,7 @@ const ModalFormRandom = ({
           </div>
         </div>
         <div className="">
-          <div className="flex flex-col items-center  rounded-3xl  border border-black lg:flex-col lg:justify-around bg-white">
+          <div className="flex flex-col items-center  rounded-3xl  border border-black bg-white lg:flex-col lg:justify-around">
             <div className="rounded-xl   p-5">
               <div className="text-center">อาจารย์ที่ปรึกษา</div>
               <select

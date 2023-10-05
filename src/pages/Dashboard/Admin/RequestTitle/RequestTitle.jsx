@@ -3,9 +3,11 @@ import Title from "../../../../UI/Title";
 import Body from "../../../../UI/Body";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const RequestTitle = () => {
   const [groupList, setGroupList] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getGroupList = async () => {
@@ -83,7 +85,12 @@ const RequestTitle = () => {
               groupList.map((group, index) => (
                 <tr key={group.id}>
                   <td>{index + 1}</td>
-                  <td>{group.title}</td>
+                  <td
+                    onClick={() => navigate(`/dashboard/group/${group.id}`)}
+                    className="cursor-pointer hover:bg-gray-100 text-light-blue-700"
+                  >
+                    {group.title}
+                  </td>
                   <td>{group.status}</td>
                   <td>
                     <button
