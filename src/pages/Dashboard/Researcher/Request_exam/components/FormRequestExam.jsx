@@ -85,6 +85,16 @@ const FormRequestExam = ({ groupInfo }) => {
       cancelButtonText: "ยกเลิก",
     }).then((result) => {
       if (result.isConfirmed) {
+        if (selectedFiles.length === 0) {
+          Swal.fire({
+            title: "กรุณาแนบไฟล์เอกสาร PDF",
+            icon: "warning",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          return;
+        }
+
         const formData = new FormData();
         formData.append("category", resultTarget);
         formData.append("description", examRequest.des);
@@ -292,6 +302,7 @@ const FormRequestExam = ({ groupInfo }) => {
                 className="w-full"
                 onChange={(e) => handleFileChange(e)}
                 multipleaccept=".pdf"
+                accept=".pdf"
               />
             </div>
           </div>

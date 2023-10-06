@@ -6,7 +6,7 @@ import Landing from "./pages/Layout/Landing/LayoutPublicContent";
 import LayoutManageContent from "./pages/Layout/Dashboard/LayoutDashboard";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import { useContext } from "react";
-import { checkAuth } from "./loader/auth";
+import { checkAuth, checkRole } from "./loader/auth";
 import ResearcherList from "./pages/Dashboard/Researcher/Researcher";
 import { getList, getSelfInfo } from "./loader/researcher";
 import { getAllEvents, getEventListTch } from "./loader/free_hours";
@@ -40,6 +40,8 @@ import Theses from "./pages/Dashboard/Researcher/Theses/Theses";
 import NewThesis from "./pages/Landing/NewThesis";
 import Random from "./pages/Dashboard/Teacher/Group/RandomGroup/ManualRandom/Random";
 import RequestTitle from "./pages/Dashboard/Admin/RequestTitle/RequestTitle";
+import Personal from "./pages/Personal/Personal";
+import Password from "./pages/Password/Password";
 dayjs.extend(customParseFormat);
 dayjs.extend(localizedFormat);
 dayjs.locale(th);
@@ -167,6 +169,16 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/request/title",
         element: <RequestTitle />,
+      },
+      {
+        path: "/dashboard/personal",
+        element: <Personal />,
+        loader: checkRole,
+      },
+      {
+        path: "/dashboard/profile/edit",
+        element: <Password />,
+        loader: checkRole,
       },
     ],
   },

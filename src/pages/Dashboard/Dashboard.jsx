@@ -96,12 +96,12 @@ const Dashboard = () => {
           />
         </div>
         <div className="my-5"></div>
-        <div className="grid grid-cols-2 gap-5 h-full pb-5">
+        <div className="grid h-full grid-cols-2 gap-5 pb-10">
           <div>
-            <ResearcherWithIncomplete dashboard={dashboard} />
+            <ResearcherWithIncomplete dashboard={dashboard ? dashboard : []} />
           </div>
-          <div>
-            <ResearcherWithNotRegister dashboard={dashboard} />
+          <div className="">
+            <ResearcherWithNotRegister dashboard={dashboard ? dashboard : []} />
           </div>
         </div>
       </div>

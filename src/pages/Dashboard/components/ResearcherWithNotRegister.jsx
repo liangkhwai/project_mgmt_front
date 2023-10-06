@@ -20,19 +20,31 @@ const ResearcherWithNotRegister = ({ dashboard }) => {
           </tr>
         </thead>
         <tbody>
-          {dashboard.researcherWithNotRegistger && (
-            <Fragment>
-              {dashboard.researcherWithNotRegistger.map((researcher, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{researcher.student_id}</td>
-                  <td>{researcher.firstname}</td>
-                  <td>{researcher.lastname}</td>
-                  <td>{researcher.grade_project}</td>
-                  <td>{researcher.categorie_room.room}</td>
-                </tr>
-              ))}
-            </Fragment>
+          {dashboard?.researcherWithNotRegistger?.length !== 0 ? (
+            <>
+              {dashboard.researcherWithNotRegistger && (
+                <Fragment>
+                  {dashboard.researcherWithNotRegistger.map(
+                    (researcher, index) => (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{researcher.student_id}</td>
+                        <td>{researcher.firstname}</td>
+                        <td>{researcher.lastname}</td>
+                        <td>{researcher.grade_project}</td>
+                        <td>{researcher.categorie_room.room}</td>
+                      </tr>
+                    ),
+                  )}
+                </Fragment>
+              )}
+            </>
+          ) : (
+            <tr>
+              <td colSpan={5} className="py-2 text-center">
+                ไม่มีรายชื่อผู้วิจัยที่ยังไม่ลงรายวิชานี้
+              </td>
+            </tr>
           )}
         </tbody>
       </table>

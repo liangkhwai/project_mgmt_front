@@ -33,3 +33,16 @@ export async function checkAuthTF() {
     return { isAuth: true, userData: data.userData, userRole: data.userRole };
   }
 }
+
+export async function checkRole() {
+  const response = await fetch("http://localhost:8080/auth/check/role", {
+    method: "get",
+    credentials: "include",
+  });
+  const data = await response.json();
+  if (data) {
+    return data;
+  } else {
+    return false;
+  }
+}

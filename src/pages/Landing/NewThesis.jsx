@@ -122,7 +122,7 @@ const NewThesis = () => {
               item.advisor_name.toLowerCase().includes(query.toLowerCase())) ||
             (item.researchers_names &&
               item.researchers_names.some((name) =>
-                name.toLowerCase().includes(query.toLowerCase())
+                name.toLowerCase().includes(query.toLowerCase()),
               ))) &&
           isYearInRange
         );
@@ -142,20 +142,20 @@ const NewThesis = () => {
 
   return (
     <div className="">
-      <div className="mx-10 md:mx-16 xl:mx-36 my-5">
-        <div className="border px-5 py-6 rounded-xl">
-          <div className="md:grid md:grid-cols-12 flex flex-col">
+      <div className="mx-10 my-5 md:mx-16 xl:mx-36">
+        <div className="rounded-xl border px-5 py-6">
+          <div className="flex flex-col md:grid md:grid-cols-12">
             <div className="col-span-4">
               <div className="relative h-full" ref={detailRef}>
                 <button
-                  className=" w-full h-full border border-blue-400 rounded-tl-md rounded-bl-md border-r-transparent text-blue-600 flex items-center justify-between px-10"
+                  className=" flex h-full w-full items-center justify-between rounded-bl-md rounded-tl-md border border-blue-400 border-r-transparent px-10 text-blue-600"
                   onClick={() => setOpenDetail(!openDetail)}
                 >
                   {detail}{" "}
                   {openDetail ? <AiOutlineCaretUp /> : <AiOutlineCaretDown />}
                 </button>
                 {openDetail && (
-                  <div className="z-10 flex flex-col w-full absolute bg-white border shadow-lg rounded-lg text-blue-800 font-medium text-sm">
+                  <div className="absolute z-10 flex w-full flex-col rounded-lg border bg-white text-sm font-medium text-blue-800 shadow-lg">
                     {dropdownOptions.map((option, index) => (
                       <button
                         key={index}
@@ -171,9 +171,9 @@ const NewThesis = () => {
             </div>
 
             <div className="col-span-8">
-              <div className="w-full h-full">
+              <div className="h-full w-full">
                 <input
-                  className="w-full h-full rounded-tr-md rounded-br-md border-blue-400 px-10"
+                  className="h-full w-full rounded-br-md rounded-tr-md border-blue-400 px-10"
                   type="text"
                   name=""
                   id=""
@@ -184,9 +184,9 @@ const NewThesis = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col my-5  xl:flex-col 2xl:flex-row ">
-            <div className="flex gap-10 justify-center xl:justify-center">
-              <div className="gap-1 relative h-[60%]">
+          <div className="my-5 flex flex-col  xl:flex-col 2xl:flex-row ">
+            <div className="flex justify-center gap-10 xl:justify-center">
+              <div className="relative h-[60%] gap-1">
                 <div className="text-blue-600">ปีเริ่มต้น</div>
                 <input
                   type="number"
@@ -194,10 +194,10 @@ const NewThesis = () => {
                   id=""
                   value={openYear}
                   onChange={(e) => setOpenYear(e.target.value)}
-                  className="w-full h-full border rounded-md border-blue-400   flex items-center justify-between gap-20 md:gap-20 lg:gap-32 xl:gap-60 py-1 px-3"
+                  className="flex h-full w-full items-center justify-between   gap-20 rounded-md border border-blue-400 px-3 py-1 md:gap-20 lg:gap-32 xl:gap-60"
                 />
               </div>
-              <div className="gap-1 relative h-[60%]">
+              <div className="relative h-[60%] gap-1">
                 <div className="text-blue-600">ปีสิ้นสุด</div>
                 <input
                   type="number"
@@ -205,16 +205,16 @@ const NewThesis = () => {
                   id=""
                   value={openYearEnd}
                   onChange={(e) => setOpenYearEnd(e.target.value)}
-                  className="w-full h-full border rounded-md border-blue-400   flex items-center justify-between gap-20 md:gap-20 lg:gap-32 xl:gap-60 py-1 px-3"
+                  className="flex h-full w-full items-center justify-between   gap-20 rounded-md border border-blue-400 px-3 py-1 md:gap-20 lg:gap-32 xl:gap-60"
                 />
               </div>
             </div>
-            <div className="flex gap-2 xl:gap-2 2xl:gap-5 flex-grow justify-center min-w-md">
-              <button className="p-1 px-10 py-3 mt-4 bg-green-700 text-white rounded-lg shadow-lg hover:bg-green-600">
+            <div className="min-w-md flex flex-grow justify-center gap-2 xl:gap-2 2xl:gap-5">
+              <button className="mt-4 rounded-lg bg-green-700 p-1 px-10 py-3 text-white shadow-lg hover:bg-green-600">
                 <div className="">
                   <div className="flex justify-center">
                     <svg
-                      className="w-6 h-5 mr-2"
+                      className="mr-2 h-5 w-6"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 20 20"
                       fill="currentColor"
@@ -230,13 +230,13 @@ const NewThesis = () => {
                 </div>
               </button>
               <button
-                className="p-1 px-10 py-3 mt-4 bg-yellow-700 text-white rounded-lg shadow-lg hover:bg-yellow-600"
+                className="mt-4 rounded-lg bg-yellow-700 p-1 px-10 py-3 text-white shadow-lg hover:bg-yellow-600"
                 onClick={clearFilter}
               >
                 <div className="">
                   <div className="flex justify-center">
                     <svg
-                      className="w-6 h-5 mr-2"
+                      className="mr-2 h-5 w-6"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -257,7 +257,7 @@ const NewThesis = () => {
           </div>
         </div>
         <div>
-          <div className="text-3xl text-blue-700 my-5 ">
+          <div className="my-5 text-3xl text-blue-700 ">
             รายการปริญญานิพนธ์
             <div className="my-3"></div>
             <div className="w-[40%]">
@@ -273,7 +273,7 @@ const NewThesis = () => {
 
           {filterData.map((thesis) => (
             <Fragment>
-              <div className="md:grid md:grid-cols-6 p-5 border rounded-2xl flex flex-col mb-3">
+              <div className="mb-3 flex flex-col rounded-2xl border p-5 md:grid md:grid-cols-6">
                 <div className="col-span-4 text-start">
                   <div className="text-xl text-blue-600">{thesis.title}</div>
                   <div>
@@ -294,16 +294,16 @@ const NewThesis = () => {
                   </div>
                   <div>อาจารย์ที่ปรึกษา : อาจารย์ {thesis.advisor_name}</div>
                 </div>
-                <div className="text-center self-center">
+                <div className="self-center text-center">
                   {new Date(thesis.years).getFullYear(500) + 543}
                 </div>
-                <div className="text-center self-center">
+                <div className="self-center text-center">
                   <button
-                    className="px-4 py-2 rounded-xl bg-green-500 text-white"
+                    className="rounded-xl bg-green-500 px-4 py-2 text-white"
                     onClick={() =>
                       window.open(
                         `http://localhost:8080/files/thesis/${thesis.filename}`,
-                        "_blank"
+                        "_blank",
                       )
                     }
                   >
