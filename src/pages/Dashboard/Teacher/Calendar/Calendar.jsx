@@ -15,6 +15,7 @@ import { useLoaderData } from "react-router-dom";
 import ModalContentView from "./components/ModalContentView";
 // import "D:/project_mgmt/src/pages/Dashboard/Teacher/Calendar/components/CustomCalendar.css";
 import "./components/CustomCalendar.css";
+import FilterTeacherFree from "./components/FilterTeacherFree";
 const Calendar = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [eventEdit, setEventEdit] = useState();
@@ -22,6 +23,7 @@ const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState();
   const data = useLoaderData();
   const [events, setEvents] = useState([...data]);
+  const [filterTeacherEvent, setFilterTeacherEvent] = useState([...data]);
   const calendarRef = useRef();
   useEffect(() => {}, []);
 
@@ -93,8 +95,14 @@ const Calendar = () => {
     const eventEnd = dayjs(event.end).locale("th").format("HH:mm");
     return {
       html: `
-        <span class="cursor-pointer w-full border break-all rounded-md hover:opacity-80" style="background-color:${event.extendedProps.teacher.color_calendar}">
-          ${eventStart}-${eventEnd} <span class="font-bold">${event.extendedProps.teacher.firstname}</span> 
+        <span class="cursor-pointer w-full border break-all rounded-md hover:opacity-80" style="background-color:${
+          event.extendedProps.isBooked
+            ? "#A3A3A3"
+            : event.extendedProps.teacher.color_calendar
+        }">
+          ${eventStart}-${eventEnd} <span class="font-bold" style="${
+            event.extendedProps.isBooked ? "text-decoration: line-through;" : ""
+          }">${event.extendedProps.teacher.firstname} </span> 
         </span>
       `,
     };
@@ -135,6 +143,14 @@ const Calendar = () => {
     <div className="mx-10">
       <Title>ลงชั่วโมงว่าง</Title>
       <Body>
+        <div className=" mb-5 h-auto w-auto rounded-xl border bg-blue-300 py-5">
+          <FilterTeacherFree
+            setFilterTeacherEvent={setFilterTeacherEvent}
+            filterTeacherEvent={filterTeacherEvent}
+            events={events}
+          />
+        </div>
+
         <div className="">
           <FullCalendar
             ref={calendarRef}
@@ -151,7 +167,7 @@ const Calendar = () => {
             selectable={true}
             weekends={true}
             select={handleSelect}
-            events={events}
+            events={filterTeacherEvent}
             slotEventOverlap={true}
             dayMaxEvents={3}
             eventContent={eventDidMount}

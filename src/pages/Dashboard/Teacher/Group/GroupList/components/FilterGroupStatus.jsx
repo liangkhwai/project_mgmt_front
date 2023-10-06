@@ -23,8 +23,8 @@ const FilterGroupStatus = ({ group, setFilterGroup }) => {
         // className="mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2"
         className={
           selectButton === "ทั้งหมด"
-            ? "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2 text-white "
-            : "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2"
+            ? "mx-2 my-1 rounded-xl bg-light-blue-500 px-4 py-2 text-white "
+            : "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2 text-white"
         }
         onClick={() => filterGroup("ทั้งหมด")}
       >
@@ -32,9 +32,29 @@ const FilterGroupStatus = ({ group, setFilterGroup }) => {
       </button>
       <button
         className={
+          selectButton === "ยังไม่ยื่นเสนอหัวข้อ"
+            ? "mx-2 my-1 rounded-xl bg-light-blue-500 px-4 py-2 text-white "
+            : "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2 text-white"
+        }
+        onClick={() => filterGroup("ยังไม่ยื่นเสนอหัวข้อ")}
+      >
+        ยังไม่ยื่นสอบหัวข้อ ({countFilter("ยังไม่ยื่นเสนอหัวข้อ")})
+      </button>
+      <button
+        className={
+          selectButton === "ยื่นเสนอหัวข้อ"
+            ? "mx-2 my-1 rounded-xl bg-light-blue-500 px-4 py-2 text-white "
+            : "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2 text-white"
+        }
+        onClick={() => filterGroup("ยื่นเสนอหัวข้อ")}
+      >
+        ยังไม่ยื่นสอบหัวข้อ ({countFilter("ยื่นเสนอหัวข้อ")})
+      </button>
+      <button
+        className={
           selectButton === "ยังไม่ยื่นสอบหัวข้อ"
-            ? "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2 text-white "
-            : "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2"
+            ? "mx-2 my-1 rounded-xl bg-light-blue-500 px-4 py-2 text-white "
+            : "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2 text-white"
         }
         onClick={() => filterGroup("ยังไม่ยื่นสอบหัวข้อ")}
       >
@@ -43,8 +63,8 @@ const FilterGroupStatus = ({ group, setFilterGroup }) => {
       <button
         className={
           selectButton === "สอบหัวข้อ"
-            ? "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2 text-white "
-            : "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2"
+            ? "mx-2 my-1 rounded-xl bg-light-blue-500 px-4 py-2 text-white "
+            : "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2 text-white"
         }
         onClick={() => filterGroup("สอบหัวข้อ")}
       >
@@ -53,8 +73,8 @@ const FilterGroupStatus = ({ group, setFilterGroup }) => {
       <button
         className={
           selectButton === "ยังไม่ยื่นสอบก้าวหน้า"
-            ? "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2 text-white "
-            : "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2"
+            ? "mx-2 my-1 rounded-xl bg-light-blue-500 px-4 py-2 text-white "
+            : "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2 text-white"
         }
         onClick={() => filterGroup("ยังไม่ยื่นสอบก้าวหน้า")}
       >
@@ -63,8 +83,8 @@ const FilterGroupStatus = ({ group, setFilterGroup }) => {
       <button
         className={
           selectButton === "สอบก้าวหน้า"
-            ? "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2 text-white "
-            : "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2"
+            ? "mx-2 my-1 rounded-xl bg-light-blue-500 px-4 py-2 text-white "
+            : "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2 text-white"
         }
         onClick={() => filterGroup("สอบก้าวหน้า")}
       >
@@ -73,8 +93,8 @@ const FilterGroupStatus = ({ group, setFilterGroup }) => {
       <button
         className={
           selectButton === "ยังไม่ยื่นสอบป้องกัน"
-            ? "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2 text-white "
-            : "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2"
+            ? "mx-2 my-1 rounded-xl bg-light-blue-500 px-4 py-2 text-white "
+            : "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2 text-white"
         }
         onClick={() => filterGroup("ยังไม่ยื่นสอบป้องกัน")}
       >
@@ -83,8 +103,8 @@ const FilterGroupStatus = ({ group, setFilterGroup }) => {
       <button
         className={
           selectButton === "สอบป้องกัน"
-            ? "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2 text-white "
-            : "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2"
+            ? "mx-2 my-1 rounded-xl bg-light-blue-500 px-4 py-2 text-white "
+            : "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2 text-white"
         }
         onClick={() => filterGroup("สอบป้องกัน")}
       >
@@ -93,8 +113,8 @@ const FilterGroupStatus = ({ group, setFilterGroup }) => {
       <button
         className={
           selectButton === "รอส่งปริญญานิพนธ์"
-            ? "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2 text-white "
-            : "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2"
+            ? "mx-2 my-1 rounded-xl bg-light-blue-500 px-4 py-2 text-white "
+            : "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2 text-white"
         }
         onClick={() => filterGroup("รอส่งปริญญานิพนธ์")}
       >
@@ -103,8 +123,8 @@ const FilterGroupStatus = ({ group, setFilterGroup }) => {
       <button
         className={
           selectButton === "ส่งปริญญานิพนธ์แล้ว"
-            ? "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2 text-white "
-            : "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2"
+            ? "mx-2 my-1 rounded-xl bg-light-blue-500 px-4 py-2 text-white "
+            : "mx-2 my-1 rounded-xl bg-light-blue-300 px-4 py-2 text-white"
         }
         onClick={() => filterGroup("ส่งปริญญานิพนธ์แล้ว")}
       >

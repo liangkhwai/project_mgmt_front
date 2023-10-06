@@ -81,10 +81,10 @@ const CreateGroup = () => {
             loadedResearcherList={loadedResearcherList}
           />
         )}
-        <div className="text-end pt-5">
+        <div className="text-center pt-5">
           <AddButton onClick={() => createGroupSubmitHandler()}>
             {" "}
-            สร้างกลุ่ม และ เชิญผู้วิจัย
+            สร้างกลุ่ม
           </AddButton>
         </div>
       </Body>

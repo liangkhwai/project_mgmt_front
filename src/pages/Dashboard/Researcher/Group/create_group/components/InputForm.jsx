@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { AddButton } from "../../../../../../UI/button";
 import { useCombobox } from "downshift";
 import ComboBox from "./ComboBoxSearcherRsh";
+import Swal from "sweetalert2";
 // import { Autocomplete, TextField } from "@mui/material";
 // import { makeStyles } from "@mui/styles";
 
@@ -46,16 +47,35 @@ const InputForm = ({
 
   const inputFormSubmitHandler = () => {
     console.log(inputValue);
-    setRshList((prev) => [...prev, { ...selectedItem }]);
-    setLoadedResearcherList((prev) =>
-      prev.filter((item) => item.id !== selectedItem.id)
-    );
-    setSelectedItem(null);
-    // inputRef.current.value = "";
-    console.log(inputRef.current);
-    const allInput = document.querySelectorAll("input.input.w-full");
-    console.log(allInput);
-    console.log(allInput.forEach((item) => (item.value = "")));
+
+    Swal.fire({
+      title: "คุณต้องการเพิ่มผู้วิจัยในกลุ่มใช่หรือไม่?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        console.log(selectedItem);
+        if (selectedItem === null) {
+          Swal.fire({
+            title: "กรุณาเลือกผู้วิจัย",
+            icon: "error",
+          });
+        } else {
+          setRshList((prev) => [...prev, { ...selectedItem }]);
+          setLoadedResearcherList((prev) =>
+            prev.filter((item) => item.id !== selectedItem.id),
+          );
+          setSelectedItem(null);
+          // inputRef.current.value = "";
+          console.log(inputRef.current);
+          const allInput = document.querySelectorAll("input.input.w-full");
+          console.log(allInput);
+          console.log(allInput.forEach((item) => (item.value = "")));
+        }
+      }
+    });
   };
 
   console.log(loadedResearcherList);

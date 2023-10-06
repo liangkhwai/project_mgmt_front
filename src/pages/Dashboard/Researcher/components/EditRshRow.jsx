@@ -1,7 +1,7 @@
 import React from "react";
 import ToggleSwitch from "./ToggleSwitch";
 import { scryRenderedDOMComponentsWithTag } from "react-dom/test-utils";
-
+import { FloppyDiskBack, XSquare } from "@phosphor-icons/react";
 const EditRshRow = ({
   rsh,
   editFormHandler,
@@ -14,11 +14,11 @@ const EditRshRow = ({
 }) => {
   console.log("edit = ", rsh);
   return (
-    <tr className="text-center ">
+    <tr className="text-center bg-yellow-100 border-2 ">
       <td>{idx + 1}</td>
       <td>
         <input
-          className="w-full "
+          className="w-full  rounded-xl"
           type="text"
           name="student_id"
           id=""
@@ -28,7 +28,7 @@ const EditRshRow = ({
       </td>
       <td>
         <input
-          className="w-full"
+          className="w-full rounded-xl"
           type="text"
           name="firstname"
           id=""
@@ -38,7 +38,7 @@ const EditRshRow = ({
       </td>
       <td>
         <input
-          className="w-full"
+          className="w-full rounded-xl"
           type="text"
           name="lastname"
           id=""
@@ -50,6 +50,7 @@ const EditRshRow = ({
         <select
           name=""
           id=""
+          className="rounded-xl py-2 pl-2"
           onChange={(e) => editSelectedRoom(e)}
           value={rsh.categorieRoomId}
         >
@@ -62,7 +63,7 @@ const EditRshRow = ({
       </td>
       <td>
         <input
-          className="w-full"
+          className="w-full rounded-xl"
           type="tel"
           name="tel"
           id=""
@@ -82,7 +83,7 @@ const EditRshRow = ({
       </td> */}
       <td>
         <input
-          className="w-full"
+          className="w-full rounded-xl"
           type="number"
           name="grade"
           id=""
@@ -97,7 +98,7 @@ const EditRshRow = ({
         rsh.grade_project === "F" ||
         (rsh.isLate === true && rsh.isEditGradeProject === false) ? (
           <input
-            className="w-full"
+            className="w-full rounded-xl"
             type="text"
             name="grade_project"
             id=""
@@ -139,7 +140,7 @@ const EditRshRow = ({
           className="rounded bg-yellow-400 px-3 py-2 text-white"
           onClick={() => editFormSubmitHandler()}
         >
-          บันทึก
+          <FloppyDiskBack weight="fill" />
         </button>
       </td>
       <td>
@@ -147,7 +148,7 @@ const EditRshRow = ({
           className="rounded bg-red-500 px-3 py-2 text-white "
           onClick={() => cancelEditFormHandler()}
         >
-          ยกเลิก
+          <XSquare weight="fill" />
         </button>
         {/* </div> */}
       </td>

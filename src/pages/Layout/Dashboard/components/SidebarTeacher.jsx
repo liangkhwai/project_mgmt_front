@@ -4,6 +4,13 @@ const SidebarTeacher = () => {
   return (
     <Fragment>
       <li className="">
+        <Link to="/dashboard/researcher" className="">
+          <div className="w-100 mb-3 flex pl-20 transition-colors duration-300 ease-in-out hover:text-blue-600">
+            รายชื่อผู้วิจัย
+          </div>
+        </Link>
+      </li>
+      <li className="">
         <Link to="/dashboard/grouplist" className="">
           <div className="w-100 mb-3 flex pl-20 transition-colors duration-300 ease-in-out hover:text-blue-600">
             ข้อมูลกลุ่มโปรเจค

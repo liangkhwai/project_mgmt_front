@@ -73,65 +73,73 @@ const ResultRow = () => {
   };
 
   return (
-    <table className="table w-full text-center">
-      <thead>
-        <tr>
-          <th>ลำดับ</th>
-          <th>ชื่อกลุ่ม</th>
-          <th>สถานะ</th>
-          {/* <th>ขอสอบ</th> */}
-          <th>เวลา</th>
-          <th>ผ่าน</th>
-          <th>ไม่ผ่าน</th>
-        </tr>
-      </thead>
-      <tbody>
-        {resultLists.length > 0 ? (
-          resultLists.map((result, index) => (
-            <tr key={result.id}>
-              <td>{index + 1}</td>
-              <td
-                onClick={() => navigate(`/dashboard/group/${result.grpId}`)}
-                className="text-light-blue-700 transition-all delay-75 hover:cursor-pointer hover:text-light-blue-300  "
+    <div>
+      <div className="grid grid-cols-6 content-center py-1 text-center">
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+          ลำดับ
+        </div>
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+          ชื่อกลุ่ม
+        </div>
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+          สถานะ
+        </div>
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+          เวลา
+        </div>
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+          ผ่าน
+        </div>
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+          ไม่ผ่าน
+        </div>
+      </div>
+      {resultLists.length > 0 ? (
+        resultLists.map((result, index) => (
+          <div
+            key={result.id}
+            className="grid grid-cols-6 content-center py-1 text-center"
+          >
+            <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+              {index + 1}
+            </div>
+            <div
+              onClick={() => navigate(`/dashboard/group/${result.grpId}`)}
+              className="flex w-full items-center justify-center bg-gray-200 py-4 text-light-blue-700 transition-all delay-75 hover:cursor-pointer hover:text-light-blue-300"
+            >
+              {result.title}
+            </div>
+            <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+              {result.status}
+            </div>
+            <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+              {dayjs(result.start_time).format("DD/MM/YYYY HH:mm")} -{" "}
+              {dayjs(result.end_time).format("HH:mm")}
+            </div>
+            <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+              <button
+                className="rounded-md bg-green-600 px-4 py-1 text-white hover:bg-green-400"
+                onClick={() => submitResult(true, result)}
               >
-                {result.title}
-              </td>
-              <td>{result.status}</td>
-              {/* <td>{resultTarget}</td> */}
-              <td>
-                วันที่ {dayjs(result.start_time).locale("th").format("D")} เวลา{" "}
-                {dayjs(result.start_time).format("HH:mm")} -{" "}
-                {dayjs(result.end_time).format("HH:mm")}
-              </td>
-              <td>
-                <button
-                  className="rounded-md bg-green-600 px-4 py-1 text-white hover:bg-green-400"
-                  onClick={() => submitResult(true, result)}
-                >
-                  ผ่าน
-                </button>
-              </td>
-              <td>
-                <button
-                  className="rounded-md bg-red-600 px-4 py-1 text-white hover:bg-red-400"
-                  onClick={() => submitResult(false, result)}
-                >
-                  ไม่ผ่าน
-                </button>
-              </td>
-            </tr>
-          ))
-        ) : (
-          <Fragment>
-            <tr className="text-center">
-              <td colSpan="6" className="py-5 text-xl font-bold ">
-                ยังไม่มีรายการในขณะนี้
-              </td>
-            </tr>
-          </Fragment>
-        )}
-      </tbody>
-    </table>
+                ผ่าน
+              </button>
+            </div>
+            <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+              <button
+                className="rounded-md bg-red-600 px-4 py-1 text-white hover:bg-red-400"
+                onClick={() => submitResult(false, result)}
+              >
+                ไม่ผ่าน
+              </button>
+            </div>
+          </div>
+        ))
+      ) : (
+        <div className="col-span-6 flex w-full items-center justify-center bg-gray-200 py-4">
+          ยังไม่มีรายการในขณะนี้
+        </div>
+      )}
+    </div>
   );
 };
 

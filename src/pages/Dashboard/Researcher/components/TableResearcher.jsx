@@ -1,11 +1,12 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useContext } from "react";
 import EditRshRow from "./EditRshRow";
 import ResearcherList from "./ResearcherList";
 import InsertResearcherRow from "./InsertResearcherRow";
 import ReactPaginate from "react-paginate";
 import FileDetail from "./FileDetail";
 import ReactModal from "react-modal";
-import ToggleSwitch from "./ToggleSwitch";
+import AuthContext from "../../../../context/auth";
+
 const TableResearcher = ({
   rshList,
   editRshId,
@@ -41,6 +42,7 @@ const TableResearcher = ({
   nowPage,
   setNowPage,
 }) => {
+  const ctx = useContext(AuthContext);
   useEffect(() => {
     setRshList(loadedResearcher);
   }, []);
@@ -77,35 +79,39 @@ const TableResearcher = ({
   ReactModal.setAppElement("#root");
 
   return (
-    <div className="mx-10 pt-10 ">
+    <div className="mx-10 mb-10 pt-10">
       <table className="table-responsive table w-full border">
         <thead>
           <tr>
-            <th className="border-2 border-gray-300 py-2">ลำดับ</th>
+            <th className="border  py-2">ลำดับ</th>
 
-            <th className="border-2 border-gray-300 py-2">รหัสนักศึกษา</th>
-            <th className="border-2 border-gray-300 py-2">ชื่อ</th>
-            <th className="border-2 border-gray-300 py-2">นามสกุล</th>
-            <th className="border-2 border-gray-300 py-2">ห้อง</th>
-            {/* <th className="py-2 border-2 border-gray-300">อีเมลล์</th> */}
-            <th className="border-2 border-gray-300 py-2">เบอร์โทร</th>
-            <th className="border-2 border-gray-300 py-2">เกรดเฉลี่ย</th>
+            <th className="border  py-2">รหัสนักศึกษา</th>
+            <th className="border  py-2">ชื่อ</th>
+            <th className="border  py-2">นามสกุล</th>
+            <th className="border  py-2">ห้อง</th>
+            {/* <th className="py-2 border ">อีเมลล์</th> */}
+            <th className="border  py-2">เบอร์โทร</th>
+            <th className="border  py-2">เกรดเฉลี่ย</th>
 
-            <th className="border-2 border-gray-300 py-2">สถานะโปรเจค</th>
-            <th className="border-2 border-gray-300 py-2">
+            <th className="border  py-2">สถานะโปรเจค</th>
+            <th className="border  py-2">
               เกรด
               <br />
               โปรเจค
             </th>
-            <th className="border-2 border-gray-300 py-2">ติด I</th>
-            <th className="border-2 border-gray-300 py-2">รอลงทะเบียน</th>
-            <th className="border-2 border-gray-300 py-2">
+            <th className="border  py-2">ติด I</th>
+            <th className="border  py-2">รอลงทะเบียน</th>
+            <th className="border  py-2">
               สถานะ
               <br />
               การใช้งาน
             </th>
-            <th className="border-2 border-gray-300 py-2">แก้ไข</th>
-            <th className="border-2 border-gray-300 py-2">ลบ</th>
+            {ctx.role === "admin" && (
+              <Fragment>
+                <th className="border  py-2">แก้ไข</th>
+                <th className="border  py-2">ลบ</th>
+              </Fragment>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -183,21 +189,23 @@ const TableResearcher = ({
           selectorHandler={selectorHandler}
         />
       </ReactModal>
-      <div className="my-5 flex justify-end ">
-        <button
-          className="mx-5 rounded-lg bg-green-600  px-3 py-2 text-white shadow-lg hover:bg-green-500"
-          onClick={() => fileInputHandler()}
-        >
-          นำเข้าข้อมูล (Excel)
-        </button>
-        <button
-          className="rounded-lg bg-green-600   px-3 py-2 text-white shadow-lg hover:bg-green-500"
-          onClick={() => isInsertHandler()}
-        >
-          เพิ่มนักวิจัย
-        </button>
-      </div>
-      <div className="">
+      {ctx.role === "admin" && (
+        <div className="my-5 flex justify-end ">
+          <button
+            className="mx-5 rounded-lg bg-green-600  px-3 py-2 text-white shadow-lg hover:bg-green-500"
+            onClick={() => fileInputHandler()}
+          >
+            นำเข้าข้อมูล (Excel)
+          </button>
+          <button
+            className="rounded-lg bg-green-600   px-3 py-2 text-white shadow-lg hover:bg-green-500"
+            onClick={() => isInsertHandler()}
+          >
+            เพิ่มนักวิจัย
+          </button>
+        </div>
+      )}
+      <div className="pb-5">
         <div>{`Showing ${startIndex + 1} - ${Math.min(
           endIndex,
           rshList.length,
@@ -213,16 +221,16 @@ const TableResearcher = ({
           previousLabel="< previous"
           renderOnZeroPageCount={null}
           containerClassName="flex justify-center mt-4"
-          // pageClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
-          pageLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
+          // pageClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border  rounded-md shadow-sm hover:bg-blue-100"
+          pageLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border  rounded-md shadow-sm hover:bg-blue-100"
           activeClassName="font-medium text-blue-700"
           activeLinkClassName="!bg-blue-100"
-          breakLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
-          // activeLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
-          previousLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
-          // previousClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
-          nextLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
-          // nextClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-blue-100"
+          breakLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border  rounded-md shadow-sm hover:bg-blue-100"
+          // activeLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border  rounded-md shadow-sm hover:bg-blue-100"
+          previousLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border  rounded-md shadow-sm hover:bg-blue-100"
+          // previousClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border  rounded-md shadow-sm hover:bg-blue-100"
+          nextLinkClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border  rounded-md shadow-sm hover:bg-blue-100"
+          // nextClassName="mx-1 px-2 py-1 text-center text-blue-500 bg-white border  rounded-md shadow-sm hover:bg-blue-100"
         />
       </div>
     </div>

@@ -3,6 +3,7 @@ import { useMutation } from "react-query";
 import { Link } from "react-router-dom";
 import DropdownFiles from "./DropdownFiles";
 import Swal from "sweetalert2";
+import dayjs from "dayjs";
 
 const RequestLists = ({ requestList, setRequestData, isLoading }) => {
   const approveHandler = useMutation({
@@ -20,7 +21,7 @@ const RequestLists = ({ requestList, setRequestData, isLoading }) => {
           }),
           // credentials: "include",
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
       return response.json();
     },
@@ -45,7 +46,7 @@ const RequestLists = ({ requestList, setRequestData, isLoading }) => {
     },
   });
 
-  const submitHandler = (isApprove, categories,item) => {
+  const submitHandler = (isApprove, categories, item) => {
     console.log(isApprove, categories, item);
 
     Swal.fire({
@@ -63,41 +64,43 @@ const RequestLists = ({ requestList, setRequestData, isLoading }) => {
       }
     });
 
-
     // approveHandler.mutate({ isApprove, categories, item });
   };
 
   return (
     <div>
-      <div className="text-center font-bold text-xl py-5 ">การขอสอบล่าสุด</div>
-      <div className="grid grid-cols-7 py-1 text-center content-center ">
-        <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
+      <div className="py-5 text-center text-xl font-bold ">การขอสอบล่าสุด</div>
+      <div className="grid grid-cols-8 content-center py-1 text-center ">
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
           ชื่อหัวข้อ
         </div>
-        <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
           ประเภทหัวข้อ
         </div>
-        <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
           สถานะ
         </div>
 
-        <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
           รายละเอียด
         </div>
-        <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
           ไฟล์
         </div>
-        <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+          เวลาที่ยื่น
+        </div>
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
           อนุมัติ
         </div>
-        <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
           ไม่อนุมัติ
         </div>
       </div>
       {isLoading ? (
         <Fragment>
           {requestList.length <= 0 ? (
-            <div className="col-span-7 text-center text-xl py-2 border  ">
+            <div className="col-span-7 border py-2 text-center text-xl  ">
               ยังไม่มีรายการขอสอบ ณ ขณะนี้
             </div>
           ) : (
@@ -106,33 +109,34 @@ const RequestLists = ({ requestList, setRequestData, isLoading }) => {
                 return (
                   <Fragment key={item.id}>
                     <div
-                      className="grid grid-cols-7 py-1 text-center content-center "
+                      className="grid grid-cols-8 content-center py-1 text-center "
                       key={item.id}
                     >
-                      <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
+                      <div className="flex w-full items-center justify-center bg-gray-200 py-4">
                         {item.title}
                       </div>
-                      <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
+                      <div className="flex w-full items-center justify-center bg-gray-200 py-4">
                         {item.categories}
                       </div>
-                      <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
+                      <div className="flex w-full items-center justify-center bg-gray-200 py-4">
                         {item.status}
                       </div>
-                      <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
+                      <div className="flex w-full items-center justify-center bg-gray-200 py-4">
                         <textarea
-                          rows=""
-                          cols=""
                           disabled
                           value={item.description}
-                          className="p-1 bg-gray-100 rounded-xl"
+                          className="w-full rounded-xl bg-gray-100"
                         ></textarea>
                       </div>
-                      <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
+                      <div className="flex w-full items-center justify-center bg-gray-200 py-4">
                         <DropdownFiles files={item.files} />
                       </div>
-                      <div className="w-full bg-gray-200 flex items-center py- justify-center">
+                      <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+                        {dayjs(item.createdAt).format("DD/MM/YYYY HH:mm")}
+                      </div>
+                      <div className="py- flex w-full items-center justify-center bg-gray-200">
                         <button
-                          className="px-4 py-1 bg-green-400 rounded-md"
+                          className="rounded-md bg-green-400 px-4 py-1"
                           onClick={() =>
                             submitHandler(true, item.categories, item)
                           }
@@ -140,9 +144,9 @@ const RequestLists = ({ requestList, setRequestData, isLoading }) => {
                           อนุมัติ
                         </button>
                       </div>
-                      <div className="w-full bg-gray-200 flex items-center py-4 justify-center">
+                      <div className="flex w-full items-center justify-center bg-gray-200 py-4">
                         <button
-                          className="px-4 py-1 bg-red-200 rounded-md"
+                          className="rounded-md bg-red-200 px-4 py-1"
                           onClick={() =>
                             submitHandler(false, item.categories, item)
                           }

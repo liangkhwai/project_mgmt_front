@@ -1,6 +1,7 @@
-import React from "react";
-
+import React, { useContext } from "react";
+import AuthContext from "../../../../context/auth";
 const HeaderButton = ({ setMenu, menu }) => {
+  const ctx = useContext(AuthContext);
   const clickHandler = (val) => {
     setMenu(val);
   };
@@ -18,17 +19,19 @@ const HeaderButton = ({ setMenu, menu }) => {
   return (
     <div className="flex ">
       <button
-        className={` px-10 py-2  rounded-t-md ${bg1}`}
+        className={` rounded-t-md px-10  py-2 ${bg1}`}
         onClick={() => clickHandler("filter")}
       >
         เรียกดูข้อมูล
       </button>
-      <button
-        className={`px-10 py-2   rounded-t-md ${bg2}`}
-        onClick={() => clickHandler("addcategories")}
-      >
-        เพื่มหมวดหมู่นักศึกษา
-      </button>
+      {ctx.role === "admin" && (
+        <button
+          className={`rounded-t-md px-10   py-2 ${bg2}`}
+          onClick={() => clickHandler("addcategories")}
+        >
+          เพื่มหมวดหมู่นักศึกษา
+        </button>
+      )}
     </div>
   );
 };

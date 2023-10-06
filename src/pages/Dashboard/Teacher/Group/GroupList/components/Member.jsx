@@ -190,6 +190,9 @@ const Member = ({
   };
 
   const testAlert = (check, e) => {
+    if (ctx.role !== "admin") {
+      return;
+    }
     const { name, value } = e.target;
 
     if (name === "isLate") {
@@ -351,6 +354,28 @@ const Member = ({
     }
   };
 
+  const grade_project_click = () => {
+    if (ctx.role !== "admin") {
+      return;
+    } else {
+      rsh.isEditGradeProject && rsh.grade_project !== "F"
+        ? editGradeProjectHandler()
+        : grpDetail.status !== "สอบป้องกัน" &&
+          grpDetail.status !== "ส่งปริญญานิพนธ์แล้ว" &&
+          grpDetail.status !== "รอส่งปริญญานิพนธ์"
+        ? Swal.fire({
+            title: "ผิดพลาด",
+            text: "ไม่สามารถแก้ไขเกรดได้เนื่องจากกลุ่มยังไม่ได้สอบป้องกัน",
+            icon: "warning",
+            showConfirmButton: true,
+            confirmButtonText: "ตกลง",
+            timer: 3000,
+            timerProgressBar: true,
+          })
+        : setIsGradeProjectEdit(true);
+    }
+  };
+
   const editGradeProjectHandler = (e) => {
     Swal.fire({
       title: "ผิดพลาด",
@@ -412,23 +437,7 @@ const Member = ({
             ? "bg-gray-300"
             : ""
         }  `}
-        onClick={() => {
-          rsh.isEditGradeProject && rsh.grade_project !== "F"
-            ? editGradeProjectHandler()
-            : grpDetail.status !== "สอบป้องกัน" &&
-              grpDetail.status !== "ส่งปริญญานิพนธ์แล้ว" &&
-              grpDetail.status !== "รอส่งปริญญานิพนธ์"
-            ? Swal.fire({
-                title: "ผิดพลาด",
-                text: "ไม่สามารถแก้ไขเกรดได้เนื่องจากกลุ่มยังไม่ได้สอบป้องกัน",
-                icon: "warning",
-                showConfirmButton: true,
-                confirmButtonText: "ตกลง",
-                timer: 3000,
-                timerProgressBar: true,
-              })
-            : setIsGradeProjectEdit(true);
-        }}
+        onClick={() => grade_project_click()}
       >
         {isGradeProjectEdit ? (
           <>
@@ -456,6 +465,7 @@ const Member = ({
           defaultChecked={rsh.isLate}
           onChange={(e) => testAlert(e.target.checked, e)}
           ref={checkBoxRef}
+          disabled={ctx.role !== "admin"}
         />
       </td>
       <td className="border-2 border-gray-300 py-2 text-gray-800">
@@ -466,13 +476,14 @@ const Member = ({
           defaultChecked={rsh.waitRegister}
           onChange={(e) => testAlert(e.target.checked, e)}
           ref={waitRegisterRef}
+          disabled={ctx.role !== "admin"}
         />
       </td>
       <td
         className={`border-2 border-gray-300 py-2 text-gray-800 ${
           ctx.role === "admin" ? "cursor-pointer hover:bg-gray-400" : ""
         }`}
-        onClick={() => setIsTermEdit(true)}
+        onClick={() => ctx.role === "admin" && setIsTermEdit(true)}
       >
         {isTermEdit ? (
           <input

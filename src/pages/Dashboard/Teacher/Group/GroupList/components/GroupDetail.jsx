@@ -106,7 +106,7 @@ const GroupDetail = () => {
   );
 
   const controlOpenModalHandler = () => {
-    if (ctx.role === "teacher") {
+    if (ctx.role !== "admin") {
       return;
     }
 

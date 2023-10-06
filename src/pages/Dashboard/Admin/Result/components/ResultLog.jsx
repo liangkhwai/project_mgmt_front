@@ -20,48 +20,58 @@ const ResultLog = () => {
 
   return (
     <div>
-      <table className="table w-full text-center">
-        <thead>
-          <tr>
-            <th>ลำดับ</th>
-            <th>ชื่อกลุ่ม</th>
-            <th>สถานะ</th>
-            {/* <th>ขอสอบ</th> */}
-            <th>เวลา</th>
-            <th>บันทึกเมื่อ</th>
-            <th>ผลสอบ</th>
-          </tr>
-        </thead>
-        <tbody>
-          {log.length > 0 ? (
-            log.map((result, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{result.title}</td>
-                <td>{result.categories}</td>
-                <td>
-                  วันที่ {dayjs(result.start_time).locale("th").format("D")}{" "}
-                  เวลา {dayjs(result.start_time).format("HH:mm")} -{" "}
-                  {dayjs(result.end_time).format("HH:mm")}
-                </td>
-                <td>
-                  วันที่ {dayjs(result.createdAt).locale("th").format("D")} เวลา{" "}
-                  {dayjs(result.createdAt).format("HH:mm")}
-                </td>
-                <td>{result.status}</td>
-              </tr>
-            ))
-          ) : (
-            <Fragment>
-              <tr className="text-center">
-                <td colSpan="6" className="py-5 text-xl font-bold ">
-                  ยังไม่มีรายการในขณะนี้
-                </td>
-              </tr>
-            </Fragment>
-          )}
-        </tbody>
-      </table>
+      <div className="grid grid-cols-6 content-center py-1 text-center">
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+          ลำดับ
+        </div>
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+          ชื่อกลุ่ม
+        </div>
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+          สถานะ
+        </div>
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+          เวลา
+        </div>
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+          บันทึกเมื่อ
+        </div>
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+          ผลสอบ
+        </div>
+      </div>
+      {log.length > 0 ? (
+        log.map((result, index) => (
+          <div
+            key={index}
+            className="grid grid-cols-6 content-center py-1 text-center"
+          >
+            <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+              {index + 1}
+            </div>
+            <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+              {result.title}
+            </div>
+            <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+              {result.categories}
+            </div>
+            <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+              {dayjs(result.start_time).format("DD/MM/YYYY HH:mm")} -{" "}
+              {dayjs(result.end_time).format("HH:mm")}
+            </div>
+            <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+              {dayjs(result.createdAt).format("DD/MM/YYYY HH:mm")}
+            </div>
+            <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+              {result.status}
+            </div>
+          </div>
+        ))
+      ) : (
+        <div className="col-span-6 flex w-full items-center justify-center bg-gray-200 py-4">
+          ยังไม่มีรายการในขณะนี้
+        </div>
+      )}
     </div>
   );
 };

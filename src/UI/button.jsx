@@ -17,7 +17,7 @@ export function DeleteButton(props) {
     props.onClick();
   };
   return (
-    <button className="bg-red-600 px-5 py-1 rounded-lg text-white shadow-lg  hover:bg-red-500 " onClick={handleClick}>
+    <button className="bg-red-600 px-3 py-1 rounded-lg text-white shadow-lg  hover:bg-red-500 " onClick={handleClick}>
       {props.children}
     </button>
   );

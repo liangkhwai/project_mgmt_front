@@ -180,7 +180,7 @@ const Researcher = () => {
       title: "คุณต้องการแก้ไขหรือไม่?",
       text: "<div></div>",
       icon: "warning",
-      html:`<div style="color:red">**การลงคะแนนเกรดโปรเจคสามารถลงได้ครั้งเดียว**<br/>หากผู้วิจัยติด I จะยังสามารถแก้ไขได้</div>`,
+      html: `<div style="color:red">**การลงคะแนนเกรดโปรเจคสามารถลงได้ครั้งเดียว**<br/>หากผู้วิจัยติด I จะยังสามารถแก้ไขได้</div>`,
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
@@ -209,7 +209,8 @@ const Researcher = () => {
           return;
         } else if (
           editFormData.grade_project !== "F" &&
-          editFormData.grade_project !== "" && editFormData.grade_project !== null
+          editFormData.grade_project !== "" &&
+          editFormData.grade_project !== null
         ) {
           editFormData.isEditGradeProject = true;
           setEditFormData((prev) => ({ ...prev, isEditGradeProject: true }));
@@ -553,9 +554,9 @@ const Researcher = () => {
         setLoadedResearcher={setLoadedResearcher}
       />
 
-      <div className="pb-20"></div>
+      <div className="pb-5"></div>
 
-      <div className="rounded-md bg-white ">
+      <div className="rounded-3xl bg-white shadow-lg">
         {menu === "filter" && (
           <TableResearcher
             nowPage={nowPage}

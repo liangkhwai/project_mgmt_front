@@ -1,7 +1,9 @@
-import React from "react";
+import React, { Fragment, useContext } from "react";
 import UpdateButton, { DeleteButton } from "../../../../UI/button";
 import ToggleSwitch from "./ToggleSwitch";
-
+import { BiEdit, BiSolidEdit } from "react-icons/bi";
+import { Trash } from "@phosphor-icons/react";
+import AuthContext from "../../../../context/auth";
 const ResearcherList = ({
   rsh,
   setEditRshIdHandler,
@@ -11,6 +13,7 @@ const ResearcherList = ({
   startIndex,
 }) => {
   // console.log(rsh);
+  const ctx = useContext(AuthContext);
   const check = false;
 
   const editGradeProjectHandler = async (rsh) => {
@@ -46,23 +49,21 @@ const ResearcherList = ({
   console.log(rsh);
   return (
     <tr className="text-center ">
-      <td className="border-2 border-gray-300 py-1">{startIndex + idx + 1}</td>
+      <td className="border  py-1">{startIndex + idx + 1}</td>
 
-      <td className="border-2 border-gray-300 py-1">{rsh.student_id}</td>
-      <td className="border-2 border-gray-300 py-1">{rsh.firstname}</td>
-      <td className="border-2 border-gray-300 py-1">{rsh.lastname}</td>
-      <td className="border-2 border-gray-300 py-1">
-        {rsh.categorie_room.room}
-      </td>
-      {/* <td className="py-1 border-2 border-gray-300">{rsh.email}</td> */}
-      <td className="border-2 border-gray-300 py-1">{rsh.tel}</td>
-      <td className="border-2 border-gray-300 py-1">{rsh.grade}</td>
-      {/* <td className="py-1 border-2 border-gray-300">{rsh.group.id}</td> */}
-      <td className="border-2 border-gray-300 py-1">
+      <td className="border  py-1">{rsh.student_id}</td>
+      <td className="border  py-1">{rsh.firstname}</td>
+      <td className="border  py-1">{rsh.lastname}</td>
+      <td className="border  py-1">{rsh.categorie_room.room}</td>
+      {/* <td className="py-1 border ">{rsh.email}</td> */}
+      <td className="border  py-1">{rsh.tel}</td>
+      <td className="border  py-1">{rsh.grade}</td>
+      {/* <td className="py-1 border ">{rsh.group.id}</td> */}
+      <td className="border  py-1">
         {rsh.group ? rsh.group.status : "ยังไม่ยื่นเสนอหัวข้อ"}
       </td>
       <td
-        className={`border-2 border-gray-300 py-1 ${
+        className={`border  py-1 ${
           rsh.isEditGradeProject ? "bg-gray-400" : ""
         }`}
       >
@@ -70,7 +71,7 @@ const ResearcherList = ({
       </td>
 
       {/* <td
-        className="cursor-pointer border-2 border-gray-300 bg-yellow-300 py-1 hover:bg-red-400"
+        className="cursor-pointer border  bg-yellow-300 py-1 hover:bg-red-400"
         onClick={() => {
           rsh.isEditGradeProject
             ? notEdtAgainHandler()
@@ -79,10 +80,10 @@ const ResearcherList = ({
       >
         {rsh.grade_project}
       </td> */}
-      <td className="border-2 border-gray-300 py-1">
+      <td className="border  py-1">
         <input type="checkbox" name="" id="" checked={rsh.isLate} disabled />
       </td>
-      <td className="border-2 border-gray-300 py-1">
+      <td className="border  py-1">
         <input
           type="checkbox"
           name=""
@@ -91,29 +92,35 @@ const ResearcherList = ({
           disabled
         />
       </td>
-      <td className="border-2 border-gray-300 py-1">
+      <td className="border  py-1">
         <ToggleSwitch rsh={rsh} isView={true} />
       </td>
-      <td className="border-2 border-gray-300 py-1">
-        <UpdateButton onClick={() => setEditRshIdHandler(rsh.id, rsh)}>
-          แก้ไข
-        </UpdateButton>
-        {/* <button
+      {ctx.role === "admin" && (
+        <Fragment>
+          <td className="border  py-1">
+            <UpdateButton onClick={() => setEditRshIdHandler(rsh.id, rsh)}>
+              <BiEdit />
+            </UpdateButton>
+            {/* <button
           className="px-3 py-2 rounded bg-yellow-400 text-black"
           onClick={() => setEditRshIdHandler(rsh.id, rsh)}
         >
           แก้ไข
         </button> */}
-      </td>
-      <td className="border-2 border-gray-300 py-1">
-        <DeleteButton onClick={() => deleteHandler(rsh.id)}>ลบ</DeleteButton>
-        {/* <button
+          </td>
+          <td className="border  py-1">
+            <DeleteButton onClick={() => deleteHandler(rsh.id)}>
+              <Trash />
+            </DeleteButton>
+            {/* <button
           className="px-3 py-2 rounded bg-red-500 text-black"
           onClick={() => deleteHandler(rsh.id)}
         >
           ลบ
         </button> */}
-      </td>
+          </td>
+        </Fragment>
+      )}
     </tr>
   );
 };

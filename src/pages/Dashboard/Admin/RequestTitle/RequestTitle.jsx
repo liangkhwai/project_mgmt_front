@@ -70,55 +70,64 @@ const RequestTitle = () => {
       <Title>รายการอนุมัติหัวข้อ</Title>
 
       <Body>
-        <table className="table w-full">
-          <thead>
-            <tr>
-              <td>ลำดับ</td>
-              <td>ชื่อหัวข้อ</td>
-              <td>สถานะ</td>
-              <td>อนุมัติ</td>
-              <td>ไม่อนุมัติ</td>
-            </tr>
-          </thead>
-          <tbody>
-            {groupList.length > 0 ? (
-              groupList.map((group, index) => (
-                <tr key={group.id}>
-                  <td>{index + 1}</td>
-                  <td
-                    onClick={() => navigate(`/dashboard/group/${group.id}`)}
-                    className="cursor-pointer hover:bg-gray-100 text-light-blue-700"
-                  >
-                    {group.title}
-                  </td>
-                  <td>{group.status}</td>
-                  <td>
-                    <button
-                      className="rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700"
-                      onClick={() => approveTitle(group.id, true)}
-                    >
-                      อนุมัติ
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      className="rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
-                      onClick={() => approveTitle(group.id, false)}
-                    >
-                      ไม่อนุมัติ
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr className="text-center">
-                <td colSpan="5" className="py-5 text-xl font-bold ">
-                  ยังไม่มีรายการในขณะนี้
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+        <div className="grid grid-cols-5 content-center py-1 text-center">
+          <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+            ลำดับ
+          </div>
+          <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+            ชื่อหัวข้อ
+          </div>
+          <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+            สถานะ
+          </div>
+          <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+            อนุมัติ
+          </div>
+          <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+            ไม่อนุมัติ
+          </div>
+        </div>
+        {groupList.length > 0 ? (
+          groupList.map((group, index) => (
+            <div
+              key={group.id}
+              className="grid grid-cols-5 content-center py-1 text-center"
+            >
+              <div className="flex w-full items-center justify-center py-4">
+                {index + 1}
+              </div>
+              <div
+                onClick={() => navigate(`/dashboard/group/${group.id}`)}
+                className="flex w-full cursor-pointer items-center justify-center py-4 text-light-blue-700 hover:bg-gray-100"
+              >
+                {group.title}
+              </div>
+              <div className="flex w-full items-center justify-center py-4">
+                {group.status}
+              </div>
+              <div className="flex w-full items-center justify-center py-4">
+                <button
+                  className="rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700"
+                  onClick={() => approveTitle(group.id, true)}
+                >
+                  อนุมัติ
+                </button>
+              </div>
+              <div className="flex w-full items-center justify-center py-4">
+                <button
+                  className="rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
+                  onClick={() => approveTitle(group.id, false)}
+                >
+                  ไม่อนุมัติ
+                </button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="col-span-5 flex w-full items-center justify-center bg-gray-200 py-4">
+            ยังไม่มีรายการในขณะนี้
+          </div>
+        )}
       </Body>
     </div>
   );

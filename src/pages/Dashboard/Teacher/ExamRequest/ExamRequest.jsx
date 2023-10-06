@@ -35,7 +35,7 @@ const ExamRequest = () => {
 
   const requestListLog = requestData.filter((item) => item.isApprove !== null);
   const requestListFilter = requestData.filter(
-    (item) => item.isApprove == null
+    (item) => item.isApprove == null,
   );
 
   return (
@@ -43,16 +43,20 @@ const ExamRequest = () => {
       <Title>รายการอนุมัติการขอสอบ</Title>
 
       <Body>
-        <div className="">
+        <div className="flex gap-3">
           <button
-            className="px-3 py-1 bg-light-blue-600 rounded-xl mx-1 text-white"
             onClick={() => setSelectMenu("List")}
+            className={`${
+              selectMenu === "List" ? "bg-blue-500" : "bg-blue-300"
+            } cursor-pointer rounded-lg px-3 py-1 text-white`}
           >
             รายการขอสอบ
           </button>
           <button
-            className="px-3 py-1 bg-light-blue-600 rounded-xl mx-1 text-white"
             onClick={() => setSelectMenu("Log")}
+            className={`${
+              selectMenu === "Log" ? "bg-blue-500" : "bg-blue-300"
+            } cursor-pointer rounded-lg px-3 py-1 text-white`}
           >
             ประวัติการขอสอบ
           </button>

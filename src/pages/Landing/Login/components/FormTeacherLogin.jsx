@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiTwotoneLock, AiOutlineUser } from "react-icons/ai";
 import AuthContext from "../../../../context/auth";
+import Swal from "sweetalert2";
 
 const FormTeacherLogin = () => {
   const ctx = useContext(AuthContext);
@@ -39,6 +40,13 @@ const FormTeacherLogin = () => {
           console.log(data.userName);
           ctx.usernameHandler(data.userName);
           navigate("/dashboard");
+        }else{
+          Swal.fire({
+            icon: "error",
+            title: "เข้าสู่ระบบไม่สำเร็จ",
+            text: "กรุณาตรวจอีเมลล์กับรหัสผ่าน",
+          });
+
         }
       });
   };
@@ -81,9 +89,7 @@ const FormTeacherLogin = () => {
         >
           Login
         </button>
-        <div className="text-blue-600 text-center mb-5 my-2">
-          แจ้งปัญหา Login
-        </div>
+        <div className="pb-5"></div>
       </div>
     </div>
   );

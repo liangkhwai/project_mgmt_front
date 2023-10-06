@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { AiOutlineUser, AiTwotoneLock } from "react-icons/ai/index";
 import AuthContext from "../../../../context/auth";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 const FormResearcherLogin = () => {
   const ctx = useContext(AuthContext);
   const navigate = useNavigate();
@@ -32,19 +33,24 @@ const FormResearcherLogin = () => {
     const data = await response.json();
     if (data.status === 200) {
       console.log(data);
-      ctx.setGrpId(data.grpId)
-      localStorage.setItem("grpId",data.grpId)
+      ctx.setGrpId(data.grpId);
+      localStorage.setItem("grpId", data.grpId);
       ctx.loginHandler(data.userId);
       console.log(data.userName);
       ctx.usernameHandler(data.userName);
       ctx.setRole(data.role);
       navigate("/dashboard");
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "เข้าสู่ระบบไม่สำเร็จ",
+        text: "กรุณาตรวจสอบรหัสนักศึกษากับรหัสผ่าน",
+      });
     }
-    console.log(data);
   };
   return (
     <div>
-      <div className="text-center font-bold my-3 text-gray-900">
+      <div className="my-3 text-center font-bold text-gray-900">
         Login ด้วย Account ผู้วิจัย
       </div>
       <div className="px-10">
@@ -55,7 +61,7 @@ const FormResearcherLogin = () => {
           <input
             type="text"
             name="uuid"
-            className="input pl-10 pr-4 w-full rounded border-gray-400"
+            className="input w-full rounded border-gray-400 pl-10 pr-4"
             placeholder="รหัสนักศึกษา"
             onChange={(e) => handleInputChange(e)}
           />
@@ -65,7 +71,7 @@ const FormResearcherLogin = () => {
           <input
             type="password"
             name="pwd"
-            className="input pl-10 pr-4 w-full rounded border-gray-400"
+            className="input w-full rounded border-gray-400 pl-10 pr-4"
             placeholder="รหัสผ่าน"
             onChange={(e) => handleInputChange(e)}
           />
@@ -75,14 +81,12 @@ const FormResearcherLogin = () => {
         </div>
         <div className="mb-2"></div>
         <button
-          className="text-white text-center w-full rounded bg-blue-800 h-10 my-2"
+          className="my-2 h-10 w-full rounded bg-blue-800 text-center text-white"
           onClick={() => handleSubmit()}
         >
           Login
         </button>
-        <div className="text-blue-600 text-center mb-5 my-2">
-          แจ้งปัญหา Login
-        </div>
+        <div className="pb-5"></div>
       </div>
     </div>
   );

@@ -78,7 +78,7 @@ const Files = () => {
     },
     onSuccess: (data) => {
       const filterFileLists = fileLists.filter(
-        (item, idx) => item.id !== parseInt(data)
+        (item, idx) => item.id !== parseInt(data),
       );
       setFileLists(filterFileLists);
       Swal.fire({
@@ -139,7 +139,7 @@ const Files = () => {
     console.log(event);
     inputRef.current.value = null;
     const filterFiles = selectedFiles.filter(
-      (item, idx) => item.name !== event
+      (item, idx) => item.name !== event,
     );
 
     console.log(filterFiles);
@@ -167,8 +167,8 @@ const Files = () => {
     <div className="mx-10">
       <Title>อัพโหลดไฟล์เอกสาร</Title>
       <Body>
-        <div className="my-10">
-          <div className="text-xl">รายการเอกสาร</div>
+        <div className="mb-10">
+          <div className="mb-3 text-xl">รายการเอกสาร</div>
           <FileLists fileLists={fileLists} removeFileList={removeFileList} />
         </div>
 
@@ -185,10 +185,10 @@ const Files = () => {
           />
         </div>
         <FileList files={selectedFiles} removeFile={removeSelectedFile} />
-        <div className="mt-5 text-end">
+        <div className="mt-5 text-center">
           <button
             onClick={uploadFileHandler}
-            className="bg-green-500 px-4 py-2"
+            className="rounded-xl bg-green-400 px-4 py-2 text-white hover:bg-green-600"
           >
             {" "}
             Upload
