@@ -6,6 +6,7 @@ import ReactPaginate from "react-paginate";
 import FileDetail from "./FileDetail";
 import ReactModal from "react-modal";
 import AuthContext from "../../../../context/auth";
+import { CaretDown, CaretUp } from "@phosphor-icons/react";
 
 const TableResearcher = ({
   rshList,
@@ -55,6 +56,10 @@ const TableResearcher = ({
   const endIndex = startIndex + ItemPerPage;
   const endOffSet = itemOffset + ItemPerPage;
   const currentItems = rshList.slice(itemOffset, endOffSet);
+  const [key, SetKey] = useState(0);
+  const [isLateSortOrder, setIsLateSortOrder] = useState("desc");
+  const [waitRegisterSortOrder, setWaitRegisterSortOrder] = useState("desc");
+  // const [currentItems, setCurrentItems] = useState(rshList.slice(itemOffset, endOffSet))
   const pageCount = Math.ceil(rshList.length / ItemPerPage);
 
   const handlePageClick = (event) => {
@@ -65,6 +70,7 @@ const TableResearcher = ({
     setItemOffSet(newOffSet);
     setNowPage(event.selected);
   };
+  console.log(rshList);
   const customStyles = {
     content: {
       width: "30%",
@@ -80,7 +86,7 @@ const TableResearcher = ({
 
   return (
     <div className="mx-10 mb-10 pt-10">
-      <table className="table-responsive table w-full border">
+      <table className="table-responsive table w-full border" key={key}>
         <thead>
           <tr>
             <th className="border  py-2">ลำดับ</th>
@@ -99,8 +105,55 @@ const TableResearcher = ({
               <br />
               โปรเจค
             </th>
-            <th className="border  py-2">ติด I</th>
-            <th className="border  py-2">รอลงทะเบียน</th>
+            <th
+              className="border py-2 cursor-pointer"
+              // onClick={() =>
+              //   setRshList((prev) => prev.sort((a, b) => b.isLate - a.isLate))
+              // }
+              onClick={() => {
+                const sortedList = rshList.slice().sort((a, b) => {
+                  if (isLateSortOrder === "asc") {
+                    return a.isLate - b.isLate;
+                  } else {
+                    return b.isLate - a.isLate;
+                  }
+                });
+
+                setRshList(sortedList);
+                setIsLateSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+                // const newOffset = nowPage * ItemPerPage;
+                // const newEndOffset = newOffset + ItemPerPage;
+                // setRshList(sortedList.slice(newOffset, newEndOffset));
+
+                // setIsLateSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+              }}
+            >
+              <div className="flex h-full w-full items-center justify-center gap-1 font-bold">
+                ติด I {isLateSortOrder === "desc" ? <CaretUp /> : <CaretDown />}
+              </div>
+            </th>
+            <th
+              className="border  py-2 cursor-pointer"
+              onClick={() => {
+                const sortedList = rshList.slice().sort((a, b) => {
+                  if (waitRegisterSortOrder === "asc") {
+                    return a.waitRegister - b.waitRegister;
+                  } else {
+                    return b.waitRegister - a.waitRegister;
+                  }
+                });
+
+                setRshList(sortedList);
+                setWaitRegisterSortOrder((prev) =>
+                  prev === "asc" ? "desc" : "asc",
+                );
+              }}
+            >
+              <div className="flex h-full w-full items-center justify-center gap-1 font-bold">
+                รอลงทะเบียน{" "}
+                {waitRegisterSortOrder === "desc" ? <CaretUp /> : <CaretDown />}
+              </div>
+            </th>
             <th className="border  py-2">
               สถานะ
               <br />

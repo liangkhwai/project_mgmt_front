@@ -137,27 +137,28 @@ const ModalFormRandom = ({
     <div className="">
       <div className=" mb-5 flex justify-center  ">
         <div className="   p-3  text-xl">
-          {editBoardGroup.title ? editBoardGroup.title : "ยังไม่ตั้งชื่อหัวข้อ"}
+          {/* {editBoardGroup.title ? editBoardGroup.title : "ยังไม่ตั้งชื่อหัวข้อ"} */}
+          บันทึกผลการสุ่ม
         </div>
       </div>
       <div className="mb-5 flex justify-center gap-5">
-        <div className="flex justify-center rounded-3xl border border-black">
+        <div className="flex justify-center  rounded-md bg-white outline outline-offset-[3px]  outline-cyan-200">
           <div className="flex flex-col">
             <div className="borderborder-b-black w-full border-s-transparent border-t-transparent py-5 text-center">
               รายชื่อนักศึกษาในกลุ่มโปรเจค
             </div>
-            {groupMember.map((item) => (
-              <div
-                key={item.id}
-                className="my-1 w-72 rounded-xl p-5  text-center "
-              >
-                {item.firstname} {item.lastname}
+            {groupMember.map((item, idx) => (
+              <div key={item.id} className="my-1 w-72 rounded-xl p-5  ">
+                <div>
+                  <span className="px-5">{idx + 1}.</span>
+                  {item.firstname} {item.lastname}
+                </div>
               </div>
             ))}
           </div>
         </div>
         <div className="">
-          <div className="flex flex-col items-center  rounded-3xl  border border-black bg-white lg:flex-col lg:justify-around">
+          <div className="flex flex-col items-center    rounded-md bg-white outline outline-offset-[3px]  outline-cyan-200 lg:flex-col lg:justify-around">
             <div className="rounded-xl   p-5">
               <div className="text-center">อาจารย์ที่ปรึกษา</div>
               <select
@@ -166,7 +167,7 @@ const ModalFormRandom = ({
                   setSelectedAdvisor(e.target.value);
                 }}
                 value={selectedAdvisor}
-                className="my-2 rounded-xl px-5 text-blue-900"
+                className="my-2 rounded-md px-5 text-blue-900"
               >
                 {teacherList.map((teacher) => (
                   <option key={uuidv4()} value={JSON.stringify(teacher)}>
@@ -175,7 +176,7 @@ const ModalFormRandom = ({
                 ))}
               </select>
             </div>
-            <div className="rounded-xl   p-5">
+            <div className="rounded-md   p-5">
               <div className="text-center">ประธานกรรมการสอบ</div>
               <select
                 onChange={(e) => {
@@ -183,7 +184,7 @@ const ModalFormRandom = ({
                   setSelectedBoard1(e.target.value);
                 }}
                 value={selectedBoard1}
-                className="my-2 rounded-xl px-5 text-blue-900"
+                className="my-2 rounded-md px-5 text-blue-900"
               >
                 {teacherList.map((teacher) => (
                   <option key={uuidv4()} value={JSON.stringify(teacher)}>
@@ -200,7 +201,7 @@ const ModalFormRandom = ({
                   setSelectedBoard2(e.target.value);
                 }}
                 value={selectedBoard2}
-                className="my-2 rounded-xl px-5 text-blue-900"
+                className="my-2 rounded-md px-5 text-blue-900"
               >
                 {teacherList.map((teacher) => (
                   <option key={uuidv4()} value={JSON.stringify(teacher)}>

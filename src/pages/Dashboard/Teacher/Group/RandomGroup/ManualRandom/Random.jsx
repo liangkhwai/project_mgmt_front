@@ -83,7 +83,7 @@ const Random = () => {
               height: "auto",
               marginRight: "-50%",
               transform: "translate(-50%, -50%)",
-              backgroundColor: "#BBDEFB",
+              backgroundColor: "#F0F8FF",
               borderRadius: "30px",
               border: "none",
             },

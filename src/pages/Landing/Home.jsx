@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import univer1 from "../../assets/univer1.png";
 import univer5 from "../../assets/univer0.png";
 import univer0 from "../../assets/univer0.png";
@@ -8,6 +8,15 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 
 const Home = () => {
+  const [dashboard, setDashboard] = useState([]);
+  useEffect(() => {
+    const getDashboard = async () => {
+      const res = await fetch("http://localhost:8080/dashboard/list");
+      const data = await res.json();
+      setDashboard(data);
+    };
+    getDashboard();
+  }, []);
   return (
     <div className=" bg-blue-50">
       <div className="">
@@ -21,7 +30,6 @@ const Home = () => {
           showArrows={false}
           dynamicHeight={true}
           stopOnHover={true}
-          
         >
           <div className="">
             <div className="relative ">
@@ -32,10 +40,10 @@ const Home = () => {
                 style={{ width: "100%", height: "auto" }}
               />
             </div>
-            <div className="absolute bottom-0 right-0 text-5xl mb-20 mr-8 text-white  uppercase font-normal">
+            <div className="absolute bottom-0 right-0 mb-20 mr-8 text-5xl font-normal  uppercase text-white">
               rmuti kkc
             </div>
-            <div className="absolute bottom-0 right-0 text-5xl mb-9 mr-8 text-white font-normal ">
+            <div className="absolute bottom-0 right-0 mb-9 mr-8 text-5xl font-normal text-white ">
               Digital Business Technology
             </div>
           </div>
@@ -48,10 +56,10 @@ const Home = () => {
                 style={{ width: "100%", height: "auto" }}
               />
             </div>
-            <div className="absolute bottom-0 right-0 text-5xl mb-20 mr-8 text-white  uppercase font-normal">
+            <div className="absolute bottom-0 right-0 mb-20 mr-8 text-5xl font-normal  uppercase text-white">
               rmuti kkc
             </div>
-            <div className="absolute bottom-0 right-0 text-5xl mb-9 mr-8 text-white font-normal ">
+            <div className="absolute bottom-0 right-0 mb-9 mr-8 text-5xl font-normal text-white ">
               Digital Business Technology
             </div>
           </div>
@@ -64,10 +72,10 @@ const Home = () => {
                 style={{ width: "100%", height: "auto" }}
               />
             </div>
-            <div className="absolute bottom-0 right-0 text-5xl mb-20 mr-8 text-white  uppercase font-normal">
+            <div className="absolute bottom-0 right-0 mb-20 mr-8 text-5xl font-normal  uppercase text-white">
               rmuti kkc
             </div>
-            <div className="absolute bottom-0 right-0 text-5xl mb-9 mr-8 text-white font-normal ">
+            <div className="absolute bottom-0 right-0 mb-9 mr-8 text-5xl font-normal text-white ">
               Digital Business Technology
             </div>
           </div>
@@ -90,25 +98,32 @@ const Home = () => {
         </Carousel>
       </div>
 
-      <div className=" w-full h-56 bg-blue-50 ">
-        <div className="flex flex-row text-xs ml-40 mt-10 divide-y-2 divide-blue-300 font-normal ">ข้อมูล
-        {/* <div className="text-blue-900 ml-2"> ―――― </div> */}
+      <div className=" h-56 w-full bg-blue-50 ">
+        <div className="ml-40 mt-10 flex flex-row divide-y-2 divide-blue-300 text-xs font-normal ">
+          ข้อมูล
+          {/* <div className="text-blue-900 ml-2"> ―――― </div> */}
         </div>
-        <div className="text-2xl font-medium ml-40 ">สถิติเจ้าของผลงาน</div>
+        <div className="ml-40 text-2xl font-medium ">สถิติเจ้าของผลงาน</div>
 
-        <div className=" text-center  w-auto flex mt-10">
-          <div className="text-sky-500 text-4xl font-medium flex-1 ">1,049</div>
-          <div className="text-sky-500 text-4xl font-medium flex-1  ">689</div>
-          <div className="text-sky-500 text-4xl font-medium flex-1 ">79</div>
+        <div className=" mt-10  flex w-auto text-center">
+          <div className="text-sky-500 flex-1 text-4xl font-medium ">
+            {dashboard?.countThesis}
+          </div>
+          <div className="text-sky-500 flex-1 text-4xl font-medium  ">
+            {dashboard?.countResearcherWithStatusInGroup}
+          </div>
+          <div className="text-sky-500 flex-1 text-4xl font-medium ">
+            {dashboard?.countResearcher}
+          </div>
         </div>
-        <div className="text-center w-auto flex mt-2 ">
-          <div className="w-80  text-sm font-medium  flex-1">
+        <div className="mt-2 flex w-auto text-center ">
+          <div className="w-80  flex-1 text-sm  font-medium">
             จำนวนผลงานวิจัย
           </div>
-          <div className="w-80  text-sm font-medium  flex-1">
+          <div className="w-80  flex-1 text-sm  font-medium">
             จำนวนผู้วิจัยที่สำเร็จการศึกษา
           </div>
-          <div className="w-80  text-sm font-medium  flex-1">
+          <div className="w-80  flex-1 text-sm  font-medium">
             จำนวนผู้วิจัยที่กำลังศึกษาอยู่
           </div>
         </div>

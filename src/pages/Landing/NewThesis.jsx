@@ -55,7 +55,7 @@ const NewThesis = () => {
   const dropdownOptions = [
     "ชื่อเรื่อง",
     "อาจารย์ที่ปรึกษา",
-    "ผู้สร้างผลงาน",
+    // "ผู้สร้างผลงาน",
     "รายละเอียดทั้งหมด",
   ];
 
@@ -91,23 +91,23 @@ const NewThesis = () => {
       });
 
       setFilterData(filtered);
-    } else if (detail === "ผู้สร้างผลงาน") {
-      const filtered = theses.filter((item) => {
-        const year = new Date(item.years).getFullYear() + 543;
-        console.log(year);
-        const isYearInRange =
-          (!openYear || year >= parseInt(openYear)) &&
-          (!openYearEnd || year <= parseInt(openYearEnd));
+      // } else if (detail === "ผู้สร้างผลงาน") {
+      //   const filtered = theses.filter((item) => {
+      //     const year = new Date(item.years).getFullYear() + 543;
+      //     console.log(year);
+      //     const isYearInRange =
+      //       (!openYear || year >= parseInt(openYear)) &&
+      //       (!openYearEnd || year <= parseInt(openYearEnd));
 
-        return (
-          item.researchers_names
-            .join("")
-            .toLowerCase()
-            .includes(query.toLowerCase()) && isYearInRange
-        );
-      });
+      //     return (
+      //       item.researchers_names
+      //         .join("")
+      //         .toLowerCase()
+      //         .includes(query.toLowerCase()) && isYearInRange
+      //     );
+      //   });
 
-      setFilterData(filtered);
+      //   setFilterData(filtered);
     } else if (detail === "รายละเอียดทั้งหมด") {
       const filtered = theses.filter((item) => {
         const year = new Date(item.years).getFullYear() + 543;

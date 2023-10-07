@@ -46,7 +46,6 @@ const ResearcherList = ({
   const notEdtAgainHandler = () => {
     alert("ไม่สามารถแก้ไขได้");
   };
-  console.log(rsh);
   return (
     <tr className="text-center ">
       <td className="border  py-1">{startIndex + idx + 1}</td>

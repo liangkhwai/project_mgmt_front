@@ -1,5 +1,5 @@
-import React from "react";
-import { Fragment } from "react";
+import React, { useEffect } from "react";
+import { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BoardInfo from "./BoardInfo";
 const GroupRandomList = ({
@@ -9,6 +9,22 @@ const GroupRandomList = ({
   setIsOpen,
   setEditBoardGroup,
 }) => {
+  const [researcherList, setResearcherList] = useState([]);
+
+  useEffect(() => {
+    const getResearcherList = async () => {
+      const response = await fetch(`http://localhost:8080/researcher/list`, {
+        method: "get",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
+      const data = await response.json();
+      console.log(data);
+      setResearcherList(data);
+    };
+    getResearcherList();
+  }, []);
+
   const navigate = useNavigate();
   const openEditModal = (group) => {
     console.log(group);
@@ -24,12 +40,24 @@ const GroupRandomList = ({
         </div>
 
         <div className="hidden lg:block">
-          <div className="grid grid-cols-2 content-center py-1 text-center">
+          <div className="grid grid-cols-6 content-center py-1 text-center">
             <div className="flex w-full items-center justify-center bg-gray-200 py-4">
-              ชื่อหัวข้อ
+              ลำดับ
             </div>
             <div className="flex w-full items-center justify-center bg-gray-200 py-4">
-              เปิด
+              สมาชิก
+            </div>
+            <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+              เบอร์โทร
+            </div>
+            <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+              เกรด
+            </div>
+            <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+              หัวข้อ
+            </div>
+            <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+              บันทึกผลการสุ่ม
             </div>
           </div>
         </div>
@@ -37,19 +65,46 @@ const GroupRandomList = ({
         {groupList.length > 0 ? (
           groupList.map((group, idx) => (
             <Fragment key={idx}>
-              <div className="grid grid-cols-2 content-center py-1 text-center lg:mx-0 lg:my-0">
+              <div className="grid grid-cols-6 content-center py-1 text-center lg:mx-0 lg:my-0">
+                <div className="flex items-center  justify-center bg-gray-200">
+                  {idx + 1}
+                </div>
+                <div className="grid grid-flow-row ">
+                  {researcherList
+                    .filter((item) => item.groupId === group.id)
+                    .map((item) => (
+                      <div className="bg-gray-200">
+                        {item.firstname} {item.lastname}
+                      </div>
+                    ))}
+                </div>
+                <div className="grid grid-flow-row ">
+                  {researcherList
+                    .filter((item) => item.groupId === group.id)
+                    .map((item) => (
+                      <div className="bg-gray-200">{item.tel}</div>
+                    ))}
+                </div>
+                <div className="grid grid-flow-row ">
+                  {researcherList
+                    .filter((item) => item.groupId === group.id)
+                    .map((item) => (
+                      <div className="bg-gray-200">{item.grade}</div>
+                    ))}
+                </div>
                 <div
                   className="flex w-full cursor-pointer items-center justify-center bg-gray-200 py-4 text-center text-xl text-light-blue-700 hover:bg-gray-300"
                   onClick={() => navigate(`/dashboard/group/${group.id}`)}
                 >
                   {group.title ? group.title : "ยังไม่ตั้งชื่อหัวข้อ"}
                 </div>
+
                 <div className="flex w-full items-center justify-center bg-gray-200 py-4 text-center">
                   <button
                     className="cursor-pointer rounded-xl bg-green-400 px-4 py-2 text-white hover:bg-green-700"
                     onClick={() => openEditModal(group)}
                   >
-                    เปิด
+                    เรียกดู
                   </button>
                 </div>
               </div>
