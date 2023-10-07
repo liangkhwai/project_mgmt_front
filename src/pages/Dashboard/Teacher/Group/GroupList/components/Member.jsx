@@ -53,10 +53,19 @@ const Member = ({
     console.log(data);
   };
 
-  const handleOnBlur = (e) => {
+  const handleOnBlur = async (e) => {
     const { name } = e.target;
     if (name === "term") {
-      setIsTermEdit(false);
+      const response = await fetch("http://localhost:8080/researcher/update", {
+        method: "put",
+        body: JSON.stringify({ ...rsh, term: e.target.value }),
+        headers: { "Content-Type": "application/json" },
+      });
+      if (response.status === 200) {
+        setIsTermEdit(false);
+      } else {
+        console.log("ผิดพลาด");
+      }
     } else if (name === "grade_project") {
       if (rsh.isEditGradeProject) {
         Swal.fire({

@@ -13,6 +13,7 @@ const ResearcherWithIncomplete = ({ dashboard }) => {
             <th>ชื่อ</th>
             <th>นามสกุล</th>
             <th>ห้อง</th>
+            <th>เทอม</th>
           </tr>
         </thead>
         <tbody>
@@ -28,6 +29,7 @@ const ResearcherWithIncomplete = ({ dashboard }) => {
                         <td>{researcher.firstname}</td>
                         <td>{researcher.lastname}</td>
                         <td>{researcher.categorie_room.room}</td>
+                        <td>{researcher.term}</td>
                       </tr>
                     ),
                   )}

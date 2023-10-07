@@ -17,6 +17,7 @@ const ResearcherWithNotRegister = ({ dashboard }) => {
             <th>นามสกุล</th>
             <th>เกรดโปรเจค</th>
             <th>ห้อง</th>
+            <th>เทอม</th>
           </tr>
         </thead>
         <tbody>
@@ -33,6 +34,7 @@ const ResearcherWithNotRegister = ({ dashboard }) => {
                         <td>{researcher.lastname}</td>
                         <td>{researcher.grade_project}</td>
                         <td>{researcher.categorie_room.room}</td>
+                        <td>{researcher.term}</td>
                       </tr>
                     ),
                   )}

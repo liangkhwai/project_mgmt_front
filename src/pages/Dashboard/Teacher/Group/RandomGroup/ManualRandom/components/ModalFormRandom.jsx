@@ -9,6 +9,8 @@ const ModalFormRandom = ({
   groupList,
   setIsOpen,
   setEditBoardGroup,
+  setBoardInfo,
+  setKey,
 }) => {
   const [groupMember, setGroupMember] = useState([]);
   console.log(editBoardGroup);
@@ -122,6 +124,13 @@ const ModalFormRandom = ({
           prev.filter((group) => group.id !== editBoardGroup.id),
         );
         setIsOpen(false);
+        setKey((prev) => prev + 1);
+        const response = await fetch("http://localhost:8080/boards/info", {
+          method: "get",
+          credentials: "include",
+        });
+        const data = await response.json();
+        setBoardInfo(data);
         Swal.fire({
           icon: "success",
           title: "บันทึกข้อมูลสำเร็จ",

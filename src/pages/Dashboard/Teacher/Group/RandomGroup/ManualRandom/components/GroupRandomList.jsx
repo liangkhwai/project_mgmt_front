@@ -8,6 +8,8 @@ const GroupRandomList = ({
   setGroupList,
   setIsOpen,
   setEditBoardGroup,
+  boardInfo,
+  key,
 }) => {
   const [researcherList, setResearcherList] = useState([]);
 
@@ -36,7 +38,7 @@ const GroupRandomList = ({
     <div>
       <div className="mx-10">
         <div className="mb-5">
-          <BoardInfo />
+          <BoardInfo boardInfo={boardInfo} key={key} />
         </div>
 
         <div className="hidden lg:block">

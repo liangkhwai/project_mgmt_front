@@ -50,7 +50,7 @@ const Header = ({ openHandler }) => {
       </div>
       <div className="flex items-center gap-4">
         {/* <div>NotificationsMenu</div> */}
-        {ctx.role === "teacher" && (
+        {ctx.role !== "researcher" && (
           <div>
             <button
               className="rounded-xl bg-green-500 px-4 py-2 text-white"

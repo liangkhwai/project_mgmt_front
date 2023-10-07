@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 const SidebarAdmin = () => {
   return (
     <Fragment>
-      <label htmlFor="admin" className="mx-2 text-light-blue-700">
-        Admin :{" "}
+      <label htmlFor="admin" className="mx-2 pl-10 text-light-blue-700 font-bold">
+        Admin{" "}
       </label>
-      <ul id="admin" className="">
+      <ul id="admin" className="mb-5 mt-1">
         <li className="">
           <Link to="/dashboard/researcher" className="">
             <div className="w-100 mb-3 flex pl-20 transition-colors duration-300 ease-in-out hover:text-blue-600">
@@ -51,10 +51,10 @@ const SidebarAdmin = () => {
         </li>
       </ul>
       {/* end ul */}
-      <label htmlFor="teacher" className="mx-2 text-light-blue-700">
-        Teacher :{" "}
+      <label htmlFor="teacher" className="mx-2 mb-5 pl-10 text-light-blue-700 font-bold">
+        Teacher{" "}
       </label>
-      <ul id="teacher">
+      <ul id="teacher" className="mt-1">
         <li className="">
           <Link to="/dashboard/grouplist" className="">
             <div className="w-100 mb-3 flex pl-20 transition-colors duration-300 ease-in-out hover:text-blue-600">

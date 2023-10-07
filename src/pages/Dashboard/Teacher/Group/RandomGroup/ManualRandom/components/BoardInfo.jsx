@@ -1,21 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
 
-const BoardInfo = () => {
-  const [boardInfo, setBoardInfo] = useState([]);
-  useEffect(() => {
-    const getBoardInfo = async () => {
-      const response = await fetch("http://localhost:8080/boards/info", {
-        method: "get",
-        credentials: "include",
-      });
-      const data = await response.json();
-      console.log(data);
-      setBoardInfo(data);
-    };
-    getBoardInfo();
-  }, []);
+const BoardInfo = ({ boardInfo, key }) => {
   return (
-    <div className="w-full ">
+    <div className="w-full " key={key}>
       <div className="grid grid-cols-5 content-center py-1 text-center">
         <div className="flex w-full items-center justify-center bg-gray-200 py-4">
           ชื่อ

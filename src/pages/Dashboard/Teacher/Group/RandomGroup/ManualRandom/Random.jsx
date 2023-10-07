@@ -12,6 +12,20 @@ const Random = () => {
   const [groupList, setGroupList] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [editBoardGroup, setEditBoardGroup] = useState();
+  const [key, setKey] = useState(0);
+   const [boardInfo, setBoardInfo] = useState([]);
+   useEffect(() => {
+     const getBoardInfo = async () => {
+       const response = await fetch("http://localhost:8080/boards/info", {
+         method: "get",
+         credentials: "include",
+       })
+       const data = await response.json();
+       console.log(data);
+       setBoardInfo(data);
+     };
+     getBoardInfo();
+   }, []);
   useEffect(() => {
     const getTeacherList = async () => {
       const response = await fetch("http://localhost:8080/teachers/list", {
@@ -69,6 +83,8 @@ const Random = () => {
           teacherList={teacherList}
           groupList={groupList}
           setEditBoardGroup={setEditBoardGroup}
+          boardInfo={boardInfo}
+          key={key}
         />
         <Modal
           isOpen={isOpen}
@@ -96,6 +112,8 @@ const Random = () => {
             groupList={groupList}
             setIsOpen={setIsOpen}
             setEditBoardGroup={setEditBoardGroup}
+            setBoardInfo={setBoardInfo}
+            setKey={setKey}
           />
         </Modal>
       </Body>
