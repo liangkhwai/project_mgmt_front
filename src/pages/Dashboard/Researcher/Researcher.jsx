@@ -16,7 +16,7 @@ const Researcher = () => {
   );
   const [rshList, setRshList] = useState(loadedResearcher);
   const [roomData, setRoomData] = useState(loaderData.dataRoomList);
-
+  const [isLoadingXlsx, setIsLoadingXlsx] = useState(false);
   const [editFormData, setEditFormData] = useState({
     student_id: "",
     firstname: "",
@@ -370,6 +370,7 @@ const Researcher = () => {
       cancelButtonText: "ยกเลิก",
     }).then(async (result) => {
       if (result.isConfirmed) {
+        setIsLoadingXlsx(true);
         console.log(e);
         e.preventDefault();
         const formData = new FormData();
@@ -390,18 +391,23 @@ const Researcher = () => {
             credentials: "include",
           },
         )
-          .then((res) => {
-            const data = res.json();
+          .then(async(res) => {
+            const data =await res.json();
+            if(res.status === 200){
+              setIsLoadingXlsx(false);
+            }
             // setFile(null);
             return data;
           })
           .then((data) => {
+            
             console.log(data);
             fileRef.current.value = null;
 
-            setModalOpen(false);
-            setRshList((prev) => [...prev, ...data.data]);
-            setLoadedResearcher((prev) => [...prev, ...data.data]);
+            setModalOpen(false)
+            setRshList((prev) => [...prev, ...data?.data]);
+            setLoadedResearcher((prev) => [...prev, ...data?.data]);
+           
 
             Swal.fire(
               "เพิ่มข้อมูลสำเร็จ!",
@@ -413,6 +419,8 @@ const Researcher = () => {
       }
     });
   };
+ 
+
 
   const [modalOpen, setModalOpen] = useState(false);
   const openModalHandler = () => setModalOpen(true);
@@ -533,7 +541,7 @@ const Researcher = () => {
   // itemOffset Paginate in TableResearcher
   const [itemOffset, setItemOffSet] = useState(0);
   const [nowPage, setNowPage] = useState(0);
-
+  
   return (
     <div className="mx-10">
       <h1 className="my-10 text-3xl">ผู้วิจัย</h1>
@@ -592,6 +600,7 @@ const Researcher = () => {
             insertSelectedRoom={insertSelectedRoom}
             insertSelectorRoom={insertSelectorRoom}
             insertMenuRoom={insertMenuRoom}
+            isLoadingXlsx={isLoadingXlsx}
           />
         )}
       </div>

@@ -16,7 +16,7 @@ const BoardInfo = () => {
   }, []);
   return (
     <div className="w-full ">
-      <div className="grid grid-cols-5 content-center py-1 text-center ">
+      <div className="grid grid-cols-5 content-center py-1 text-center">
         <div className="flex w-full items-center justify-center bg-gray-200 py-4">
           ชื่อ
         </div>
@@ -44,9 +44,7 @@ const BoardInfo = () => {
               }} grid grid-cols-5`}
             >
               <div
-                className={`${index === 0 && "rounded-tl-xl"}  ${
-                  index == boardInfo?.length && "rounded-bl-xl"
-                } flex w-full items-center justify-center bg-gray-200 py-4`}
+                className={` flex w-full items-center justify-center bg-gray-200 py-4`}
               >
                 {obj.firstname}
               </div>
@@ -60,9 +58,7 @@ const BoardInfo = () => {
                 {obj.board1_count} กลุ่ม
               </div>
               <div
-                className={`${index === 0 && "rounded-tr-xl"} ${
-                  index == boardInfo?.length && "rounded-br-xl"
-                } flex w-full items-center justify-center bg-gray-200 py-4`}
+                className={` flex w-full items-center justify-center bg-gray-200 py-4`}
               >
                 {obj.board2_count} กลุ่ม
               </div>

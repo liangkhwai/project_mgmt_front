@@ -178,35 +178,35 @@ const TeacherTable = ({ data, setData }) => {
       <table className="table w-full table-responsive border text-center">
         <thead>
           <tr className="">
-            <td className="border-2 py-1  font-semibold border-gray-300">
+            <td className="border py-1  font-semibold border-gray-300">
               คำนำหน้า
             </td>
-            <td className="border-2 py-1  font-semibold border-gray-300">
+            <td className="border py-1  font-semibold border-gray-300">
               {" "}
               ชื่อ
             </td>
-            <td className="border-2 py-1  font-semibold border-gray-300">
+            <td className="border py-1  font-semibold border-gray-300">
               นามสกุล
             </td>
-            <td className="border-2 py-1  font-semibold border-gray-300">
+            <td className="border py-1  font-semibold border-gray-300">
               Email
             </td>
-            <td className="border-2 py-1  font-semibold border-gray-300">
+            <td className="border py-1  font-semibold border-gray-300">
               เบอร์โทร
             </td>
-            <td className="border-2 py-1  font-semibold border-gray-300">
+            <td className="border py-1  font-semibold border-gray-300">
               Line Id
             </td>
-            <td className="border-2 py-1 font-semibold border-gray-300">
+            <td className="border py-1 font-semibold border-gray-300">
               สีในปฏิทิน
             </td>
-            <td className="border-2 py-1 font-semibold border-gray-300">
+            <td className="border py-1 font-semibold border-gray-300">
               ผู้ดูแล
             </td>
-            <td className="border-2 py-1  font-semibold border-gray-300">
+            <td className="border py-1  font-semibold border-gray-300">
               แก้ไข
             </td>
-            <td className="border-2 py-1  font-semibold border-gray-300">ลบ</td>
+            <td className="border py-1  font-semibold border-gray-300">ลบ</td>
           </tr>
         </thead>
         <tbody>

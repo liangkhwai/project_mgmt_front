@@ -28,7 +28,7 @@ const EditTeacherRow = ({
           type="text"
           name="prefix"
           id=""
-          className="w-full"
+          className="w-full rounded-lg"
           value={dataEdit.prefix}
           onChange={(e) => editFormDataChangeHandler(e)}
         />
@@ -38,7 +38,7 @@ const EditTeacherRow = ({
           type="text"
           name="firstname"
           id=""
-          className="w-full"
+          className="w-full rounded-lg"
           value={dataEdit.firstname}
           onChange={(e) => editFormDataChangeHandler(e)}
         />
@@ -48,7 +48,7 @@ const EditTeacherRow = ({
           type="text"
           name="lastname"
           id=""
-          className="w-full"
+          className="w-full rounded-lg"
           value={dataEdit.lastname}
           onChange={(e) => editFormDataChangeHandler(e)}
         />
@@ -58,7 +58,7 @@ const EditTeacherRow = ({
           type="text"
           name="email"
           id=""
-          className="w-full"
+          className="w-full rounded-lg"
           value={dataEdit.email}
           onChange={(e) => editFormDataChangeHandler(e)}
         />
@@ -68,7 +68,7 @@ const EditTeacherRow = ({
           type="text"
           name="tel"
           id=""
-          className="w-full"
+          className="w-full rounded-lg"
           value={dataEdit.tel}
           onChange={(e) => editFormDataChangeHandler(e)}
         />
@@ -78,13 +78,14 @@ const EditTeacherRow = ({
           type="text"
           name="line_id"
           id=""
-          className="w-full"
+          className="w-full rounded-lg"
           value={dataEdit.line_id}
           onChange={(e) => editFormDataChangeHandler(e)}
         />
       </td>
       <td>
         <input
+        className="rounded-md"
           type="color"
           name="color_calendar"
           value={dataEdit.color_calendar}
@@ -94,6 +95,7 @@ const EditTeacherRow = ({
       </td>
       <td>
         <input
+        className="rounded-sm"
           type="checkbox"
           name="isAdmin"
           id=""

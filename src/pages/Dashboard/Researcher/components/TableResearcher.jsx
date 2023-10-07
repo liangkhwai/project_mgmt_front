@@ -42,6 +42,7 @@ const TableResearcher = ({
   setItemOffSet,
   nowPage,
   setNowPage,
+  isLoadingXlsx,
 }) => {
   const ctx = useContext(AuthContext);
   useEffect(() => {
@@ -106,7 +107,7 @@ const TableResearcher = ({
               โปรเจค
             </th>
             <th
-              className="border py-2 cursor-pointer"
+              className="cursor-pointer border py-2"
               // onClick={() =>
               //   setRshList((prev) => prev.sort((a, b) => b.isLate - a.isLate))
               // }
@@ -133,7 +134,7 @@ const TableResearcher = ({
               </div>
             </th>
             <th
-              className="border  py-2 cursor-pointer"
+              className="cursor-pointer  border py-2"
               onClick={() => {
                 const sortedList = rshList.slice().sort((a, b) => {
                   if (waitRegisterSortOrder === "asc") {
@@ -240,6 +241,7 @@ const TableResearcher = ({
           roomSelected={roomSelected}
           roomData={roomData}
           selectorHandler={selectorHandler}
+          isLoadingXlsx={isLoadingXlsx}
         />
       </ReactModal>
       {ctx.role === "admin" && (

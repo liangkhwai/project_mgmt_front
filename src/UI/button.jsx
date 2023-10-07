@@ -38,7 +38,7 @@ export function SaveButton(props) {
       props.onClick();
     };
     return (
-      <button className="bg-blue-600 px-3 py-1 rounded-lg text-white shadow-lg hover:bg-blue-500  " onClick={handleClick}>
+      <button className="bg-green-600 px-3 py-1 rounded-lg text-white shadow-lg hover:bg-blue-500  " onClick={handleClick}>
         {props.children}
       </button>
     );

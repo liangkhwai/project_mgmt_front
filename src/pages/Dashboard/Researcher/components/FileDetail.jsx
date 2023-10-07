@@ -8,8 +8,16 @@ const FileDetail = ({
   roomSelected,
   roomData,
   selectorHandler,
+  isLoadingXlsx,
 }) => {
   console.log(file);
+  if (isLoadingXlsx) {
+    return (
+      <div className="flex h-32 w-full items-center justify-center">
+        <div className="h-20 w-20 animate-spin rounded-full border-b-2 border-t-2 border-gray-900"></div>
+      </div>
+    );
+  }
   return (
     <div className="">
       <div className="flex justify-center">
@@ -29,12 +37,12 @@ const FileDetail = ({
       <div className="flex justify-end gap-1">
         <button
           type="submit"
-          className="px-5 py-2 bg-green-500"
+          className="bg-green-500 px-5 py-2"
           onClick={submit}
         >
           เพิ่ม
         </button>
-        <button className="px-5 py-2 bg-gray-200" onClick={onClose}>
+        <button className="bg-gray-200 px-5 py-2" onClick={onClose}>
           ยกเลิก
         </button>
       </div>
