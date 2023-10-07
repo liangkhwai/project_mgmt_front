@@ -6,7 +6,8 @@ import univer6 from "../../assets/univer6.png";
 import { Link } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
-
+import img1 from "../../assets/img1.jpg";
+import img2 from "../../assets/img2.png";
 const Home = () => {
   const [dashboard, setDashboard] = useState([]);
   useEffect(() => {
@@ -31,70 +32,38 @@ const Home = () => {
           dynamicHeight={true}
           stopOnHover={true}
         >
-          <div className="">
+          <div className="relative h-52 w-full">
             <div className="relative ">
               <img
-                className="h-full"
-                src={univer6}
+                className="relative object-cover"
+                src={img1}
                 alt="dsadsa"
-                style={{ width: "100%", height: "auto" }}
+                style={{ width: "100%", height: "800px" }}
               />
             </div>
-            <div className="absolute bottom-0 right-0 mb-20 mr-8 text-5xl font-normal  uppercase text-white">
+            {/* <div className="absolute bottom-0 right-0 mb-20 mr-8 text-5xl font-normal  uppercase text-white">
               rmuti kkc
             </div>
             <div className="absolute bottom-0 right-0 mb-9 mr-8 text-5xl font-normal text-white ">
               Digital Business Technology
-            </div>
+            </div> */}
           </div>
-          <div className="">
+          <div className="h-52 w-full">
             <div className="relative ">
               <img
-                className="h-full"
-                src={univer0}
+                className=" object-cover"
+                src={img2}
                 alt="dsadsa"
-                style={{ width: "100%", height: "auto" }}
+                style={{ width: "100%", height: "800px" }}
               />
             </div>
-            <div className="absolute bottom-0 right-0 mb-20 mr-8 text-5xl font-normal  uppercase text-white">
+            {/* <div className="absolute bottom-0 right-0 mb-20 mr-8 text-5xl font-normal  uppercase text-white">
               rmuti kkc
             </div>
             <div className="absolute bottom-0 right-0 mb-9 mr-8 text-5xl font-normal text-white ">
               Digital Business Technology
-            </div>
+            </div> */}
           </div>
-          <div className="">
-            <div className="relative ">
-              <img
-                className="h-full"
-                src={univer5}
-                alt="dsadsa"
-                style={{ width: "100%", height: "auto" }}
-              />
-            </div>
-            <div className="absolute bottom-0 right-0 mb-20 mr-8 text-5xl font-normal  uppercase text-white">
-              rmuti kkc
-            </div>
-            <div className="absolute bottom-0 right-0 mb-9 mr-8 text-5xl font-normal text-white ">
-              Digital Business Technology
-            </div>
-          </div>
-          {/* <div className="">
-            <div className="relative border border-black  h-full ">
-              <img
-                className="h-"
-                src={univer4}
-                alt="dsadsa"
-                style={{ width: "100%", height: "auto" }}
-              />
-            </div>
-            <div className="absolute bottom-0 right-0 text-5xl mb-20 mr-8 text-white  uppercase font-normal">
-              rmuti kkc
-            </div>
-            <div className="absolute bottom-0 right-0 text-5xl mb-9 mr-8 text-white font-normal ">
-              Digital Business Technology
-            </div>
-          </div> */}
         </Carousel>
       </div>
 
