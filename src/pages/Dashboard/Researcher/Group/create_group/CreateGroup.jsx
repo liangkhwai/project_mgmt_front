@@ -7,6 +7,7 @@ import InputForm from "./components/InputForm.jsx";
 import { AddButton } from "../../../../../UI/button.jsx";
 import AuthContext from "../../../../../context/auth.jsx";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const CreateGroup = () => {
   const [loadedResearcherList, setLoadedResearcherList] = useState([]);
@@ -21,7 +22,7 @@ const CreateGroup = () => {
       const data = await res.json();
 
       setLoadedResearcherList(
-        data.filter((item, idx) => item.groupId === null)
+        data.filter((item, idx) => item.groupId === null),
       );
     }
     fetchRshList();
@@ -37,7 +38,7 @@ const CreateGroup = () => {
       console.log(data.groupId);
       setRshList((prev) => [{ ...prev, ...data }]);
       setLoadedResearcherList((prev) =>
-        prev.filter((item, idx) => item.id !== data.id)
+        prev.filter((item, idx) => item.id !== data.id),
       );
     }
     getDefaultMember();
@@ -45,17 +46,36 @@ const CreateGroup = () => {
 
   const createGroupSubmitHandler = async () => {
     console.log(rshList);
-
-    const response = await fetch("http://localhost:8080/group/create", {
-      method: "post",
-      body: JSON.stringify({ group_list: rshList }),
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-    }).then(async (res) => {
-      const data = await res.json();
-      console.log(data);
-      localStorage.setItem("grpId", data);
-      navigate("/dashboard/group");
+    Swal.fire({
+      title: "ยืนยันการสร้างกลุ่มโปรเจค",
+      text: "กดยืนยันเพื่อสร้างกลุ่มโปรเจค",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "ยืนยัน",
+      cancelButtonText: "ยกเลิก",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const response = await fetch("http://localhost:8080/group/create", {
+          method: "post",
+          body: JSON.stringify({ group_list: rshList }),
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        }).then(async (res) => {
+          const data = await res.json();
+          console.log(data);
+          if (res.status === 200) {
+            localStorage.setItem("grpId", data);
+            navigate("/dashboard/group");
+          } else {
+            Swal.fire({
+              title: "เกิดข้อผิดพลาด",
+              text: "กรุณาลองใหม่อีกครั้ง",
+              icon: "error",
+              confirmButtonText: "ตกลง",
+            });
+          }
+        });
+      }
     });
   };
 
@@ -74,14 +94,14 @@ const CreateGroup = () => {
           setLoadedResearcherList={setLoadedResearcherList}
         />
         <div className="pb-10"></div>
-        {rshList.length < 3 && (
+        {rshList?.length < 3 && (
           <InputForm
             setRshList={setRshList}
             setLoadedResearcherList={setLoadedResearcherList}
             loadedResearcherList={loadedResearcherList}
           />
         )}
-        <div className="text-center pt-5">
+        <div className="pt-5 text-center">
           <AddButton onClick={() => createGroupSubmitHandler()}>
             {" "}
             สร้างกลุ่ม

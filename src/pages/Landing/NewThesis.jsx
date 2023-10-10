@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import React, { useRef, useEffect, Fragment } from "react";
 import {
   AiOutlineCaretDown,
@@ -9,8 +10,8 @@ import { BsDownload, BsFillCloudDownloadFill } from "react-icons/bs";
 const NewThesis = () => {
   const [theses, setTheses] = React.useState([]);
   const [openDetail, setOpenDetail] = React.useState(false);
-  const [openYear, setOpenYear] = React.useState("");
-  const [openYearEnd, setOpenYearEnd] = React.useState("");
+  const [openYear, setOpenYear] = React.useState(dayjs().year()+543);
+  const [openYearEnd, setOpenYearEnd] = React.useState(dayjs().year()+543);
 
   const [detail, setDetail] = React.useState("รายละเอียดทั้งหมด");
   const [filterData, setFilterData] = React.useState(theses);

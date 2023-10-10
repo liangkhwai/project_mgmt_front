@@ -43,7 +43,7 @@ const Theses = () => {
         {
           method: "get",
           credentials: "include",
-        }
+        },
       );
       const data = await response.json();
       console.log(data);
@@ -56,7 +56,7 @@ const Theses = () => {
         {
           method: "get",
           credentials: "include",
-        }
+        },
       );
       const data = await response.json();
       console.log(data);
@@ -71,7 +71,7 @@ const Theses = () => {
 
   return (
     <div className="mx-10">
-      <Title>อัพโหลดวิทยานิพนธ์</Title>
+      <Title>อัปโหลดปริญญายานิพนธ์</Title>
       <Body>
         {groupInfo ? (
           <Fragment>

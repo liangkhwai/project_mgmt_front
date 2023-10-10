@@ -26,7 +26,7 @@ const TableList = ({ rshList, setRshList, setLoadedResearcherList }) => {
           </tr>
         </thead>
         <tbody className=" ">
-          {rshList.map((rsh, idx) => (
+          {rshList?.map((rsh, idx) => (
             <tr key={idx} className="odd:bg-gray-300 border-gray-300 ">
               <td className="">{rsh.student_id}</td>
               <td className="">{rsh.firstname}</td>

@@ -35,7 +35,7 @@ const ComboBox = ({ loadedResearcherList, selectedItem, setSelectedItem }) => {
     },
     items,
     itemToString(item) {
-      return item ? item.student_id : "";
+      return item ? item?.student_id : "";
     },
     selectedItem,
     onSelectedItemChange: ({ selectedItem: newSelectedItem }) =>
@@ -67,7 +67,7 @@ const ComboBox = ({ loadedResearcherList, selectedItem, setSelectedItem }) => {
       </div>
       <ul
         className={`absolute w-72 bg-white mt-1 shadow-md max-h-80 overflow-scroll p-0 
-          ${!(isOpen && items.length) && "hidden"}
+          ${!(isOpen && items?.length) && "hidden"}
           `}
         {...getMenuProps()}
       >
@@ -82,9 +82,9 @@ const ComboBox = ({ loadedResearcherList, selectedItem, setSelectedItem }) => {
                 key={`${item.value}${index}`}
                 {...getItemProps({ item, index })}
               >
-                <span>{item.student_id}</span>
+                <span>{item?.student_id}</span>
                 <span className="text-sm text-gray-700">
-                  {item.firstname} {item.lastname}
+                  {item?.firstname} {item?.lastname}
                 </span>
               </li>
             ))}

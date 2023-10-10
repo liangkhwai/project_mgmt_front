@@ -61,7 +61,7 @@ const GroupBox = ({ selfInfo }) => {
           <ExamRequestBox requestExam={requestExam} />
         </div>
         <div className="w-full col-span-4">
-          {boards.length > 0 ? (
+          {boards?.length > 0 ? (
             <div className="flex flex-col border rounded-xl shadow-md">
               {<BoardList boards={boards} />}
             </div>

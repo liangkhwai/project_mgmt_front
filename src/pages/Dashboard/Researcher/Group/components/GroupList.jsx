@@ -116,10 +116,10 @@ const GroupList = ({ groupList, setGroupList }) => {
   //   mutation.mutate(inputRef.current.value);
   // };
 
-  const sortLeader = groupList.sort((a, b) => {
-    if (a.id === group.leaderId) {
+  const sortLeader = groupList?.sort((a, b) => {
+    if (a.id === group?.leaderId) {
       return -1;
-    } else if (b.id === group.leaderId) {
+    } else if (b.id === group?.leaderId) {
       return 1;
     }
     return 0;
@@ -142,7 +142,7 @@ const GroupList = ({ groupList, setGroupList }) => {
             </tr>
           </thead>
           <tbody>
-            {sortLeader.map((item, idx) => (
+            {sortLeader?.map((item, idx) => (
               <ResearcherRow
                 rsh={item}
                 idx={idx}
@@ -157,7 +157,7 @@ const GroupList = ({ groupList, setGroupList }) => {
       </div>
 
       <div>
-        {sortLeader.length < 3 && (
+        {sortLeader?.length < 3 && (
           <Fragment>
             <div className="my-5 flex items-center justify-around  border-2  border-gray-300 py-3">
               <ComboBox
@@ -172,7 +172,7 @@ const GroupList = ({ groupList, setGroupList }) => {
                 name=""
                 id=""
                 disabled
-                value={selectedItem ? selectedItem.firstname : ""}
+                value={selectedItem ? selectedItem?.firstname : ""}
               />
               <input
                 className="input rounded-xl border-none bg-gray-300 text-center"
@@ -180,7 +180,7 @@ const GroupList = ({ groupList, setGroupList }) => {
                 name=""
                 id=""
                 disabled
-                value={selectedItem ? selectedItem.lastname : ""}
+                value={selectedItem ? selectedItem?.lastname : ""}
               />
               <input
                 className="input rounded-xl border-none bg-gray-300 text-center"
@@ -188,7 +188,7 @@ const GroupList = ({ groupList, setGroupList }) => {
                 name=""
                 id=""
                 disabled
-                value={selectedItem ? selectedItem.categorie_room.room : ""}
+                value={selectedItem ? selectedItem?.categorie_room.room : ""}
               />
 
               <button

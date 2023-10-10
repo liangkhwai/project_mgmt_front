@@ -14,7 +14,7 @@ const ExamRequestBox = ({ requestExam }) => {
           </tr>
         </thead>
         <tbody>
-          {requestExam.length > 0 ? (
+          {requestExam?.length > 0 ? (
             requestExam.map((item, idx) => (
               <tr key={item.id}>
                 <td className="text-center">{item.categories}</td>

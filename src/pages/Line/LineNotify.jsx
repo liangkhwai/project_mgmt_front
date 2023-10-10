@@ -40,7 +40,7 @@ const LineNotify = () => {
           title="qrcode"
           className="w-full h-[60vh]"
         ></iframe>
-        {searchParams.get("userId")}
+        {/* {searchParams.get("userId")} */}
         <div className="text-center mt-5">
           <button
             className="px-4 py-2 rounded-xl bg-green-500 text-white"

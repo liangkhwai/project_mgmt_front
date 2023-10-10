@@ -16,7 +16,7 @@ const BoardList = ({ boards }) => {
 
   return (
     <Fragment>
-      {boards.map((item, idx) => (
+      {boards?.map((item, idx) => (
         <Fragment key={item.id}>
           <div className="flex justify-between p-5 border-b">
             <div>{findRole(item.role)}</div>

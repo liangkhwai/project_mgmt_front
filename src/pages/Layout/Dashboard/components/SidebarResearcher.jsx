@@ -49,7 +49,7 @@ const SidebarResearcher = () => {
       <li className="">
         <Link to="/dashboard/thesis/upload" className="">
           <div className="w-100 mb-3 flex pl-20 transition-colors duration-300 ease-in-out hover:text-blue-600">
-            อัพโหลดวิทยานิพนธ์
+            อัปโหลดปริญญานิพนธ์
           </div>
         </Link>
       </li>
