@@ -21,22 +21,22 @@ const ResultLog = () => {
   return (
     <div>
       <div className="grid grid-cols-6 content-center py-1 text-center">
-        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+        <div className="flex w-full items-center justify-center bg-light-blue-200 py-4">
           ลำดับ
         </div>
-        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+        <div className="flex w-full items-center justify-center bg-light-blue-200 py-4">
           ชื่อกลุ่ม
         </div>
-        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+        <div className="flex w-full items-center justify-center bg-light-blue-200 py-4">
           สถานะ
         </div>
-        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+        <div className="flex w-full items-center justify-center bg-light-blue-200 py-4">
           เวลา
         </div>
-        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+        <div className="flex w-full items-center justify-center bg-light-blue-200 py-4">
           บันทึกเมื่อ
         </div>
-        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+        <div className="flex w-full items-center justify-center bg-light-blue-200 py-4">
           ผลสอบ
         </div>
       </div>

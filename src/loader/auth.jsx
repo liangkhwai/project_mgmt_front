@@ -40,6 +40,7 @@ export async function checkRole() {
     credentials: "include",
   });
   const data = await response.json();
+  console.log(data);
   if (data) {
     return data;
   } else {

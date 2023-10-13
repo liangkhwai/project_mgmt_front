@@ -11,10 +11,19 @@ const ModalBooking = ({ eventInfo, lastEvent, groupInfo }) => {
     start: eventInfo.start,
     end: eventInfo.end,
     eventId: eventInfo.extendedProps.teacher.map((item) => item.eventId),
+    location: "",
   };
 
   const submitBooking = async () => {
     console.log(eventInfo);
+    if(eventSubmit.location === ""){
+      Swal.fire({
+        title: "กรุณากรอกสถานที่สอบ",
+        icon: "error",
+        confirmButtonText: "ตกลง",
+      });
+      return;
+    }
     Swal.fire({
       title: "คุณต้องการจองเวลาสอบหรือไม่",
       text: "คุณจะไม่สามารถยกเลิกได้",
@@ -95,6 +104,17 @@ const ModalBooking = ({ eventInfo, lastEvent, groupInfo }) => {
             </div>
           ))}
         </div>
+      </div>
+      <div className="my-3 flex items-center gap-1">
+        <label htmlFor="location">สถานที่สอบ : </label>
+        <input
+          id="location"
+          type="text"
+          className="flex-grow rounded-xl"
+          onChange={(e) => {
+            eventSubmit.location = e.target.value;
+          }}
+        />
       </div>
       <div>
         <button

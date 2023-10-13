@@ -27,8 +27,15 @@ const BoardCalendar = ({ lastEvent,groupInfo }) => {
       );
 
       const data = await res.json();
-      console.log(data);
-      setEvents(data);
+      
+      
+      setEvents(
+        data.filter(
+          (item) =>
+            dayjs(item.start).format("YYYY-MM-DD") >=
+            dayjs().format("YYYY-MM-DD"),
+        ),
+      );
     }
 
     getEventOnlyGroup();

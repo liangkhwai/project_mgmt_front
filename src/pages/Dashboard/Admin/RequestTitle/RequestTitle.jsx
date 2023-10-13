@@ -71,19 +71,19 @@ const RequestTitle = () => {
 
       <Body>
         <div className="grid grid-cols-5 content-center py-1 text-center">
-          <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+          <div className="flex w-full items-center justify-center bg-light-blue-200 py-4">
             ลำดับ
           </div>
-          <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+          <div className="flex w-full items-center justify-center bg-light-blue-200 py-4">
             ชื่อหัวข้อ
           </div>
-          <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+          <div className="flex w-full items-center justify-center bg-light-blue-200 py-4">
             สถานะ
           </div>
-          <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+          <div className="flex w-full items-center justify-center bg-light-blue-200 py-4">
             อนุมัติ
           </div>
-          <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+          <div className="flex w-full items-center justify-center bg-light-blue-200 py-4">
             ไม่อนุมัติ
           </div>
         </div>
