@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { useMutation } from "react-query";
 import { Link } from "react-router-dom";
 import DropdownFiles from "./DropdownFiles";
@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import dayjs from "dayjs";
 
 const RequestLists = ({ requestList, setRequestData, isLoading }) => {
+  const [isHoverLink, setIsHoverLink] = useState(false);
   const approveHandler = useMutation({
     mutationFn: async ({ isApprove, categories, item }) => {
       console.log(isApprove, categories, item);
@@ -70,7 +71,7 @@ const RequestLists = ({ requestList, setRequestData, isLoading }) => {
   return (
     <div>
       <div className="py-5 text-center text-xl font-bold ">การขอสอบล่าสุด</div>
-      <div className="grid grid-cols-8 content-center py-1 text-center ">
+      <div className="grid grid-cols-9 content-center py-1 text-center ">
         <div className="flex w-full items-center justify-center bg-gray-200 py-4">
           ชื่อหัวข้อ
         </div>
@@ -83,6 +84,9 @@ const RequestLists = ({ requestList, setRequestData, isLoading }) => {
 
         <div className="flex w-full items-center justify-center bg-gray-200 py-4">
           รายละเอียด
+        </div>
+        <div className="flex w-full items-center justify-center bg-gray-200 py-4">
+          ลิ้งประเมิน
         </div>
         <div className="flex w-full items-center justify-center bg-gray-200 py-4">
           ไฟล์
@@ -109,7 +113,7 @@ const RequestLists = ({ requestList, setRequestData, isLoading }) => {
                 return (
                   <Fragment key={item.id}>
                     <div
-                      className="grid grid-cols-8 content-center py-1 text-center "
+                      className="grid grid-cols-9 content-center py-1 text-center "
                       key={item.id}
                     >
                       <div className="flex w-full items-center justify-center bg-gray-200 py-4">
@@ -127,6 +131,16 @@ const RequestLists = ({ requestList, setRequestData, isLoading }) => {
                           value={item.description}
                           className="w-full rounded-xl bg-gray-100"
                         ></textarea>
+                      </div>
+                      <div className="flex w-full items-center justify-center bg-gray-200 py-4 ">
+                        <a
+                          href={item.rate_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-500 hover:text-blue-700"
+                        >
+                          {item.rate_url.slice(0, 10)}...
+                        </a>
                       </div>
                       <div className="flex w-full items-center justify-center bg-gray-200 py-4">
                         <DropdownFiles files={item.files} />

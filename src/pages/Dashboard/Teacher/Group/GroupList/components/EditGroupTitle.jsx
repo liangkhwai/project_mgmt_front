@@ -130,7 +130,7 @@ const EditGroupTitle = (props) => {
           </div>
           <div>
             <button
-              className="rounded-xl bg-gray-400 px-4 py-2 text-white"
+              className="rounded-xl bg-gray-400 px-4 py-2 text-white lg:w-28"
               onClick={sendUpdateInComplete}
             >
               ติด I ผู้วิจัย

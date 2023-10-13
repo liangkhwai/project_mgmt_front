@@ -253,49 +253,49 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
       <div className="mt-3 text-xl">สถานะกลุ่ม : {grpDetail?.status}</div>
       <div className="text-center text-lg font-bold ">รายชื่อสมาชิก</div>
       <br />
-      <table className="table w-full table-auto border-collapse border-gray-400">
+      <table className="table w-full table-auto border-collapse border-gray-400 text-center">
         <thead>
           <tr className="w-full ">
-            <td className=" border-2 border-gray-300 py-2 text-start font-semibold text-black">
+            <td className=" border border-gray-300 py-2  font-semibold text-black">
               ลำดับ
             </td>
-            <td className=" border-2 border-gray-300 py-2 text-start font-semibold text-black">
+            <td className=" border border-gray-300 py-2  font-semibold text-black">
               ชื่อ
             </td>
-            <td className=" border-2 border-gray-300 py-2  text-start font-semibold  text-black">
+            <td className=" border border-gray-300 py-2   font-semibold  text-black">
               นามสกุล
             </td>
-            <td className=" border-2 border-gray-300 py-2 text-start font-semibold  text-black">
+            <td className=" border border-gray-300 py-2  font-semibold  text-black">
               เลขนักศึกษา
             </td>
-            <td className=" border-2 border-gray-300 py-2 text-start font-semibold  text-black">
+            <td className=" border border-gray-300 py-2  font-semibold  text-black">
               ห้อง
             </td>
-            <td className=" border-2 border-gray-300 py-2 text-start font-semibold  text-black">
+            <td className=" border border-gray-300 py-2  font-semibold  text-black">
               เบอร์โทร
             </td>
 
-            <td className=" border-2 border-gray-300 py-2 text-start font-semibold  text-black">
+            <td className=" border border-gray-300 py-2  font-semibold  text-black">
               เกรดเฉลี่ย
             </td>
-            <td className=" border-2 border-gray-300 py-2 text-start font-semibold  text-black">
+            <td className=" border border-gray-300 py-2  font-semibold  text-black">
               เกรดโปรเจค
             </td>
-            <td className="border-2 border-gray-300 py-2 text-start font-semibold text-black">
+            <td className="border border-gray-300 py-2  font-semibold text-black">
               ติด I
             </td>
-            <td className="border-2 border-gray-300 py-2 text-start font-semibold text-black">
+            <td className="border border-gray-300 py-2  font-semibold text-black">
               รอลงทะเบียน
             </td>
-            <td className="border-2 border-gray-300 py-2 text-start font-semibold text-black">
+            <td className="border border-gray-300 py-2  font-semibold text-black">
               เทอม
             </td>
             {ctx.role === "admin" && (
               <>
-                <td className=" border-2 border-gray-300 py-2 text-center font-semibold  text-black">
+                <td className=" border border-gray-300 py-2 text-center font-semibold  text-black">
                   หัวหน้ากลุ่ม
                 </td>
-                <td className=" border-2 border-gray-300 py-2 text-center font-semibold  text-black">
+                <td className=" border border-gray-300 py-2 text-center font-semibold  text-black">
                   ลบ
                 </td>
               </>
@@ -320,7 +320,7 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
       </table>
       {ctx.role === "admin" && (
         <Fragment>
-          <div className="my-5 flex items-center justify-around  border-2  border-gray-300 py-3">
+          <div className="my-5 flex items-center justify-around  border  border-gray-300 py-3">
             <ComboBox
               loadedResearcherList={loadedResearcherList}
               selectedItem={selectedItem}
@@ -328,7 +328,7 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
             />
 
             <input
-              className="input rounded-xl border-none bg-gray-300 text-center"
+              className="input lg:w-28 rounded-xl border-none bg-gray-300 text-center"
               type="text"
               name=""
               id=""
@@ -336,7 +336,7 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
               value={selectedItem ? selectedItem.firstname : ""}
             />
             <input
-              className="input rounded-xl border-none bg-gray-300 text-center"
+              className="input lg:w-28 rounded-xl border-none bg-gray-300 text-center"
               type="text"
               name=""
               id=""
@@ -344,7 +344,7 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
               value={selectedItem ? selectedItem.lastname : ""}
             />
             <input
-              className="input rounded-xl border-none bg-gray-300 text-center"
+              className="input lg:w-28 rounded-xl border-none bg-gray-300 text-center"
               type="text"
               name=""
               id=""

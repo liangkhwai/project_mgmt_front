@@ -405,32 +405,32 @@ const Member = ({
       <td
         className={
           grpDetail.leaderId === rsh.id
-            ? `border-2 border-gray-300 bg-yellow-300 py-2  text-gray-800`
-            : `border-2 border-gray-300 py-2  text-gray-800`
+            ? `border border-gray-300 bg-yellow-300 py-2  text-gray-800`
+            : `border border-gray-300 py-2  text-gray-800`
         }
       >
         {idx + 1}
       </td>
-      <td className="border-2 border-gray-300 py-2  text-gray-800">
+      <td className="border border-gray-300 py-2  text-gray-800">
         {rsh.firstname}
       </td>
-      <td className="border-2 border-gray-300 py-2  text-gray-800">
+      <td className="border border-gray-300 py-2  text-gray-800">
         {rsh.lastname}
       </td>
-      <td className="border-2 border-gray-300 py-2  text-gray-800">
+      <td className="border border-gray-300 py-2  text-gray-800">
         {rsh.student_id}
       </td>
-      <td className="border-2 border-gray-300 py-2  text-gray-800">
+      <td className="border border-gray-300 py-2  text-gray-800">
         {rsh.categorie_room.room}
       </td>
-      <td className="border-2 border-gray-300 py-2  text-gray-800">
+      <td className="border border-gray-300 py-2  text-gray-800">
         {rsh.tel}
       </td>
-      <td className="border-2 border-gray-300 py-2  text-gray-800">
+      <td className="border border-gray-300 py-2  text-gray-800">
         {rsh.grade}
       </td>
       <td
-        className={`border-2 border-gray-300 py-2 text-gray-800 ${
+        className={`border border-gray-300 py-2 text-gray-800 ${
           (ctx.role === "admin" && !rsh.isEditGradeProject) ||
           (ctx.role === "admin" &&
             rsh.isLate === true &&
@@ -466,7 +466,7 @@ const Member = ({
           <div>{rsh.grade_project}</div>
         )}
       </td>
-      <td className="border-2 border-gray-300 py-2 text-gray-800">
+      <td className="border border-gray-300 py-2 text-gray-800">
         <input
           type="checkbox"
           name="isLate"
@@ -477,7 +477,7 @@ const Member = ({
           disabled={ctx.role !== "admin"}
         />
       </td>
-      <td className="border-2 border-gray-300 py-2 text-gray-800">
+      <td className="border border-gray-300 py-2 text-gray-800">
         <input
           type="checkbox"
           name="waitRegister"
@@ -489,7 +489,7 @@ const Member = ({
         />
       </td>
       <td
-        className={`border-2 border-gray-300 py-2 text-gray-800 ${
+        className={`border border-gray-300 py-2 text-gray-800 ${
           ctx.role === "admin" ? "cursor-pointer hover:bg-gray-400" : ""
         }`}
         onClick={() => ctx.role === "admin" && setIsTermEdit(true)}
@@ -511,7 +511,7 @@ const Member = ({
       </td>
       {ctx.role === "admin" && (
         <>
-          <td className="border-2 border-gray-300 py-2 text-center  text-white">
+          <td className="border border-gray-300 py-2 text-center  text-white">
             {grpDetail.leaderId === rsh.id ? (
               <button
                 className="rounded-lg bg-gray-400 px-5  py-1  shadow-lg disabled:cursor-not-allowed"
@@ -529,7 +529,7 @@ const Member = ({
               </button>
             )}
           </td>
-          <td className="border-2 border-gray-300 py-2 text-center  text-white">
+          <td className="border border-gray-300 py-2 text-center  text-white">
             <button
               className="rounded-lg bg-red-600  px-5 py-1 shadow-lg hover:bg-red-500"
               onClick={() => deleteFromGroupHandler(rsh.id)}

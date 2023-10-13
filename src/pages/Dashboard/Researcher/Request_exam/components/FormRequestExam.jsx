@@ -15,6 +15,7 @@ const FormRequestExam = ({ groupInfo }) => {
   const [examRequest, setExamRequest] = useState({
     type: "สอบหัวข้อ",
     des: "",
+    rate_url: "",
   });
 
   useEffect(() => {
@@ -99,6 +100,7 @@ const FormRequestExam = ({ groupInfo }) => {
         formData.append("category", resultTarget);
         formData.append("description", examRequest.des);
         formData.append("grpId", groupInfo.id);
+        formData.append("rate_url", examRequest.rate_url);
         console.log(examRequest);
         console.log(selectedFiles);
         selectedFiles.forEach((file, index) => {
@@ -287,6 +289,20 @@ const FormRequestExam = ({ groupInfo }) => {
                 name="des"
                 onChange={(e) => inputChangeHandler(e)}
               ></textarea>
+            </div>
+            <div className="my-5">
+              <div className="mb-1">
+                <label htmlFor="rate_url" className="">
+                  แนบลิ้งประเมิน
+                </label>
+              </div>
+
+              <input
+                className="w-full rounded-md border border-gray-700 px-2 py-2"
+                id="rate_url"
+                name="rate_url"
+                onChange={(e) => inputChangeHandler(e)}
+              />
             </div>
             <div className="my-5">
               <div className="mb-1">
