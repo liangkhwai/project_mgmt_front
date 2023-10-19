@@ -282,7 +282,7 @@ const ModalContentEdit = ({
   const updateEvent = useMutation({
     mutationFn: async (event) => {
       const response = await fetch(
-        "http://localhost:8080/free_hours/updateEvent",
+        "http://34.126.100.66:8080/free_hours/updateEvent",
         {
           method: "PATCH",
           body: JSON.stringify({ event: event }),
@@ -335,7 +335,7 @@ const ModalContentEdit = ({
 
   const deleteEvent = useMutation({
     mutationFn: async (id) => {
-      const response = await fetch("http://localhost:8080/free_hours/delete", {
+      const response = await fetch("http://34.126.100.66:8080/free_hours/delete", {
         method: "post",
         body: JSON.stringify({ id }),
         headers: { "Content-Type": "application/json" },

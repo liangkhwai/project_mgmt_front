@@ -7,7 +7,7 @@ const Docs = () => {
   const [files, setFiles] = useState([]);
   const { data } = useQuery({
     queryFn: async () => {
-      const response = await fetch("http://localhost:8080/files/list", {
+      const response = await fetch("http://34.126.100.66:8080/files/list", {
         method: "get",
       });
       return response.json();
@@ -30,7 +30,7 @@ const Docs = () => {
             <div key={idx} className="bg-white p-10 mb-20 border rounded-xl ">
                 <div className="text-blue-600">
 
-                <Link target="_blank" to={`http://localhost:8080/files/upload/${item.originalname}`}>{item.originalname}</Link>
+                <Link target="_blank" to={`http://34.126.100.66:8080/files/upload/${item.originalname}`}>{item.originalname}</Link>
               
                 </div>
             </div>

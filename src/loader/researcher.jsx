@@ -1,13 +1,13 @@
 import { redirect } from "react-router-dom";
 export async function getList() {
-  const researcherList = await fetch("http://localhost:8080/researcher/list", {
+  const researcherList = await fetch("http://34.126.100.66:8080/researcher/list", {
     method: "get",
   });
 
   const dataResearcherList = await researcherList.json();
   // console.log(dataResearcherList);
 
-  const roomList = await fetch("http://localhost:8080/categories/list", {
+  const roomList = await fetch("http://34.126.100.66:8080/categories/list", {
     method: "get",
   });
 
@@ -20,7 +20,7 @@ export async function getList() {
 }
 
 export async function getSelfInfo() {
-  const res = await fetch("http://localhost:8080/researcher/getOne", {
+  const res = await fetch("http://34.126.100.66:8080/researcher/getOne", {
     method: "get",
     credentials: "include",
   });

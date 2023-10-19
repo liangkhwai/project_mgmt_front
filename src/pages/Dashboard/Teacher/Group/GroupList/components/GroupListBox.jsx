@@ -13,7 +13,7 @@ const GroupListBox = () => {
 
   const deleteGroup = useMutation({
     mutationFn: async (grpId) => {
-      const response = await fetch("http://localhost:8080/group/removeGroup", {
+      const response = await fetch("http://34.126.100.66:8080/group/removeGroup", {
         method: "post",
         body: JSON.stringify({ grpId: parseInt(grpId) }),
         credentials: "include",
@@ -42,7 +42,7 @@ const GroupListBox = () => {
   const { isLoading, isError, data, error } = useQuery(
     "getAllGroup",
     async () => {
-      const response = await fetch("http://localhost:8080/group/getAllGroup", {
+      const response = await fetch("http://34.126.100.66:8080/group/getAllGroup", {
         credentials: "include",
       });
 

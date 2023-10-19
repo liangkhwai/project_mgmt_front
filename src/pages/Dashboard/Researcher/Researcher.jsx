@@ -140,7 +140,7 @@ const Researcher = () => {
         };
         console.log("data before insert  = ", insertData);
         const response = await fetch(
-          "http://localhost:8080/researcher/insert",
+          "http://34.126.100.66:8080/researcher/insert",
           {
             method: "post",
             body: JSON.stringify(insertData),
@@ -232,7 +232,7 @@ const Researcher = () => {
         };
 
         const response = await fetch(
-          "http://localhost:8080/researcher/update",
+          "http://34.126.100.66:8080/researcher/update",
           {
             method: "put",
             body: JSON.stringify(editData),
@@ -296,7 +296,7 @@ const Researcher = () => {
         const dataTemp = rshTemp.filter((i) => i.id !== id);
         console.log(dataTemp);
         const response = await fetch(
-          "http://localhost:8080/researcher/delete",
+          "http://34.126.100.66:8080/researcher/delete",
           {
             method: "post",
             body: JSON.stringify({ id: id }),
@@ -379,7 +379,7 @@ const Researcher = () => {
         formData.append("selector", roomSelector);
         console.log(Object.fromEntries(formData));
         const response = await fetch(
-          "http://localhost:8080/researcher/insertXlsx",
+          "http://34.126.100.66:8080/researcher/insertXlsx",
           {
             method: "post",
             body: formData,

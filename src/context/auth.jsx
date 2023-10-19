@@ -70,7 +70,7 @@ export const AuthContextProvider = (props) => {
   // };
 
   const logoutHandler = async () => {
-    const response = await fetch("http://localhost:8080/auth/logout", {
+    const response = await fetch("http://34.126.100.66:8080/auth/logout", {
       method: "get",
       credentials: "include",
     });

@@ -14,7 +14,7 @@ const RequestBooking = () => {
   useEffect(() => {
     const fetchBoards = async () => {
       const res = await fetch(
-        `http://localhost:8080/boards/get/${localStorage.getItem("grpId")}`,
+        `http://34.126.100.66:8080/boards/get/${localStorage.getItem("grpId")}`,
         {
           method: "get",
         },
@@ -24,7 +24,7 @@ const RequestBooking = () => {
       setBoards(data);
     };
     const getGroup = async () => {
-      const response = await fetch("http://localhost:8080/group/getGroup", {
+      const response = await fetch("http://34.126.100.66:8080/group/getGroup", {
         method: "get",
         credentials: "include",
       });
@@ -37,7 +37,7 @@ const RequestBooking = () => {
     };
     const getLastRequest = async () => {
       const response = await fetch(
-        `http://localhost:8080/requestExam/getLastRequest/${localStorage.getItem(
+        `http://34.126.100.66:8080/requestExam/getLastRequest/${localStorage.getItem(
           "grpId",
         )}`,
         {
@@ -50,7 +50,7 @@ const RequestBooking = () => {
       console.log(data);
       setLastEvent(data);
       const checkBooked = await fetch(
-        `http://localhost:8080/exam_booking/checkBooked/${data.id}`,
+        `http://34.126.100.66:8080/exam_booking/checkBooked/${data.id}`,
         {
           method: "get",
           credentials: "include",

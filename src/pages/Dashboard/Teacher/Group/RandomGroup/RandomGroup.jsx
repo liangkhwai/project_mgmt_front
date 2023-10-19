@@ -12,7 +12,7 @@ const RandomGroup = () => {
   const getTeacherList = useQuery({
     queryKey: "getTeacher",
     queryFn: async () => {
-      const response = await fetch("http://localhost:8080/teachers/list", {
+      const response = await fetch("http://34.126.100.66:8080/teachers/list", {
         method: "get",
         credentials: "include",
       });
@@ -25,7 +25,7 @@ const RandomGroup = () => {
     queryKey: "getGroups",
     queryFn: async () => {
       const response = await fetch(
-        "http://localhost:8080/group/getAllGroup/random",
+        "http://34.126.100.66:8080/group/getAllGroup/random",
         {
           method: "get",
           credentials: "include",

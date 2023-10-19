@@ -22,7 +22,7 @@ const ResearcherInfo = ({ information, setinformation }) => {
       cancelButtonText: "ไม่ใช่",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await fetch("http://localhost:8080/researcher/update", {
+        await fetch("http://34.126.100.66:8080/researcher/update", {
           method: "put",
           headers: {
             "Content-Type": "application/json",

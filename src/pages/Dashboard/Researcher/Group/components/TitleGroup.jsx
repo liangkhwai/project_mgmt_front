@@ -12,7 +12,7 @@ const TitleGroup = ({ setGroup }) => {
   const { isLoading, err, data, status } = useQuery(
     "getGroupData",
     async () => {
-      const res = await fetch("http://localhost:8080/group/getGroup", {
+      const res = await fetch("http://34.126.100.66:8080/group/getGroup", {
         method: "get",
         credentials: "include",
       });
@@ -31,7 +31,7 @@ const TitleGroup = ({ setGroup }) => {
 
   const mutation = useMutation({
     mutationFn: async (newTitle) => {
-      return await fetch("http://localhost:8080/group/createTitleGroup", {
+      return await fetch("http://34.126.100.66:8080/group/createTitleGroup", {
         method: "POST",
         body: JSON.stringify({ title: newTitle }),
         credentials: "include",
@@ -61,7 +61,7 @@ const TitleGroup = ({ setGroup }) => {
       cancelButtonText: "ไม่ใช่",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await fetch("http://localhost:8080/group/requestTitle", {
+        const res = await fetch("http://34.126.100.66:8080/group/requestTitle", {
           method: "put",
           body: JSON.stringify({
             title: inputRef.current.value,

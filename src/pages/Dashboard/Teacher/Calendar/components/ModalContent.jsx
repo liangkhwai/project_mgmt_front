@@ -291,7 +291,7 @@ const ModalContent = ({
 
   const mutation = useMutation({
     mutationFn: async (date) => {
-      const response = await fetch("http://localhost:8080/free_hours/add", {
+      const response = await fetch("http://34.126.100.66:8080/free_hours/add", {
         method: "POST",
         body: JSON.stringify({ date: date, tchId: localStorage.getItem("id") }),
         credentials: "include",
@@ -336,7 +336,7 @@ const ModalContent = ({
   const updateEvent = useMutation({
     mutationFn: async (event) => {
       const response = await fetch(
-        "http://localhost:8080/free_hours/updateEvent",
+        "http://34.126.100.66:8080/free_hours/updateEvent",
         {
           method: "PATCH",
           body: JSON.stringify({ event: event }),
@@ -365,7 +365,7 @@ const ModalContent = ({
 
   const deleteEvent = useMutation({
     mutationFn: async (id) => {
-      const response = await fetch("http://localhost:8080/free_hours/delete", {
+      const response = await fetch("http://34.126.100.66:8080/free_hours/delete", {
         method: "post",
         body: JSON.stringify({ id }),
         headers: { "Content-Type": "application/json" },

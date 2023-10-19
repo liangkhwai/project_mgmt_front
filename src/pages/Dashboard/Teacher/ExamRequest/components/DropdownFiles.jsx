@@ -6,7 +6,7 @@ import { ImFilePdf } from "react-icons/im";
 
 const DropdownFiles = ({ files }) => {
   const handleClickFile = (filename) => {
-    window.open(`http://localhost:8080/files/request/${filename}`, "_blank");
+    window.open(`http://34.126.100.66:8080/files/request/${filename}`, "_blank");
   };
   const menuItem = files.map((file, idx) => (
     <MenuItem

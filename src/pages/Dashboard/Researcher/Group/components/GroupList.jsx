@@ -37,7 +37,7 @@ const GroupList = ({ groupList, setGroupList }) => {
       cancelButtonText: "ยกเลิก",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await fetch(`http://localhost:8080/group/addGroupMember`, {
+        const res = await fetch(`http://34.126.100.66:8080/group/addGroupMember`, {
           method: "put",
           credentials: "include",
           body: JSON.stringify({
@@ -68,7 +68,7 @@ const GroupList = ({ groupList, setGroupList }) => {
   const { isLoading, err, data, status } = useQuery(
     "getGroupData",
     async () => {
-      const res = await fetch("http://localhost:8080/group/getGroup", {
+      const res = await fetch("http://34.126.100.66:8080/group/getGroup", {
         method: "get",
         credentials: "include",
       });
@@ -79,7 +79,7 @@ const GroupList = ({ groupList, setGroupList }) => {
   );
   useEffect(() => {
     async function fetchResearcher() {
-      const res = await fetch("http://localhost:8080/researcher/list", {
+      const res = await fetch("http://34.126.100.66:8080/researcher/list", {
         method: "get",
         credentials: "include",
       });
@@ -99,7 +99,7 @@ const GroupList = ({ groupList, setGroupList }) => {
 
   const mutation = useMutation({
     mutationFn: async (newTitle) => {
-      return await fetch("http://localhost:8080/group/createTitleGroup", {
+      return await fetch("http://34.126.100.66:8080/group/createTitleGroup", {
         method: "POST",
         body: JSON.stringify({ title: newTitle }),
         credentials: "include",
