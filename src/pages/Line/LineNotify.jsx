@@ -12,7 +12,7 @@ const LineNotify = () => {
 
       const updateLineTeacher = async () => {
         const response = await fetch(
-          "http://34.126.100.66:8080/teachers/update/line",
+          "http://34.124.162.203:8080/teachers/update/line",
           {
             method: "put",
             headers: {

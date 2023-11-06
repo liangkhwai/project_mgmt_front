@@ -16,7 +16,7 @@ const Random = () => {
    const [boardInfo, setBoardInfo] = useState([]);
    useEffect(() => {
      const getBoardInfo = async () => {
-       const response = await fetch("http://34.126.100.66:8080/boards/info", {
+       const response = await fetch("http://34.124.162.203:8080/boards/info", {
          method: "get",
          credentials: "include",
        })
@@ -28,7 +28,7 @@ const Random = () => {
    }, []);
   useEffect(() => {
     const getTeacherList = async () => {
-      const response = await fetch("http://34.126.100.66:8080/teachers/list", {
+      const response = await fetch("http://34.124.162.203:8080/teachers/list", {
         method: "get",
         credentials: "include",
       });
@@ -38,7 +38,7 @@ const Random = () => {
     };
     const getGroupList = async () => {
       const response = await fetch(
-        "http://34.126.100.66:8080/group/getAllGroup/random",
+        "http://34.124.162.203:8080/group/getAllGroup/random",
         {
           method: "get",
           credentials: "include",

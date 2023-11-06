@@ -15,7 +15,7 @@ const GroupRandomList = ({
 
   useEffect(() => {
     const getResearcherList = async () => {
-      const response = await fetch(`http://34.126.100.66:8080/researcher/list`, {
+      const response = await fetch(`http://34.124.162.203:8080/researcher/list`, {
         method: "get",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

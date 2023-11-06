@@ -8,7 +8,7 @@ const Teacher = () => {
 
   useEffect(() => {
     async function fetchTeacherlist() {
-      const res = await fetch("http://34.126.100.66:8080/teachers/list", {
+      const res = await fetch("http://34.124.162.203:8080/teachers/list", {
         method: "get",
         credentials: "include",
       });

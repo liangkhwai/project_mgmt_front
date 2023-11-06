@@ -8,7 +8,7 @@ const ResultRandom = ({ group, setGroup, isRandom }) => {
 
   const mutation = useMutation({
     mutationFn: async () => {
-      const response = await fetch("http://34.126.100.66:8080/boards/add/random", {
+      const response = await fetch("http://34.124.162.203:8080/boards/add/random", {
         method: "POST",
         body: JSON.stringify({ grpData: group }),
         headers: { "Content-Type": "application/json" },

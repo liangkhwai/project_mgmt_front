@@ -14,7 +14,7 @@ const Theses = () => {
   const [theses, setTheses] = useState([]);
   useEffect(() => {
     const getGroupInfo = async () => {
-      const response = await fetch("http://34.126.100.66:8080/group/getGroup", {
+      const response = await fetch("http://34.124.162.203:8080/group/getGroup", {
         method: "get",
         credentials: "include",
       });
@@ -23,7 +23,7 @@ const Theses = () => {
       console.log(data);
     };
     const getGroupMember = async () => {
-      const res = await fetch("http://34.126.100.66:8080/group/getGroupMember", {
+      const res = await fetch("http://34.124.162.203:8080/group/getGroupMember", {
         method: "POST",
         body: JSON.stringify({
           grpId: parseInt(localStorage.getItem("grpId")),
@@ -39,7 +39,7 @@ const Theses = () => {
     };
     const getBoards = async () => {
       const response = await fetch(
-        `http://34.126.100.66:8080/boards/get/${localStorage.getItem("grpId")}`,
+        `http://34.124.162.203:8080/boards/get/${localStorage.getItem("grpId")}`,
         {
           method: "get",
           credentials: "include",
@@ -52,7 +52,7 @@ const Theses = () => {
 
     const getThesis = async () => {
       const response = await fetch(
-        `http://34.126.100.66:8080/thesis/get/${localStorage.getItem("grpId")}`,
+        `http://34.124.162.203:8080/thesis/get/${localStorage.getItem("grpId")}`,
         {
           method: "get",
           credentials: "include",

@@ -17,7 +17,7 @@ const BoardCalendar = ({ lastEvent,groupInfo }) => {
   useEffect(() => {
     async function getEventOnlyGroup() {
       const res = await fetch(
-        `http://34.126.100.66:8080/free_hours/getEventOnlyGroup/${localStorage.getItem(
+        `http://34.124.162.203:8080/free_hours/getEventOnlyGroup/${localStorage.getItem(
           "grpId"
         )}`,
         {

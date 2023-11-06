@@ -25,7 +25,7 @@ const ResearcherList = ({
       return;
     }
 
-    const res = await fetch("http://34.126.100.66:8080/researcher/updateGradePro", {
+    const res = await fetch("http://34.124.162.203:8080/researcher/updateGradePro", {
       method: "put",
       body: JSON.stringify({ gradeProject: gradeProjectValue, rshId: rsh.id }),
       headers: { "Content-Type": "application/json" },

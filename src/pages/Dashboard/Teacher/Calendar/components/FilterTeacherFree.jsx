@@ -6,7 +6,7 @@ const FilterTeacherFree = ({ events, setFilterTeacherEvent }) => {
 
   useEffect(() => {
     const getTeacherList = async () => {
-      const response = await fetch("http://34.126.100.66:8080/teachers/list");
+      const response = await fetch("http://34.124.162.203:8080/teachers/list");
       const data = await response.json();
       setTeacherList(data);
     };

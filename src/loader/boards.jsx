@@ -5,7 +5,7 @@ export async function checkBoards(grpId) {
   console.log(localStorage.getItem("grpId"));
   const getBoards = async () => {
     const response = await fetch(
-      `http://34.126.100.66:8080/boards/get/${localStorage.getItem("grpId")}`,
+      `http://34.124.162.203:8080/boards/get/${localStorage.getItem("grpId")}`,
       {
         method: "get",
         credentials: "include",
@@ -22,7 +22,7 @@ export async function checkBoards(grpId) {
     }
   };
   const getGroup = async () => {
-    const response = await fetch("http://34.126.100.66:8080/group/getGroup", {
+    const response = await fetch("http://34.124.162.203:8080/group/getGroup", {
       method: "get",
       credentials: "include",
     });

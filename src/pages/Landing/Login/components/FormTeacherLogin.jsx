@@ -23,7 +23,7 @@ const FormTeacherLogin = () => {
       pwd: emailPwd.pwd,
     };
 
-    const response = await fetch("http://34.126.100.66:8080/auth/loginTch", {
+    const response = await fetch("http://34.124.162.203:8080/auth/loginTch", {
       method: "POST",
       body: JSON.stringify(formData),
       headers: {

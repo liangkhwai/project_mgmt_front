@@ -1,7 +1,7 @@
 import { redirect } from "react-router-dom";
 
 export async function checkHasGroup() {
-  const response = await fetch("http://34.126.100.66:8080/researcher/getOne", {
+  const response = await fetch("http://34.124.162.203:8080/researcher/getOne", {
     method: "GET",
     credentials: "include",
   });
@@ -17,7 +17,7 @@ export async function checkHasGroup() {
 
 
 export async function getGroupDetail(grpId){
-  const response = await fetch("http://34.126.100.66:8080/group/getOneGroup", {
+  const response = await fetch("http://34.124.162.203:8080/group/getOneGroup", {
       method: "post",
       body: JSON.stringify({ grpId: parseInt(grpId) }),
       credentials: "include",

@@ -12,7 +12,7 @@ const RequestTitle = () => {
   useEffect(() => {
     const getGroupList = async () => {
       const groupListFromServer = await fetch(
-        "http://34.126.100.66:8080/group/unApproveTitle",
+        "http://34.124.162.203:8080/group/unApproveTitle",
         {
           method: "GET",
         },
@@ -38,7 +38,7 @@ const RequestTitle = () => {
       if (result.isConfirmed) {
         console.log(result);
         const res = await fetch(
-          `http://34.126.100.66:8080/group/approveTitle/${id}`,
+          `http://34.124.162.203:8080/group/approveTitle/${id}`,
           {
             method: "PUT",
             headers: {

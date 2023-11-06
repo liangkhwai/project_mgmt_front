@@ -12,7 +12,7 @@ const ExamRequest = () => {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const getExamRequest = async () => {
-      const res = await fetch("http://34.126.100.66:8080/requestExam/getRequest", {
+      const res = await fetch("http://34.124.162.203:8080/requestExam/getRequest", {
         method: "post",
         body: JSON.stringify({
           tchId: parseInt(localStorage.getItem("id")),

@@ -21,7 +21,7 @@ const FormResearcherLogin = () => {
   };
 
   const handleSubmit = async () => {
-    const response = await fetch("http://34.126.100.66:8080/auth/login", {
+    const response = await fetch("http://34.124.162.203:8080/auth/login", {
       method: "post",
       body: JSON.stringify({
         id: userPwd.uuid,

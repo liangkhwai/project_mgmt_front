@@ -23,7 +23,7 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
   const mutation = useMutation({
     mutationFn: async (userId) => {
       const response = await fetch(
-        "http://34.126.100.66:8080/group/removeFromGroup",
+        "http://34.124.162.203:8080/group/removeFromGroup",
         {
           method: "put",
           body: JSON.stringify({ userId: userId }),
@@ -56,7 +56,7 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
   const addMember = useMutation({
     mutationFn: async (userId) => {
       const response = await fetch(
-        "http://34.126.100.66:8080/group/addGroupMember",
+        "http://34.124.162.203:8080/group/addGroupMember",
         {
           method: "put",
           body: JSON.stringify({ userId: userId, grpId: parseInt(grpId) }),
@@ -91,7 +91,7 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
   });
 
   const researcherList = useQuery("getResearcherList", async () => {
-    const response = await fetch("http://34.126.100.66:8080/researcher/list", {
+    const response = await fetch("http://34.124.162.203:8080/researcher/list", {
       method: "get",
       credentials: "include",
     });
@@ -102,7 +102,7 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
 
   const GroupMember = useQuery("getGroupMember", async () => {
     // let userId = localStorage.getItem("id");
-    const response = await fetch("http://34.126.100.66:8080/group/getGroupMember", {
+    const response = await fetch("http://34.124.162.203:8080/group/getGroupMember", {
       method: "post",
       body: JSON.stringify({ grpId: parseInt(grpId) }),
       credentials: "include",
@@ -205,7 +205,7 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const response = await fetch(
-          "http://34.126.100.66:8080/group/changeLeaderGroup",
+          "http://34.124.162.203:8080/group/changeLeaderGroup",
           {
             method: "post",
             body: JSON.stringify({ grpId: grpId, rshId: rshId }),

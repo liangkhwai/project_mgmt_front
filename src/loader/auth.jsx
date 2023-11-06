@@ -2,7 +2,7 @@ import { redirect } from "react-router-dom";
 
 export async function checkAuth() {
   // console.log("start check");
-  const response = await fetch("http://34.126.100.66:8080/auth/check", {
+  const response = await fetch("http://34.124.162.203:8080/auth/check", {
     method: "get",
     credentials: "include",
   });
@@ -18,7 +18,7 @@ export async function checkAuth() {
 }
 
 export async function checkAuthTF() {
-  const response = await fetch("http://34.126.100.66:8080/auth/check", {
+  const response = await fetch("http://34.124.162.203:8080/auth/check", {
     method: "get",
     credentials: "include",
   });
@@ -35,7 +35,7 @@ export async function checkAuthTF() {
 }
 
 export async function checkRole() {
-  const response = await fetch("http://34.126.100.66:8080/auth/check/role", {
+  const response = await fetch("http://34.124.162.203:8080/auth/check/role", {
     method: "get",
     credentials: "include",
   });

@@ -19,7 +19,7 @@ const Files = () => {
 
   const { data } = useQuery({
     queryFn: async () => {
-      const response = await fetch("http://34.126.100.66:8080/files/list", {
+      const response = await fetch("http://34.124.162.203:8080/files/list", {
         method: "get",
         credentials: "include",
       });
@@ -36,7 +36,7 @@ const Files = () => {
 
   const filesUpload = useMutation({
     mutationFn: async (formData) => {
-      const response = await fetch("http://34.126.100.66:8080/files/fileUplaod", {
+      const response = await fetch("http://34.124.162.203:8080/files/fileUplaod", {
         method: "post",
         body: formData,
         credentials: "include",
@@ -67,7 +67,7 @@ const Files = () => {
   });
   const fileDelete = useMutation({
     mutationFn: async (id) => {
-      const response = await fetch("http://34.126.100.66:8080/files/delete", {
+      const response = await fetch("http://34.124.162.203:8080/files/delete", {
         method: "post",
         body: JSON.stringify({ id: id }),
         credentials: "include",
