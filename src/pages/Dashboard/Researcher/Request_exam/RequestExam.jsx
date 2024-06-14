@@ -24,7 +24,7 @@ const RequestExam = () => {
   const [isRandomBoard, setIsRandomBoard] = useState(false);
   useEffect(() => {
     const getGroup = async () => {
-      const response = await fetch("http://34.124.162.203:8080/group/getGroup", {
+      const response = await fetch("http://127.0.0.1:8080/group/getGroup", {
         method: "get",
         credentials: "include",
       });
@@ -38,7 +38,7 @@ const RequestExam = () => {
     };
     const getLastRequest = async () => {
       const checkEvent = await fetch(
-        `http://34.124.162.203:8080/requestExam/getLastRequest/${localStorage.getItem(
+        `http://127.0.0.1:8080/requestExam/getLastRequest/${localStorage.getItem(
           "grpId",
         )}`,
         {
@@ -52,7 +52,7 @@ const RequestExam = () => {
       setLastEvent(data ? data : null);
 
       const checkBooked = await fetch(
-        `http://34.124.162.203:8080/exam_booking/checkBooked/${data.id}`,
+        `http://127.0.0.1:8080/exam_booking/checkBooked/${data.id}`,
         {
           method: "get",
           credentials: "include",
@@ -64,7 +64,7 @@ const RequestExam = () => {
       console.log(resultChecked);
       setIsBooked(resultChecked);
       const checkResulted = await fetch(
-        `http://34.124.162.203:8080/exam_booking/checkResulted/${data.id}`,
+        `http://127.0.0.1:8080/exam_booking/checkResulted/${data.id}`,
         {
           method: "get",
           credentials: "include",
@@ -78,7 +78,7 @@ const RequestExam = () => {
 
     const checkBoardList = async () => {
       const response = await fetch(
-        `http://34.124.162.203:8080/boards/get/${localStorage.getItem("grpId")}`,
+        `http://127.0.0.1:8080/boards/get/${localStorage.getItem("grpId")}`,
         {
           method: "get",
           credentials: "include",

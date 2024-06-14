@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { redirect } from "react-router-dom";
 import { checkAuthTF } from "../loader/auth";
+
 const AuthContext = React.createContext({});
 
 export const AuthContextProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState();
   const [role, setRole] = useState(null);
-  const [grpId,setGrpId] = useState(null)
+  const [grpId, setGrpId] = useState(null);
 
   // const setIsTeacherLoginHandler = () => {
   //   setIsTeacher(true);
   // };
-
-  
-
   const checkLogged = async () => {
     const res = await checkAuthTF();
-    console.log(res);
+    console.log("res =", res);
     if (res.isAuth === true) {
       // console.log("yes it is");
       const isLogged = localStorage.getItem("username");
@@ -26,12 +24,12 @@ export const AuthContextProvider = (props) => {
       }
       if (res.userRole === "teacher") {
         setRole("teacher");
-      }else if (res.userRole === "admin"){
-        setRole("admin")
-      }else if(res.userRole === "researcher"){
-        setRole("researcher")
-      }else{
-        setRole(null)
+      } else if (res.userRole === "admin") {
+        setRole("admin");
+      } else if (res.userRole === "researcher") {
+        setRole("researcher");
+      } else {
+        setRole(null);
       }
       // console.log(res.userData);
       // localStorage.setItem("id", res.userData.id);
@@ -70,7 +68,7 @@ export const AuthContextProvider = (props) => {
   // };
 
   const logoutHandler = async () => {
-    const response = await fetch("http://34.124.162.203:8080/auth/logout", {
+    const response = await fetch(process.env.REACT_APP_AUTH_LOGOUT, {
       method: "get",
       credentials: "include",
     });
@@ -94,8 +92,8 @@ export const AuthContextProvider = (props) => {
         usernameHandler: usernameHandler,
         getUsername,
         setRole: setRole,
-        setGrpId:setGrpId,
-        grpId:grpId,
+        setGrpId: setGrpId,
+        grpId: grpId,
         role: role,
       }}
     >

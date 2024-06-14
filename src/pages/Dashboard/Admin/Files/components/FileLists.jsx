@@ -14,7 +14,7 @@ const FileLists = ({ fileLists, removeFileList }) => {
                   className="flex justify-between"
                   onClick={() =>
                     window.open(
-                      "http://34.124.162.203:8080/files/upload/" + item.originalname,
+                      "http://127.0.0.1:8080/files/upload/" + item.originalname,
                       "_blank",
                     )
                   }
@@ -34,7 +34,7 @@ const FileLists = ({ fileLists, removeFileList }) => {
                     className="rounded-md bg-blue-500 px-5 py-2 text-white"
                     onClick={() =>
                       window.open(
-                        "http://34.124.162.203:8080/files/upload/" +
+                        "http://127.0.0.1:8080/files/upload/" +
                           item.originalname,
                         "_blank",
                       )

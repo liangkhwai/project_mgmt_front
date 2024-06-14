@@ -22,7 +22,7 @@ const TeacherInfo = ({ information, setinformation }) => {
       cancelButtonText: "ไม่ใช่",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await fetch("http://34.124.162.203:8080/teachers/update", {
+        await fetch("http://127.0.0.1:8080/teachers/update", {
           method: "put",
           headers: {
             "Content-Type": "application/json",

@@ -108,7 +108,7 @@ export default Dashboard;
 
 export function checkAuth() {
   // console.log("start check");
-  const response = fetch("http://34.124.162.203:8080/auth/check", {
+  const response = fetch("http://127.0.0.1:8080/auth/check", {
     method: "get",
   });
 

@@ -17,7 +17,7 @@ const ModalFormRandom = ({
   useEffect(() => {
     const getGroupMember = async () => {
       const response = await fetch(
-        `http://34.124.162.203:8080/group/getGroupMember`,
+        `http://127.0.0.1:8080/group/getGroupMember`,
         {
           method: "POST",
           body: JSON.stringify({ grpId: editBoardGroup.id }),
@@ -109,7 +109,7 @@ const ModalFormRandom = ({
       });
     } else {
       const res = await fetch(
-        "http://34.124.162.203:8080/boards/add/random/manual",
+        "http://127.0.0.1:8080/boards/add/random/manual",
         {
           method: "POST",
           body: JSON.stringify({ grp: editBoardGroup }),
@@ -125,7 +125,7 @@ const ModalFormRandom = ({
         );
         setIsOpen(false);
         setKey((prev) => prev + 1);
-        const response = await fetch("http://34.124.162.203:8080/boards/info", {
+        const response = await fetch("http://127.0.0.1:8080/boards/info", {
           method: "get",
           credentials: "include",
         });

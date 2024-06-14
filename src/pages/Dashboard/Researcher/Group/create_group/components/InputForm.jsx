@@ -18,7 +18,7 @@ const InputForm = ({
   // const [selectedItem, setSelectedItem] = useState(null);
   // useEffect(() => {
   //   async function fetchRshList() {
-  //     const res = await fetch("http://34.124.162.203:8080/researcher/list", {
+  //     const res = await fetch("http://127.0.0.1:8080/researcher/list", {
   //       method: "get",
   //       credentials: "include",
   //     });

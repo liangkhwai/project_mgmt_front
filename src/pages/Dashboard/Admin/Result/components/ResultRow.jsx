@@ -7,7 +7,7 @@ const ResultRow = () => {
 
   useEffect(() => {
     const getResultList = async () => {
-      const result = await fetch("http://34.124.162.203:8080/result/list", {
+      const result = await fetch("http://127.0.0.1:8080/result/list", {
         method: "GET",
         credentials: "include",
       });
@@ -34,7 +34,7 @@ const ResultRow = () => {
       icon: "warning",
     }).then(async (res) => {
       if (res.isConfirmed) {
-        const response = await fetch("http://34.124.162.203:8080/result/submit", {
+        const response = await fetch("http://127.0.0.1:8080/result/submit", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

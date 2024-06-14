@@ -56,7 +56,7 @@ const TeacherTable = ({ data, setData }) => {
           line_id: insertFormData.line_id,
         };
 
-        const response = await fetch("http://34.124.162.203:8080/teachers/insert", {
+        const response = await fetch("http://127.0.0.1:8080/teachers/insert", {
           method: "post",
           body: JSON.stringify(insertForm),
           headers: { "Content-Type": "application/json" },
@@ -96,7 +96,7 @@ const TeacherTable = ({ data, setData }) => {
           isAdmin: editFormData.isAdmin,
         };
     
-        const response = await fetch("http://34.124.162.203:8080/teachers/update", {
+        const response = await fetch("http://127.0.0.1:8080/teachers/update", {
           method: "put",
           body: JSON.stringify(editForm),
           headers: { "Content-Type": "application/json" },
@@ -143,7 +143,7 @@ const TeacherTable = ({ data, setData }) => {
       cancelButtonText: "ยกเลิก",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const response = await fetch("http://34.124.162.203:8080/teachers/delete", {
+        const response = await fetch("http://127.0.0.1:8080/teachers/delete", {
           method: "post",
           headers: {
             "Content-Type": "application/json",

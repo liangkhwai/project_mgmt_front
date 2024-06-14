@@ -12,7 +12,7 @@ const Home = () => {
   const [dashboard, setDashboard] = useState([]);
   useEffect(() => {
     const getDashboard = async () => {
-      const res = await fetch("http://34.124.162.203:8080/dashboard/list");
+      const res = await fetch("http://127.0.0.1:8080/dashboard/list");
       const data = await res.json();
       setDashboard(data);
     };

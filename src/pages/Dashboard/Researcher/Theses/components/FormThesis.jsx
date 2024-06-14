@@ -57,7 +57,7 @@ const FormThesis = ({ groupInfo, groupMember, boards }) => {
         formData.append("years", new Date().getFullYear());
         formData.append("grpId", localStorage.getItem("grpId"));
         console.table(formData);
-        const response = await fetch("http://34.124.162.203:8080/thesis/upload", {
+        const response = await fetch("http://127.0.0.1:8080/thesis/upload", {
           method: "post",
           body: formData,
           credentials: "include",

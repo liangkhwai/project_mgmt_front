@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 export async function getEventListTch(tchId) {
-  const response = await fetch("http://34.124.162.203:8080/free_hours/getEvent", {
+  const response = await fetch(process.env.REACT_APP_FREEHOUR_GET_BY_ID, {
     method: "post",
     body: JSON.stringify({ tchId: localStorage.getItem("id") }),
     headers: { "Content-Type": "application/json" },
@@ -23,7 +23,7 @@ export async function getEventListTch(tchId) {
 
 export async function getAllEvents() {
   const response = await fetch(
-    "http://34.124.162.203:8080/free_hours/getAllEvents",
+    process.env.REACT_APP_FREEHOUR_GET_ALL,
     {
       method: "get",
       credentials: "include",

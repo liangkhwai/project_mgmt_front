@@ -21,7 +21,7 @@ const FormRequestExam = ({ groupInfo }) => {
   useEffect(() => {
     const fetchBoards = async () => {
       const res = await fetch(
-        `http://34.124.162.203:8080/boards/get/${groupInfo.id}`,
+        `http://127.0.0.1:8080/boards/get/${groupInfo.id}`,
         {
           method: "get",
         },
@@ -31,7 +31,7 @@ const FormRequestExam = ({ groupInfo }) => {
       setBoards(data);
     };
     const fetchLeader = async () => {
-      const res = await fetch(`http://34.124.162.203:8080/researcher/getOne`, {
+      const res = await fetch(`http://127.0.0.1:8080/researcher/getOne`, {
         method: "get",
         credentials: "include",
       });
@@ -56,7 +56,7 @@ const FormRequestExam = ({ groupInfo }) => {
   const requestExam = useMutation({
     mutationFn: async (formData) => {
       const response = await fetch(
-        "http://34.124.162.203:8080/requestExam/request",
+        "http://127.0.0.1:8080/requestExam/request",
         {
           method: "post",
           body: formData,

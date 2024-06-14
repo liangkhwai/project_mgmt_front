@@ -44,7 +44,7 @@ const Member = ({
   const updateMemberGroup = async (rsh) => {
     console.log(groupMember);
     console.log(rsh);
-    const res = await fetch(`http://34.124.162.203:8080/researcher/update`, {
+    const res = await fetch(`http://127.0.0.1:8080/researcher/update`, {
       method: "put",
       body: JSON.stringify({ ...rsh }),
       headers: { "Content-Type": "application/json" },
@@ -56,7 +56,7 @@ const Member = ({
   const handleOnBlur = async (e) => {
     const { name } = e.target;
     if (name === "term") {
-      const response = await fetch("http://34.124.162.203:8080/researcher/update", {
+      const response = await fetch("http://127.0.0.1:8080/researcher/update", {
         method: "put",
         body: JSON.stringify({ ...rsh, term: e.target.value }),
         headers: { "Content-Type": "application/json" },
@@ -104,7 +104,7 @@ const Member = ({
               }
 
               const response = await fetch(
-                "http://34.124.162.203:8080/researcher/update",
+                "http://127.0.0.1:8080/researcher/update",
                 {
                   method: "put",
                   body: JSON.stringify({ ...rsh }),
@@ -163,7 +163,7 @@ const Member = ({
                 });
               }
               const response = await fetch(
-                "http://34.124.162.203:8080/researcher/update",
+                "http://127.0.0.1:8080/researcher/update",
                 {
                   method: "put",
                   body: JSON.stringify({ ...rsh, isEditGradeProject: true }),
@@ -232,7 +232,7 @@ const Member = ({
                 return updatedData;
               });
               const response = await fetch(
-                "http://34.124.162.203:8080/researcher/update",
+                "http://127.0.0.1:8080/researcher/update",
                 {
                   method: "put",
                   body: JSON.stringify({
@@ -258,7 +258,7 @@ const Member = ({
                 return updatedData;
               });
               const response = await fetch(
-                "http://34.124.162.203:8080/researcher/update",
+                "http://127.0.0.1:8080/researcher/update",
                 {
                   method: "put",
                   body: JSON.stringify({
@@ -302,7 +302,7 @@ const Member = ({
             });
 
             const response = await fetch(
-              "http://34.124.162.203:8080/researcher/update",
+              "http://127.0.0.1:8080/researcher/update",
               {
                 method: "put",
                 body: JSON.stringify({ ...rsh, [name]: check }),
@@ -342,7 +342,7 @@ const Member = ({
           console.log(rsh);
 
           const response = await fetch(
-            "http://34.124.162.203:8080/researcher/update",
+            "http://127.0.0.1:8080/researcher/update",
             {
               method: "put",
               body: JSON.stringify({ ...rsh, [name]: check }),

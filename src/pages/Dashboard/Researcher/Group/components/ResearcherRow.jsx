@@ -8,7 +8,7 @@ const ResearcherRow = ({ rsh, idx, setIsEditing, setGroupList, group }) => {
 
   const updateMemberGroup = useMutation({
     mutationFn: async (rsh) => {
-      const res = await fetch(`http://34.124.162.203:8080/researcher/update`, {
+      const res = await fetch(`http://127.0.0.1:8080/researcher/update`, {
         method: "put",
         body: JSON.stringify({ ...rsh }),
         headers: { "Content-Type": "application/json" },

@@ -12,7 +12,7 @@ const RequestLists = ({ requestList, setRequestData, isLoading }) => {
       console.log(isApprove, categories, item);
 
       const response = await fetch(
-        "http://34.124.162.203:8080/requestExam/setStatus",
+        "http://127.0.0.1:8080/requestExam/setStatus",
         {
           method: "post",
           body: JSON.stringify({

@@ -23,7 +23,7 @@ const FormTeacherLogin = () => {
       pwd: emailPwd.pwd,
     };
 
-    const response = await fetch("http://34.124.162.203:8080/auth/loginTch", {
+    const response = await fetch("http://127.0.0.1:8080/auth/loginTch", {
       method: "POST",
       body: JSON.stringify(formData),
       headers: {
@@ -39,6 +39,7 @@ const FormTeacherLogin = () => {
           ctx.loginHandler(data.userId);
           console.log(data.userName);
           ctx.usernameHandler(data.userName);
+          localStorage.setItem("token", data.token);
           navigate("/dashboard");
         }else{
           Swal.fire({

@@ -12,7 +12,7 @@ const GroupBox = ({ selfInfo }) => {
   useEffect(() => {
     const fetchBoards = async () => {
       const res = await fetch(
-        `http://34.124.162.203:8080/boards/get/${selfInfo.groupId}`,
+        `http://127.0.0.1:8080/boards/get/${selfInfo.groupId}`,
         {
           method: "get",
         }
@@ -24,7 +24,7 @@ const GroupBox = ({ selfInfo }) => {
 
     const fetchMember = async () => {
       const res = await fetch(
-        `http://34.124.162.203:8080/researcher/getGroupList/${selfInfo.groupId}`,
+        `http://127.0.0.1:8080/researcher/getGroupList/${selfInfo.groupId}`,
         {
           method: "get",
         }
@@ -36,7 +36,7 @@ const GroupBox = ({ selfInfo }) => {
 
     const fetchRequestExam = async () => {
       const res = await fetch(
-        `http://34.124.162.203:8080/requestExam/getRequestGroup/${selfInfo.groupId}`,
+        `http://127.0.0.1:8080/requestExam/getRequestGroup/${selfInfo.groupId}`,
         {
           method: "GET",
         }

@@ -12,7 +12,7 @@ const EditGroupTitle = (props) => {
   const mutation = useMutation({
     mutationFn: async (titleInputHandler) => {
       const reponse = await fetch(
-        "http://34.124.162.203:8080/group/changeGroupTitle",
+        "http://127.0.0.1:8080/group/changeGroupTitle",
         {
           method: "put",
           body: JSON.stringify({ groupId: grpId, title: titleInputHandler }),
@@ -74,7 +74,7 @@ const EditGroupTitle = (props) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const res = await fetch(
-          "http://34.124.162.203:8080/group/updateInCompleteGroup",
+          "http://127.0.0.1:8080/group/updateInCompleteGroup",
           {
             method: "post",
             body: JSON.stringify({ grpId: grpId }),

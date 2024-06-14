@@ -66,7 +66,7 @@ const TableCategorieResearcher = ({
         };
 
         const response = await fetch(
-          "http://34.124.162.203:8080/categories/insert",
+          "http://127.0.0.1:8080/categories/insert",
           {
             method: "post",
             body: JSON.stringify(insertData),
@@ -133,7 +133,7 @@ const TableCategorieResearcher = ({
         };
         // console.log(editData);
         console.log(editData);
-        const response = await fetch("http://34.124.162.203:8080/categories/update", {
+        const response = await fetch("http://127.0.0.1:8080/categories/update", {
           method: "put",
           body: JSON.stringify(editData),
           headers: { "Content-Type": "application/json" },
@@ -239,7 +239,7 @@ const TableCategorieResearcher = ({
         console.log(id);
 
         const response = await fetch(
-          "http://34.124.162.203:8080/categories/delete",
+          "http://127.0.0.1:8080/categories/delete",
           {
             method: "post",
             body: JSON.stringify({ id: id }),

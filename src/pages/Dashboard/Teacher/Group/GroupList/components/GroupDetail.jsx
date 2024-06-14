@@ -25,7 +25,7 @@ const GroupDetail = () => {
 
   useEffect(() => {
     const fetchBoards = async () => {
-      const res = await fetch(`http://34.124.162.203:8080/boards/get/${grpId}`, {
+      const res = await fetch(`http://127.0.0.1:8080/boards/get/${grpId}`, {
         method: "get",
       });
       const data = await res.json();
@@ -36,7 +36,7 @@ const GroupDetail = () => {
 
     const fetchRequestExam = async () => {
       const res = await fetch(
-        `http://34.124.162.203:8080/requestExam/getRequestGroup/${grpId}`,
+        `http://127.0.0.1:8080/requestExam/getRequestGroup/${grpId}`,
         {
           method: "GET",
         },
@@ -47,7 +47,7 @@ const GroupDetail = () => {
     };
 
     const fetchTeacherList = async () => {
-      const res = await fetch("http://34.124.162.203:8080/teachers/list", {
+      const res = await fetch("http://127.0.0.1:8080/teachers/list", {
         method: "GET",
       });
 
@@ -128,7 +128,7 @@ const GroupDetail = () => {
   ReactModal.setAppElement("#root");
 
   const updateBoardSubmitHandler = async () => {
-    const res = await fetch("http://34.124.162.203:8080/boards/updateBoard", {
+    const res = await fetch("http://127.0.0.1:8080/boards/updateBoard", {
       method: "PUT",
       body: JSON.stringify({ updatedBoard: editBoard, grpId: grpId }),
       headers: { "Content-Type": "application/json" },

@@ -2,9 +2,13 @@ import { redirect } from "react-router-dom";
 
 export async function checkAuth() {
   // console.log("start check");
-  const response = await fetch("http://34.124.162.203:8080/auth/check", {
+  const response = await fetch(process.env.REACT_APP_AUTH_CHECK, {
     method: "get",
     credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   });
 
   const data = await response.json();
@@ -18,13 +22,17 @@ export async function checkAuth() {
 }
 
 export async function checkAuthTF() {
-  const response = await fetch("http://34.124.162.203:8080/auth/check", {
+  const response = await fetch(process.env.REACT_APP_AUTH_CHECK, {
     method: "get",
     credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   });
 
   const data = await response.json();
-  // console.log(data);
+  console.log(data);
 
   if (data.isAuth === false || response.status !== 200) {
     return false;
@@ -35,9 +43,13 @@ export async function checkAuthTF() {
 }
 
 export async function checkRole() {
-  const response = await fetch("http://34.124.162.203:8080/auth/check/role", {
+  const response = await fetch(process.env.REACT_APP_AUTH_CHECK_ROLE, {
     method: "get",
     credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   });
   const data = await response.json();
   console.log(data);

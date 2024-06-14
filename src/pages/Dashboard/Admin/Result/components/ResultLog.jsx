@@ -5,7 +5,7 @@ const ResultLog = () => {
 
   useEffect(() => {
     const getLog = async () => {
-      const result = await fetch("http://34.124.162.203:8080/result/log", {
+      const result = await fetch("http://127.0.0.1:8080/result/log", {
         method: "GET",
         credentials: "include",
       });

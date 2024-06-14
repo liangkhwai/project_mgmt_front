@@ -21,7 +21,7 @@ const FormResearcherLogin = () => {
   };
 
   const handleSubmit = async () => {
-    const response = await fetch("http://34.124.162.203:8080/auth/login", {
+    const response = await fetch("http://127.0.0.1:8080/auth/login", {
       method: "post",
       body: JSON.stringify({
         id: userPwd.uuid,
@@ -39,6 +39,7 @@ const FormResearcherLogin = () => {
       console.log(data.userName);
       ctx.usernameHandler(data.userName);
       ctx.setRole(data.role);
+      localStorage.setItem("token", data.token);
       navigate("/dashboard");
     } else {
       Swal.fire({

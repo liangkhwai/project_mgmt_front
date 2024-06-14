@@ -37,7 +37,7 @@ const PasswordForm = ({ setInformation, information }) => {
           });
           return;
         } else {
-          await fetch("http://34.124.162.203:8080/auth/change/password", {
+          await fetch("http://127.0.0.1:8080/auth/change/password", {
             method: "post",
             headers: {
               "Content-Type": "application/json",

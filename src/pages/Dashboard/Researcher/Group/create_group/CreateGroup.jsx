@@ -15,7 +15,7 @@ const CreateGroup = () => {
   const [rshList, setRshList] = useState([]);
   useEffect(() => {
     async function fetchRshList() {
-      const res = await fetch("http://34.124.162.203:8080/researcher/list", {
+      const res = await fetch("http://127.0.0.1:8080/researcher/list", {
         method: "get",
         credentials: "include",
       });
@@ -29,7 +29,7 @@ const CreateGroup = () => {
   }, []);
   useEffect(() => {
     async function getDefaultMember() {
-      const res = await fetch("http://34.124.162.203:8080/researcher/getOne", {
+      const res = await fetch("http://127.0.0.1:8080/researcher/getOne", {
         method: "get",
         credentials: "include",
       });
@@ -55,7 +55,7 @@ const CreateGroup = () => {
       cancelButtonText: "ยกเลิก",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const response = await fetch("http://34.124.162.203:8080/group/create", {
+        const response = await fetch("http://127.0.0.1:8080/group/create", {
           method: "post",
           body: JSON.stringify({ group_list: rshList }),
           headers: { "Content-Type": "application/json" },

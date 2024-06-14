@@ -36,7 +36,7 @@ const ModalBooking = ({ eventInfo, lastEvent, groupInfo }) => {
         console.log(eventSubmit);
 
         const response = await fetch(
-          "http://34.124.162.203:8080/exam_booking/booking",
+          "http://127.0.0.1:8080/exam_booking/booking",
           {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -46,7 +46,7 @@ const ModalBooking = ({ eventInfo, lastEvent, groupInfo }) => {
         );
 
         const notify = await fetch(
-          "http://34.124.162.203:8080/teachers/line/notify",
+          "http://127.0.0.1:8080/teachers/line/notify",
           {
             method: "post",
             headers: { "Content-Type": "application/json" },

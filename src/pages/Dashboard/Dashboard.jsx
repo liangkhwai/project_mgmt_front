@@ -15,7 +15,7 @@ const Dashboard = () => {
   const [itemOffset, setItemOffSet] = React.useState(0);
   useEffect(() => {
     const getDashboard = async () => {
-      const response = await fetch("http://34.124.162.203:8080/dashboard/list");
+      const response = await fetch("http://127.0.0.1:8080/dashboard/list");
       const dashboard = await response.json();
       console.log(dashboard);
       setMax(dashboard.countStatus.reduce((a, b) => a + b, 2));

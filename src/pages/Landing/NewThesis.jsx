@@ -19,7 +19,7 @@ const NewThesis = () => {
   const detailRef = useRef(null);
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("http://34.124.162.203:8080/thesis/all", {
+      const res = await fetch("http://127.0.0.1:8080/thesis/all", {
         method: "GET",
       });
       const data = await res.json();
@@ -303,7 +303,7 @@ const NewThesis = () => {
                     className="rounded-xl bg-green-500 px-4 py-2 text-white"
                     onClick={() =>
                       window.open(
-                        `http://34.124.162.203:8080/files/thesis/${thesis.filename}`,
+                        `http://127.0.0.1:8080/files/thesis/${thesis.filename}`,
                         "_blank",
                       )
                     }
