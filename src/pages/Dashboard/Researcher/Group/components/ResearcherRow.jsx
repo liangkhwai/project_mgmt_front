@@ -11,7 +11,9 @@ const ResearcherRow = ({ rsh, idx, setIsEditing, setGroupList, group }) => {
       const res = await fetch(`http://127.0.0.1:8080/researcher/update`, {
         method: "put",
         body: JSON.stringify({ ...rsh }),
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+         },
       });
 
       return res.json();

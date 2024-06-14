@@ -27,6 +27,10 @@ const GroupDetail = () => {
     const fetchBoards = async () => {
       const res = await fetch(`http://127.0.0.1:8080/boards/get/${grpId}`, {
         method: "get",
+        headers: {
+          content_type: "application/json",
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       const data = await res.json();
       console.log(data);
@@ -39,6 +43,10 @@ const GroupDetail = () => {
         `http://127.0.0.1:8080/requestExam/getRequestGroup/${grpId}`,
         {
           method: "GET",
+          headers: {
+            content_type: "application/json",
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         },
       );
       const data = await res.json();
@@ -49,6 +57,10 @@ const GroupDetail = () => {
     const fetchTeacherList = async () => {
       const res = await fetch("http://127.0.0.1:8080/teachers/list", {
         method: "GET",
+        headers: {
+          content_type: "application/json",
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
 
       const data = await res.json();
@@ -131,7 +143,10 @@ const GroupDetail = () => {
     const res = await fetch("http://127.0.0.1:8080/boards/updateBoard", {
       method: "PUT",
       body: JSON.stringify({ updatedBoard: editBoard, grpId: grpId }),
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        content_type: "application/json",
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     });
 
     const data = await res.json();

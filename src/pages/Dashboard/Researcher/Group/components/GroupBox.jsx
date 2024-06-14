@@ -15,6 +15,9 @@ const GroupBox = ({ selfInfo }) => {
         `http://127.0.0.1:8080/boards/get/${selfInfo.groupId}`,
         {
           method: "get",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
       const data = await res.json();
@@ -27,6 +30,9 @@ const GroupBox = ({ selfInfo }) => {
         `http://127.0.0.1:8080/researcher/getGroupList/${selfInfo.groupId}`,
         {
           method: "get",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
       const data = await res.json();
@@ -39,6 +45,9 @@ const GroupBox = ({ selfInfo }) => {
         `http://127.0.0.1:8080/requestExam/getRequestGroup/${selfInfo.groupId}`,
         {
           method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
       const data = await res.json();

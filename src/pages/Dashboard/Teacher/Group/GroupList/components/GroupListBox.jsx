@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import FilterGroupStatus from "./FilterGroupStatus";
 const GroupListBox = () => {
   const [group, setGroup] = useState([]);
-  const [filterGroup, setFilterGroup] = useState([]); 
+  const [filterGroup, setFilterGroup] = useState([]);
   const ctx = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -44,6 +44,10 @@ const GroupListBox = () => {
     async () => {
       const response = await fetch("http://127.0.0.1:8080/group/getAllGroup", {
         credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${ctx.token}`,
+        },
       });
 
       const data = await response.json();

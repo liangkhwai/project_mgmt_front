@@ -47,7 +47,10 @@ const Member = ({
     const res = await fetch(`http://127.0.0.1:8080/researcher/update`, {
       method: "put",
       body: JSON.stringify({ ...rsh }),
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     });
     const data = await res.json();
     console.log(data);
@@ -59,7 +62,10 @@ const Member = ({
       const response = await fetch("http://127.0.0.1:8080/researcher/update", {
         method: "put",
         body: JSON.stringify({ ...rsh, term: e.target.value }),
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       if (response.status === 200) {
         setIsTermEdit(false);
@@ -108,7 +114,10 @@ const Member = ({
                 {
                   method: "put",
                   body: JSON.stringify({ ...rsh }),
-                  headers: { "Content-Type": "application/json" },
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
                 },
               );
               const data = await response.json();
@@ -167,7 +176,10 @@ const Member = ({
                 {
                   method: "put",
                   body: JSON.stringify({ ...rsh, isEditGradeProject: true }),
-                  headers: { "Content-Type": "application/json" },
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
                 },
               );
               Swal.fire("เปลี่ยนแปลงข้อมูลเรียบร้อยแล้ว", "", "success");
@@ -423,9 +435,7 @@ const Member = ({
       <td className="border border-gray-300 py-2  text-gray-800">
         {rsh.categorie_room.room}
       </td>
-      <td className="border border-gray-300 py-2  text-gray-800">
-        {rsh.tel}
-      </td>
+      <td className="border border-gray-300 py-2  text-gray-800">{rsh.tel}</td>
       <td className="border border-gray-300 py-2  text-gray-800">
         {rsh.grade}
       </td>

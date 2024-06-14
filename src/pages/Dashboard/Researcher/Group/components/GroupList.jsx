@@ -44,7 +44,9 @@ const GroupList = ({ groupList, setGroupList }) => {
             userId: selectedItem.id,
             grpId: parseInt(group.id),
           }),
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+           },
         });
         const data = await res.json();
         if (data) {
@@ -71,6 +73,9 @@ const GroupList = ({ groupList, setGroupList }) => {
       const res = await fetch("http://127.0.0.1:8080/group/getGroup", {
         method: "get",
         credentials: "include",
+        headers: { "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+         },
       });
       const data = await res.json();
       console.log(data);
@@ -82,6 +87,9 @@ const GroupList = ({ groupList, setGroupList }) => {
       const res = await fetch("http://127.0.0.1:8080/researcher/list", {
         method: "get",
         credentials: "include",
+        headers: { "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+         },
       });
       const data = await res.json();
       console.log(data);
@@ -103,7 +111,9 @@ const GroupList = ({ groupList, setGroupList }) => {
         method: "POST",
         body: JSON.stringify({ title: newTitle }),
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+         },
       });
     },
     onSuccess: () => {

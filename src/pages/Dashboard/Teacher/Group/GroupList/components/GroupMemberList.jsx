@@ -28,7 +28,9 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
           method: "put",
           body: JSON.stringify({ userId: userId }),
           credentials: "include",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+           },
         },
       );
 
@@ -61,7 +63,9 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
           method: "put",
           body: JSON.stringify({ userId: userId, grpId: parseInt(grpId) }),
           credentials: "include",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+           },
         },
       );
       return await response.json();
@@ -94,6 +98,9 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
     const response = await fetch("http://127.0.0.1:8080/researcher/list", {
       method: "get",
       credentials: "include",
+      headers: { "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+       },
     });
 
     const data = await response.json();
@@ -106,7 +113,9 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
       method: "post",
       body: JSON.stringify({ grpId: parseInt(grpId) }),
       credentials: "include",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+       },
     });
 
     const data = await response.json();
@@ -209,7 +218,9 @@ const GroupMemberList = ({ grpId, grpDetail, setGrpDetail }) => {
           {
             method: "post",
             body: JSON.stringify({ grpId: grpId, rshId: rshId }),
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+             },
           },
         );
         if (response.status === 500) {

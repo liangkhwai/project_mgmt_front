@@ -23,6 +23,10 @@ export async function getSelfInfo() {
   const res = await fetch("http://127.0.0.1:8080/researcher/getOne", {
     method: "get",
     credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   });
   const data = await res.json();
   console.log(res.status);

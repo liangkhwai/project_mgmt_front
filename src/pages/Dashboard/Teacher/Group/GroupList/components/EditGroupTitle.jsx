@@ -17,7 +17,9 @@ const EditGroupTitle = (props) => {
           method: "put",
           body: JSON.stringify({ groupId: grpId, title: titleInputHandler }),
           credentials: "include",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+           },
         },
       );
     },
@@ -79,7 +81,9 @@ const EditGroupTitle = (props) => {
             method: "post",
             body: JSON.stringify({ grpId: grpId }),
             credentials: "include",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+             },
           },
         );
         if (res.status === 200) {

@@ -15,6 +15,10 @@ const TitleGroup = ({ setGroup }) => {
       const res = await fetch("http://127.0.0.1:8080/group/getGroup", {
         method: "get",
         credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       const data = await res.json();
       return data;
@@ -35,7 +39,9 @@ const TitleGroup = ({ setGroup }) => {
         method: "POST",
         body: JSON.stringify({ title: newTitle }),
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+         },
       });
     },
     onSuccess: () => {
@@ -68,7 +74,9 @@ const TitleGroup = ({ setGroup }) => {
             groupId: groupDetail.id,
           }),
           credentials: "include",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+           },
         });
 
         if (res.status === 200) {

@@ -32,6 +32,10 @@ const CreateGroup = () => {
       const res = await fetch("http://127.0.0.1:8080/researcher/getOne", {
         method: "get",
         credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       const data = await res.json();
       console.log(data);
@@ -58,7 +62,9 @@ const CreateGroup = () => {
         const response = await fetch("http://127.0.0.1:8080/group/create", {
           method: "post",
           body: JSON.stringify({ group_list: rshList }),
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+           },
           credentials: "include",
         }).then(async (res) => {
           const data = await res.json();
